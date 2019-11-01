@@ -1,16 +1,13 @@
 # flutter_text
 
-A new Flutter application.
+自学中Flutter
+首先学习的是组件这一部分。
+目前整理学习的只有几个组件而已
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+·滑块 slider
+·装饰 decoratedBox
+·文本输入框 InpuText
+·CheckBox组件
+·GridView组件
+·RaisedButton组件
+·折叠组件
