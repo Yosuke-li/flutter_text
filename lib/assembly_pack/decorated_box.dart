@@ -20,7 +20,6 @@ class decoratedBox extends StatelessWidget {
 }
 
 class contextPage extends StatefulWidget  {
-
   @override
   State<StatefulWidget> createState() => contextPageState();
 

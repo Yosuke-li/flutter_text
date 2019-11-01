@@ -74,11 +74,12 @@ class contextPageState extends State<contextPage> {
   loginCheck() {
     var content = '登录成功';
 
+    if ( passwordController.text.length < 6 ) {
+      content = '请输入6位数以上的密码';
+    }
+
     if ( usernameController.text.length != 11 ) {
         content = '请输入正确的手机号码';
-    }
-    if ( passwordController.text.length < 6 ) {
-        content = '请输入6位数以上的密码';
     }
 
     showDialog(

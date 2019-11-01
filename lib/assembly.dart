@@ -3,8 +3,12 @@ import 'package:flutter_text/assembly_pack/main.dart';
 
 import 'assembly_pack/slider.dart';
 import 'assembly_pack/layout_row.dart';
-import 'assembly_pack/decoratedBox.dart';
+import 'assembly_pack/decorated_box.dart';
 import 'assembly_pack/text_field.dart';
+import 'assembly_pack/check_box_list_title.dart';
+import 'assembly_pack/gridview.dart';
+import 'assembly_pack/raised_button.dart';
+import 'assembly_pack/flexible_space_bar.dart';
 
 void main() => runApp(new assembly());
 
@@ -77,7 +81,47 @@ class TabBarDemo extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => textField()),
                   );
                 },
-              )
+              ),
+              ListTile(
+                leading: Icon(Icons.check_box),
+                title: Text('checkBox组件'),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => checkBoxListTitle()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.grid_on),
+                title: Text('GridView组件'),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => gridView()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.bug_report),
+                title: Text('RaisedButton组件'),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => raisedButton()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.space_bar),
+                title: Text('FlexibleSpaceBar组件(折叠)'),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => flexibleSpaceBar()),
+                  );
+                },
+              ),
             ]
         ).toList()
       ),
