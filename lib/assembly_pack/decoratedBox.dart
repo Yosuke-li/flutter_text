@@ -30,7 +30,35 @@ class contextPageState extends State<contextPage> {
   @override
   Widget build(BuildContext context) {
     return new Center(
-      child: Text('Hello layoutRow'),
+      child: Container(
+        width: 300,
+        height: 300,
+        child: DecoratedBox (
+          position: DecorationPosition.background,        //装饰定位，background背景模式，foreground前景模式
+          decoration: BoxDecoration(
+            color: Colors.grey,
+            image: DecorationImage(                     //设置图片，图片的填充方式
+              fit: BoxFit.cover,
+              image: ExactAssetImage('images/timg.jpg'),
+            ),
+            border: Border.all(
+              color: Colors.white,
+              width: 6.0,
+            ),
+            shape: BoxShape.rectangle,
+          ),
+          child: Container(                                 //外部一层container就可以设置位置
+            alignment: Alignment.topCenter,
+            child: Text(
+                '定位演示',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.black,
+                ),
+            ),
+          ),
+        ),
+      )
     );
   }
 }

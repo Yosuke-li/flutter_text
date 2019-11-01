@@ -4,6 +4,7 @@ import 'package:flutter_text/assembly_pack/main.dart';
 import 'assembly_pack/slider.dart';
 import 'assembly_pack/layout_row.dart';
 import 'assembly_pack/decoratedBox.dart';
+import 'assembly_pack/text_field.dart';
 
 void main() => runApp(new assembly());
 
@@ -64,6 +65,16 @@ class TabBarDemo extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => decoratedBox()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.input),
+                title: Text('文本输入框'),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => textField()),
                   );
                 },
               )
