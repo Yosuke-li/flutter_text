@@ -9,7 +9,7 @@ class textField extends StatelessWidget {
       title: 'slider Study',
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text('layoutRow 组件'),
+          title: new Text('text_field 组件'),
         ),
         body: Center(
           child: contextPage(),
@@ -90,13 +90,13 @@ class contextPageState extends State<contextPage> {
             new FlatButton(
               child: new Text("取消"),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context, '取消选择');
               },
             ),
             new FlatButton(
               child: new Text("确定"),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context, usernameController);
               },
             ),
           ],

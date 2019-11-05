@@ -77,9 +77,12 @@ class TabBarDemo extends StatelessWidget {
                 title: Text('文本输入框'),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => textField()),
-                  );
+                  Navigator.push(
+                    context,
+                    new MaterialPageRoute(builder: (BuildContext context) => textField()),
+                  ).then((onValue) {
+                    print('返回回来的手机号是：'+ onValue);
+                  });
                 },
               ),
               ListTile(
