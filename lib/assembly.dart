@@ -11,6 +11,7 @@ import 'assembly_pack/gridview.dart';
 import 'assembly_pack/raised_button.dart';
 import 'assembly_pack/flexible_space_bar.dart';
 import 'assembly_pack/event_bus/first_page.dart';
+import 'assembly_pack/layout_demo.dart';
 
 void main() => runApp(new assembly());
 
@@ -170,7 +171,17 @@ class TabBarDemoful extends State<TabBarDemo> {
                 );
               }));
         },
-      )
+      ),
+      ListTile(
+        leading: Icon(Icons.receipt),
+        title: Text('Layout抽屉组件'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => LayoutDemo()),
+          );
+        },
+      ),
     ]).toList());
   }
 }
