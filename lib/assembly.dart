@@ -12,6 +12,8 @@ import 'assembly_pack/raised_button.dart';
 import 'assembly_pack/flexible_space_bar.dart';
 import 'assembly_pack/event_bus/first_page.dart';
 import 'assembly_pack/layout_demo.dart';
+import 'assembly_pack/bottom_bar.dart';
+import 'assembly_pack/popup_menu.dart';
 
 void main() => runApp(new assembly());
 
@@ -179,6 +181,26 @@ class TabBarDemoful extends State<TabBarDemo> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => LayoutDemo()),
+          );
+        },
+      ),
+      ListTile(
+        leading: Icon(Icons.local_bar),
+        title: Text('底部导航栏组件'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => bottomBar()),
+          );
+        },
+      ),
+      ListTile(
+        leading: Icon(Icons.menu),
+        title: Text('PopupMenu组件'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => PopupMenu()),
           );
         },
       ),
