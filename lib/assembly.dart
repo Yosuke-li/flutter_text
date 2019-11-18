@@ -14,6 +14,7 @@ import 'assembly_pack/event_bus/first_page.dart';
 import 'assembly_pack/layout_demo.dart';
 import 'assembly_pack/bottom_bar.dart';
 import 'assembly_pack/popup_menu.dart';
+import 'assembly_pack/form_text.dart';
 
 void main() => runApp(new assembly());
 
@@ -195,12 +196,22 @@ class TabBarDemoful extends State<TabBarDemo> {
         },
       ),
       ListTile(
-        leading: Icon(Icons.menu),
+        leading: Icon(Icons.more_vert),
         title: Text('PopupMenu组件'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => PopupMenu()),
+          );
+        },
+      ),
+      ListTile(
+        leading: Icon(Icons.format_align_center),
+        title: Text('Form组件'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => FormText()),
           );
         },
       ),
