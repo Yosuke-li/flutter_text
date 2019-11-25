@@ -26,24 +26,25 @@ class DragDemoState extends State<DragDemo> {
 
   Widget build(BuildContext context) {
     return Container(
-      child: DragList(         // handleless取消拖动点，是整个widget都可以拖动
-        items: data,                      //数据
-        itemExtent: 72,                   //height
-        scrollDirection: Axis.vertical,   //数据方向
-        builder: (context, item, handle) {        //or builder: (context, item, handle) handle是拖动点
+      child: DragList(
+        // handleless取消拖动点，是整个widget都可以拖动
+        items: data,
+        //数据
+        itemExtent: 72,
+        //height
+        scrollDirection: Axis.vertical,
+        //数据方向
+        builder: (context, item, handle) {
+          //or builder: (context, item, handle) handle是拖动点
           return Container(
             height: 72,
             child: Row(
-              children: <Widget>[
-                Spacer(),
-                Text(item),
-                Spacer(),
-                handle
-              ],
+              children: <Widget>[Spacer(), Text(item), Spacer(), handle],
             ),
           );
         },
-        onItemReorder: (from, to) {       //index from初始位置 to结束位置
+        onItemReorder: (from, to) {
+          //index from初始位置 to结束位置
           var temp = data[from];
           data[from] = data[to];
           data[to] = temp;
