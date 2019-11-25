@@ -29,7 +29,6 @@ class MyApp extends StatelessWidget {
 class TabBarDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
     return DefaultTabController(
       length: 4,
       child: Scaffold(
