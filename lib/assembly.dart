@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
+import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'assembly_pack/event_bus/event_util.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'assembly_pack/slider.dart';
 import 'assembly_pack/layout_row.dart';
@@ -50,11 +52,18 @@ class TabBarDemoful extends State<TabBarDemo> {
   }
 
   Widget build(BuildContext context) {
-    return new ListView(
+    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
+
+    return ListView(
         children: ListTile.divideTiles(context: context, tiles: [
           ListTile(
             leading: Icon(Icons.fastfood),
-            title: Text('美食列表'),
+            title: Text(
+                '美食列表',
+              style: TextStyle(
+                fontSize: ScreenUtil.getInstance().setSp(40),
+              ),
+            ),
             trailing: Icon(Icons.keyboard_arrow_right),
             onTap: () {
               Navigator.of(context).push(
@@ -227,6 +236,16 @@ class TabBarDemoful extends State<TabBarDemo> {
               );
             },
           ),
+          ListTile(
+            leading: Icon(Icons.input),
+            title: Text('Slidable组件'),
+            trailing: Icon(Icons.keyboard_arrow_right),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => SlidableText()),
+              );
+            },
+          )
         ]).toList());
   }
 }

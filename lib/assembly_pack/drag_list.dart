@@ -9,7 +9,8 @@ class DragText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
+        centerTitle: true,
+        title: Text('DragList可拖动列表组件'),
       ),
       body: DragDemo(),
     );
