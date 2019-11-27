@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
+import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
+import 'package:flutter_text/assembly_pack/share_text.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
 import 'assembly_pack/event_bus/event_util.dart';
@@ -330,7 +332,27 @@ class TabBarDemoful extends State<TabBarDemo> {
             MaterialPageRoute(builder: (context) => SlidingUpText()),
           );
         },
-      )
+      ),
+      ListTile(
+        leading: Icon(Icons.keyboard),
+        title: Text('liquid使用'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => LiquidText()),
+          );
+        },
+      ),
+          ListTile(
+            leading: Icon(Icons.keyboard),
+            title: Text('share_text'),
+            trailing: Icon(Icons.keyboard_arrow_right),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => ShareText()),
+              );
+            },
+          )
     ]).toList());
   }
 }
