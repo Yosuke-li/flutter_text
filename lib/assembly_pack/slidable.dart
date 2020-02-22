@@ -28,16 +28,11 @@ class SlidableState extends State<SlidableDemo> {
 
   Widget build(BuildContext context) {
     return Container(
-      child: DragList(
-        // handleless取消拖动点，是整个widget都可以拖动
-        items: data,
-        //数据
-        itemExtent: 72,
-        //height
-        scrollDirection: Axis.vertical,
-        //数据方向
-        itemBuilder: (context, item, handle) {
-          //or builder: (context, item, handle) handle是拖动点
+      child: DragList(          // handleless取消拖动点，是整个widget都可以拖动
+        items: data,            //数据
+        itemExtent: 72,         //height
+        scrollDirection: Axis.vertical,     //数据方向
+        itemBuilder: (context, item, handle) {    //or builder: (context, item, handle) handle是拖动点
           return Container(
             height: 72,
             child:  ListView(

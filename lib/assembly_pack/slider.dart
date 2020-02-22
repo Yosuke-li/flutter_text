@@ -32,15 +32,12 @@ class contextPageState extends State<contextPage> {
       data: SliderTheme.of(context).copyWith(
         activeTrackColor: Colors.greenAccent, //已拖动的颜色
         inactiveTrackColor: Colors.green,     //未拖动的颜色
-
         valueIndicatorColor: Colors.green, //提示进度的气泡背景颜色
         valueIndicatorTextStyle: TextStyle( //提示进度的气泡文本颜色
           color: Colors.white,
         ),
-
         thumbColor:  Colors.blueAccent,   //滑块中心的颜色
         overlayColor: Colors.white,       //滑块边缘的颜色
-
         inactiveTickMarkColor: Colors.white,  //divsions对进度条先分割后，断续线中间间隔的颜色
       ),
       child: Slider(

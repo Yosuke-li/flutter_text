@@ -7,16 +7,13 @@ void main() => runApp(LiquidText());
 
 class LiquidText extends StatelessWidget {
   Widget build(BuildContext context) {
-    return Container(
-      child: LiquidDemo(),
-    );
+    return LiquidDemo();
   }
 }
 
 class LiquidDemo extends StatefulWidget {
-
-  LiquidDemoState createState() => LiquidDemoState();
-
+  @override
+  State<StatefulWidget> createState() => LiquidDemoState();
 }
 
 class LiquidDemoState extends State<LiquidDemo> {
@@ -33,7 +30,7 @@ class LiquidDemoState extends State<LiquidDemo> {
             color: Colors.pink,
           ),
           Container(
-              color: Colors.teal,
+            color: Colors.teal,
           ),
         ],
         fullTransitionValue: 500,//滑动阀值

@@ -8,6 +8,8 @@ class PickImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('图片，拍照'),
+        centerTitle: true,
       ),
       body: PickImageDemo(),
     );

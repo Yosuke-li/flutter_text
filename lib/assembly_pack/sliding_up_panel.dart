@@ -22,7 +22,7 @@ class SlidingDemo extends StatefulWidget {
 class SlidingDemoState extends State<SlidingDemo> {
   PanelController panel = new PanelController();
   double offsetDistance = 0.0;
-  double offsetY=0;
+  double offsetY = 0;
 
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +35,12 @@ class SlidingDemoState extends State<SlidingDemo> {
         ),
         panel: Container(
           child: Center(
-            child: Text("评论区",style: TextStyle(color: Colors.grey,fontSize: 16,fontWeight: FontWeight.normal,decoration:TextDecoration.none)),
+            child: Text("评论区",
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    decoration: TextDecoration.none)),
           ),
         ),
         body: GestureDetector(
@@ -46,23 +51,23 @@ class SlidingDemoState extends State<SlidingDemo> {
               fit: BoxFit.cover,
             ),
           ),
-          onTap: (){
+          onTap: () {
             panel.close();
           },
-          onVerticalDragDown: (details){
+          onVerticalDragDown: (details) {
             // print(details.globalPosition.dy);
-            offsetDistance=details.globalPosition.dy;
+            offsetDistance = details.globalPosition.dy;
           },
-          onVerticalDragUpdate: (details){
-            offsetY=details.globalPosition.dy-offsetDistance;
-            if(offsetY>0){
-              print("向下"+offsetY.toString());
-            }else{
-              print("向上"+offsetY.toString());
-              double position=offsetY.abs()/300;
-              position=position>1?1:position;
+          onVerticalDragUpdate: (details) {
+            offsetY = details.globalPosition.dy - offsetDistance;
+            if (offsetY > 0) {
+              print("向下" + offsetY.toString());
+            } else {
+              print("向上" + offsetY.toString());
+              double position = offsetY.abs() / 300;
+              position = position > 1 ? 1 : position;
               panel.setPanelPosition(position);
-              if(position>0.4){
+              if (position > 0.4) {
                 panel.open();
               }
             }
