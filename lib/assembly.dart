@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/curved_bar.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
@@ -375,6 +376,16 @@ class TabBarDemoful extends State<TabBarDemo> {
           );
         },
       ),
+          ListTile(
+            leading: Icon(Icons.keyboard),
+            title: Text('curvedBar'),
+            trailing: Icon(Icons.keyboard_arrow_right),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => curvedBar()),
+              );
+            },
+          ),
     ]).toList());
   }
 }
