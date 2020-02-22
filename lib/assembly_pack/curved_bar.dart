@@ -15,6 +15,11 @@ class curvedBarDemo extends StatefulWidget {
   curvedBarDemoState createState() => curvedBarDemoState();
 }
 
+//页面必须继承StatefulWidget
+//页面必须实现SingleTickerProviderStateMixin
+//页面初始化时，实例化TabController
+//在TabBar组件中指定controller为我们实例化的TabController
+//在TabBarView组件中指定controller为我们实例化的TabController
 class curvedBarDemoState extends State<curvedBarDemo> with SingleTickerProviderStateMixin {
   TabController tabController;
   List colors = [Colors.blue, Colors.pink, Colors.orange];

@@ -376,16 +376,16 @@ class TabBarDemoful extends State<TabBarDemo> {
           );
         },
       ),
-          ListTile(
-            leading: Icon(Icons.keyboard),
-            title: Text('curvedBar'),
-            trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => curvedBar()),
-              );
-            },
-          ),
+      ListTile(
+        leading: Icon(Icons.keyboard),
+        title: Text('curvedBar'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => curvedBar()),
+          );
+        },
+      ),
     ]).toList());
   }
 }
