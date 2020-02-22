@@ -36,7 +36,7 @@ class SlidableState extends State<SlidableDemo> {
         //height
         scrollDirection: Axis.vertical,
         //数据方向
-        builder: (context, item, handle) {
+        itemBuilder: (context, item, handle) {
           //or builder: (context, item, handle) handle是拖动点
           return Container(
             height: 72,
