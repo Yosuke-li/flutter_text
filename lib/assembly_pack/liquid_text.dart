@@ -22,7 +22,7 @@ class LiquidDemoState extends State<LiquidDemo> {
   Widget build(BuildContext context) {
     return Container(
       child: LiquidSwipe(
-        pages: [
+        pages: <Container> [
           Container(
             color: Colors.blue,
           ),
