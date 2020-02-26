@@ -3,6 +3,7 @@ import 'package:flutter_text/assembly_pack/banner_demo.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
+import 'package:flutter_text/assembly_pack/local_auth_check.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
 import 'package:flutter_text/assembly_pack/photo.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
@@ -394,6 +395,16 @@ class TabBarDemoful extends State<TabBarDemo> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => bannerDemo()),
+          );
+        },
+      ),
+      ListTile(
+        leading: Icon(Icons.fingerprint),
+        title: Text('localAuth组件'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => LocalAuthCheck()),
           );
         },
       ),
