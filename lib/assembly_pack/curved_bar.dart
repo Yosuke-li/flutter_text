@@ -38,6 +38,7 @@ class curvedBarDemoState extends State<curvedBarDemo> with SingleTickerProviderS
   Widget build(BuildContext context) {
     return Scaffold(
       body: TabBarView(
+        physics: NeverScrollableScrollPhysics(),        //禁止滑动
         controller: tabController,
         children: <Widget>[
           Container(
