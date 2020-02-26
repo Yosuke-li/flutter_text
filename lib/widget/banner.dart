@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_text/api/img_data.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_text/model/img_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class widgetBanner extends StatefulWidget {
-  final List<ImageData> _images;
+  final List<ImageModel> _images;
   final double height;
   final ValueChanged<int> onTap;
   final Curve curve;
