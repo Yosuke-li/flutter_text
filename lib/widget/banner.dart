@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/api/img_data.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class widgetBanner extends StatefulWidget {
   final List<ImageData> _images;
@@ -11,7 +12,8 @@ class widgetBanner extends StatefulWidget {
   final Curve curve;
   final bool isShowIndicator;
 
-  widgetBanner(this._images, {
+  widgetBanner(
+    this._images, {
     this.curve = Curves.linear,
     this.height = 200,
     this.onTap,
@@ -31,14 +33,15 @@ class _widgetBannerState extends State<widgetBanner> {
     super.initState();
     _currentIndex = widget._images.length * 5;
     _pageController = PageController(initialPage: _currentIndex);
-    SystemChrome.setEnabledSystemUIOverlays([]);                    //清除手机顶部和底部状态栏
+    SystemChrome.setEnabledSystemUIOverlays([]); //清除手机顶部和底部状态栏
     _initTimer();
   }
 
   //关闭的时候还原顶部状态栏
   void dispose() {
     super.dispose();
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIOverlays(
+        [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   }
 
   Widget build(BuildContext context) {
@@ -94,6 +97,10 @@ class _widgetBannerState extends State<widgetBanner> {
               onPanDown: (details) {},
               onTap: () {
 //                _onTapImage(index, length);
+                //外部url跳转
+                if (widget._images[index % length].overBrowerUrl != '') {
+                  _overBrowerUrl(widget._images[index % length].overBrowerUrl);
+                }
               },
               child: Image.network(
                 widget._images[index % length].image,
@@ -129,4 +136,16 @@ class _widgetBannerState extends State<widgetBanner> {
       duration: Duration(milliseconds: 500),
     ));
   }
+
+  //跳转外部浏览器url
+  _overBrowerUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  //跳转内部页面
+  _insideUrl(String url) {}
 }
