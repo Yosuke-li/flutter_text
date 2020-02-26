@@ -1,18 +1,21 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_text/api/img_data.dart';
+import 'package:flutter/services.dart';
 
 class widgetBanner extends StatefulWidget {
-  final List<String> _images;
+  final List<ImageData> _images;
   final double height;
   final ValueChanged<int> onTap;
   final Curve curve;
+  final bool isShowIndicator;
 
-  widgetBanner(
-    this._images, {
+  widgetBanner(this._images, {
     this.curve = Curves.linear,
     this.height = 200,
     this.onTap,
+    this.isShowIndicator = false,
   }) : assert(_images != null);
 
   _widgetBannerState createState() => _widgetBannerState();
@@ -23,11 +26,19 @@ class _widgetBannerState extends State<widgetBanner> {
   int _currentIndex;
   Timer _timer;
 
+  //初始化
   void initState() {
     super.initState();
     _currentIndex = widget._images.length * 5;
     _pageController = PageController(initialPage: _currentIndex);
+    SystemChrome.setEnabledSystemUIOverlays([]);                    //清除手机顶部和底部状态栏
     _initTimer();
+  }
+
+  //关闭的时候还原顶部状态栏
+  void dispose() {
+    super.dispose();
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
   }
 
   Widget build(BuildContext context) {
@@ -85,7 +96,7 @@ class _widgetBannerState extends State<widgetBanner> {
 //                _onTapImage(index, length);
               },
               child: Image.network(
-                widget._images[index % length],
+                widget._images[index % length].image,
                 fit: BoxFit.cover,
               ),
             );
@@ -104,12 +115,14 @@ class _widgetBannerState extends State<widgetBanner> {
     }
   }
 
+  //切换bannner页
   _changePage() {
     Timer(Duration(milliseconds: 300), () {
       _pageController.jumpToPage(_currentIndex);
     });
   }
 
+  //底部提示框
   _onTapImage(int index, int length) {
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text('当前page为${index % length}'),

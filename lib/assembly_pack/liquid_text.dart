@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:liquid_swipe/Constants/Helpers.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(LiquidText());
@@ -47,6 +48,6 @@ class LiquidDemoState extends State<LiquidDemo> {
     print(page);
   }
   updateTypeCallback(UpdateType updateType) {
-    print(updateType);
+
   }
 }
