@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/banner_demo.dart';
+import 'package:flutter_text/assembly_pack/calendar.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_text/assembly_pack/main.dart';
 import 'package:flutter_text/assembly_pack/photo.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
+import 'package:flutter_text/assembly_pack/speed_dial.dart';
 import 'assembly_pack/event_bus/event_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_text/assembly_pack/canvas_paint.dart';
@@ -408,6 +410,26 @@ class TabBarDemoful extends State<TabBarDemo> {
           );
         },
       ),
+      ListTile(
+        leading: Icon(Icons.list),
+        title: Text('SpeedDial组件'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => SpeedDialDemo()),
+          );
+        },
+      ),
+          ListTile(
+            leading: Icon(Icons.calendar_today),
+            title: Text('Calendar组件'),
+            trailing: Icon(Icons.keyboard_arrow_right),
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => CalendarDemo()),
+              );
+            },
+          ),
     ]).toList());
   }
 }

@@ -76,6 +76,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.5.4"
+  flutter_speed_dial:
+    dependency: "direct main"
+    description:
+      name: flutter_speed_dial
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.5"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -144,6 +151,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.2.1"
+  provider:
+    dependency: "direct main"
+    description:
+      name: provider
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.1.0+1"
   quiver:
     dependency: transitive
     description:
@@ -165,6 +179,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
+  simple_gesture_detector:
+    dependency: transitive
+    description:
+      name: simple_gesture_detector
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.4"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -205,6 +226,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.5"
+  table_calendar:
+    dependency: "direct main"
+    description:
+      name: table_calendar
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.2.2"
   term_glyph:
     dependency: transitive
     description:
