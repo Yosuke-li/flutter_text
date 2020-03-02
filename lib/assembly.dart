@@ -7,6 +7,7 @@ import 'package:flutter_text/assembly_pack/hello.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/local_auth_check.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
+import 'package:flutter_text/assembly_pack/overlay_demo.dart';
 import 'package:flutter_text/assembly_pack/photo.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
@@ -438,6 +439,16 @@ class TabBarDemoful extends State<TabBarDemo> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => Hello()),
+          );
+        },
+      ),
+      ListTile(
+        leading: Icon(Icons.settings),
+        title: Text('设置'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => overlayDemo()),
           );
         },
       ),
