@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_text/widget/animated_wave.dart';
 import 'package:simple_animations/simple_animations.dart';
 
@@ -8,8 +9,26 @@ void main() => runApp(Hello());
 
 class Hello extends StatelessWidget {
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
+    return Scaffold(body: HelloDemo());
+  }
+}
+
+class HelloDemo extends StatefulWidget {
+  HelloDemoState createState() => HelloDemoState();
+}
+
+class HelloDemoState extends State<HelloDemo> {
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([]); //清除手机顶部和底部状态栏
+  }
+
+  void dispose() {
+    super.dispose();
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
+  }
+  Widget build(BuildContext context) {
+    return Stack(
       children: <Widget>[
         Positioned.fill(child: LinearBackground()),
         onWave(AnimatedWave(
@@ -34,7 +53,7 @@ class Hello extends StatelessWidget {
           ),
         ))
       ],
-    ));
+    );
   }
 
   onWave(Widget child) => Positioned.fill(
