@@ -3,6 +3,7 @@ import 'package:flutter_text/assembly_pack/banner_demo.dart';
 import 'package:flutter_text/assembly_pack/calendar.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
+import 'package:flutter_text/assembly_pack/hello.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/local_auth_check.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
@@ -420,16 +421,26 @@ class TabBarDemoful extends State<TabBarDemo> {
           );
         },
       ),
-          ListTile(
-            leading: Icon(Icons.calendar_today),
-            title: Text('Calendar组件'),
-            trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => CalendarDemo()),
-              );
-            },
-          ),
+      ListTile(
+        leading: Icon(Icons.calendar_today),
+        title: Text('Calendar组件'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => CalendarDemo()),
+          );
+        },
+      ),
+      ListTile(
+        leading: Icon(Icons.help),
+        title: Text('simple_animations组件'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => Hello()),
+          );
+        },
+      ),
     ]).toList());
   }
 }

@@ -32,8 +32,13 @@ class _CalendarDemoState extends State<_CalendarDemo> {
   }
 
   Widget build (BuildContext context) {
-    return TableCalendar(
-      calendarController: _calendarController,
+    return Column(
+      children: <Widget>[
+        TableCalendar(
+          calendarController: _calendarController,
+        ),
+        Text('$_calendarController')
+      ],
     );
   }
 }
