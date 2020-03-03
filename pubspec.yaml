@@ -61,6 +61,7 @@ flutter:
     - images/timg2.jpg
     - images/timg3.jpg
     - images/sun.jpg
+    - images/plane1.gif
 
   # To add assets to your application, add an assets section, like this:
   # assets:

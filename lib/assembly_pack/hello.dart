@@ -13,6 +13,7 @@ class Hello extends StatelessWidget {
   }
 }
 
+//scene主场景
 class HelloDemo extends StatefulWidget {
   HelloDemoState createState() => HelloDemoState();
 }
@@ -25,8 +26,10 @@ class HelloDemoState extends State<HelloDemo> {
 
   void dispose() {
     super.dispose();
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIOverlays(
+        [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   }
+
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
@@ -47,11 +50,8 @@ class HelloDemoState extends State<HelloDemo> {
         )),
         Positioned.fill(
             child: Center(
-          child: Text(
-            "Hello World",
-            style: TextStyle(color: Colors.white),
-          ),
-        ))
+              child: Image.asset("images/plane1.gif", width: 60,),
+            )),
       ],
     );
   }
@@ -67,10 +67,10 @@ class HelloDemoState extends State<HelloDemo> {
 class LinearBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     final tween = MultiTrackTween([
-      Track("color1").add(Duration(seconds: 3),
-          ColorTween(begin: Color(0xffD38312), end: Colors.lightBlue.shade900)),
-      Track("color2").add(Duration(seconds: 3),
-          ColorTween(begin: Color(0xffA83279), end: Colors.blue.shade600))
+      Track("color1").add(Duration(seconds: 20),
+          ColorTween(begin: Colors.red, end: Colors.blueAccent.shade700)),
+      Track("color2").add(Duration(seconds: 20),
+          ColorTween(begin: Colors.deepOrange, end: Colors.blue.shade600))
     ]);
     return ControlledAnimation(
       playback: Playback.MIRROR,
