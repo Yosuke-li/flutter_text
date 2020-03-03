@@ -7,7 +7,12 @@ class CalendarDemo extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('日历'),
+        title: Row(
+          children: <Widget>[
+            Hero(tag: "calendar", child: Icon(Icons.calendar_today)),
+            Text("  日历")
+          ],
+        ),
       ),
       body: _CalendarDemo(),
     );
