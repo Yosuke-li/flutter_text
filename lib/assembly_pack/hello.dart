@@ -34,6 +34,12 @@ class HelloDemoState extends State<HelloDemo> {
     return Stack(
       children: <Widget>[
         Positioned.fill(child: LinearBackground()),
+        Positioned.fill(
+            child: Align(
+          alignment: Alignment.topLeft,
+          child: Image.asset("images/cloud3.gif",
+              width: MediaQuery.of(context).size.width),
+        )),
         onWave(AnimatedWave(
           height: 180,
           speed: 1.0,
@@ -50,8 +56,11 @@ class HelloDemoState extends State<HelloDemo> {
         )),
         Positioned.fill(
             child: Center(
-              child: Image.asset("images/plane1.gif", width: 60,),
-            )),
+          child: Image.asset(
+            "images/plane2.gif",
+            width: 60,
+          ),
+        )),
       ],
     );
   }
