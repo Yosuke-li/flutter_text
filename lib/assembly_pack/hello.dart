@@ -37,7 +37,7 @@ class HelloDemoState extends State<HelloDemo> {
         Positioned.fill(
             child: Align(
           alignment: Alignment.topLeft,
-          child: Image.asset("images/cloud3.gif",
+          child: Image.asset("images/cloud5.gif",
               width: MediaQuery.of(context).size.width),
         )),
         onWave(AnimatedWave(

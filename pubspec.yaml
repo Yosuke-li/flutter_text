@@ -66,6 +66,8 @@ flutter:
     - images/oneday.gif
     - images/cloud3.gif
     - images/cloud2.gif
+    - images/cloud1.gif
+    - images/cloud5.gif
 
   # To add assets to your application, add an assets section, like this:
   # assets:
