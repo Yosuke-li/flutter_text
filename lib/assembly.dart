@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/banner_demo.dart';
 import 'package:flutter_text/assembly_pack/calendar.dart';
+import 'package:flutter_text/assembly_pack/chat/chat_main.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/hello.dart';
@@ -449,6 +450,16 @@ class TabBarDemoful extends State<TabBarDemo> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => overlayDemo()),
+          );
+        },
+      ),
+      ListTile(
+        leading: Icon(Icons.chat),
+        title: Text('聊天室--开新坑'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => chatPackApp()),
           );
         },
       ),
