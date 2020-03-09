@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/chat/sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() => runApp(chatPackApp());
 
@@ -26,6 +28,8 @@ GoogleSignIn googleSignIn = new GoogleSignIn(
 );
 
 class ChatSceneState extends State<ChatScene> {
+  final auth = FirebaseAuth.instance;
+  final analytics = new FirebaseAnalytics();
   final List<ChatMessage> _messages = <ChatMessage>[];
   final TextEditingController _textEditingController =
       new TextEditingController();
@@ -40,7 +44,17 @@ class ChatSceneState extends State<ChatScene> {
       });
     });
     if (_currentUser == null) await googleSignIn.signInSilently();
-    if (_currentUser == null) await googleSignIn.signIn();
+    if (_currentUser == null) {
+      await googleSignIn.signIn();
+      analytics.logSignUp();
+    }
+    if (auth.currentUser != null) {
+      GoogleSignInAuthentication credentials = await googleSignIn.currentUser.authentication;
+      await GoogleAuthProvider.getCredential(
+        idToken: credentials.idToken,
+        accessToken: credentials.accessToken,
+      );
+    }
   }
 
   Future<void> _handleSubmitted(String text) async {
@@ -60,6 +74,7 @@ class ChatSceneState extends State<ChatScene> {
     setState(() {
       _messages.insert(0, message);
     });
+    analytics.logEvent(name: 'send_message');
   }
 
   Widget _buildTextComposer() {
