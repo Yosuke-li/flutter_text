@@ -3,6 +3,8 @@ import 'package:flutter_text/assembly_pack/chat/sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 
 void main() => runApp(chatPackApp());
 
@@ -20,6 +22,7 @@ class ChatScene extends StatefulWidget {
   ChatSceneState createState() => ChatSceneState();
 }
 
+//google登录
 GoogleSignIn googleSignIn = new GoogleSignIn(
   scopes: [
     'email',
@@ -28,11 +31,11 @@ GoogleSignIn googleSignIn = new GoogleSignIn(
 );
 
 class ChatSceneState extends State<ChatScene> {
-  final auth = FirebaseAuth.instance;
-  final analytics = new FirebaseAnalytics();
-  final List<ChatMessage> _messages = <ChatMessage>[];
+  final auth = FirebaseAuth.instance; //监听用户UID
+  final analytics = new FirebaseAnalytics(); //监听事件
+  final List<ChatMessage> _messages = <ChatMessage>[]; //监听信息
   final TextEditingController _textEditingController =
-      new TextEditingController();
+      new TextEditingController();//输入框
   bool isComposer;
   GoogleSignInAccount _currentUser;
 
@@ -46,14 +49,18 @@ class ChatSceneState extends State<ChatScene> {
     if (_currentUser == null) await googleSignIn.signInSilently();
     if (_currentUser == null) {
       await googleSignIn.signIn();
-      analytics.logSignUp();
+      analytics.logSignUp(); //google事件日志
     }
+    // google用户登录
     if (auth.currentUser != null) {
-      GoogleSignInAuthentication credentials = await googleSignIn.currentUser.authentication;
-      await GoogleAuthProvider.getCredential(
+      GoogleSignInAuthentication credentials =
+          await googleSignIn.currentUser.authentication;
+      final AuthCredential credential = await GoogleAuthProvider.getCredential(
         idToken: credentials.idToken,
         accessToken: credentials.accessToken,
       );
+      final AuthResult user = await auth.signInWithCredential(credential);
+      final FirebaseUser currentUser = await auth.currentUser();
     }
   }
 
@@ -74,7 +81,7 @@ class ChatSceneState extends State<ChatScene> {
     setState(() {
       _messages.insert(0, message);
     });
-    analytics.logEvent(name: 'send_message');
+    analytics.logEvent(name: 'send_message'); //google事件日志
   }
 
   Widget _buildTextComposer() {
