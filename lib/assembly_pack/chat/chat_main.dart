@@ -23,6 +23,7 @@ class ChatScene extends StatefulWidget {
 }
 
 //google登录
+DatabaseReference reference = FirebaseDatabase.instance.reference().child('messages');
 GoogleSignIn googleSignIn = new GoogleSignIn(
   scopes: [
     'email',
@@ -35,9 +36,15 @@ class ChatSceneState extends State<ChatScene> {
   final analytics = new FirebaseAnalytics(); //监听事件
   final List<ChatMessage> _messages = <ChatMessage>[]; //监听信息
   final TextEditingController _textEditingController =
-      new TextEditingController();//输入框
+      new TextEditingController(); //输入框
   bool isComposer;
   GoogleSignInAccount _currentUser;
+
+  //生命周期
+  void initState() {
+    super.initState();
+    _ensureLoggedIn();
+  }
 
   //google登录
   Future<void> _ensureLoggedIn() async {
@@ -59,8 +66,8 @@ class ChatSceneState extends State<ChatScene> {
         idToken: credentials.idToken,
         accessToken: credentials.accessToken,
       );
-      final AuthResult user = await auth.signInWithCredential(credential);
-      final FirebaseUser currentUser = await auth.currentUser();
+      await auth.signInWithCredential(credential);
+      await auth.currentUser();
     }
   }
 
@@ -69,7 +76,6 @@ class ChatSceneState extends State<ChatScene> {
     setState(() {
       isComposer = false;
     });
-    await _ensureLoggedIn();
     _sendMessage(text: text);
   }
 
@@ -131,14 +137,15 @@ class ChatSceneState extends State<ChatScene> {
       body: Column(
         children: <Widget>[
           Flexible(
-            child: ListView.builder(
-                padding: EdgeInsets.all(8.0),
-                reverse: true,
-                itemCount: _messages.length,
-                itemBuilder: (_, int index) {
-                  return _messages[index];
-                }),
+              child: ListView.builder(
+                  padding: EdgeInsets.all(8.0),
+                  reverse: true,
+                  itemCount: _messages.length,
+                  itemBuilder: (_, int index) {
+                    return _messages[index];
+                  }),
           ),
+          Divider(height: 1.0),
           Container(
             decoration: BoxDecoration(color: Theme.of(context).cardColor),
             child: _buildTextComposer(),
@@ -157,26 +164,28 @@ class ChatMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-              margin: EdgeInsets.only(right: 16),
-              child: GoogleUserCircleAvatar(
-                identity: googleSignIn.currentUser,
-              )),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(googleSignIn.currentUser.displayName),
-              Container(
-                margin: EdgeInsets.only(top: 5.0),
-                child: Text(text),
-              ),
-            ],
-          )
-        ],
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+                margin: EdgeInsets.only(right: 16),
+                child: GoogleUserCircleAvatar(
+                  identity: googleSignIn.currentUser,
+                )),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(googleSignIn.currentUser.displayName),
+                Container(
+                  margin: EdgeInsets.only(top: 5.0),
+                  child: Text(text),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
