@@ -12,6 +12,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+import 'image_zoomable.dart';
+
 void main() => runApp(chatPackApp());
 
 class chatPackApp extends StatelessWidget {
@@ -213,23 +215,30 @@ class ChatMessage extends StatelessWidget {
                 margin: EdgeInsets.only(right: 16),
                 child: CircleAvatar(
                     child: Image.network(snapshot.value['senderPhotoUrl']))),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(snapshot.value['senderName']),
-                Container(
-                  margin: EdgeInsets.only(top: 5.0),
-                  child: snapshot.value['imageUrl'] != null
-                      ? new Image.network(
-                          snapshot.value['imageUrl'],
-                          width: 250.0,
-                          height: 100.0,
-                          fit: BoxFit.fill,
-                        )
-                      : new Text(snapshot.value['text']),
-                ),
-              ],
-            )
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(snapshot.value['senderName']),
+                  Container(
+                    margin: EdgeInsets.only(top: 5.0),
+                    child: snapshot.value['imageUrl'] != null
+                        ? GestureDetector(
+                            onTap: () {
+
+                            },
+                            child: Image.network(
+                              snapshot.value['imageUrl'],
+                              width: 250.0,
+                              height: 100.0,
+                              fit: BoxFit.fill,
+                            ),
+                          )
+                        : Text(snapshot.value['text']),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
