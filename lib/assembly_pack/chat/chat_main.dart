@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:io';
 
@@ -12,9 +13,11 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import 'package:flutter_text/assembly_pack/chat/image_zoomable.dart';
+import 'package:flutter_text/widget/image_zoomable.dart';
 
-void main() => runApp(chatPackApp());
+void main() {
+  return runApp(chatPackApp());
+}
 
 class chatPackApp extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -44,13 +47,14 @@ class ChatSceneState extends State<ChatScene> {
   final analytics = new FirebaseAnalytics(); //监听事件
   final TextEditingController _textEditingController =
       new TextEditingController(); //输入框
-  bool isComposer;
-  GoogleSignInAccount _currentUser;
+  bool isComposer = false; //输入框判断
+  GoogleSignInAccount _currentUser; //谷歌信息
+  bool isLoading = true; //加载中
 
   //生命周期
   void initState() {
     super.initState();
-    _setDatabase();
+    _ensureLoggedIn();
   }
 
   //firebase database设置
@@ -65,6 +69,11 @@ class ChatSceneState extends State<ChatScene> {
     );
     var db = FirebaseDatabase(app: App);
     reference = db.reference().child('messages');
+    Timer(Duration(seconds: 3), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
   //google登录 配置信息
@@ -90,6 +99,7 @@ class ChatSceneState extends State<ChatScene> {
       await auth.signInWithCredential(credential);
       await auth.currentUser();
     }
+    _setDatabase();
   }
 
   //删除聊天框里的消息并发送
@@ -105,6 +115,7 @@ class ChatSceneState extends State<ChatScene> {
   //发送消息
   void _sendMessage({String text, String imageUrl}) {
     reference.push().set({
+      'id': googleSignIn.currentUser.id,
       'text': text,
       'imageUrl': imageUrl,
       'senderName': googleSignIn.currentUser.displayName,
@@ -147,13 +158,18 @@ class ChatSceneState extends State<ChatScene> {
                   isComposer = text.length > 0;
                 });
               },
-              decoration: InputDecoration.collapsed(hintText: "发送消息"),
+              decoration: InputDecoration.collapsed(
+                  hintText: "发送消息",
+                  hintStyle: TextStyle(fontSize: 14, color: Colors.black12)),
             ),
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 4.0),
             child: IconButton(
-              icon: Icon(Icons.send),
+              icon: Icon(
+                Icons.send,
+                color: isComposer ? Colors.blueAccent : null,
+              ),
               onPressed: () => isComposer
                   ? _handleSubmitted(_textEditingController.text)
                   : null,
@@ -167,31 +183,40 @@ class ChatSceneState extends State<ChatScene> {
   //聊天消息查看
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("聊天"),
-        actions: <Widget>[],
-      ),
-      body: Column(
-        children: <Widget>[
-          Flexible(
-              child: FirebaseAnimatedList(
-                  query: reference,
-                  sort: (a, b) => b.key.compareTo(a.key),
-                  padding: new EdgeInsets.all(8.0),
-                  reverse: true,
-                  itemBuilder: (_, DataSnapshot snapshot,
-                      Animation<double> animation, __) {
-                    return ChatMessage(
-                        snapshot: snapshot, animation: animation);
-                  })),
-          Divider(height: 1.0),
-          Container(
-            decoration: BoxDecoration(color: Theme.of(context).cardColor),
-            child: _buildTextComposer(),
-          ),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: Text("聊天"),
+          actions: <Widget>[],
+        ),
+        body: isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).requestFocus(new FocusNode());
+                },
+                child: Column(
+                  children: <Widget>[
+                    Flexible(
+                        child: FirebaseAnimatedList(
+                            query: reference,
+                            sort: (a, b) => b.key.compareTo(a.key),
+                            padding: new EdgeInsets.all(8.0),
+                            reverse: true,
+                            itemBuilder: (_, DataSnapshot snapshot,
+                                Animation<double> animation, __) {
+                              return ChatMessage(
+                                  snapshot: snapshot, animation: animation);
+                            })),
+                    Divider(height: 1.0),
+                    Container(
+                      decoration:
+                          BoxDecoration(color: Theme.of(context).cardColor),
+                      child: _buildTextComposer(),
+                    ),
+                  ],
+                ),
+              ));
   }
 }
 
@@ -208,47 +233,120 @@ class ChatMessage extends StatelessWidget {
       sizeFactor: new CurvedAnimation(parent: animation, curve: Curves.easeOut),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-                margin: EdgeInsets.only(right: 16),
-                child: CircleAvatar(
-                    child: Image.network(snapshot.value['senderPhotoUrl']))),
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(snapshot.value['senderName']),
-                  Container(
-                    margin: EdgeInsets.only(top: 5.0),
-                    child: snapshot.value['imageUrl'] != null
-                        ? GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ImageZoomable(
-                                        photoList: [
-                                          NetworkImage(
-                                              snapshot.value['imageUrl'])
-                                        ],
-                                        index: 0,
-                                      )));
-                            },
-                            child: Image.network(
-                              snapshot.value['imageUrl'],
-                              width: 250.0,
-                              height: 100.0,
-                              fit: BoxFit.fill,
-                            ),
-                          )
-                        : Text(snapshot.value['text']),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+        child: row(context),
       ),
     );
+  }
+
+  Widget row(BuildContext context) {
+    if (snapshot.value["id"] == googleSignIn.currentUser?.id) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Text(snapshot.value['senderName']),
+                Container(
+                  margin: EdgeInsets.only(top: 5.0),
+                  child: snapshot.value['imageUrl'] != null
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ImageZoomable(
+                                      photoList: [
+                                        NetworkImage(snapshot.value['imageUrl'])
+                                      ],
+                                      index: 0,
+                                    )));
+                          },
+                          child: Image.network(
+                            snapshot.value['imageUrl'],
+                            width: 150.0,
+                            height: 150.0,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.green, width: 1),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Container(
+                            color: Colors.green,
+                            padding: EdgeInsets.only(
+                                top: 5, bottom: 5, right: 10, left: 10),
+                            child: Text(
+                              snapshot.value['text'],
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                          ),
+                        ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+              margin: EdgeInsets.only(left: 16),
+              child: CircleAvatar(
+                  child: Image.network(snapshot.value['senderPhotoUrl']))),
+        ],
+      );
+    } else {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+              margin: EdgeInsets.only(right: 16),
+              child: CircleAvatar(
+                  child: Image.network(snapshot.value['senderPhotoUrl']))),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(snapshot.value['senderName']),
+                Container(
+                  margin: EdgeInsets.only(top: 5.0),
+                  child: snapshot.value['imageUrl'] != null
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ImageZoomable(
+                                      photoList: [
+                                        NetworkImage(snapshot.value['imageUrl'])
+                                      ],
+                                      index: 0,
+                                    )));
+                          },
+                          child: Image.network(
+                            snapshot.value['imageUrl'],
+                            width: 150.0,
+                            height: 150.0,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.white, width: 1),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Container(
+                            color: Colors.white,
+                            padding: EdgeInsets.only(
+                                top: 5, bottom: 5, right: 10, left: 10),
+                            child: Text(
+                              snapshot.value['text'],
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                        ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
   }
 }

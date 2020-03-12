@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
+//图片放大的插件
 class ImageZoomable extends StatefulWidget {
   final List<ImageProvider> photoList;
   final int index;
