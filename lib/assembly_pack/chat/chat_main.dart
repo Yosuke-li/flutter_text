@@ -12,7 +12,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import 'image_zoomable.dart';
+import 'package:flutter_text/assembly_pack/chat/image_zoomable.dart';
 
 void main() => runApp(chatPackApp());
 
@@ -225,7 +225,14 @@ class ChatMessage extends StatelessWidget {
                     child: snapshot.value['imageUrl'] != null
                         ? GestureDetector(
                             onTap: () {
-
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ImageZoomable(
+                                        photoList: [
+                                          NetworkImage(
+                                              snapshot.value['imageUrl'])
+                                        ],
+                                        index: 0,
+                                      )));
                             },
                             child: Image.network(
                               snapshot.value['imageUrl'],
