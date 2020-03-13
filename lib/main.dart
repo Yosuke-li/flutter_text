@@ -13,6 +13,7 @@ import 'package:flutter_text/assembly_pack/photo.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
 import 'package:flutter_text/assembly_pack/speed_dial.dart';
+import 'package:flutter_text/assembly_pack/video_chat/check_room_id.dart';
 import 'assembly_pack/event_bus/event_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_text/assembly_pack/canvas_paint.dart';
@@ -89,6 +90,15 @@ class TabBarDemoful extends State<TabBarDemo>
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => chatPackApp()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.video_call),
+                title: Text('视频通话装置--'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CheckRoomId()),
                   );
                 },
               ),
