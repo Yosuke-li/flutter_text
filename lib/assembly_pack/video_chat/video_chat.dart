@@ -144,6 +144,9 @@ class _VideoChatState extends State<VideoChat> {
   /// Video layout wrapper
   Widget _viewRows() {
     final views = _getRenderViews();
+    if (views.length > 4) {
+      Navigator.of(context).pop();
+    }
     switch (views.length) {
       case 1:
         return Container(
@@ -296,9 +299,6 @@ class _VideoChatState extends State<VideoChat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Agora Flutter QuickStart'),
-      ),
       backgroundColor: Colors.black,
       body: Center(
         child: Stack(

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:io';
 
+import 'package:flutter_text/assembly_pack/video_chat/video_chat.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -185,7 +186,30 @@ class ChatSceneState extends State<ChatScene> {
     return Scaffold(
         appBar: AppBar(
           title: Text("聊天"),
-          actions: <Widget>[],
+          actions: <Widget>[
+            PopupMenuButton(
+              offset: Offset(100, 100),
+              itemBuilder: (BuildContext context) => [ //菜单项构造器
+                PopupMenuItem(//菜单项
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Text('删除数据'),
+                  ),
+                ),
+                PopupMenuItem(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => VideoChat(
+                            channelName: '12345',
+                          )));
+                    },
+                    child: Text("进入视频聊天"),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
         body: isLoading
             ? Center(
