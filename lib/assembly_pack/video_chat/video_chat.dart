@@ -6,14 +6,18 @@ class VideoChat extends StatefulWidget {
   /// non-modifiable channel name of the page
   final String channelName;
 
+  final bool is_video;
+
   /// Creates a call page with given channel name.
-  const VideoChat({Key key, this.channelName}) : super(key: key);
+  const VideoChat({Key key, this.channelName, this.is_video = true})
+      : super(key: key);
 
   @override
   _VideoChatState createState() => _VideoChatState();
 }
 
 class _VideoChatState extends State<VideoChat> {
+  TextEditingController _textController = TextEditingController();
   static final _users = <int>[];
   final _infoStrings = <String>[];
   bool muted = false;
@@ -71,10 +75,10 @@ class _VideoChatState extends State<VideoChat> {
     };
 
     AgoraRtcEngine.onJoinChannelSuccess = (
-        String channel,
-        int uid,
-        int elapsed,
-        ) {
+      String channel,
+      int uid,
+      int elapsed,
+    ) {
       setState(() {
         final info = 'onJoinChannel: $channel, uid: $uid';
         _infoStrings.add(info);
@@ -105,11 +109,11 @@ class _VideoChatState extends State<VideoChat> {
     };
 
     AgoraRtcEngine.onFirstRemoteVideoFrame = (
-        int uid,
-        int width,
-        int height,
-        int elapsed,
-        ) {
+      int uid,
+      int width,
+      int height,
+      int elapsed,
+    ) {
       setState(() {
         final info = 'firstRemoteVideo: $uid ${width}x $height';
         _infoStrings.add(info);
@@ -144,40 +148,49 @@ class _VideoChatState extends State<VideoChat> {
   /// Video layout wrapper
   Widget _viewRows() {
     final views = _getRenderViews();
+    print("_users$views");
     if (views.length > 4) {
       Navigator.of(context).pop();
     }
-    switch (views.length) {
-      case 1:
-        return Container(
-            child: Column(
-              children: <Widget>[_videoView(views[0])],
-            ));
-      case 2:
-        return Container(
-            child: Column(
-              children: <Widget>[
-                _expandedVideoRow([views[0]]),
-                _expandedVideoRow([views[1]])
-              ],
-            ));
-      case 3:
-        return Container(
-            child: Column(
-              children: <Widget>[
-                _expandedVideoRow(views.sublist(0, 2)),
-                _expandedVideoRow(views.sublist(2, 3))
-              ],
-            ));
-      case 4:
-        return Container(
-            child: Column(
-              children: <Widget>[
-                _expandedVideoRow(views.sublist(0, 2)),
-                _expandedVideoRow(views.sublist(2, 4))
-              ],
-            ));
-      default:
+    if (widget.is_video) {
+      switch (views.length) {
+        case 1:
+          return Container(
+              child: Column(
+            children: <Widget>[_videoView(views[0])],
+          ));
+        case 2:
+          return Container(
+              child: Column(
+            children: <Widget>[
+              _expandedVideoRow([views[0]]),
+              _expandedVideoRow([views[1]])
+            ],
+          ));
+        case 3:
+          return Container(
+              child: Column(
+            children: <Widget>[
+              _expandedVideoRow(views.sublist(0, 2)),
+              _expandedVideoRow(views.sublist(2, 3))
+            ],
+          ));
+        case 4:
+          return Container(
+              child: Column(
+            children: <Widget>[
+              _expandedVideoRow(views.sublist(0, 2)),
+              _expandedVideoRow(views.sublist(2, 4))
+            ],
+          ));
+        default:
+      }
+    } else {
+      return Container(
+        child: Column(
+          children: <Widget>[_videoView(views[views.length - 1])],
+        ),
+      );
     }
     return Container();
   }
@@ -186,45 +199,75 @@ class _VideoChatState extends State<VideoChat> {
   Widget _toolbar() {
     return Container(
       alignment: Alignment.bottomCenter,
-      padding: const EdgeInsets.symmetric(vertical: 48),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          RawMaterialButton(
-            onPressed: _onToggleMute,
-            child: Icon(
-              muted ? Icons.mic_off : Icons.mic,
-              color: muted ? Colors.white : Colors.blueAccent,
-              size: 20.0,
-            ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: muted ? Colors.blueAccent : Colors.white,
-            padding: const EdgeInsets.all(12.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              RawMaterialButton(
+                onPressed: _onToggleMute,
+                child: Icon(
+                  muted ? Icons.mic_off : Icons.mic,
+                  color: muted ? Colors.white : Colors.blueAccent,
+                  size: 20.0,
+                ),
+                shape: CircleBorder(),
+                elevation: 2.0,
+                fillColor: muted ? Colors.blueAccent : Colors.white,
+                padding: const EdgeInsets.all(12.0),
+              ),
+              RawMaterialButton(
+                onPressed: () => _onCallEnd(context),
+                child: Icon(
+                  Icons.call_end,
+                  color: Colors.white,
+                  size: 35.0,
+                ),
+                shape: CircleBorder(),
+                elevation: 2.0,
+                fillColor: Colors.redAccent,
+                padding: const EdgeInsets.all(15.0),
+              ),
+              RawMaterialButton(
+                onPressed: _onSwitchCamera,
+                child: Icon(
+                  Icons.switch_camera,
+                  color: Colors.blueAccent,
+                  size: 20.0,
+                ),
+                shape: CircleBorder(),
+                elevation: 2.0,
+                fillColor: Colors.white,
+                padding: const EdgeInsets.all(12.0),
+              ),
+            ],
           ),
-          RawMaterialButton(
-            onPressed: () => _onCallEnd(context),
-            child: Icon(
-              Icons.call_end,
-              color: Colors.white,
-              size: 35.0,
-            ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: Colors.redAccent,
-            padding: const EdgeInsets.all(15.0),
-          ),
-          RawMaterialButton(
-            onPressed: _onSwitchCamera,
-            child: Icon(
-              Icons.switch_camera,
-              color: Colors.blueAccent,
-              size: 20.0,
-            ),
-            shape: CircleBorder(),
-            elevation: 2.0,
-            fillColor: Colors.white,
-            padding: const EdgeInsets.all(12.0),
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: TextField(
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  controller: _textController,
+                  decoration: InputDecoration.collapsed(
+                      hintText: "发送消息",
+                      hintStyle: TextStyle(fontSize: 14, color: Colors.white)),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 4.0),
+                child: IconButton(
+                    icon: Icon(
+                      Icons.send,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _infoStrings.add(_textController.text);
+                        _textController.clear();
+                      });
+                    }),
+              ),
+            ],
           )
         ],
       ),
@@ -234,14 +277,14 @@ class _VideoChatState extends State<VideoChat> {
   /// Info panel to show logs
   Widget _panel() {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 48),
+      padding: const EdgeInsets.symmetric(vertical: 70),
       alignment: Alignment.bottomCenter,
       child: FractionallySizedBox(
         heightFactor: 0.5,
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 48),
           child: ListView.builder(
-            reverse: true,
+            reverse: false,
             itemCount: _infoStrings.length,
             itemBuilder: (BuildContext context, int index) {
               if (_infoStrings.isEmpty) {

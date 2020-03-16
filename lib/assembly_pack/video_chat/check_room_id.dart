@@ -9,6 +9,7 @@ class CheckRoomId extends StatefulWidget {
 
 class _CheckRoomState extends State<CheckRoomId> {
   TextEditingController _controller = new TextEditingController();
+  bool is_video_chat = true;
 
   void dispose() {
     // dispose input controller
@@ -27,6 +28,44 @@ class _CheckRoomState extends State<CheckRoomId> {
             TextField(
               controller: _controller,
             ),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text('视频通话模式'),
+                      Checkbox(
+                        value: is_video_chat,
+                        onChanged: (val) {
+                          setState(() {
+                            if (!is_video_chat) {
+                              is_video_chat = true;
+                            }
+                          });
+                        },
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('直播模式'),
+                      Checkbox(
+                        value: !is_video_chat,
+                        onChanged: (val) {
+                          setState(() {
+                            if (is_video_chat) {
+                              is_video_chat = false;
+                            }
+                          });
+                        },
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
             RaisedButton(
               onPressed: () {
                 print(_controller.text);
@@ -34,6 +73,7 @@ class _CheckRoomState extends State<CheckRoomId> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => VideoChat(
                             channelName: _controller.text,
+                            is_video: is_video_chat,
                           )));
                 }
               },
