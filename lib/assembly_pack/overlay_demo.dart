@@ -28,6 +28,12 @@ class overlayDemoState extends State<overlayDemo> {
               });
               Overlay.of(context).insert(entry);
             },
+          ),
+          RaisedButton(
+            child: Text("关闭悬浮按钮"),
+            onPressed: () {
+              entry?.remove();
+            },
           )
         ],
       ),

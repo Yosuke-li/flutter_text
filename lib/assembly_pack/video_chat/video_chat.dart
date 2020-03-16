@@ -22,6 +22,7 @@ class _VideoChatState extends State<VideoChat> {
   final _infoStrings = <String>[];
   bool muted = false;
   final String APP_ID = "c4d65bf6089c4c93862c7fee6b6a76e0";
+  static OverlayEntry entry;
 
   @override
   void dispose() {
@@ -136,6 +137,17 @@ class _VideoChatState extends State<VideoChat> {
   }
 
   /// Video view row wrapper
+  Widget _smallVideoRow(List<Widget> views) {
+    final wrappedViews = views.map<Widget>(_videoView).toList();
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.2,
+      height: MediaQuery.of(context).size.height * 0.2,
+      child: Row(
+        children: wrappedViews,
+      ),
+    );
+  }
+
   Widget _expandedVideoRow(List<Widget> views) {
     final wrappedViews = views.map<Widget>(_videoView).toList();
     return Expanded(
@@ -160,13 +172,24 @@ class _VideoChatState extends State<VideoChat> {
             children: <Widget>[_videoView(views[0])],
           ));
         case 2:
-          return Container(
-              child: Column(
-            children: <Widget>[
-              _expandedVideoRow([views[0]]),
-              _expandedVideoRow([views[1]])
-            ],
-          ));
+          return ConstrainedBox(
+            constraints: BoxConstraints.expand(),
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                Container(
+                  child: Column(
+                    children: <Widget>[_videoView(views[1])],
+                  ),
+                ),
+                Positioned(
+                  left: 18.0,
+                  top: 20.0,
+                  child: _smallVideoRow([views[0]]),
+                )
+              ],
+            ),
+          );
         case 3:
           return Container(
               child: Column(
@@ -199,6 +222,9 @@ class _VideoChatState extends State<VideoChat> {
   Widget _toolbar() {
     return Container(
       alignment: Alignment.bottomCenter,
+      padding: widget.is_video
+          ? const EdgeInsets.symmetric(vertical: 48)
+          : const EdgeInsets.symmetric(vertical: 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
@@ -243,32 +269,34 @@ class _VideoChatState extends State<VideoChat> {
               ),
             ],
           ),
-          Row(
-            children: <Widget>[
-              Flexible(
-                child: TextField(
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                  controller: _textController,
-                  decoration: InputDecoration.collapsed(
-                      hintText: "发送消息",
-                      hintStyle: TextStyle(fontSize: 14, color: Colors.white)),
+          if (!widget.is_video)
+            Row(
+              children: <Widget>[
+                Flexible(
+                  child: TextField(
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                    controller: _textController,
+                    decoration: InputDecoration.collapsed(
+                        hintText: "发送消息",
+                        hintStyle:
+                            TextStyle(fontSize: 14, color: Colors.white)),
+                  ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 4.0),
-                child: IconButton(
-                    icon: Icon(
-                      Icons.send,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _infoStrings.add(_textController.text);
-                        _textController.clear();
-                      });
-                    }),
-              ),
-            ],
-          )
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 4.0),
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.send,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _infoStrings.add(_textController.text);
+                          _textController.clear();
+                        });
+                      }),
+                ),
+              ],
+            ),
         ],
       ),
     );
@@ -347,7 +375,7 @@ class _VideoChatState extends State<VideoChat> {
         child: Stack(
           children: <Widget>[
             _viewRows(),
-            _panel(),
+            if (!widget.is_video) _panel(),
             _toolbar(),
           ],
         ),
