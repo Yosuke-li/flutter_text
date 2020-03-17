@@ -14,6 +14,7 @@ import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
 import 'package:flutter_text/assembly_pack/speed_dial.dart';
 import 'package:flutter_text/assembly_pack/video_chat/check_room_id.dart';
+import 'package:flutter_text/assembly_pack/video_player/play_local_video.dart';
 import 'assembly_pack/event_bus/event_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_text/assembly_pack/canvas_paint.dart';
@@ -99,6 +100,15 @@ class TabBarDemoful extends State<TabBarDemo>
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => CheckRoomId()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.ondemand_video),
+                title: Text('本地视频播放--'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => videoIndex()),
                   );
                 },
               ),
