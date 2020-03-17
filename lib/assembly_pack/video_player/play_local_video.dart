@@ -34,9 +34,6 @@ class contextPageState extends State<contextPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//        appBar: !_isFullScreen ? AppBar(
-//          title: Text('xxx'),
-//        ) : null,
         body: Container(
           // 该组件宽高默认填充父控件，你也可以自己设置宽高
             child: _video == null || _video == ''
@@ -62,8 +59,6 @@ class contextPageState extends State<contextPage> {
           onPressed: () async {
             File video =
             await ImagePicker.pickVideo(source: ImageSource.gallery);
-//                  File video = await FilePicker.getFile(type: FileType.CUSTOM, fileExtension: 'mp3');
-
             if (video != null && video != '') {
               setState(() {
                 _video = video;
