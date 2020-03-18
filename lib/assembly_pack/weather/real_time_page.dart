@@ -239,10 +239,12 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                                 builder: (context) =>
                                                     SearchCity()))
                                             .then((value) {
-                                          setState(() {
-                                            isLoading = true;
-                                            cid = value;
-                                          });
+                                          if (value != null) {
+                                            setState(() {
+                                              isLoading = true;
+                                              cid = value;
+                                            });
+                                          }
                                         });
                                       },
                                     ),
