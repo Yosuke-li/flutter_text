@@ -15,6 +15,7 @@ import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
 import 'package:flutter_text/assembly_pack/speed_dial.dart';
 import 'package:flutter_text/assembly_pack/video_chat/check_room_id.dart';
 import 'package:flutter_text/assembly_pack/video_player/play_local_video.dart';
+import 'package:flutter_text/assembly_pack/weather/real_time_page.dart';
 import 'assembly_pack/event_bus/event_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_text/assembly_pack/canvas_paint.dart';
@@ -387,7 +388,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.keyboard),
-                title: Text('SlidingUpPanel使用'),
+                title: Text(
+                  'SlidingUpPanel使用',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
@@ -397,7 +403,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.keyboard),
-                title: Text('liquid使用'),
+                title: Text(
+                  'liquid使用',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
@@ -407,7 +418,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.keyboard),
-                title: Text('canvas'),
+                title: Text(
+                  'canvas',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
@@ -418,7 +434,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.keyboard),
-                title: Text('stepper'),
+                title: Text(
+                  'stepper',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
@@ -428,7 +449,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.keyboard),
-                title: Text('photo'),
+                title: Text(
+                  'photo',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
@@ -438,7 +464,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.keyboard),
-                title: Text('curvedBar'),
+                title: Text(
+                  'curvedBar',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
@@ -448,7 +479,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.filter_b_and_w),
-                title: Text('banner组件'),
+                title: Text(
+                  'banner组件',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
@@ -458,7 +494,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.fingerprint),
-                title: Text('localAuth组件'),
+                title: Text(
+                  'localAuth组件',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
@@ -468,7 +509,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.list),
-                title: Text('SpeedDial组件'),
+                title: Text(
+                  'SpeedDial组件',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
@@ -479,7 +525,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ListTile(
                 leading:
                     Hero(tag: "calendar", child: Icon(Icons.calendar_today)),
-                title: Text('Calendar组件'),
+                title: Text(
+                  'Calendar组件',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
@@ -489,7 +540,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.help),
-                title: Text('simple_animations组件'),
+                title: Text(
+                  'simple_animations组件',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
@@ -498,8 +554,28 @@ class TabBarDemoful extends State<TabBarDemo>
                 },
               ),
               ListTile(
+                leading: Icon(Icons.cloud),
+                title: Text(
+                  '天 气 预 报',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => RealTimePage()),
+                  );
+                },
+              ),
+              ListTile(
                 leading: Icon(Icons.settings),
-                title: Text('设置'),
+                title: Text(
+                  '设置',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   Navigator.of(context).push(
