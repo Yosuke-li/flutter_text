@@ -17,6 +17,7 @@ class RealTimePage extends StatefulWidget {
 class RealTimeWeatherState extends State<RealTimePage> {
   String cid = '深圳'; //地区 --可拓展选择查看其他地区的天气
   Timer _timer; //真·实时天气
+  int time = 5;
   RealTimeWeather _realTimeWeather;
   ThreeDaysForecast _threeDaysForecast;
   bool isLoading = true;
@@ -30,6 +31,11 @@ class RealTimeWeatherState extends State<RealTimePage> {
           isLoading = false;
           _realTimeWeather = result;
         });
+        if (time == 5) {
+          setState(() {
+            time = 10;
+          });
+        }
       }
     }
   }
@@ -49,7 +55,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
   //生命周期
   void initState() {
     super.initState();
-    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    _timer = Timer.periodic(Duration(seconds: time), (timer) {
       //轮询
       getRealTimeWeather(cid);
     });
