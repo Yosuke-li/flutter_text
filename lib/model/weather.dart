@@ -93,27 +93,27 @@ class Now {
 
 // 每日预测
 class DailyForecast {
-  String condCodeD;
-  String condCodeN;
-  String condTxtD;
-  String condTxtN;
-  String date;
-  String hum;
+  String condCodeD; //白天天气状况代码
+  String condCodeN; //夜间天气代码
+  String condTxtD; //白天天气描述
+  String condTxtN; //夜晚天气描述
+  String date; //日期
+  String hum; //湿度
   String mr;
   String ms;
-  String pcpn;
-  String pop;
-  String pres;
+  String pcpn; //降水量
+  String pop; //降水概率
+  String pres; //大气压强
   String sr;
   String ss;
   String tmpMax; // 最高温度
   String tmpMin; // 最低温度
   String uvIndex;
   String vis;
-  String windDeg;
-  String windDir;
-  String windSc;
-  String windSpd;
+  String windDeg; //风向度数
+  String windDir; //风向
+  String windSc; //风力
+  String windSpd; //风速
 
   DailyForecast({
     this.condCodeD,
@@ -163,6 +163,7 @@ class DailyForecast {
         windSpd = json['wind_spd'];
 }
 
+//生活指数类型 comf：舒适度指数、cw：洗车指数、drsg：穿衣指数、flu：感冒指数、sport：运动指数、trav：旅游指数、uv：紫外线指数、air：空气污染扩散条件指数、ac：空调开启指数、ag：过敏指数、gl：太阳镜指数、mu：化妆指数、airc：晾晒指数、ptfc：交通指数、fsh：钓鱼指数、spi：防晒指数
 class LifeStyle {
   String type; // 生活指数类型
   String brf; // 生活指数简介

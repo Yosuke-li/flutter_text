@@ -88,7 +88,12 @@ class TabBarDemoful extends State<TabBarDemo>
             children: <Widget>[
               ListTile(
                 leading: Icon(Icons.chat),
-                title: Text('聊天室--'),
+                title: Text(
+                  '聊天室--',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => chatPackApp()),
@@ -97,7 +102,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.video_call),
-                title: Text('视频通话装置--'),
+                title: Text(
+                  '视频通话装置--',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => CheckRoomId()),
@@ -106,7 +116,12 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
               ListTile(
                 leading: Icon(Icons.ondemand_video),
-                title: Text('本地视频播放--'),
+                title: Text(
+                  '本地视频播放--',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => videoIndex()),
