@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter_text/assembly_pack/weather/search_city.dart';
 import 'package:intl/intl.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -12,18 +15,31 @@ class RealTimePage extends StatefulWidget {
 }
 
 class RealTimeWeatherState extends State<RealTimePage> {
+  String cid = '深圳'; //地区 --可拓展选择查看其他地区的天气
+  Timer _timer; //真·实时天气
   RealTimeWeather _realTimeWeather;
   ThreeDaysForecast _threeDaysForecast;
   bool isLoading = true;
 
-  void getWeatherAll(String cid) async {
+  //获取实时天气
+  void getRealTimeWeather(String cid) async {
     final result = await WeatherApi().getRealTimeWeather(cid);
-    final threeResult = await WeatherApi().getThreeDayWeather(cid);
-    if (result != null && threeResult != null) {
+    if (result != null) {
       if (result.status == 'ok') {
         setState(() {
           isLoading = false;
           _realTimeWeather = result;
+        });
+      }
+    }
+  }
+
+  //获取三天预测天气
+  void getThreeDayWeather(String cid) async {
+    final threeResult = await WeatherApi().getThreeDayWeather(cid);
+    if (threeResult != null) {
+      if (threeResult.status == 'ok') {
+        setState(() {
           _threeDaysForecast = threeResult;
         });
       }
@@ -33,13 +49,22 @@ class RealTimeWeatherState extends State<RealTimePage> {
   //生命周期
   void initState() {
     super.initState();
-    getWeatherAll('shenzhen');
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      //轮询
+      getRealTimeWeather(cid);
+    });
+    getThreeDayWeather(cid);
+  }
+
+  //清除轮询
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil(width: 1000, height: 2111)..init(context);
     ScreenUtil screenUtil = ScreenUtil();
-
     return Scaffold(
         body: isLoading
             ? Center(
@@ -190,13 +215,43 @@ class RealTimeWeatherState extends State<RealTimePage> {
                         ],
                       )),
                   Positioned(
-                    top: 50,
-                    right: 27,
-                    child: Icon(
-                      Icons.settings,
-                      color: Colors.white,
-                    ),
-                  )
+                      top: 40,
+                      right: 20,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.settings,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    ListTile(
+                                      leading: Icon(Icons.location_city),
+                                      title: Text('切换城市'),
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SearchCity()))
+                                            .then((value) {
+                                          setState(() {
+                                            isLoading = true;
+                                            cid = value;
+                                          });
+                                        });
+                                      },
+                                    ),
+                                    Divider(height: 0.0),
+                                  ],
+                                );
+                              });
+                        },
+                      ))
                 ],
               ));
   }

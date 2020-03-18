@@ -3,7 +3,7 @@ import 'package:flutter_text/model/weather.dart';
 
 class WeatherApi {
   final String rootUrl = "https://free-api.heweather.net/s6/weather";
-  final String key = "4bd90d9b0ddc48d98ad38f8eb5d810f4";              //2466953681@qq.com的key
+  final String key = "4bd90d9b0ddc48d98ad38f8eb5d810f4"; //2466953681@qq.com的key
   final BaseOptions baseOptions = BaseOptions(connectTimeout: 10000);
 
   //获取实时天气
@@ -50,6 +50,26 @@ class WeatherApi {
       return _threeDaysForecast;
     } catch (e) {
       print('getThreeDayWeather error = ${e}');
+      return null;
+    }
+  }
+
+  Future searchCity(String keyword) async {
+    String url = "https://search.heweather.net/find";
+    try {
+      Response response = await Dio(baseOptions).get(url,
+          options: Options(),
+          queryParameters: {'location': keyword, 'key': key});
+
+      List<Basic> cityList = [];
+      if (response.data['HeWeather6'] != null) {
+        for (var c in response.data['HeWeather6'].first['basic']) {
+          cityList.add(Basic.fromJson(c));
+        }
+      }
+      print(response.data);
+      return cityList;
+    } catch (e) {
       return null;
     }
   }
