@@ -130,12 +130,19 @@ class translatePageState extends State<translatePage> {
                 ],
               ),
             ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.only(top: 20.0),
-                child: Text(content?.out ?? ''),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(content?.out ?? ''),
+                  if (content != null)
+                    IconButton(
+                      icon: Icon(Icons.volume_up),
+                      onPressed: () {},
+                    )
+                ],
               ),
-            )
+            ),
           ],
         ),
       ),
