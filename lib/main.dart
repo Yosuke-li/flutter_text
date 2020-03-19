@@ -13,6 +13,7 @@ import 'package:flutter_text/assembly_pack/photo.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
 import 'package:flutter_text/assembly_pack/speed_dial.dart';
+import 'package:flutter_text/assembly_pack/translate/translate_page.dart';
 import 'package:flutter_text/assembly_pack/video_chat/check_room_id.dart';
 import 'package:flutter_text/assembly_pack/video_player/play_local_video.dart';
 import 'package:flutter_text/assembly_pack/weather/real_time_page.dart';
@@ -569,21 +570,6 @@ class TabBarDemoful extends State<TabBarDemo>
                 },
               ),
               ListTile(
-                leading: Icon(Icons.cloud),
-                title: Text(
-                  '天 气 预 报',
-                  style: TextStyle(
-                    fontSize: screenUtil.setSp(40),
-                  ),
-                ),
-                trailing: Icon(Icons.keyboard_arrow_right),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => RealTimePage()),
-                  );
-                },
-              ),
-              ListTile(
                 leading: Icon(Icons.settings),
                 title: Text(
                   '设置',
@@ -600,11 +586,40 @@ class TabBarDemoful extends State<TabBarDemo>
               ),
             ]).toList()),
           ),
-          Container(
-            child: Center(
-              child: Text("待续"),
-            ),
-          )
+          ListView(
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.chat),
+                title: Text(
+                  '翻译--',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => translatePage()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.cloud),
+                title: Text(
+                  '天 气 预 报',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => RealTimePage()),
+                  );
+                },
+              ),
+            ],
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -613,7 +628,7 @@ class TabBarDemoful extends State<TabBarDemo>
               icon: Icon(Icons.contacts), title: Text('聊天室')),
           BottomNavigationBarItem(icon: Icon(Icons.apps), title: Text('组件')),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), title: Text('未开发')),
+              icon: Icon(Icons.account_circle), title: Text('Api')),
         ],
         currentIndex: currentIndex,
         onTap: (index) {
