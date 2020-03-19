@@ -10,6 +10,8 @@ class translatePage extends StatefulWidget {
 
 class translatePageState extends State<translatePage> {
   TextEditingController _controller = new TextEditingController();
+  String f_lang = 'zh';
+  String t_lang = 'ja';
   Content content;
 
   void translateIt(String form, String to, String word) async {
@@ -35,8 +37,9 @@ class translatePageState extends State<translatePage> {
             ),
             Container(
               child: TextField(
+                controller: _controller,
                 onChanged: (val) {
-                  translateIt('zh', 'ja', val);
+                  translateIt(f_lang, t_lang, val);
                 },
               ),
             ),
@@ -44,7 +47,86 @@ class translatePageState extends State<translatePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  Container(
+                      padding: EdgeInsets.only(right: 10.0),
+                      child: DropdownButtonHideUnderline(
+                          child: new DropdownButton(
+                        items: [
+                          DropdownMenuItem(
+                            child: Text('中文'),
+                            value: 'zh',
+                          ),
+                          DropdownMenuItem(
+                            child: Text('英文'),
+                            value: 'en',
+                          ),
+                          DropdownMenuItem(
+                            child: Text('日文'),
+                            value: 'ja',
+                          ),
+                          DropdownMenuItem(
+                            child: Text('韩文'),
+                            value: 'ko',
+                          ),
+                          DropdownMenuItem(
+                            child: Text('德语'),
+                            value: 'de',
+                          ),
+                          DropdownMenuItem(
+                            child: Text('法语'),
+                            value: 'fr',
+                          ),
+                        ],
+                        hint: Text(f_lang),
+                        onChanged: (value) {
+                          setState(() {
+                            f_lang = value;
+                          });
+                          translateIt(f_lang, t_lang, _controller.text);
+                        },
+                        value: f_lang,
+                      ))),
                   Icon(Icons.compare_arrows),
+                  Container(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: DropdownButtonHideUnderline(
+                        child: new DropdownButton(
+                      items: [
+                        DropdownMenuItem(
+                          child: Text('中文'),
+                          value: 'zh',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('英文'),
+                          value: 'en',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('日文'),
+                          value: 'ja',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('韩文'),
+                          value: 'ko',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('德语'),
+                          value: 'de',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('法语'),
+                          value: 'fr',
+                        ),
+                      ],
+                      hint: Text(t_lang),
+                      onChanged: (value) {
+                        setState(() {
+                          t_lang = value;
+                        });
+                        translateIt(f_lang, t_lang, _controller.text);
+                      },
+                      value: t_lang,
+                    )),
+                  ),
                 ],
               ),
             ),
