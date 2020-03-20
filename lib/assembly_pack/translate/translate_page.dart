@@ -157,7 +157,7 @@ class translatePageState extends State<translatePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(content?.out ?? ''),
-                  if (content != null)
+                  if (content != null && (t_lang == 'zh' || t_lang == 'en'))
                     IconButton(
                       icon: Icon(Icons.volume_up),
                       onPressed: () {
