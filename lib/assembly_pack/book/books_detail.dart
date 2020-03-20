@@ -14,7 +14,9 @@ class BooksDetail extends StatefulWidget {
 
 class BooksDetailState extends State<BooksDetail> {
   Books _books;
+  ChapterResult _chapterResult;
   bool isShowPage = false;
+  bool isShowChapter = false;
 
   //获取详情
   void getBooksDetail() async {
@@ -24,8 +26,21 @@ class BooksDetailState extends State<BooksDetail> {
         _books = result;
         isShowPage = true;
       });
+      getBooksChapters();
     } else {
       Navigator.of(context).pop();
+    }
+  }
+
+  //获取章节
+  void getBooksChapters() async {
+    final result = await BookApi().getBookBtoc(widget.id);
+    if (result != null) {
+      setState(() {
+        _chapterResult = result;
+        isShowChapter = true;
+      });
+      print(_chapterResult.name);
     }
   }
 
@@ -35,36 +50,87 @@ class BooksDetailState extends State<BooksDetail> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: isShowPage
-            ? NestedScrollView(
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
-                  return <Widget>[
-                    SliverAppBar(
-                      expandedHeight: 400.0, //展开高度
-                      floating: false, //是否随滑动隐藏标题
-                      pinned: true, //是否固定在顶部
-                      flexibleSpace: FlexibleSpaceBar(
-                        //可折叠的应用栏
-                        centerTitle: true,
-                        title: Container(
-                          child: Text(
-                            _books.title,
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
+    return isShowPage
+        ? Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(_books.title,
+                  style: TextStyle(fontSize: 15, color: Colors.black)),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: IconButton(
+                  icon: Icon(Icons.arrow_back, color: Colors.black),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }),
+            ),
+            body: Container(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 200,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20.0),
+                          alignment: Alignment.topCenter,
+                          child: Image.network(
+                            _books.cover,
+                            width: 115,
+                            height: 200,
                           ),
                         ),
-                      ),
-                    )
-                  ];
-                },
-                body: Center(
-                  child: Container(),
-                ))
-            : Center(
-                child: CircularProgressIndicator(),
-              ));
+                        Expanded(
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  child: Text('作者： ${_books.author}'),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  child: Text('标签： ${_books.cat}'),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.bottomCenter,
+                                    padding: EdgeInsets.only(bottom: 35),
+                                    child: InkWell(
+                                      onTap: () {},
+                                      child: Container(
+                                        child: Text('开始阅读'),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  isShowChapter
+                      ? Expanded(
+                          child: ListView.builder(
+                            itemBuilder: (_, index) {
+                              return Container(
+                                child:
+                                    Text(_chapterResult?.chapters[index].title),
+                              );
+                            },
+                            itemCount: _chapterResult.chapters.length,
+                          ),
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                ],
+              ),
+            ))
+        : Center(
+            child: CircularProgressIndicator(),
+          );
   }
 }
