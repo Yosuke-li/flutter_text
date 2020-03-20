@@ -1,5 +1,8 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_text/api/baidu_tts.dart';
 import 'package:flutter_text/api/translate.dart';
+import 'package:flutter_text/model/baidu_tts.dart';
 import 'package:flutter_text/model/translate.dart';
 
 void main() => runApp(translatePage());
@@ -10,10 +13,13 @@ class translatePage extends StatefulWidget {
 
 class translatePageState extends State<translatePage> {
   TextEditingController _controller = new TextEditingController();
+  AudioPlayer audioPlayer = new AudioPlayer();
   String f_lang = 'zh';
   String t_lang = 'ja';
   Content content;
+  Token _token;
 
+  //调用翻译接口
   void translateIt(String form, String to, String word) async {
     final result = await translateApi().getTrans(form, to, word);
     if (result != null) {
@@ -23,8 +29,24 @@ class translatePageState extends State<translatePage> {
     }
   }
 
+  //获取百度tts的token
+  void getToken() async {
+    final result = await BaiduTtsApi().getBaiduToken();
+    if (result != null) {
+      setState(() {
+        _token = result;
+      });
+    }
+  }
+
+  //播放
+  Future<void> play(url) async {
+    await audioPlayer.play(url);
+  }
+
   void initState() {
     super.initState();
+    getToken();
   }
 
   Widget build(BuildContext context) {
@@ -138,7 +160,12 @@ class translatePageState extends State<translatePage> {
                   if (content != null)
                     IconButton(
                       icon: Icon(Icons.volume_up),
-                      onPressed: () {},
+                      onPressed: () {
+                        play(BaiduTtsApi().TtsUrl +
+                            Uri.encodeComponent(content.out) +
+                            BaiduTtsApi().TTs_text +
+                            _token.access_token);
+                      },
                     )
                 ],
               ),
