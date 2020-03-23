@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/api/book.dart';
+import 'package:flutter_text/assembly_pack/book/chapters_detail.dart';
 import 'package:flutter_text/model/book.dart';
 
 void main() => runApp(BooksDetail());
@@ -115,9 +116,20 @@ class BooksDetailState extends State<BooksDetail> {
                       ? Expanded(
                           child: ListView.builder(
                             itemBuilder: (_, index) {
-                              return Container(
-                                child:
-                                    Text(_chapterResult?.chapters[index].title),
+                              return InkWell(
+                                onTap: () {
+                                  print(_chapterResult.chapters[index].toJson());
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => ChaptersDetail(
+                                          link: _chapterResult
+                                              ?.chapters[index].link)));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 15.0),
+                                  child: Text(
+                                      _chapterResult?.chapters[index].title),
+                                ),
                               );
                             },
                             itemCount: _chapterResult.chapters.length,

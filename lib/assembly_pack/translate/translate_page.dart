@@ -17,15 +17,25 @@ class translatePageState extends State<translatePage> {
   String f_lang = 'zh';
   String t_lang = 'ja';
   Content content;
+  ContentE contentE;
   Token _token;
+  int status = 1;
 
   //调用翻译接口
   void translateIt(String form, String to, String word) async {
     final result = await translateApi().getTrans(form, to, word);
     if (result != null) {
-      setState(() {
-        content = result;
-      });
+      if (result['status'] == 1) {
+        setState(() {
+          status = result['status'];
+          content = result['Content'];
+        });
+      } else if (result['status'] == 0) {
+        setState(() {
+          status = result['status'];
+          contentE = result['Content'];
+        });
+      }
     }
   }
 
@@ -101,6 +111,7 @@ class translatePageState extends State<translatePage> {
                         ],
                         hint: Text(f_lang),
                         onChanged: (value) {
+                          print(value);
                           setState(() {
                             f_lang = value;
                           });
@@ -153,11 +164,22 @@ class translatePageState extends State<translatePage> {
               ),
             ),
             Container(
-              child: Row(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(content?.out ?? ''),
-                  if (content != null && (t_lang == 'zh' || t_lang == 'en'))
+                  status == 1
+                      ? Text(content?.out ?? '')
+                      : Container(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              '${contentE?.word_mean.toString() ?? ''}',
+                              softWrap: false,
+                            ),
+                          ),
+                        ),
+                  if (content != null ||
+                      contentE != null && (t_lang == 'zh' || t_lang == 'en'))
                     IconButton(
                       icon: Icon(Icons.volume_up),
                       onPressed: () {

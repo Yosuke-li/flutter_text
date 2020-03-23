@@ -39,7 +39,7 @@ class BookApi {
 
   //获取小说源
   Future getBookBtoc(String id) async {
-    final btocUrl = 'http://api.zhuishushenqi.com/atoc';
+    final btocUrl = 'http://api.zhuishushenqi.com/btoc';
     BtocResult _btocResult;
     try {
       Response response = await Dio(baseOptions)
@@ -47,7 +47,8 @@ class BookApi {
         'book': id,
         'view': 'summary',
       });
-      _btocResult = BtocResult.fromMap(response.data.last);
+      _btocResult = BtocResult.fromMap(response.data.first);
+      print(_btocResult.id);
       return getBookChapters(_btocResult.id);
     } catch (e) {
       print('error ================> $e');
@@ -57,15 +58,28 @@ class BookApi {
 
   //章节列表
   Future getBookChapters(String id) async {
-    final chaptersUrl = 'http://api.zhuishushenqi.com/atoc/';
+    final chaptersUrl = 'http://api.zhuishushenqi.com/atoc/' + id;
     ChapterResult _chapterResult;
     try {
       Response response = await Dio(baseOptions)
-          .get(chaptersUrl + id, options: Options(), queryParameters: {
+          .get(chaptersUrl, options: Options(), queryParameters: {
         'view': 'chapters',
       });
       _chapterResult = ChapterResult.fromMap(response.data);
       return _chapterResult;
+    } catch (e) {
+      print('error ================> $e');
+      return null;
+    }
+  }
+
+  //章节内容
+  Future getChaptersDetail(String link) async {
+    print("getChaptersDetail ===== $link");
+    try {
+      Response response =
+          await Dio(baseOptions).get(link, options: Options());
+      print(response.data);
     } catch (e) {
       print('error ================> $e');
       return null;
