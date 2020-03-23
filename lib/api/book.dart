@@ -9,12 +9,12 @@ class BookApi {
   BaseOptions baseOptions;
 
   //搜索小说
-  Future searchBook(String key) async {
+  Future searchBook(String key, int start, int limit) async {
     BookResult _bookResult;
     try {
       Response response = await Dio(baseOptions).get(FuzzySearchUrl,
           options: Options(),
-          queryParameters: {'query': key, 'start': 1, 'limit': 20});
+          queryParameters: {'query': key, 'start': start, 'limit': limit});
       _bookResult = BookResult.fromMap(response.data);
       return _bookResult;
     } catch (e) {
@@ -39,7 +39,7 @@ class BookApi {
 
   //获取小说源
   Future getBookBtoc(String id) async {
-    final btocUrl = 'http://api.zhuishushenqi.com/btoc';
+    final btocUrl = 'http://api.zhuishushenqi.com/atoc';
     BtocResult _btocResult;
     try {
       Response response = await Dio(baseOptions)

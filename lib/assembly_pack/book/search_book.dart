@@ -11,9 +11,31 @@ class SearchBook extends StatefulWidget {
 
 class SearchBookState extends State<SearchBook> {
   TextEditingController _controller = new TextEditingController();
+  ScrollController _scrollController = ScrollController(); //listview的控制器
   bool hasData = false;
   BookResult _bookResult;
+  int page = 0;
+  int limit = 20;
   List<Books> _books;
+
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        getData(_controller.text);
+      }
+    });
+  }
+
+  void getData(String val) async {
+    _bookResult = await BookApi().searchBook(val, (page * limit) + 1, limit);
+    _books.addAll(_bookResult.books);
+    setState(() {
+      page = page + 1;
+      _books = _books;
+    });
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +53,7 @@ class SearchBookState extends State<SearchBook> {
             },
             child: _books != null
                 ? ListView.builder(
+                    controller: _scrollController,
                     itemBuilder: (_, index) {
                       return InkWell(
                         onTap: () {
@@ -39,7 +62,8 @@ class SearchBookState extends State<SearchBook> {
                                   BooksDetail(id: _books[index].id)));
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 15),
                           child: Text(_books[index].title),
                         ),
                       );
@@ -59,11 +83,13 @@ class SearchBookState extends State<SearchBook> {
           Flexible(
             child: TextField(
               controller: _controller,
-              onChanged: (val) async {
-                _bookResult = await BookApi().searchBook(val);
+              onChanged: (val) {
                 setState(() {
-                  _books = _bookResult.books;
+                  page = 0;
+                  limit = 20;
+                  _books = [];
                 });
+                getData(val);
               },
             ),
           ),
