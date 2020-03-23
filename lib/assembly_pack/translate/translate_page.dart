@@ -164,33 +164,41 @@ class translatePageState extends State<translatePage> {
               ),
             ),
             Container(
-              child: Column(
+              child: status == 1
+                  ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  status == 1
-                      ? Text(content?.out ?? '')
-                      : Container(
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Text(
-                              '${contentE?.word_mean.toString() ?? ''}',
-                              softWrap: false,
-                            ),
-                          ),
-                        ),
-                  if (content != null ||
-                      contentE != null && (t_lang == 'zh' || t_lang == 'en'))
-                    IconButton(
-                      icon: Icon(Icons.volume_up),
-                      onPressed: () {
-                        play(BaiduTtsApi().TtsUrl +
-                            Uri.encodeComponent(content.out) +
-                            BaiduTtsApi().TTs_text +
-                            _token.access_token);
-                      },
-                    )
+                  Text(content?.out ?? ''),
+                  IconButton(
+                    icon: Icon(Icons.volume_up),
+                    onPressed: () {
+                      play(BaiduTtsApi().TtsUrl +
+                          Uri.encodeComponent(content.out) +
+                          BaiduTtsApi().TTs_text +
+                          _token.access_token);
+                    },
+                  )
                 ],
-              ),
+              )
+                  : Column(
+                children: <Widget>[
+                  Container(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Text(
+                        '${contentE?.word_mean.toString() ?? ''}',
+                        softWrap: false,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.volume_up),
+                    onPressed: () {
+                      play(contentE?.ph_am_mp3);
+                    },
+                  )
+                ],
+              )
             ),
           ],
         ),
