@@ -74,14 +74,12 @@ class BookApi {
 
   //章节内容
   Future getChaptersDetail(String link) async {
-    print("getChaptersDetail ===== $link");
     ChapterInfo _chapterInfo;
     try {
       Response response =
           await Dio(baseOptions).get(link, options: Options());
-      print(response.data);
-//      _chapterInfo = response.data;
-
+      _chapterInfo = ChapterInfo.fromMap(response.data['chapter']);
+      return _chapterInfo;
     } catch (e) {
       print('error ================> $e');
       return null;
