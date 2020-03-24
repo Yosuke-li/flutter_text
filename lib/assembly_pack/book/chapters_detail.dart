@@ -16,6 +16,7 @@ class ChaptersDetail extends StatefulWidget {
 
 class ChaptersDetailState extends State<ChaptersDetail> {
   ChapterInfo _chapterInfo;
+  bool isShow = false;
 
   void getChaptersDetail() async {
     final result = await BookApi().getChaptersDetail(widget.link);
@@ -23,6 +24,7 @@ class ChaptersDetailState extends State<ChaptersDetail> {
     } else {
       setState(() {
         _chapterInfo = result;
+        isShow = true;
       });
     }
   }
@@ -34,16 +36,37 @@ class ChaptersDetailState extends State<ChaptersDetail> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-          child: Text(
-            _chapterInfo.cpContent,
-            style: TextStyle(letterSpacing: 4.0),
-            strutStyle: StrutStyle(leading: 1.2),
-          ),
-        ),
-      ),
+      body: isShow
+          ? SingleChildScrollView(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+                    child: Text(
+                      _chapterInfo.cpContent,
+                      style: TextStyle(letterSpacing: 4.0),
+                      strutStyle: StrutStyle(leading: 1.2),
+                    ),
+                  ),
+                  Positioned(
+                      top: MediaQuery.of(context).size.height * 0.2,
+                      left: MediaQuery.of(context).size.width * 0.2,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.6,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: GestureDetector(
+                          onTap: () {
+                            print('11111');
+                          },
+                        ),
+                      ))
+                ],
+              ),
+            )
+          : Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 }

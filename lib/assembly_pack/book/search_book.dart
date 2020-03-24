@@ -15,7 +15,7 @@ class SearchBookState extends State<SearchBook> {
   bool hasData = false;
   BookResult _bookResult;
   int page = 0;
-  int limit = 20;
+  int limit = 25;
   List<Books> _books;
 
   void initState() {
@@ -86,7 +86,7 @@ class SearchBookState extends State<SearchBook> {
               onChanged: (val) {
                 setState(() {
                   page = 0;
-                  limit = 20;
+                  limit = 25;
                   _books = [];
                 });
                 getData(val);
