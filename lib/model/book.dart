@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/utils/date_format.dart';
+import 'package:flutter_text/utils/utils.dart';
 
 final String READER_IMAGE_URL = 'http://statics.zhuishushenqi.com';
 final String READER_CHAPTER_URL = 'http://chapterup.zhuishushenqi.com/chapter/';
@@ -1023,7 +1024,16 @@ class ChapterInfo {
         .replaceAll('\r\n\n　　\r\n\n', '\n\r')
         .replaceAll('\r\n\r\n　　\r\n\r\n　　\r\n\r\n', '\n\r')
         .replaceAll('\r\n\r\n　　\r\n\r\n', '\n\r');
-
+    chapterBean.pageOffsets = ReaderPageAgent.getPageOffsets(
+        map['cpContent']
+            .toString()
+            .replaceAll('\n\r\n\r\n\r', '\n\r')
+            .replaceAll('\r\n\n　　\r\n\n', '\n\r')
+            .replaceAll('\r\n\r\n　　\r\n\r\n　　\r\n\r\n', '\n\r')
+            .replaceAll('\r\n\r\n　　\r\n\r\n', '\n\r'),
+        Utils.height - Utils.topSafeHeight - 36.0,
+        Utils.width - 18.0,
+        18.0);
     return chapterBean;
   }
 
