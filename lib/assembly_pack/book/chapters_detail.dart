@@ -1,8 +1,10 @@
 import 'dart:async';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_text/api/baidu_tts.dart';
 import 'package:flutter_text/api/book.dart';
+import 'package:flutter_text/model/baidu_tts.dart';
 import 'package:flutter_text/model/book.dart';
 
 void main() => runApp(ChaptersDetail());
@@ -18,6 +20,8 @@ class ChaptersDetail extends StatefulWidget {
 }
 
 class ChaptersDetailState extends State<ChaptersDetail> {
+  AudioPlayer audioPlayer = new AudioPlayer();
+  Token _token;
   ChapterInfo _chapterInfo;
   bool isShow = false; //防止爆红
   bool isShowBar = false; //显示工具栏
@@ -25,6 +29,9 @@ class ChaptersDetailState extends State<ChaptersDetail> {
   double _leading = 1.2; //字体行距
   Timer _timer;
   double _controlOpacity = 0.0; //透明度动画
+  List ttsList = [];
+  int count = 600;
+  int first = 0;
 
   void getChaptersDetail() async {
     final result = await BookApi().getChaptersDetail(widget.link);
@@ -35,16 +42,58 @@ class ChaptersDetailState extends State<ChaptersDetail> {
         isShow = true;
       });
     }
+    getTtsList();
+    print(ttsList.length);
+  }
+
+  //获取百度tts的token
+  void getToken() async {
+    final result = await BaiduTtsApi().getBaiduToken();
+    if (result != null) {
+      setState(() {
+        _token = result;
+      });
+    }
+  }
+
+  //
+  void getTtsList() async {
+    do {
+      var last = first + count;
+      ttsList.add(_chapterInfo.cpContent.substring(first, last));
+      if (first < _chapterInfo.cpContent.length) {
+        first = last + 1;
+      } else {
+        first = _chapterInfo.cpContent.length;
+      }
+    } while (first == _chapterInfo.cpContent.length);
+    print(ttsList);
+  }
+
+  //播放
+  Future<void> play(url) async {
+    await audioPlayer.play(url);
+  }
+
+  //播放列表
+  Future<void> playList(list, int i) async {
+    await audioPlayer.play(list[i]);
+    audioPlayer.onPlayerStateChanged.listen((p) async {
+      if (p == AudioPlayerState.COMPLETED) {}
+    });
   }
 
   void initState() {
     super.initState();
+    getToken();
     SystemChrome.setEnabledSystemUIOverlays([]);
     getChaptersDetail();
   }
 
   void dispose() {
     super.dispose();
+    audioPlayer.pause();
+    audioPlayer.dispose();
     SystemChrome.setEnabledSystemUIOverlays(
         [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   }
@@ -171,6 +220,17 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                 icon: Icon(Icons.font_download),
                 onPressed: () {
                   _changeFont();
+                },
+              ),
+              IconButton(
+                iconSize: 30.0,
+                icon: Icon(Icons.volume_up),
+                onPressed: () {
+                  var res = _chapterInfo.cpContent.substring(0, 50);
+                  play(BaiduTtsApi().TtsUrl +
+                      Uri.encodeComponent(res) +
+                      BaiduTtsApi().TTs_text +
+                      _token.access_token);
                 },
               ),
               IconButton(

@@ -10,6 +10,7 @@ import 'package:flutter_text/assembly_pack/local_auth_check.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
 import 'package:flutter_text/assembly_pack/overlay_demo.dart';
 import 'package:flutter_text/assembly_pack/photo.dart';
+import 'package:flutter_text/assembly_pack/save_text/save_text.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
 import 'package:flutter_text/assembly_pack/speed_dial.dart';
@@ -17,6 +18,7 @@ import 'package:flutter_text/assembly_pack/translate/translate_page.dart';
 import 'package:flutter_text/assembly_pack/video_chat/check_room_id.dart';
 import 'package:flutter_text/assembly_pack/video_player/play_local_video.dart';
 import 'package:flutter_text/assembly_pack/weather/real_time_page.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'assembly_pack/book/search_book.dart';
 import 'assembly_pack/event_bus/event_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -68,8 +70,24 @@ class TabBarDemoful extends State<TabBarDemo>
   TabController tabController;
   int currentIndex = 0;
 
+  Future requestPermiss() async {
+    //请求权限
+    Map<PermissionGroup, PermissionStatus> permissions =
+    await PermissionHandler()
+        .requestPermissions([PermissionGroup.location, PermissionGroup.camera, PermissionGroup.storage]);
+    //校验权限
+//    if(permissions[PermissionGroup.camera] != PermissionStatus.granted){
+//      print("无照相权限");
+//    }
+
+    if(permissions[PermissionGroup.storage] != PermissionStatus.granted){
+      print("无存储权限");
+    }
+  }
+
   void initState() {
     super.initState();
+    requestPermiss();
     tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
         setState(() {
@@ -135,6 +153,21 @@ class TabBarDemoful extends State<TabBarDemo>
           Container(
             child: ListView(
                 children: ListTile.divideTiles(context: context, tiles: [
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text(
+                  '测试',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => TextT()),
+                  );
+                },
+              ),
               ListTile(
                 leading: Icon(Icons.fastfood),
                 title: Text(
