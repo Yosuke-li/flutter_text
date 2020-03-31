@@ -21,6 +21,7 @@ class ChaptersDetail extends StatefulWidget {
 
 class ChaptersDetailState extends State<ChaptersDetail> {
   AudioPlayer audioPlayer = new AudioPlayer();
+  ScrollController _scrollController = ScrollController();
   Token _token;
   ChapterInfo _chapterInfo;
   bool isPlay = false;
@@ -32,6 +33,8 @@ class ChaptersDetailState extends State<ChaptersDetail> {
   double _controlOpacity = 0.0; //透明度动画
   List ttsList = [];
   int count = 600;
+
+  double sliderValue = 0.0; //滑块位置
 
   //获取章节详情
   void getChaptersDetail() async {
@@ -106,12 +109,14 @@ class ChaptersDetailState extends State<ChaptersDetail> {
     getToken();
     SystemChrome.setEnabledSystemUIOverlays([]);
     getChaptersDetail();
+    _listenScrollView();
   }
 
   void dispose() {
     super.dispose();
     audioPlayer.pause();
     audioPlayer.dispose();
+    _scrollController.dispose();
     SystemChrome.setEnabledSystemUIOverlays(
         [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   }
@@ -129,13 +134,24 @@ class ChaptersDetailState extends State<ChaptersDetail> {
     });
   }
 
+  void _listenScrollView() {
+    _scrollController.addListener(() {
+      setState(() {
+        sliderValue = (_scrollController.offset /
+            _scrollController.position.maxScrollExtent);
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: isShow
           ? Stack(
               children: <Widget>[
                 SingleChildScrollView(
+                  controller: _scrollController,
                   child: Container(
+                    color: Color(0xffFAF9DE),
                     padding:
                         EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
                     child: Text(
@@ -228,32 +244,61 @@ class ChaptersDetailState extends State<ChaptersDetail> {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           color: Color(0x40000000),
-          height: MediaQuery.of(context).size.height * 0.08,
+          height: MediaQuery.of(context).size.height * 0.18,
           width: MediaQuery.of(context).size.width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
             children: <Widget>[
-              IconButton(
-                iconSize: 30.0,
-                icon: Icon(Icons.font_download),
-                onPressed: () {
-                  _changeFont();
-                },
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  activeTrackColor: Colors.greenAccent,
+                  inactiveTrackColor: Colors.green,
+                  valueIndicatorColor: Colors.green,
+                  valueIndicatorTextStyle: TextStyle(
+                    color: Colors.white,
+                  ),
+                  thumbColor: Colors.blueAccent,
+                  overlayColor: Colors.white,
+                  inactiveTickMarkColor:
+                      Colors.white, //divsions对进度条先分割后，断续线中间间隔的颜色
+                ),
+                child: Slider(
+                  value: sliderValue,
+                  label: '$sliderValue',
+                  min: 0.0,
+                  max: 1.0,
+                  divisions: 100,
+                  onChanged: (val) {
+                    _scrollController.jumpTo(
+                        _scrollController.position.maxScrollExtent * val);
+                  },
+                ),
               ),
-              IconButton(
-                iconSize: 30.0,
-                icon: Icon(!isPlay ? Icons.volume_up : Icons.pause),
-                onPressed: () {
-                  !isPlay ? playList(0) : playPause();
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  IconButton(
+                    iconSize: 30.0,
+                    icon: Icon(Icons.font_download),
+                    onPressed: () {
+                      _changeFont();
+                    },
+                  ),
+                  IconButton(
+                    iconSize: 30.0,
+                    icon: Icon(!isPlay ? Icons.volume_up : Icons.pause),
+                    onPressed: () {
+                      !isPlay ? playList(0) : playPause();
+                    },
+                  ),
+                  IconButton(
+                    iconSize: 30.0,
+                    icon: Icon(Icons.line_style),
+                    onPressed: () {
+                      _changeLead();
+                    },
+                  )
+                ],
               ),
-              IconButton(
-                iconSize: 30.0,
-                icon: Icon(Icons.line_style),
-                onPressed: () {
-                  _changeLead();
-                },
-              )
             ],
           ),
         ),
@@ -261,6 +306,7 @@ class ChaptersDetailState extends State<ChaptersDetail> {
     );
   }
 
+  //字体大小修改
   void _changeFont() {
     if (isShowBar) {
       if (_fontsize > 35) {
@@ -274,6 +320,7 @@ class ChaptersDetailState extends State<ChaptersDetail> {
     }
   }
 
+  //行间距修改
   void _changeLead() {
     if (isShowBar) {
       if (_leading > 2.0) {
