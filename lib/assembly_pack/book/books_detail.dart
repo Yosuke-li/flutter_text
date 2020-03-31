@@ -98,7 +98,8 @@ class BooksDetailState extends State<BooksDetail> {
                                 Container(
                                   padding: EdgeInsets.symmetric(vertical: 10.0),
                                   alignment: Alignment.topLeft,
-                                  child: Text('简介： ${_books.longIntro}'),
+                                  child: Text('简介： ${_books.longIntro}',
+                                      maxLines: 2),
                                 ),
                                 Expanded(
                                   child: Container(
