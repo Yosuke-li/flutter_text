@@ -33,13 +33,20 @@ class TextState extends State<TextT> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: InkWell(
-          onTap: () {
-            getTtsList();
-            print(ttsList);
-          },
-          child: Text('保存图片'),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+              image: Image.asset('images/_cat_sky.jpg').image,
+              fit: BoxFit.cover),
+        ),
+        child: Center(
+          child: InkWell(
+            onTap: () {
+              getTtsList();
+              print(ttsList);
+            },
+            child: Text('123456'),
+          ),
         ),
       ),
     );
