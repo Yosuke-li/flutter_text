@@ -248,29 +248,32 @@ class ChaptersDetailState extends State<ChaptersDetail> {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: <Widget>[
-              SliderTheme(
-                data: SliderTheme.of(context).copyWith(
-                  activeTrackColor: Colors.greenAccent,
-                  inactiveTrackColor: Colors.green,
-                  valueIndicatorColor: Colors.green,
-                  valueIndicatorTextStyle: TextStyle(
-                    color: Colors.white,
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 5.0),
+                child: SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    activeTrackColor: Colors.greenAccent,
+                    inactiveTrackColor: Colors.green,
+                    valueIndicatorColor: Colors.green,
+                    valueIndicatorTextStyle: TextStyle(
+                      color: Colors.white,
+                    ),
+                    thumbColor: Colors.blueAccent,
+                    overlayColor: Colors.white,
+                    inactiveTickMarkColor:
+                    Colors.white, //divsions对进度条先分割后，断续线中间间隔的颜色
                   ),
-                  thumbColor: Colors.blueAccent,
-                  overlayColor: Colors.white,
-                  inactiveTickMarkColor:
-                      Colors.white, //divsions对进度条先分割后，断续线中间间隔的颜色
-                ),
-                child: Slider(
-                  value: sliderValue,
-                  label: '$sliderValue',
-                  min: 0.0,
-                  max: 1.0,
-                  divisions: 100,
-                  onChanged: (val) {
-                    _scrollController.jumpTo(
-                        _scrollController.position.maxScrollExtent * val);
-                  },
+                  child: Slider(
+                    value: sliderValue,
+                    label: '${sliderValue * 100}%',
+                    min: 0.0,
+                    max: 1.0,
+                    divisions: 100,
+                    onChanged: (val) {
+                      _scrollController.jumpTo(
+                          _scrollController.position.maxScrollExtent * val);
+                    },
+                  ),
                 ),
               ),
               Row(

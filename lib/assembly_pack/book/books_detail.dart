@@ -87,18 +87,33 @@ class BooksDetailState extends State<BooksDetail> {
                               children: <Widget>[
                                 Container(
                                   padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  alignment: Alignment.topLeft,
                                   child: Text('作者： ${_books.author}'),
                                 ),
                                 Container(
                                   padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  alignment: Alignment.topLeft,
                                   child: Text('标签： ${_books.cat}'),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  alignment: Alignment.topLeft,
+                                  child: Text('简介： ${_books.longIntro}'),
                                 ),
                                 Expanded(
                                   child: Container(
                                     alignment: Alignment.bottomCenter,
-                                    padding: EdgeInsets.only(bottom: 35),
+                                    padding: EdgeInsets.only(bottom: 20),
                                     child: InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ChaptersDetail(
+                                                        link: _chapterResult
+                                                            ?.chapters[0]
+                                                            .link)));
+                                      },
                                       child: Container(
                                         child: Text('开始阅读'),
                                       ),
@@ -118,7 +133,6 @@ class BooksDetailState extends State<BooksDetail> {
                             itemBuilder: (_, index) {
                               return InkWell(
                                 onTap: () {
-                                  print(_chapterResult.chapters[index].toJson());
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => ChaptersDetail(
                                           link: _chapterResult
