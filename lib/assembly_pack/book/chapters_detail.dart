@@ -23,6 +23,7 @@ class ChaptersDetailState extends State<ChaptersDetail> {
   AudioPlayer audioPlayer = new AudioPlayer();
   Token _token;
   ChapterInfo _chapterInfo;
+  bool isPlay = false;
   bool isShow = false; //防止爆红
   bool isShowBar = false; //显示工具栏
   double _fontsize = 16.0; //字体大小
@@ -31,8 +32,8 @@ class ChaptersDetailState extends State<ChaptersDetail> {
   double _controlOpacity = 0.0; //透明度动画
   List ttsList = [];
   int count = 600;
-  int first = 0;
 
+  //获取章节详情
   void getChaptersDetail() async {
     final result = await BookApi().getChaptersDetail(widget.link);
     if (result == null) {
@@ -43,7 +44,6 @@ class ChaptersDetailState extends State<ChaptersDetail> {
       });
     }
     getTtsList();
-    print(ttsList.length);
   }
 
   //获取百度tts的token
@@ -56,18 +56,19 @@ class ChaptersDetailState extends State<ChaptersDetail> {
     }
   }
 
-  //
+  //截取字符串
   void getTtsList() async {
-    do {
-      var last = first + count;
-      ttsList.add(_chapterInfo.cpContent.substring(first, last));
-      if (first < _chapterInfo.cpContent.length) {
-        first = last + 1;
+    ttsList = [];
+    for (int first = 0; first < _chapterInfo.cpContent.length;) {
+      if (first + count >= _chapterInfo.cpContent.length) {
+        int last = _chapterInfo.cpContent.length;
+        ttsList.add(_chapterInfo.cpContent.substring(first, last));
+        break;
       } else {
-        first = _chapterInfo.cpContent.length;
+        ttsList.add(_chapterInfo.cpContent.substring(first, first + count));
+        first = first + count;
       }
-    } while (first == _chapterInfo.cpContent.length);
-    print(ttsList);
+    }
   }
 
   //播放
@@ -76,10 +77,27 @@ class ChaptersDetailState extends State<ChaptersDetail> {
   }
 
   //播放列表
-  Future<void> playList(list, int i) async {
-    await audioPlayer.play(list[i]);
+  Future<void> playList(int i) async {
+    await audioPlayer.play(BaiduTtsApi().TtsUrl +
+        Uri.encodeComponent(ttsList[i]) +
+        BaiduTtsApi().TTs_text +
+        _token.access_token);
+    setState(() {
+      isPlay = true;
+    });
     audioPlayer.onPlayerStateChanged.listen((p) async {
-      if (p == AudioPlayerState.COMPLETED) {}
+      if (p == AudioPlayerState.COMPLETED) {
+        i++;
+        playList(i);
+      }
+    });
+  }
+
+  //暂停
+  Future<void> playPause() async {
+    await audioPlayer.pause();
+    setState(() {
+      isPlay = false;
     });
   }
 
@@ -224,13 +242,9 @@ class ChaptersDetailState extends State<ChaptersDetail> {
               ),
               IconButton(
                 iconSize: 30.0,
-                icon: Icon(Icons.volume_up),
+                icon: Icon(!isPlay ? Icons.volume_up : Icons.pause),
                 onPressed: () {
-                  var res = _chapterInfo.cpContent.substring(0, 50);
-                  play(BaiduTtsApi().TtsUrl +
-                      Uri.encodeComponent(res) +
-                      BaiduTtsApi().TTs_text +
-                      _token.access_token);
+                  !isPlay ? playList(0) : playPause();
                 },
               ),
               IconButton(

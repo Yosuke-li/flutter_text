@@ -12,30 +12,32 @@ class TextT extends StatefulWidget {
 
 class TextState extends State<TextT> {
   String text = '保存图片';
-  Future _saveImage(imageUrl) async {
-    var response = await http.get(imageUrl);
+  List<String> ttsList = [];
+  int count = 10;
+  String _chapterInfo =
+      '市科技局打开拉萨记录肯德基雷克萨尽量扩大解释拉开距离喀什就打开拉萨就电力科技撒赖卡洛斯肯德基雷克萨就离开杀了及代理商卡进来';
 
-    debugPrint(response.statusCode.toString());
-
-    var filePath =
-        await ImagePickerSaver.saveFile(fileData: response.bodyBytes);
-
-    var savedFile = File.fromUri(Uri.file(filePath));
-
-    setState(() {
-       Future<File>.sync(() => savedFile);
-       text = '保存成功';
-    });
+  void getTtsList() {
+    ttsList = [];
+    for (int first = 0; first < _chapterInfo.length;) {
+      if (first + count >= _chapterInfo.length) {
+        int last = _chapterInfo.length;
+        ttsList.add(_chapterInfo.substring(first, last));
+        break;
+      } else {
+        ttsList.add(_chapterInfo.substring(first, first + count));
+        first = first + count;
+      }
+    }
   }
-
 
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: InkWell(
           onTap: () {
-            _saveImage(
-                'http://upload.art.ifeng.com/2017/0425/1493105660290.jpg');
+            getTtsList();
+            print(ttsList);
           },
           child: Text('保存图片'),
         ),

@@ -18,6 +18,7 @@ import 'package:flutter_text/assembly_pack/translate/translate_page.dart';
 import 'package:flutter_text/assembly_pack/video_chat/check_room_id.dart';
 import 'package:flutter_text/assembly_pack/video_player/play_local_video.dart';
 import 'package:flutter_text/assembly_pack/weather/real_time_page.dart';
+import 'package:flutter_text/utils/permission.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'assembly_pack/book/search_book.dart';
 import 'assembly_pack/event_bus/event_util.dart';
@@ -70,24 +71,9 @@ class TabBarDemoful extends State<TabBarDemo>
   TabController tabController;
   int currentIndex = 0;
 
-  Future requestPermiss() async {
-    //请求权限
-    Map<PermissionGroup, PermissionStatus> permissions =
-    await PermissionHandler()
-        .requestPermissions([PermissionGroup.location, PermissionGroup.camera, PermissionGroup.storage]);
-    //校验权限
-//    if(permissions[PermissionGroup.camera] != PermissionStatus.granted){
-//      print("无照相权限");
-//    }
-
-    if(permissions[PermissionGroup.storage] != PermissionStatus.granted){
-      print("无存储权限");
-    }
-  }
-
   void initState() {
     super.initState();
-    requestPermiss();
+    Permission().requestPermiss();
     tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
         setState(() {
