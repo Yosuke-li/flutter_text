@@ -7,6 +7,7 @@ import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/hello.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/local_auth_check.dart';
+import 'package:flutter_text/assembly_pack/login_video_page.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
 import 'package:flutter_text/assembly_pack/overlay_demo.dart';
 import 'package:flutter_text/assembly_pack/photo.dart';
@@ -131,6 +132,20 @@ class TabBarDemoful extends State<TabBarDemo>
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => videoIndex()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.videogame_asset),
+                title: Text(
+                  '视频背景登录--',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => LoginVideoPage()),
                   );
                 },
               ),
