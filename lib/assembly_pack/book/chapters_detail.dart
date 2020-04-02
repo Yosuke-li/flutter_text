@@ -261,7 +261,7 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                     thumbColor: Colors.blueAccent,
                     overlayColor: Colors.white,
                     inactiveTickMarkColor:
-                    Colors.white, //divsions对进度条先分割后，断续线中间间隔的颜色
+                        Colors.white, //divsions对进度条先分割后，断续线中间间隔的颜色
                   ),
                   child: Slider(
                     value: sliderValue,
@@ -288,10 +288,20 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                   ),
                   IconButton(
                     iconSize: 30.0,
+                    icon: Icon(Icons.skip_previous),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    iconSize: 30.0,
                     icon: Icon(!isPlay ? Icons.volume_up : Icons.pause),
                     onPressed: () {
                       !isPlay ? playList(0) : playPause();
                     },
+                  ),
+                  IconButton(
+                    iconSize: 30.0,
+                    icon: Icon(Icons.skip_next),
+                    onPressed: () {},
                   ),
                   IconButton(
                     iconSize: 30.0,

@@ -18,11 +18,11 @@ class LoginVideoPageState extends State<LoginVideoPage> {
   void initState() {
     super.initState();
     _controller = VideoPlayerController.network(
-        'https://storage.googleapis.com/coverr-main/mp4%2Fcoverr-cat-near-girl-1578597074865.mp4')
+        'https://storage.googleapis.com/coverr-main/mp4%2FBlue%20Joy.mp4')
       ..initialize().then((_) {
         setState(() {});
         _controller.play();
-        _controller.setLooping(true);
+        _controller.setLooping(false);
         Timer.periodic(Duration(seconds: 15), (Timer time) {});
       });
   }

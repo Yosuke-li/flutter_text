@@ -108,12 +108,13 @@ class BooksDetailState extends State<BooksDetail> {
                                     child: InkWell(
                                       onTap: () {
                                         Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ChaptersDetail(
-                                                        link: _chapterResult
-                                                            ?.chapters[0]
-                                                            .link)));
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ChaptersDetail(
+                                                    link: _chapterResult
+                                                        ?.chapters[0].link),
+                                          ),
+                                        );
                                       },
                                       child: Container(
                                         child: Text('开始阅读'),
