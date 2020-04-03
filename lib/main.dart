@@ -7,9 +7,10 @@ import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/hello.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/local_auth_check.dart';
-import 'package:flutter_text/assembly_pack/login_video_page.dart';
+import 'package:flutter_text/assembly_pack/login/login_video_page.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
 import 'package:flutter_text/assembly_pack/overlay_demo.dart';
+import 'package:flutter_text/assembly_pack/pdf_read.dart';
 import 'package:flutter_text/assembly_pack/photo.dart';
 import 'package:flutter_text/assembly_pack/save_text/save_text.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
@@ -146,6 +147,20 @@ class TabBarDemoful extends State<TabBarDemo>
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => LoginVideoPage()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.picture_as_pdf),
+                title: Text(
+                  '本地pdf查看--',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => PdfRead()),
                   );
                 },
               ),
