@@ -88,6 +88,7 @@ flutter:
     - images/cloud5.gif
     - images/weather/
     - images/_cat_sky.jpg
+    - assets/index.pdf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
