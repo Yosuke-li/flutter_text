@@ -11,10 +11,10 @@ void main() => runApp(ChaptersDetail());
 
 class ChaptersDetail extends StatefulWidget {
   String link; //章节link
+  List<Chapters> chapters; //章节目录
+  int index; //目前章节数
 
-  ChaptersDetail({
-    this.link,
-  });
+  ChaptersDetail({this.link, this.chapters, this.index});
 
   ChaptersDetailState createState() => ChaptersDetailState();
 }
@@ -289,7 +289,15 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                   IconButton(
                     iconSize: 30.0,
                     icon: Icon(Icons.skip_previous),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (widget.index != 0) {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => ChaptersDetail(
+                                link: widget.chapters[widget.index - 1].link,
+                                chapters: widget.chapters,
+                                index: widget.index - 1)));
+                      }
+                    },
                   ),
                   IconButton(
                     iconSize: 30.0,
@@ -301,7 +309,15 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                   IconButton(
                     iconSize: 30.0,
                     icon: Icon(Icons.skip_next),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (widget.index != widget.chapters.length) {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => ChaptersDetail(
+                                link: widget.chapters[widget.index + 1].link,
+                                chapters: widget.chapters,
+                                index: widget.index + 1)));
+                      }
+                    },
                   ),
                   IconButton(
                     iconSize: 30.0,

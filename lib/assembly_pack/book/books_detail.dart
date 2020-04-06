@@ -138,7 +138,9 @@ class BooksDetailState extends State<BooksDetail> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => ChaptersDetail(
                                           link: _chapterResult
-                                              ?.chapters[index].link)));
+                                              ?.chapters[index].link,
+                                          chapters: _chapterResult.chapters,
+                                          index: index)));
                                 },
                                 child: Container(
                                   padding: EdgeInsets.symmetric(
