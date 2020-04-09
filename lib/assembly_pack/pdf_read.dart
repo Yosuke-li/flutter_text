@@ -80,7 +80,8 @@ class PDFScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PDFViewerScaffold(
-        path: pathPDF);
+    return Container(
+      child: PDFViewerScaffold(path: pathPDF),
+    );
   }
 }

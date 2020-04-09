@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/api/book.dart';
 import 'package:flutter_text/assembly_pack/book/books_detail.dart';
 import 'package:flutter_text/model/book.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 void main() => runApp(SearchBook());
 
@@ -52,23 +53,34 @@ class SearchBookState extends State<SearchBook> {
               FocusScope.of(context).requestFocus(new FocusNode());
             },
             child: _books != null
-                ? ListView.builder(
-                    controller: _scrollController,
-                    itemBuilder: (_, index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  BooksDetail(id: _books[index].id)));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 15),
-                          child: Text(_books[index].title),
-                        ),
-                      );
-                    },
-                    itemCount: _books.length,
+                ? AnimationLimiter(
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      itemBuilder: (_, index) {
+                        return AnimationConfiguration.staggeredList(
+                            position: index,
+                            duration: const Duration(milliseconds: 375),
+                            child: SlideAnimation(
+                              verticalOffset: 50.0,
+                              child: FadeInAnimation(
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => BooksDetail(
+                                                id: _books[index].id)));
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 10.0, horizontal: 15),
+                                    child: Text(_books[index].title,),
+                                  ),
+                                ),
+                              ),
+                            ));
+                      },
+                      itemCount: _books.length,
+                    ),
                   )
                 : Center(
                     child: Text('暂无数据'),
