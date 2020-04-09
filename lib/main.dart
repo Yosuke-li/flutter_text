@@ -11,6 +11,7 @@ import 'package:flutter_text/assembly_pack/login/login_video_page.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
 import 'package:flutter_text/assembly_pack/overlay_demo.dart';
 import 'package:flutter_text/assembly_pack/pdf_read.dart';
+import 'package:flutter_text/assembly_pack/pear_video/pear_video.dart';
 import 'package:flutter_text/assembly_pack/photo.dart';
 import 'package:flutter_text/assembly_pack/save_text/save_text.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
@@ -680,6 +681,22 @@ class TabBarDemoful extends State<TabBarDemo>
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => SearchBook()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.video_library),
+                title: Text(
+                  '梨视频--',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => PearVideoFirstPage()),
                   );
                 },
               ),
