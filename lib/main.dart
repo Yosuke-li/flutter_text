@@ -29,6 +29,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_text/assembly_pack/canvas_paint.dart';
 import 'package:flutter_text/assembly_pack/stepper.dart';
 
+import 'assembly_pack/range_slider.dart';
 import 'assembly_pack/slider.dart';
 import 'assembly_pack/layout_row.dart';
 import 'assembly_pack/decorated_box.dart';
@@ -212,6 +213,21 @@ class TabBarDemoful extends State<TabBarDemo>
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => slider()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.slideshow),
+                title: Text(
+                  '两端滑块组件',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => RangeSliderPage()),
                   );
                 },
               ),

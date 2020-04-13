@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_text/utils/httpHeaders.dart';
 
 class PearVideoApi {
   final ListUrl = 'https://app.pearvideo.com/clt/jsp/v2/getCategorys.jsp';
@@ -9,8 +10,8 @@ class PearVideoApi {
 
   Future getPearVideoList() async {
     try {
-      Response response = await Dio(baseOptions)
-          .get(ListUrl, options: Options());
+      Response response = await Dio()
+          .get(ListUrl);
       print(response.data);
     } catch (e) {
       print('error ============> $e');
