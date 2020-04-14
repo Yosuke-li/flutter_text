@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/animation/component.dart';
 import 'package:flutter_text/assembly_pack/banner_demo.dart';
 import 'package:flutter_text/assembly_pack/calendar.dart';
 import 'package:flutter_text/assembly_pack/chat/chat_main.dart';
@@ -183,6 +184,22 @@ class TabBarDemoful extends State<TabBarDemo>
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => TextT()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.tablet_android),
+                title: Text(
+                  '动画常用组件',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => AnimaComponentPage()),
                   );
                 },
               ),
@@ -624,7 +641,7 @@ class TabBarDemoful extends State<TabBarDemo>
               ListTile(
                 leading: Icon(Icons.help),
                 title: Text(
-                  'simple_animations组件',
+                  'simple_animations组件 -- 小飞机',
                   style: TextStyle(
                     fontSize: screenUtil.setSp(40),
                   ),
