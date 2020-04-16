@@ -326,6 +326,13 @@ packages:
       url: "http://pub.dev.wiqun.com:4000"
     source: hosted
     version: "3.1.0+1"
+  qrscan:
+    dependency: "direct main"
+    description:
+      name: qrscan
+      url: "http://pub.dev.wiqun.com:4000"
+    source: hosted
+    version: "0.2.17"
   quiver:
     dependency: transitive
     description:

@@ -15,6 +15,7 @@ import 'package:flutter_text/assembly_pack/pdf_read.dart';
 import 'package:flutter_text/assembly_pack/pear_video/pear_video.dart';
 import 'package:flutter_text/assembly_pack/photo.dart';
 import 'package:flutter_text/assembly_pack/save_text/save_text.dart';
+import 'package:flutter_text/assembly_pack/scan_book/scan_book.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
 import 'package:flutter_text/assembly_pack/speed_dial.dart';
@@ -184,6 +185,21 @@ class TabBarDemoful extends State<TabBarDemo>
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => TextT()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.scanner),
+                title: Text(
+                  '扫图片条形码',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ScanBook()),
                   );
                 },
               ),

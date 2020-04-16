@@ -57,6 +57,7 @@ dependencies:
   permission_handler: ^3.0.0
   flutter_full_pdf_viewer: ^1.0.6
   flutter_staggered_animations: ^0.1.2
+  qrscan: ^0.2.17
 
 dev_dependencies:
   flutter_test:
