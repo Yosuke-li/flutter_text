@@ -270,6 +270,13 @@ packages:
       url: "http://pub.dev.wiqun.com:4000"
     source: hosted
     version: "1.1.7"
+  mini_calendar:
+    dependency: "direct main"
+    description:
+      name: mini_calendar
+      url: "http://pub.dev.wiqun.com:4000"
+    source: hosted
+    version: "0.3.1"
   orientation:
     dependency: "direct main"
     description:
