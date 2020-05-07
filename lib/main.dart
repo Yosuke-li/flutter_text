@@ -6,6 +6,7 @@ import 'package:flutter_text/assembly_pack/calendar/mini_calendar.dart';
 import 'package:flutter_text/assembly_pack/chat/chat_main.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
+import 'package:flutter_text/assembly_pack/flutter_picker.dart';
 import 'package:flutter_text/assembly_pack/hello.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/local_auth_check.dart';
@@ -639,21 +640,22 @@ class TabBarDemoful extends State<TabBarDemo>
                   );
                 },
               ),
-                  ListTile(
-                    leading: Icon(Icons.calendar_today),
-                    title: Text(
-                      'MiniCalendar组件',
-                      style: TextStyle(
-                        fontSize: screenUtil.setSp(40),
-                      ),
-                    ),
-                    trailing: Icon(Icons.keyboard_arrow_right),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => MonthPageViewDemo()),
-                      );
-                    },
+              ListTile(
+                leading: Icon(Icons.calendar_today),
+                title: Text(
+                  'MiniCalendar组件',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
                   ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => MonthPageViewDemo()),
+                  );
+                },
+              ),
               ListTile(
                 leading:
                     Hero(tag: "calendar", child: Icon(Icons.calendar_today)),
@@ -667,6 +669,22 @@ class TabBarDemoful extends State<TabBarDemo>
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => CalendarDemo()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.pie_chart),
+                title: Text(
+                  'flutter_picker组件',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => FlutterPickerDemo()),
                   );
                 },
               ),
