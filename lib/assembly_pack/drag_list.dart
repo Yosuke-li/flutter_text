@@ -40,7 +40,7 @@ class DragDemoState extends State<DragDemo> {
           return Container(
             height: 72,
             child: Row(
-              children: <Widget>[Spacer(), Text(item), Spacer(), handle],
+              children: <Widget>[Spacer(), Text('${item}'), Spacer(), handle],
             ),
           );
         },

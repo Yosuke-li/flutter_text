@@ -11,15 +11,15 @@ class AnimaComponentPage extends StatefulWidget {
 }
 
 class AnimaComponentPageState extends State<AnimaComponentPage> {
-  List<Page> _page = [];
+  List<PageModel> _page = [];
 
   void initState() {
     super.initState();
     _page = [
-      Page()
+      PageModel()
         ..name = 'AnimatedContainerPage'
         ..pageUrl = AnimatedContainerPage(),
-      Page()
+      PageModel()
         ..name = 'AnimatedCrossFadePage'
         ..pageUrl = AnimatedCrossFadePage()
     ];

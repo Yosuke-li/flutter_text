@@ -45,7 +45,7 @@ class SlidableState extends State<SlidableDemo> {
                     child: Row(
                       children: <Widget>[
                         Spacer(),
-                        Text(item),
+                        Text('${item}'),
                         Spacer(),
                         handle
                       ],

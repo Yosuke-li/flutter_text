@@ -1,4 +1,4 @@
-class Page {
+class PageModel {
   String name;
   dynamic pageUrl;
 }
