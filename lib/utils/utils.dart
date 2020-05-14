@@ -244,4 +244,20 @@ class Utils {
     }
     return false;
   }
+
+
+}
+
+class ArrayUtil{
+
+  static T get<T>(List<T> list,int index){
+    assert (index != null && index >= 0);
+    if (list == null)
+      return null;
+    if (index < list?.length) {
+      return list[index];
+    }else{
+      return null;
+    }
+  }
 }

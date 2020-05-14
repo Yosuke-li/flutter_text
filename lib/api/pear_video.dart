@@ -8,6 +8,9 @@ class PearVideoApi {
   final ListUrl = 'https://app.pearvideo.com/clt/jsp/v2/getCategorys.jsp';
   final HotNewsUrl = 'http://app.pearvideo.com/clt/jsp/v2/home.jsp';
   final detailUrl = 'http://app.pearvideo.com/clt/jsp/v2/content.jsp';
+  final getListData =
+      'http://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp';
+  final getContentUrl = 'http://app.pearvideo.com/clt/jsp/v2/content.jsp';
   BaseOptions baseOptions;
 
   Future getPearVideoList() async {
@@ -40,6 +43,52 @@ class PearVideoApi {
       List list = response.data['categoryList'];
       categoryList = list.map((e) => Category.fromJson(e)).toList();
       return categoryList;
+    } catch (e) {
+      print('error ============> $e');
+      return null;
+    }
+  }
+
+  Future getCategoryDataList(int page, String categoryId) async {
+    final headers = await getHeaders();
+    try {
+      List<HotList> _hotList = [];
+      HotList hot;
+      Response response = await Dio().post(getListData,
+          options: Options(headers: headers),
+          queryParameters: {
+            'hotPageidx': page,
+            'categoryId': categoryId,
+          });
+      List list = response.data['hotList'];
+      _hotList = list.map((e) {
+        hot = HotList.fromJson(e);
+        hot.nodeInfo = NodeInfo.fromJson(hot.mNodeInfo);
+        return hot;
+      }).toList();
+      _hotList.map((e) async {
+        e.videos = await getContentDataList(e.contId);
+      }).toList();
+      Future.delayed(Duration(seconds: 2));
+      return _hotList;
+    } catch (e) {
+      print('error ============> $e');
+      return null;
+    }
+  }
+
+  Future getContentDataList(String contId) async {
+    final headers = await getHeaders();
+    try {
+      Videos _videos;
+      Response response = await Dio().post(getContentUrl,
+          options: Options(headers: headers),
+          queryParameters: {
+            'contId': contId,
+          });
+      print(response.data['content']['videos'][0]);
+      _videos = Videos.fromJson(response.data['content']['videos'][0]);
+      return _videos;
     } catch (e) {
       print('error ============> $e');
       return null;
