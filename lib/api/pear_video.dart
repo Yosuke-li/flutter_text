@@ -5,12 +5,11 @@ import 'package:flutter_text/model/pear_video.dart';
 import 'package:flutter_text/utils/httpHeaders.dart';
 
 class PearVideoApi {
-  final ListUrl = 'https://app.pearvideo.com/clt/jsp/v2/getCategorys.jsp';
-  final HotNewsUrl = 'http://app.pearvideo.com/clt/jsp/v2/home.jsp';
-  final detailUrl = 'http://app.pearvideo.com/clt/jsp/v2/content.jsp';
+  final ListUrl = 'https://app.pearvideo.com/clt/jsp/v2/getCategorys.jsp';  //获取类别
+  final HotNewsUrl = 'http://app.pearvideo.com/clt/jsp/v2/home.jsp';  //获取热点
   final getListData =
-      'http://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp';
-  final getContentUrl = 'http://app.pearvideo.com/clt/jsp/v2/content.jsp';
+      'http://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp'; //获取该类别下的数据
+  final getContentUrl = 'http://app.pearvideo.com/clt/jsp/v2/content.jsp';//获取详情
   BaseOptions baseOptions;
 
   Future getPearVideoList() async {

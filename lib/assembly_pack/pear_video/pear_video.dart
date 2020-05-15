@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_text/api/pear_video.dart';
@@ -14,11 +16,40 @@ class PearVideoFirstPage extends StatefulWidget {
 class PearVideoFirstPageState extends State<PearVideoFirstPage>
     with SingleTickerProviderStateMixin {
   SwiperController swperController = SwiperController(); //swiper组件
+  ScrollController scroController = new ScrollController(); //自动滑动title控制器
+  Timer timer;  //自动滑动title
   int currentIndex = 0; //当前index
   int page = 1; //数据页数
   bool isShow = false; //是否显示页面
   List<Category> tabs = []; //底部栏
   List<HotList> hot = []; //swipe数据
+
+  //title自动滚动
+  void startTimer() {
+    int time = 10000;
+    timer = Timer.periodic(new Duration(milliseconds: time), (timer) {
+      if (scroController.positions.isNotEmpty == false) {
+        print('界面被销毁');
+        return;
+      }
+      double maxScrollExtent = scroController.position.maxScrollExtent;
+      if (maxScrollExtent > 0) {
+        scroController.animateTo(maxScrollExtent,
+            duration: new Duration(milliseconds: (time * 0.5).toInt()),
+            curve: Curves.linear);
+        Future.delayed(Duration(milliseconds: (time * 0.5).toInt()), () {
+          if (scroController.positions.isNotEmpty == true) {
+            scroController.animateTo(0,
+                duration: new Duration(milliseconds: (time * 0.5).toInt()),
+                curve: Curves.linear);
+          }
+        });
+      } else {
+        print('不需要移动');
+        timer.cancel();
+      }
+    });
+  }
 
   //获取列表
   void getCategoryList() async {
@@ -47,7 +78,16 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
 
   void initState() {
     super.initState();
+    this.startTimer();
     getCategoryList();
+  }
+
+  //页面销毁
+  void dispose() {
+    this.scroController.dispose();
+    this.timer.cancel();
+
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -55,11 +95,11 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
         ? Scaffold(
             body: SingleChildScrollView(
               child: Container(
-                child: componentView(context, tabs[currentIndex]),
+                child: componentView(context),
               ),
             ),
             bottomSheet: Container(
-              height: 60,
+              height: 45,
               color: Colors.black,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -92,7 +132,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
           );
   }
 
-  Widget componentView(BuildContext context, Category item) {
+  Widget componentView(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height,
       child: Swiper(
@@ -107,13 +147,58 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, int index) {
           return ArrayUtil.get(hot, index).videos.url != null
-              ? VideoPlayerText(
-                  url: ArrayUtil.get(hot, index)
-                      .videos
-                      .url
-                      .replaceAll('http:', 'https:'),
-                  title: '示例视频',
-                  width: MediaQuery.of(context).size.width,
+              ? Stack(
+                  children: <Widget>[
+                    VideoPlayerText(
+                      url: ArrayUtil.get(hot, index)
+                          .videos
+                          .url
+                          .replaceAll('http:', 'https:'),
+                      title: '示例视频',
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                    Positioned(
+                        bottom: 80,
+                        left: 20,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                CircleAvatar(
+                                  radius: 20,
+                                  backgroundImage: NetworkImage(
+                                      ArrayUtil.get(hot, index).nodeInfo?.logoImg),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 13),
+                                  child: Text(
+                                    '${ArrayUtil.get(hot, index).nodeInfo?.name ?? ''}',
+                                    style: TextStyle(color: Colors.white, fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                                padding: EdgeInsets.only(top: 10),
+                                width: 150,
+                                height: 30,
+                                child: ListView(
+                                  controller: scroController,
+                                  physics: new NeverScrollableScrollPhysics(),
+                                  scrollDirection: Axis.horizontal,
+                                  children: <Widget>[
+                                    Text(
+                                      '${ArrayUtil.get(hot, index).name ?? ''}',
+                                      maxLines: 1,
+                                      style: TextStyle(color: Colors.white, fontSize: 16),
+                                    ),
+                                  ],
+                                )
+                            ),
+                          ],
+                        ),),
+                  ],
                 )
               : Container();
         },
