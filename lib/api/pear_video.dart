@@ -65,10 +65,14 @@ class PearVideoApi {
         hot.nodeInfo = NodeInfo.fromJson(hot.mNodeInfo);
         return hot;
       }).toList();
-      _hotList.map((e) async {
-        e.videos = await getContentDataList(e.contId);
-      }).toList();
-      Future.delayed(Duration(seconds: 2));
+
+      List<Future<Function>> updateList = []; //强制等待
+      _hotList.map((e) async =>
+        updateList.add((e) async {
+          e.videos = await getContentDataList(e.contId);
+        }(e)
+      )).toList();
+      await Future.wait(updateList);
       return _hotList;
     } catch (e) {
       print('error ============> $e');
@@ -85,7 +89,6 @@ class PearVideoApi {
           queryParameters: {
             'contId': contId,
           });
-      print(response.data['content']['videos'][0]);
       _videos = Videos.fromJson(response.data['content']['videos'][0]);
       return _videos;
     } catch (e) {
