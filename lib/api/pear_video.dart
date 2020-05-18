@@ -73,6 +73,7 @@ class PearVideoApi {
         }(e)
       )).toList();
       await Future.wait(updateList);
+
       return _hotList;
     } catch (e) {
       print('error ============> $e');

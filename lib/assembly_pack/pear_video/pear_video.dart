@@ -65,7 +65,6 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
   void getVideoList({bool isLoadMore = false}) async {
     String id = ArrayUtil.get(tabs, currentIndex).categoryId;
     final result = await PearVideoApi().getCategoryDataList(page, id);
-    print(result[1].videos);
     if(result != null) {
       setState(() {
         page += 1;
