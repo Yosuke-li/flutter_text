@@ -513,6 +513,13 @@ packages:
       url: "http://pub.lan.wiqun.com"
     source: hosted
     version: "0.3.8"
+  sentry:
+    dependency: "direct main"
+    description:
+      name: sentry
+      url: "http://pub.lan.wiqun.com"
+    source: hosted
+    version: "3.0.1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -665,6 +672,13 @@ packages:
       url: "http://pub.lan.wiqun.com"
     source: hosted
     version: "0.1.1+6"
+  usage:
+    dependency: transitive
+    description:
+      name: usage
+      url: "http://pub.lan.wiqun.com"
+    source: hosted
+    version: "3.4.1"
   uuid:
     dependency: transitive
     description:

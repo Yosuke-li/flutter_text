@@ -48,10 +48,25 @@ import 'assembly_pack/layout_demo.dart';
 import 'assembly_pack/bottom_bar.dart';
 import 'assembly_pack/popup_menu.dart';
 import 'assembly_pack/form_text.dart';
+import 'utils/init.dart';
 
-void main() => runApp(new assembly());
+Future<void> main() async {
+  FlutterError.onError = (FlutterErrorDetails details) async {
+    if (ReportError().isInDebugMode) {
+      FlutterError.dumpErrorToConsole(details);
+    } else {
+      Zone.current.handleUncaughtError(details.exception, details.stack);
+    }
+  };
 
-class assembly extends StatelessWidget {
+  runZonedGuarded<Future<void>>(() async {
+    runApp(Assembly());
+  }, (error, stackTrace) async {
+    await ReportError().reportError(error, stackTrace);
+  });
+}
+
+class Assembly extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

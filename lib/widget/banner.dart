@@ -40,6 +40,7 @@ class _widgetBannerState extends State<widgetBanner> {
   //关闭的时候还原顶部状态栏
   void dispose() {
     super.dispose();
+    _timer?.cancel();
     SystemChrome.setEnabledSystemUIOverlays(
         [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   }
