@@ -269,34 +269,35 @@ class _VideoChatState extends State<VideoChat> {
               ),
             ],
           ),
-          if (!widget.is_video)
-            Row(
-              children: <Widget>[
-                Flexible(
-                  child: TextField(
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                    controller: _textController,
-                    decoration: InputDecoration.collapsed(
-                        hintText: "发送消息",
-                        hintStyle:
-                            TextStyle(fontSize: 14, color: Colors.white)),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 4.0),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.send,
+          !widget.is_video
+              ? Row(
+                  children: <Widget>[
+                    Flexible(
+                      child: TextField(
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        controller: _textController,
+                        decoration: InputDecoration.collapsed(
+                            hintText: "发送消息",
+                            hintStyle:
+                                TextStyle(fontSize: 14, color: Colors.white)),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _infoStrings.add(_textController.text);
-                          _textController.clear();
-                        });
-                      }),
-                ),
-              ],
-            ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 4.0),
+                      child: IconButton(
+                          icon: Icon(
+                            Icons.send,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _infoStrings.add(_textController.text);
+                              _textController.clear();
+                            });
+                          }),
+                    ),
+                  ],
+                )
+              : Container(),
         ],
       ),
     );
@@ -375,7 +376,7 @@ class _VideoChatState extends State<VideoChat> {
         child: Stack(
           children: <Widget>[
             _viewRows(),
-            if (!widget.is_video) _panel(),
+            !widget.is_video ? _panel() : null,
             _toolbar(),
           ],
         ),

@@ -30,7 +30,7 @@ class TextState extends State<ScanBook> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              if (_scanPBook != null)
+              _scanPBook != null ?
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -41,8 +41,8 @@ class TextState extends State<ScanBook> {
                     Text('出版时间： ${_scanPBook.publishingTime}'),
                     Text('isbn： ${_scanPBook.isbn}'),
                   ],
-                ),
-              if (_scanABook != null)
+                ) : Container(),
+              _scanABook != null ?
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -53,7 +53,7 @@ class TextState extends State<ScanBook> {
                     Text('出版时间： ${_scanABook.pubdate}'),
                     Text('isbn： ${_scanABook.isbn}'),
                   ],
-                ),
+                ) : Container(),
               Column(
                 children: <Widget>[
                   MaterialButton(

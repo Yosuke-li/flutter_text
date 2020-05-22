@@ -24,6 +24,7 @@ import 'package:flutter_text/assembly_pack/speed_dial.dart';
 import 'package:flutter_text/assembly_pack/translate/translate_page.dart';
 import 'package:flutter_text/assembly_pack/video_chat/check_room_id.dart';
 import 'package:flutter_text/assembly_pack/video_player/play_local_video.dart';
+import 'package:flutter_text/assembly_pack/video_player/video_list.dart';
 import 'package:flutter_text/assembly_pack/weather/real_time_page.dart';
 import 'package:flutter_text/utils/permission.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -139,6 +140,20 @@ class TabBarDemoful extends State<TabBarDemo>
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => videoIndex()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.filter_list),
+                title: Text(
+                  '本地视频播放列表--',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => VideoList()),
                   );
                 },
               ),
