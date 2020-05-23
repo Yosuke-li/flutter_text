@@ -4,6 +4,7 @@ import 'package:flutter_text/assembly_pack/banner_demo.dart';
 import 'package:flutter_text/assembly_pack/calendar/calendar.dart';
 import 'package:flutter_text/assembly_pack/calendar/mini_calendar.dart';
 import 'package:flutter_text/assembly_pack/chat/chat_main.dart';
+import 'package:flutter_text/assembly_pack/connected/connect_data.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/flutter_picker.dart';
@@ -197,6 +198,20 @@ class TabBarDemoful extends State<TabBarDemo>
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => PdfRead()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.wifi),
+                title: Text(
+                  '检查连接数据--',
+                  style: TextStyle(
+                    fontSize: screenUtil.setSp(40),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ConnectWidget()),
                   );
                 },
               ),
