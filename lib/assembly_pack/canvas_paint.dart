@@ -109,18 +109,20 @@ class _PainterSketchDomeState extends State<PainterSketchDome> {
                   height: 60.0,
                 ),
                 Expanded(
-                  child: AspectRatio(
-                    aspectRatio: 1.0,
-                    child: GestureDetector(
-                      child: CustomPaint(
-                        painter: PaintCanvas(lines, nowPoints, nowColor),
+                  child: RepaintBoundary(
+                    child: AspectRatio(
+                      aspectRatio: 1.0,
+                      child: GestureDetector(
+                        child: CustomPaint(
+                          painter: PaintCanvas(lines, nowPoints, nowColor),
+                        ),
+                        onHorizontalDragUpdate: moveGestureDetector,
+                        onVerticalDragUpdate: moveGestureDetector,
+                        onHorizontalDragStart: newGestureDetector,
+                        onVerticalDragStart: newGestureDetector,
                       ),
-                      onHorizontalDragUpdate: moveGestureDetector,
-                      onVerticalDragUpdate: moveGestureDetector,
-                      onHorizontalDragStart: newGestureDetector,
-                      onVerticalDragStart: newGestureDetector,
                     ),
-                  ),
+                  )
                 )
               ],
             ),

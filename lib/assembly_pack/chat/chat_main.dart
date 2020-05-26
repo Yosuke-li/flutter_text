@@ -184,63 +184,68 @@ class ChatSceneState extends State<ChatScene> {
   //聊天消息查看
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("聊天"),
-          actions: <Widget>[
-            PopupMenuButton(
-              offset: Offset(100, 100),
-              itemBuilder: (BuildContext context) => [ //菜单项构造器
-                PopupMenuItem(//菜单项
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Text('删除数据'),
-                  ),
+      appBar: AppBar(
+        title: Text("聊天"),
+        actions: <Widget>[
+          PopupMenuButton(
+            offset: Offset(100, 100),
+            itemBuilder: (BuildContext context) => [
+              //菜单项构造器
+              PopupMenuItem(
+                //菜单项
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Text('删除数据'),
                 ),
-                PopupMenuItem(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => VideoChat(
-                            channelName: '12345',
-                          )));
-                    },
-                    child: Text("进入视频聊天"),
-                  ),
+              ),
+              PopupMenuItem(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => VideoChat(
+                              channelName: '12345',
+                            )));
+                  },
+                  child: Text("进入视频聊天"),
                 ),
-              ],
+              ),
+            ],
+          ),
+        ],
+      ),
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : GestureDetector(
+              onTap: () {
+                FocusScope.of(context).requestFocus(new FocusNode());
+              },
+              child: Column(
+                children: <Widget>[
+                  Flexible(
+                      child: FirebaseAnimatedList(
+                          query: reference,
+                          sort: (a, b) => b.key.compareTo(a.key),
+                          padding: new EdgeInsets.all(8.0),
+                          reverse: true,
+                          itemBuilder: (_, DataSnapshot snapshot,
+                              Animation<double> animation, __) {
+                            return RepaintBoundary(
+                              child: ChatMessage(
+                                  snapshot: snapshot, animation: animation),
+                            );
+                          })),
+                  Divider(height: 1.0),
+                  Container(
+                    decoration:
+                        BoxDecoration(color: Theme.of(context).cardColor),
+                    child: _buildTextComposer(),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-        body: isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : GestureDetector(
-                onTap: () {
-                  FocusScope.of(context).requestFocus(new FocusNode());
-                },
-                child: Column(
-                  children: <Widget>[
-                    Flexible(
-                        child: FirebaseAnimatedList(
-                            query: reference,
-                            sort: (a, b) => b.key.compareTo(a.key),
-                            padding: new EdgeInsets.all(8.0),
-                            reverse: true,
-                            itemBuilder: (_, DataSnapshot snapshot,
-                                Animation<double> animation, __) {
-                              return ChatMessage(
-                                  snapshot: snapshot, animation: animation);
-                            })),
-                    Divider(height: 1.0),
-                    Container(
-                      decoration:
-                          BoxDecoration(color: Theme.of(context).cardColor),
-                      child: _buildTextComposer(),
-                    ),
-                  ],
-                ),
-              ));
+    );
   }
 }
 
