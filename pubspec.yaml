@@ -64,6 +64,8 @@ dependencies:
   inview_notifier_list: 1.0.0 #视频滚动到播放
   sentry: ^3.0.1  #日志监听
   connectivity: ^0.4.8+6
+  image_gallery_saver: ^1.2.2
+  fluwx: ^2.1.0
 
 dev_dependencies:
   flutter_test:

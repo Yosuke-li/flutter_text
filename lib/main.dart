@@ -28,7 +28,7 @@ import 'package:flutter_text/assembly_pack/video_player/play_local_video.dart';
 import 'package:flutter_text/assembly_pack/video_player/video_list.dart';
 import 'package:flutter_text/assembly_pack/weather/real_time_page.dart';
 import 'package:flutter_text/utils/permission.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:fluwx/fluwx.dart';
 import 'assembly_pack/book/search_book.dart';
 import 'assembly_pack/event_bus/event_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -105,6 +105,10 @@ class TabBarDemoful extends State<TabBarDemo>
           currentIndex = tabController.index;
         });
       });
+    registerWxApi(
+      appId: 'wx62cd4b020d4c72bc',
+      doOnAndroid: true,
+    );
   }
 
   Widget build(BuildContext context) {
@@ -214,6 +218,18 @@ class TabBarDemoful extends State<TabBarDemo>
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => ConnectWidget()),
                     );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.share),
+                  title: Text(
+                    '分享--',
+                    style: TextStyle(
+                      fontSize: screenUtil.setSp(40),
+                    ),
+                  ),
+                  onTap: () {
+                    shareToWeChat(WeChatShareTextModel('你好',scene: WeChatScene.SESSION));
                   },
                 ),
               ],
