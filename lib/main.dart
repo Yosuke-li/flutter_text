@@ -13,6 +13,7 @@ import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/local_auth_check.dart';
 import 'package:flutter_text/assembly_pack/login/login_video_page.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
+import 'package:flutter_text/assembly_pack/mic_stream_demo.dart';
 import 'package:flutter_text/assembly_pack/overlay_demo.dart';
 import 'package:flutter_text/assembly_pack/pdf_read.dart';
 import 'package:flutter_text/assembly_pack/pear_video/pear_video.dart';
@@ -28,7 +29,6 @@ import 'package:flutter_text/assembly_pack/video_player/play_local_video.dart';
 import 'package:flutter_text/assembly_pack/video_player/video_list.dart';
 import 'package:flutter_text/assembly_pack/weather/real_time_page.dart';
 import 'package:flutter_text/utils/permission.dart';
-import 'package:fluwx/fluwx.dart';
 import 'assembly_pack/book/search_book.dart';
 import 'assembly_pack/event_bus/event_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -105,10 +105,6 @@ class TabBarDemoful extends State<TabBarDemo>
           currentIndex = tabController.index;
         });
       });
-    registerWxApi(
-      appId: 'wx62cd4b020d4c72bc',
-      doOnAndroid: true,
-    );
   }
 
   Widget build(BuildContext context) {
@@ -221,15 +217,17 @@ class TabBarDemoful extends State<TabBarDemo>
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.share),
+                  leading: const Icon(Icons.volume_up),
                   title: Text(
-                    '分享--',
+                    '录音--',
                     style: TextStyle(
                       fontSize: screenUtil.setSp(40),
                     ),
                   ),
                   onTap: () {
-                    shareToWeChat(WeChatShareTextModel('你好',scene: WeChatScene.SESSION));
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => MicStreamDemo()),
+                    );
                   },
                 ),
               ],

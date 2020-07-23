@@ -65,7 +65,7 @@ dependencies:
   sentry: ^3.0.1  #日志监听
   connectivity: ^0.4.8+6
   image_gallery_saver: ^1.2.2
-  fluwx: ^2.1.0
+  flutter_plugin_record: 0.1.8
 
 dev_dependencies:
   flutter_test:
@@ -97,6 +97,7 @@ flutter:
     - images/cloud1.gif
     - images/cloud5.gif
     - images/weather/
+    - images/voice/
     - images/_cat_sky.jpg
     - assets/index.pdf
 
