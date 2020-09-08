@@ -66,6 +66,7 @@ dependencies:
   connectivity: ^0.4.8+6
   image_gallery_saver: ^1.2.2
   flutter_plugin_record: 0.1.8
+  path_provider: ^1.6.14
 
 dev_dependencies:
   flutter_test:

@@ -15,6 +15,7 @@ import 'package:flutter_text/assembly_pack/login/login_video_page.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
 import 'package:flutter_text/assembly_pack/mic_stream_demo.dart';
 import 'package:flutter_text/assembly_pack/overlay_demo.dart';
+import 'package:flutter_text/assembly_pack/pdf.dart';
 import 'package:flutter_text/assembly_pack/pdf_read.dart';
 import 'package:flutter_text/assembly_pack/pear_video/pear_video.dart';
 import 'package:flutter_text/assembly_pack/photo.dart';
@@ -199,6 +200,20 @@ class TabBarDemoful extends State<TabBarDemo>
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => PdfRead()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.file_download),
+                  title: Text(
+                    '本地pdf下载--',
+                    style: TextStyle(
+                      fontSize: screenUtil.setSp(40),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => pdfView()),
                     );
                   },
                 ),
