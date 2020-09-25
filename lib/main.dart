@@ -6,6 +6,7 @@ import 'package:flutter_text/assembly_pack/calendar/mini_calendar.dart';
 import 'package:flutter_text/assembly_pack/chat/chat_main.dart';
 import 'package:flutter_text/assembly_pack/connected/connect_data.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
+import 'package:flutter_text/assembly_pack/database/test_ui.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/flutter_picker.dart';
 import 'package:flutter_text/assembly_pack/hello.dart';
@@ -242,6 +243,20 @@ class TabBarDemoful extends State<TabBarDemo>
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => MicStreamDemo()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.storage),
+                  title: Text(
+                    'SqlLite--',
+                    style: TextStyle(
+                      fontSize: screenUtil.setSp(40),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => TestDb()),
                     );
                   },
                 ),
