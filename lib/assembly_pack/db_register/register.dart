@@ -5,6 +5,10 @@ import 'package:flutter_text/model/db_register.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 
 class RegisterPage extends StatefulWidget {
+  DbRegister register;
+
+  RegisterPage({this.register});
+
   RegisterPageState createState() => RegisterPageState();
 }
 
@@ -41,6 +45,7 @@ class RegisterPageState extends State<RegisterPage> {
 
       if (result != 0) {
         Navigator.pop(context);
+        ToastUtils.showToast(msg: '注册成功');
       }
     }
   }
@@ -87,7 +92,7 @@ class RegisterPageState extends State<RegisterPage> {
                   '保存',
                 ),
                 onPressed: () {
-                  ToastUtils.showToast(msg: 'sss');
+                  onSave();
                 },
               ),
             )

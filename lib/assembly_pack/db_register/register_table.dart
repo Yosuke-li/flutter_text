@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_text/assembly_pack/db_test/test_add.dart';
-import 'package:flutter_text/assembly_pack/db_test/user_db_provider.dart';
+import 'package:flutter_text/assembly_pack/db_register/register.dart';
+import 'package:flutter_text/assembly_pack/db_register/register_provider.dart';
+import 'package:flutter_text/model/db_register.dart';
 import 'package:flutter_text/model/db_user.dart';
 
-void main() => runApp(TestDb());
-
-class TestDb extends StatefulWidget {
-  _TestDbState createState() => _TestDbState();
+class RegisterTable extends StatefulWidget {
+  _RegisterTableState createState() => _RegisterTableState();
 }
 
-class _TestDbState extends State<TestDb> {
-  UserDbProvider provider = UserDbProvider();
-  List<User> userList = [];
+class _RegisterTableState extends State<RegisterTable> {
+  RegisterProvider provider = RegisterProvider();
+  List<DbRegister> userList = [];
 
   void initState() {
     super.initState();
@@ -43,7 +42,8 @@ class _TestDbState extends State<TestDb> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TestAdd(e))).then((value) {
+                              builder: (context) =>
+                                  RegisterPage(register: e))).then((value) {
                         if (value == true) {
                           getUserList();
                         }
@@ -51,8 +51,8 @@ class _TestDbState extends State<TestDb> {
                     },
                     child: Container(
                       height: 30,
-                      child:
-                          Text('id: ${e.id} name: ${e.name} desc: ${e.desc}'),
+                      child: Text(
+                          'id: ${e.id} account: ${e.account} password: ${e.password} '),
                     ),
                   ),
                 )
@@ -63,7 +63,7 @@ class _TestDbState extends State<TestDb> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => TestAdd(User())))
+                  MaterialPageRoute(builder: (context) => RegisterPage()))
               .then((value) {
             if (value == true) {
               getUserList();
