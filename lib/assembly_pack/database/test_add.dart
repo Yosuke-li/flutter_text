@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/database/user_db_provider.dart';
-import 'package:flutter_text/model/db_bean.dart';
+import 'package:flutter_text/model/db_user.dart';
 
 class TestAdd extends StatefulWidget {
   final User user;
+
   TestAdd(this.user);
 
   @override
@@ -16,15 +17,27 @@ class TestAdd extends StatefulWidget {
 class TestAddState extends State<TestAdd> {
   UserDbProvider provider = UserDbProvider();
   User user;
+  int count;
 
   TestAddState(this.user);
 
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
+  void initState() {
+    super.initState();
+    getTableCount();
+  }
+
+  void getTableCount() async {
+    final counts = await provider.getTableCountsV2();
+    setState(() {
+      count = counts;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     nameController.text = user.name;
     descriptionController.text = user.desc;
 
@@ -40,19 +53,19 @@ class TestAddState extends State<TestAdd> {
             child: TextField(
                 controller: nameController,
                 decoration: InputDecoration(helperText: "请输入名字"),
-                onChanged:(value){
+                onChanged: (value) {
                   user.name = nameController.text;
-                } ),
+                }),
           ),
           Container(
             padding: const EdgeInsets.all(20),
             child: TextField(
                 controller: descriptionController,
-                onChanged: (value){
+                onChanged: (value) {
                   user.desc = descriptionController.text;
                 },
                 decoration: InputDecoration(helperText: "请描述")),
-          ) ,
+          ),
           Container(
             padding: const EdgeInsets.all(10),
             child: Row(
@@ -110,7 +123,7 @@ class TestAddState extends State<TestAdd> {
   void _save() async {
     int result;
     if (user.id == null) {
-      user.id = new DateTime.now().millisecondsSinceEpoch;  //id 为当前时间戳
+      user.id = count + 1; //id递增
       result = await provider.insertUser(user);
     } else {
       result = await provider.update(user);

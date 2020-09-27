@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_text/assembly_pack/database/base_db_provider.dart';
-import 'package:flutter_text/model/db_bean.dart';
+import 'package:flutter_text/model/db_user.dart';
+import 'package:flutter_text/utils/utils.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 class UserDbProvider extends BaseDbProvider {
@@ -42,12 +44,12 @@ class UserDbProvider extends BaseDbProvider {
   }
 
   //获取数据库里所有user
-  Future<List<User>> getAllUser() async{
+  Future<List<User>> getAllUser() async {
     var userMapList = await selectMapList();
-    var count  = userMapList.length;
-    List<User> userList= List<User>();
+    var count = userMapList.length;
+    List<User> userList = List<User>();
 
-    for(int i=0;i<count;i++){
+    for (int i = 0; i < count; i++) {
       userList.add(User.fromMapObject(userMapList[i]));
     }
     return userList;
@@ -81,5 +83,20 @@ class UserDbProvider extends BaseDbProvider {
     var db = await getDataBase();
     var result = await db.rawDelete('DELETE FROM $name WHERE $columnId = $id');
     return result;
+  }
+
+  //获取数据数量
+  Future<int> getTableCounts() async {
+    final database = await getDataBase();
+    final result =
+        await database.rawQuery('select count(*) as counts from $name');
+    return ArrayUtil.get(result, 0)['counts'];
+  }
+
+  //获取数据数量
+  Future<int> getTableCountsV2() async {
+    final userMapList = await selectMapList();
+    final count = userMapList.length;
+    return count;
   }
 }

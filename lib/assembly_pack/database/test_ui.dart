@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/database/test_add.dart';
 import 'package:flutter_text/assembly_pack/database/user_db_provider.dart';
-import 'package:flutter_text/model/db_bean.dart';
+import 'package:flutter_text/model/db_user.dart';
 
 void main() => runApp(TestDb());
 
@@ -21,6 +21,8 @@ class _TestDbState extends State<TestDb> {
 
   Future<void> getUserList() async {
     final list = await provider.getAllUser();
+    final counts = await provider.getTableCountsV2();
+    print('counts: $counts');
     setState(() {
       userList = list;
     });
@@ -35,23 +37,25 @@ class _TestDbState extends State<TestDb> {
         child: RepaintBoundary(
           child: ListView(
             children: userList
-                ?.map((e) => GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => TestAdd(e)))
-                            .then((value) {
-                          if (value == true) {
-                            getUserList();
-                          }
-                        });
-                      },
-                      child: Container(
-                        height: 30,
-                        child: Text('${e.name} ${e.desc}'),
-                      ),
-                    ))
+                ?.map(
+                  (e) => GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TestAdd(e))).then((value) {
+                        if (value == true) {
+                          getUserList();
+                        }
+                      });
+                    },
+                    child: Container(
+                      height: 30,
+                      child:
+                          Text('id: ${e.id} name: ${e.name} desc: ${e.desc}'),
+                    ),
+                  ),
+                )
                 ?.toList(),
           ),
         ),
