@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_register/register.dart';
 import 'package:flutter_text/assembly_pack/db_register/register_provider.dart';
 import 'package:flutter_text/model/db_register.dart';
-import 'package:flutter_text/model/db_user.dart';
 
 class RegisterTable extends StatefulWidget {
   _RegisterTableState createState() => _RegisterTableState();
@@ -30,7 +29,7 @@ class _RegisterTableState extends State<RegisterTable> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sql 练习'),
+        title: Text('所有注册人员'),
       ),
       body: Container(
         child: RepaintBoundary(

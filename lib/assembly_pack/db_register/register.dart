@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_register/register_provider.dart';
+import 'package:flutter_text/assembly_pack/db_register/register_table.dart';
 import 'package:flutter_text/model/db_register.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 
@@ -32,9 +33,15 @@ class RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> onSave() async {
-    final result = _formKey.currentState;
+    final from = _formKey.currentState;
     DbRegister register = DbRegister();
-    if (result.validate()) {
+    if (from.validate()) {
+      from.save();
+      final check = checkString();
+      if (!check) {
+        return;
+      }
+
       register.id = count + 1;
       register.account = account;
       register.password = password;
@@ -46,14 +53,44 @@ class RegisterPageState extends State<RegisterPage> {
       if (result != 0) {
         Navigator.pop(context);
         ToastUtils.showToast(msg: '注册成功');
+      } else {
+        ToastUtils.showToast(msg: '操作失败，请稍后重试');
       }
     }
+  }
+
+  bool checkString() {
+    bool isCheck = false;
+    if (account == null || account.isEmpty == true) {
+      ToastUtils.showToast(msg: '账号不能为空');
+      return isCheck;
+    }
+
+    if (password == null || password.isEmpty == true) {
+      ToastUtils.showToast(msg: '密码不能为空');
+      return isCheck;
+    }
+
+    return true;
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('注册'),
+        actions: <Widget>[
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => RegisterTable()));
+            },
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(right: 20),
+              child: Text('注册表'),
+            ),
+          )
+        ],
       ),
       body: Form(
         key: _formKey,
