@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_register/register.dart';
 import 'package:flutter_text/assembly_pack/db_register/register_provider.dart';
 import 'package:flutter_text/model/db_register.dart';
+import 'package:flutter_text/utils/date_format.dart';
 
 class RegisterTable extends StatefulWidget {
   _RegisterTableState createState() => _RegisterTableState();
@@ -49,27 +50,18 @@ class _RegisterTableState extends State<RegisterTable> {
                       });
                     },
                     child: Container(
-                      height: 30,
+                      height: 50,
+                      alignment: Alignment.center,
                       child: Text(
-                          'id: ${e.id} account: ${e.account} password: ${e.password} '),
+                        'id: ${e.id} 账号: ${e.account} 密码: ${e.password} 创建时间: ${DateTime.fromMillisecondsSinceEpoch(e.createTime)} 更新时间: ${DateTime.fromMillisecondsSinceEpoch(e.updateTime)}',
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 )
                 ?.toList(),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()))
-              .then((value) {
-            if (value == true) {
-              getUserList();
-            }
-          });
-        },
-        child: Icon(Icons.add),
       ),
     );
   }
