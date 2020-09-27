@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/animation/component.dart';
 import 'package:flutter_text/assembly_pack/banner_demo.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_text/assembly_pack/calendar/mini_calendar.dart';
 import 'package:flutter_text/assembly_pack/chat/chat_main.dart';
 import 'package:flutter_text/assembly_pack/connected/connect_data.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
+import 'package:flutter_text/assembly_pack/db_register/register.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/flutter_picker.dart';
 import 'package:flutter_text/assembly_pack/hello.dart';
@@ -72,14 +74,17 @@ Future<void> main() async {
 class Assembly extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Study',
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('组件列表'),
-        ),
-        body: Center(
-          child: TabBarDemo(),
+    return BotToastInit(
+      child: MaterialApp(
+        title: 'Flutter Study',
+        navigatorObservers: [BotToastNavigatorObserver()],
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('组件列表'),
+          ),
+          body: Center(
+            child: TabBarDemo(),
+          ),
         ),
       ),
     );
@@ -257,6 +262,20 @@ class TabBarDemoful extends State<TabBarDemo>
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => TestDb()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.recent_actors),
+                  title: Text(
+                    'register--',
+                    style: TextStyle(
+                      fontSize: screenUtil.setSp(40),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => RegisterPage()),
                     );
                   },
                 ),
