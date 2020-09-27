@@ -71,6 +71,7 @@ Future<void> main() async {
   });
 }
 
+///BotToastInit BotToastNavigatorObserver toast弹窗初始化
 class Assembly extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

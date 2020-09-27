@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_register/register_provider.dart';
 import 'package:flutter_text/model/db_register.dart';
-import 'package:flutter_text/widget/toast_utils.dart';
+import 'package:flutter_text/utils/toast_utils.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPageState createState() => RegisterPageState();

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'file:///D:/coco/study/flutter_text/lib/assembly_pack/db_test/user_db_provider.dart';
 import 'package:flutter_text/model/db_user.dart';
-import 'package:flutter_text/widget/toast_utils.dart';
+import 'package:flutter_text/utils/toast_utils.dart';
 
 class TestAdd extends StatefulWidget {
   final User user;

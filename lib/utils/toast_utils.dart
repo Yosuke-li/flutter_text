@@ -2,7 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-part  'package:flutter_text/widget/text_widget.dart';
+part  'text_widget.dart';
 
 typedef Cancel = void Function();
 ///BotToastInit 初始化
