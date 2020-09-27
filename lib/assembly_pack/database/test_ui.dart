@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/database/test_add.dart';
 import 'package:flutter_text/assembly_pack/database/user_db_provider.dart';
 import 'package:flutter_text/model/db_bean.dart';
 
@@ -34,20 +35,38 @@ class _TestDbState extends State<TestDb> {
         child: RepaintBoundary(
           child: ListView(
             children: userList
-                ?.map(
-                  (e) => Container(
-                    child: Text(e.name),
-                  ),
-                )
+                ?.map((e) => GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TestAdd(e)))
+                            .then((value) {
+                          if (value == true) {
+                            getUserList();
+                          }
+                        });
+                      },
+                      child: Container(
+                        height: 30,
+                        child: Text('${e.name} ${e.desc}'),
+                      ),
+                    ))
                 ?.toList(),
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+          Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => TestAdd(User())))
+              .then((value) {
+            if (value == true) {
+              getUserList();
+            }
+          });
         },
-        child:Icon(Icons.add),
+        child: Icon(Icons.add),
       ),
     );
   }

@@ -20,7 +20,7 @@ class SqlManager {
   static Future<bool> isTableExits(String tableName) async {
     await getCurrentDatabase();
     final result = await _database.rawQuery(
-        'select * from Sql_text where type= "table" and name = "$tableName"');
+        "select * from Sqlite_master where type= 'table' and name = '$tableName'");
     return result != null && result.length > 0;
   }
 
