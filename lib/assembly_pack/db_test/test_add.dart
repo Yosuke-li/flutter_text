@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_text/assembly_pack/database/user_db_provider.dart';
+import 'file:///D:/coco/study/flutter_text/lib/assembly_pack/db_test/user_db_provider.dart';
 import 'package:flutter_text/model/db_user.dart';
 
 class TestAdd extends StatefulWidget {
