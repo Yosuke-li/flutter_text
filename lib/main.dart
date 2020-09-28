@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/animation/component.dart';
 import 'package:flutter_text/assembly_pack/banner_demo.dart';
@@ -109,7 +110,8 @@ class TabBarDemoful extends State<TabBarDemo>
   void initState() {
     super.initState();
     Permission().requestPermiss();
-    LocateStorage().init();
+    LocateStorage.init();
+    LogUtil.init(isDebug: true);
     tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
         setState(() {

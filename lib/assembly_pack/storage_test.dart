@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/global/store.dart';
@@ -17,7 +18,7 @@ class _StorageTestState extends State<StorageTest> {
   }
 
   void save() {
-    LocateStorage.lStorage.setString('StorageTest', controller.text);
+    LocateStorage.setString('StorageTest', controller.text);
     ToastUtils.showToast(msg: '保存成功');
   }
 
@@ -60,7 +61,7 @@ class _StorageTestState extends State<StorageTest> {
                 ),
                 onPressed: () {
                   final getValue =
-                      LocateStorage.lStorage.getString('StorageTest');
+                      LocateStorage.getString('StorageTest');
                   setState(() {
                     controller.text = getValue;
                   });
