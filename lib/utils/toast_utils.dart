@@ -5,7 +5,23 @@ import 'package:flutter/material.dart';
 part  'text_widget.dart';
 
 typedef Cancel = void Function();
+
 ///BotToastInit 初始化
+///BotToastInit(
+//       child: MaterialApp(
+//         title: 'Flutter Study',
+//         navigatorObservers: [BotToastNavigatorObserver()],
+//         home: Scaffold(
+//           appBar: AppBar(
+//             title: Text('组件列表'),
+//           ),
+//           body: Center(
+//             child: TabBarDemo(),
+//           ),
+//         ),
+//       ),
+//     );
+
 class ToastUtils {
   static Cancel showToast(
       {@required String msg,

@@ -26,11 +26,13 @@ import 'package:flutter_text/assembly_pack/scan_book/scan_book.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
 import 'package:flutter_text/assembly_pack/speed_dial.dart';
+import 'package:flutter_text/assembly_pack/storage_test.dart';
 import 'package:flutter_text/assembly_pack/translate/translate_page.dart';
 import 'package:flutter_text/assembly_pack/video_chat/check_room_id.dart';
 import 'package:flutter_text/assembly_pack/video_player/play_local_video.dart';
 import 'package:flutter_text/assembly_pack/video_player/video_list.dart';
 import 'package:flutter_text/assembly_pack/weather/real_time_page.dart';
+import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/utils/permission.dart';
 import 'assembly_pack/book/search_book.dart';
 import 'assembly_pack/db_test/test_ui.dart';
@@ -107,6 +109,7 @@ class TabBarDemoful extends State<TabBarDemo>
   void initState() {
     super.initState();
     Permission().requestPermiss();
+    LocateStorage().init();
     tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
         setState(() {
@@ -277,6 +280,20 @@ class TabBarDemoful extends State<TabBarDemo>
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => RegisterPage()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.storage),
+                  title: Text(
+                    'storage--',
+                    style: TextStyle(
+                      fontSize: screenUtil.setSp(40),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => StorageTest()),
                     );
                   },
                 ),
