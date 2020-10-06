@@ -24,6 +24,7 @@ import 'package:flutter_text/assembly_pack/pear_video/pear_video.dart';
 import 'package:flutter_text/assembly_pack/photo.dart';
 import 'package:flutter_text/assembly_pack/save_text/save_text.dart';
 import 'package:flutter_text/assembly_pack/scan_book/scan_book.dart';
+import 'package:flutter_text/assembly_pack/scheme_text.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
 import 'package:flutter_text/assembly_pack/speed_dial.dart';
@@ -296,6 +297,20 @@ class TabBarDemoful extends State<TabBarDemo>
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => StorageTest()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.web),
+                  title: Text(
+                    'scheme url--',
+                    style: TextStyle(
+                      fontSize: screenUtil.setSp(40),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SchemeText()),
                     );
                   },
                 ),

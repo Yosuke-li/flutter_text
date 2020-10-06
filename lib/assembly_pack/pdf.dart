@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart';
@@ -25,6 +26,7 @@ class pdfViewState extends State<pdfView> {
     try {
       await dio.download(url, filePath);
       result = await ImageGallerySaver.saveFile(filePath);
+      ToastUtils.showToast(msg: '文件已保存到$filePath');
     } catch (e) {
       result = e;
     }
