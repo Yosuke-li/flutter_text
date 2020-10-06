@@ -32,11 +32,6 @@ class _StorageTestState extends State<StorageTest> {
           children: <Widget>[
             TextFormField(
               controller: controller,
-              onChanged: (String val) {
-                setState(() {
-                  controller.text = val;
-                });
-              },
             ),
             Container(
               padding: const EdgeInsets.all(10),
@@ -60,8 +55,9 @@ class _StorageTestState extends State<StorageTest> {
                   '获取缓存',
                 ),
                 onPressed: () {
-                  final getValue =
+                  final String getValue =
                       LocateStorage.getString('StorageTest');
+                  ToastUtils.showToast(msg: getValue);
                   setState(() {
                     controller.text = getValue;
                   });
