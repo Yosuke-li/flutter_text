@@ -109,7 +109,7 @@ class TabBarDemoful extends State<TabBarDemo>
 
   void initState() {
     super.initState();
-    Permission().requestPermiss();
+    Permission.init();
     LocateStorage.init();
     LogUtil.init(isDebug: true);
     tabController = TabController(length: 3, vsync: this)
