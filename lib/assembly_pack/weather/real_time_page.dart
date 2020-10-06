@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_text/assembly_pack/weather/search_city.dart';
+import 'package:flutter_text/global/store.dart';
 import 'package:intl/intl.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -55,8 +56,16 @@ class RealTimeWeatherState extends State<RealTimePage> {
   //生命周期
   void initState() {
     super.initState();
+    final getCity = LocateStorage.getString('lastCity');
+    setState(() {
+      cid = getCity ?? '深圳';
+    });
+    setTimer();
+  }
+
+  void setTimer() {
+    //轮询
     _timer = Timer.periodic(Duration(seconds: time), (timer) {
-      //轮询
       getRealTimeWeather(cid);
     });
     getThreeDayWeather(cid);

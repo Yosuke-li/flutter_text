@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/api/weather.dart';
+import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/model/weather.dart';
 
 void main() => runApp(SearchCity());
@@ -13,38 +14,46 @@ class SearchCityState extends State<SearchCity> {
   bool hasData = false;
   List<Basic> cityList;
 
+  void setCity(String val) {
+    Navigator.of(context).pop(val);
+    LocateStorage.setString('lastCity', val);
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(56.0),
-          child: Container(
-            margin: EdgeInsets.only(top: 20.0),
-            child: _searchWidget(context),
-          ),
+      resizeToAvoidBottomPadding: false,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(56.0),
+        child: Container(
+          margin: EdgeInsets.only(top: 20.0),
+          child: _searchWidget(context),
         ),
-        body: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).requestFocus(new FocusNode());
-            },
-            child: cityList != null
-                ? ListView(
-                    children: cityList.map((item) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.of(context).pop(item.cid);
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 14),
-                          child:
-                              Text('${item.adminArea} -- ${item.parentCity} -- ${item.location}'),
-                        ),
-                      );
-                    }).toList(),
-                  )
-                : Center(
-                    child: Text('暂无数据'),
-                  )));
+      ),
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: cityList != null
+            ? ListView(
+                children: cityList.map((item) {
+                  return InkWell(
+                    onTap: () {
+                      setCity(item.cid);
+                    },
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 14, horizontal: 14),
+                      child: Text(
+                          '${item.adminArea} -- ${item.parentCity} -- ${item.location}'),
+                    ),
+                  );
+                }).toList(),
+              )
+            : Center(
+                child: Text('暂无数据'),
+              ),
+      ),
+    );
   }
 
   Widget _searchWidget(BuildContext context) {
