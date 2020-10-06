@@ -10,6 +10,26 @@ class LocateStorage {
     return lStorage;
   }
 
+  //是否有这个val值为key的缓存
+  static bool containsKey(String val) {
+    return lStorage.containsKey(val);
+  }
+
+  //请理缓存
+  static void clean({String key}) {
+    if (key != null && key.isNotEmpty == true) {
+      lStorage.remove(key);
+    } else {
+      lStorage.clear();
+    }
+  }
+
+  //查看所有keys
+  static void getAllKey() {
+    final keys = lStorage.getKeys();
+    LogUtil.v(keys.toString(), tag: 'debug: ${DateTime.now()} getAllKey ');
+  }
+
   //设置String缓存
   static void setString(String key, String val) {
     lStorage.setString('$key', val);
@@ -47,5 +67,18 @@ class LocateStorage {
     final value = lStorage.getInt('$key');
     LogUtil.v(value, tag: 'debug: ${DateTime.now()} getInt $key');
     return value;
+  }
+
+  //设置字符串数组
+  static void setStringList(String key, List<String> lists) {
+    lStorage.setStringList(key, lists);
+    LogUtil.v(lists, tag: 'debug: ${DateTime.now()} setStringList $key');
+  }
+
+  //获取字符串数组
+  static List<String> getStringList(String key) {
+    final List<String> lists = lStorage.getStringList(key);
+    LogUtil.v(lists, tag: 'debug: ${DateTime.now()} getStringList $key');
+    return lists;
   }
 }

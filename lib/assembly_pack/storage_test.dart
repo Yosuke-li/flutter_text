@@ -63,7 +63,33 @@ class _StorageTestState extends State<StorageTest> {
                   });
                 },
               ),
-            )
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: RaisedButton(
+                color: Theme.of(context).primaryColorDark,
+                textColor: Theme.of(context).primaryColorLight,
+                child: Text(
+                  '获取所有缓存',
+                ),
+                onPressed: () {
+                  LocateStorage.getAllKey();
+                },
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: RaisedButton(
+                color: Theme.of(context).primaryColorDark,
+                textColor: Theme.of(context).primaryColorLight,
+                child: Text(
+                  '清除缓存',
+                ),
+                onPressed: () {
+                  LocateStorage.clean();
+                },
+              ),
+            ),
           ],
         ),
       ),
