@@ -328,6 +328,8 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
           setState(() {
             _videoInit = true;
           });
+          //加载资源完成后 自动播放
+          // _controller.play();
         });
     } else {
       _controller = VideoPlayerController.network(widget.url)
@@ -337,6 +339,8 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
           setState(() {
             _videoInit = true;
           });
+          //加载资源完成后 自动播放
+          // _controller.play();
         });
     }
   }
