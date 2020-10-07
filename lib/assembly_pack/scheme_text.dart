@@ -26,7 +26,7 @@ class _SchemeTextState extends State<SchemeText> {
                   '跳转到exhibition',
                 ),
                 onPressed: () async {
-                  WebUrl.launchUrl('exhibition://');
+                  WebUrl.launchSchemeUrl('exhibition://');
                 },
               ),
             ),
@@ -39,7 +39,7 @@ class _SchemeTextState extends State<SchemeText> {
                   '跳转到错误链接',
                 ),
                 onPressed: () async {
-                  WebUrl.launchUrl('exhibition//');
+                  WebUrl.launchSchemeUrl('exhibition//');
                 },
               ),
             ),
@@ -52,7 +52,7 @@ class _SchemeTextState extends State<SchemeText> {
                   '跳转到flutter text',
                 ),
                 onPressed: () async {
-                  WebUrl.launchUrl('flutterTextLx://');
+                  WebUrl.launchSchemeUrl('flutterTextLx://');
                 },
               ),
             ),

@@ -1,3 +1,4 @@
+import 'package:common_utils/common_utils.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,6 +18,16 @@ class WebUrl {
     } else {
       ToastUtils.showToast(msg: result);
       return;
+    }
+  }
+
+  //scheme跳转
+  static Future<void> launchSchemeUrl(String url) async {
+    try {
+      await launch(url);
+    } catch (error, stack) {
+      LogUtil.v(error, tag: 'debug: ${DateTime.now()} launchSchemeUrl $stack');
+      rethrow;
     }
   }
 }

@@ -57,7 +57,7 @@ class _StorageTestState extends State<StorageTest> {
                 onPressed: () {
                   final String getValue =
                       LocateStorage.getString('StorageTest');
-                  ToastUtils.showToast(msg: getValue);
+                  ToastUtils.showToast(msg: getValue ?? '暂无缓存');
                   setState(() {
                     controller.text = getValue;
                   });
