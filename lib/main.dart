@@ -44,6 +44,7 @@ import 'package:flutter_text/assembly_pack/canvas_paint.dart';
 import 'package:flutter_text/assembly_pack/stepper.dart';
 
 import 'assembly_pack/range_slider.dart';
+import 'assembly_pack/slideing_panel.dart';
 import 'assembly_pack/slider.dart';
 import 'assembly_pack/layout_row.dart';
 import 'assembly_pack/decorated_box.dart';
@@ -321,6 +322,37 @@ class TabBarDemoful extends State<TabBarDemo>
             child: Container(
               child: ListView(
                   children: ListTile.divideTiles(context: context, tiles: [
+                ListTile(
+                  leading: const Icon(Icons.keyboard),
+                  title: Text(
+                    'SlidingUpPanel使用',
+                    style: TextStyle(
+                      fontSize: screenUtil.setSp(40),
+                    ),
+                  ),
+                  trailing: const Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => SlidingUpText()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.keyboard),
+                  title: Text(
+                    'SlidingUpPanelText使用',
+                    style: TextStyle(
+                      fontSize: screenUtil.setSp(40),
+                    ),
+                  ),
+                  trailing: const Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => SlidingUpPanelText()),
+                    );
+                  },
+                ),
                 ListTile(
                   leading: const Icon(Icons.settings),
                   title: Text(
@@ -650,21 +682,6 @@ class TabBarDemoful extends State<TabBarDemo>
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => SlidableText()),
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: const Icon(Icons.keyboard),
-                  title: Text(
-                    'SlidingUpPanel使用',
-                    style: TextStyle(
-                      fontSize: screenUtil.setSp(40),
-                    ),
-                  ),
-                  trailing: const Icon(Icons.keyboard_arrow_right),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => SlidingUpText()),
                     );
                   },
                 ),
