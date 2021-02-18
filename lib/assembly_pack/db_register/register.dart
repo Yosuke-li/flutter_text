@@ -18,7 +18,7 @@ class RegisterPageState extends State<RegisterPage> {
   String password;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  int count;
+  int count = 0;
 
   void initState() {
     super.initState();
