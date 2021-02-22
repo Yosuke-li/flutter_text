@@ -37,6 +37,7 @@ import 'package:flutter_text/assembly_pack/weather/real_time_page.dart';
 import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/utils/permission.dart';
 import 'assembly_pack/book/search_book.dart';
+import 'assembly_pack/car_pages.dart';
 import 'assembly_pack/db_test/test_ui.dart';
 import 'assembly_pack/event_bus/event_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -350,6 +351,21 @@ class TabBarDemoful extends State<TabBarDemo>
                     Navigator.of(context).push(
                       MaterialPageRoute(
                           builder: (context) => SlidingUpPanelText()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.list_alt),
+                  title: Text(
+                    'A to Z list view',
+                    style: TextStyle(
+                      fontSize: screenUtil.setSp(40),
+                    ),
+                  ),
+                  trailing: const Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => CarModelsPage()),
                     );
                   },
                 ),

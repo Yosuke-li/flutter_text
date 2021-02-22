@@ -55,6 +55,8 @@ dependencies:
   sqflite: ^1.3.1+1
   bot_toast: 2.4.1
   flutter_local_notifications: 2.0.0
+  scrollable_positioned_list: ^0.1.9
+  lpinyin: ^1.0.9   # 汉字转拼音
 
 dev_dependencies:
   flutter_test:
@@ -80,4 +82,5 @@ flutter:
     - images/voice/
     - images/_cat_sky.jpg
     - assets/index.pdf
+    - assets/data/
 
