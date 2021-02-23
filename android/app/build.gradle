@@ -40,7 +40,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.flutter_text"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
@@ -71,4 +71,3 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.1.0'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 }
-apply plugin: 'com.google.gms.google-services'

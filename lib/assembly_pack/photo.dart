@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_saver/image_picker_saver.dart';
 
 void main() => runApp(PickImage());
 
@@ -75,8 +75,8 @@ class PickImageState extends State<PickImageDemo> {
 
   Future _getImage(_photoIndex) async {
     Navigator.of(context).pop();
-    var image = await ImagePicker.pickImage(
-        source: _photoIndex == 0 ? ImageSource.camera : ImageSource.gallery);
+    final image = await ImagePickerSaver.pickImage(
+        source: _photoIndex == 0 ? ImageSource.camera : ImageSource.gallery, maxWidth: 1024.0, maxHeight: 1024.0);
 
     //没有选择图片或者没有拍照
     if (image != null) {

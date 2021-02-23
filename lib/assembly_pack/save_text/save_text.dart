@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_saver/image_picker_saver.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
 void main() {
@@ -270,7 +270,7 @@ class _MyAppState extends State<TextT> {
   }
 
   Future _scanBytes() async {
-    File file = await ImagePicker.pickImage(source: ImageSource.camera);
+    File file = await ImagePickerSaver.pickImage(source: ImageSource.camera);
     Uint8List bytes = file.readAsBytesSync();
     String barcode = await scanner.scanBytes(bytes);
     this._outputController.text = barcode;

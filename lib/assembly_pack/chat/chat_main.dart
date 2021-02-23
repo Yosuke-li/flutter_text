@@ -3,10 +3,10 @@ import 'dart:math';
 import 'dart:io';
 
 import 'package:flutter_text/assembly_pack/video_chat/video_chat.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/chat/sign_in.dart';
+import 'package:flutter_text/utils/lock.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +15,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter_text/widget/image_zoomable.dart';
+import 'package:image_picker_saver/image_picker_saver.dart';
 
 void main() {
   return runApp(chatPackApp());
@@ -51,6 +52,8 @@ class ChatSceneState extends State<ChatScene> {
   bool isComposer = false; //输入框判断
   GoogleSignInAccount _currentUser; //谷歌信息
   bool isLoading = true; //加载中
+
+  Lock lock = Lock();
 
   //生命周期
   void initState() {
@@ -127,12 +130,15 @@ class ChatSceneState extends State<ChatScene> {
 
   //选择图片
   void _pickerImage() async {
-    File imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    File imageFile =
+        await ImagePickerSaver.pickImage(source: ImageSource.gallery);
     int random = new Random().nextInt(100000);
     StorageReference ref =
         FirebaseStorage.instance.ref().child("image_$random.jpg");
     StorageUploadTask uploadTask = ref.putFile(imageFile);
-    await uploadTask.onComplete;
+    await lock.mutex(() async {
+      await uploadTask.onComplete;
+    });
     String downloadUrl = await uploadTask.lastSnapshot.ref.getDownloadURL();
     _sendMessage(imageUrl: downloadUrl);
   }
@@ -183,69 +189,73 @@ class ChatSceneState extends State<ChatScene> {
 
   //聊天消息查看
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("聊天"),
-        actions: <Widget>[
-          PopupMenuButton(
-            offset: Offset(100, 100),
-            itemBuilder: (BuildContext context) => [
-              //菜单项构造器
-              PopupMenuItem(
-                //菜单项
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Text('删除数据'),
-                ),
-              ),
-              PopupMenuItem(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => VideoChat(
-                              channelName: '12345',
-                            )));
-                  },
-                  child: Text("进入视频聊天"),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-      body: isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : GestureDetector(
-              onTap: () {
-                FocusScope.of(context).requestFocus(new FocusNode());
-              },
-              child: Column(
-                children: <Widget>[
-                  Flexible(
-                      child: FirebaseAnimatedList(
-                          query: reference,
-                          sort: (a, b) => b.key.compareTo(a.key),
-                          padding: new EdgeInsets.all(8.0),
-                          reverse: true,
-                          itemBuilder: (_, DataSnapshot snapshot,
-                              Animation<double> animation, __) {
-                            return RepaintBoundary(
-                              child: ChatMessage(
-                                  snapshot: snapshot, animation: animation),
-                            );
-                          })),
-                  Divider(height: 1.0),
-                  Container(
-                    decoration:
-                        BoxDecoration(color: Theme.of(context).cardColor),
-                    child: _buildTextComposer(),
+    return WillPopScope(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("聊天"),
+            actions: <Widget>[
+              PopupMenuButton(
+                offset: Offset(100, 100),
+                itemBuilder: (BuildContext context) => [
+                  //菜单项构造器
+                  PopupMenuItem(
+                    //菜单项
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Text('删除数据'),
+                    ),
+                  ),
+                  PopupMenuItem(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => VideoChat(
+                                  channelName: '12345',
+                                )));
+                      },
+                      child: Text("进入视频聊天"),
+                    ),
                   ),
                 ],
               ),
-            ),
-    );
+            ],
+          ),
+          body: isLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : GestureDetector(
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      Flexible(
+                          child: FirebaseAnimatedList(
+                              query: reference,
+                              sort: (a, b) => b.key.compareTo(a.key),
+                              padding: new EdgeInsets.all(8.0),
+                              reverse: true,
+                              itemBuilder: (_, DataSnapshot snapshot,
+                                  Animation<double> animation, __) {
+                                return RepaintBoundary(
+                                  child: ChatMessage(
+                                      snapshot: snapshot, animation: animation),
+                                );
+                              })),
+                      Divider(height: 1.0),
+                      Container(
+                        decoration:
+                            BoxDecoration(color: Theme.of(context).cardColor),
+                        child: _buildTextComposer(),
+                      ),
+                    ],
+                  ),
+                ),
+        ),
+        onWillPop: () async {
+          return false;
+        });
   }
 }
 
@@ -283,13 +293,16 @@ class ChatMessage extends StatelessWidget {
                   child: snapshot.value['imageUrl'] != null
                       ? GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
                                 builder: (context) => ImageZoomable(
-                                      photoList: [
-                                        NetworkImage(snapshot.value['imageUrl'])
-                                      ],
-                                      index: 0,
-                                    )));
+                                  photoList: [
+                                    NetworkImage(snapshot.value['imageUrl'])
+                                  ],
+                                  index: 0,
+                                ),
+                              ),
+                            );
                           },
                           child: Image.network(
                             snapshot.value['imageUrl'],
@@ -318,9 +331,11 @@ class ChatMessage extends StatelessWidget {
             ),
           ),
           Container(
-              margin: EdgeInsets.only(left: 16),
-              child: CircleAvatar(
-                  child: Image.network(snapshot.value['senderPhotoUrl']))),
+            margin: EdgeInsets.only(left: 16),
+            child: CircleAvatar(
+              child: Image.network(snapshot.value['senderPhotoUrl']),
+            ),
+          ),
         ],
       );
     } else {
@@ -341,13 +356,16 @@ class ChatMessage extends StatelessWidget {
                   child: snapshot.value['imageUrl'] != null
                       ? GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
                                 builder: (context) => ImageZoomable(
-                                      photoList: [
-                                        NetworkImage(snapshot.value['imageUrl'])
-                                      ],
-                                      index: 0,
-                                    )));
+                                  photoList: [
+                                    NetworkImage(snapshot.value['imageUrl'])
+                                  ],
+                                  index: 0,
+                                ),
+                              ),
+                            );
                           },
                           child: Image.network(
                             snapshot.value['imageUrl'],

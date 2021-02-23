@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_text/widget/video_widget.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_saver/image_picker_saver.dart';
 
 void main() => runApp(videoIndex());
 
@@ -58,8 +58,8 @@ class contextPageState extends State<contextPage> {
             ? FloatingActionButton(
           onPressed: () async {
             File video =
-            await ImagePicker.pickVideo(source: ImageSource.gallery);
-            if (video != null && video != '') {
+            await ImagePickerSaver.pickVideo(source: ImageSource.gallery);
+            if (video != null && video.path != '') {
               setState(() {
                 _video = video;
               });
