@@ -355,7 +355,7 @@ class TabBarDemoful extends State<TabBarDemo>
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.list_alt),
+                  leading: const Icon(Icons.view_list),
                   title: Text(
                     'A to Z list view',
                     style: TextStyle(
