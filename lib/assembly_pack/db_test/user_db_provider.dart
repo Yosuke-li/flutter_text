@@ -1,5 +1,6 @@
 import 'package:flutter_text/assembly_pack/database/base_db_provider.dart';
 import 'package:flutter_text/model/db_user.dart';
+import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/utils/utils.dart';
 import 'package:sqflite/sqlite_api.dart';
 
@@ -89,7 +90,7 @@ class UserDbProvider extends BaseDbProvider {
     final database = await getDataBase();
     final result =
         await database.rawQuery('select count(*) as counts from $name');
-    return ArrayUtil.get(result, 0)['counts'];
+    return ArrayHelper.get(result, 0)['counts'];
   }
 
   //获取数据数量

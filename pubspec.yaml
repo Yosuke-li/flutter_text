@@ -1,9 +1,9 @@
 name: flutter_text
 description: A new Flutter application.
-version: 1.0.0+1
+version: 2.0.0
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -31,7 +31,7 @@ dependencies:
   firebase_core: 0.4.0+9
   http: ^0.12.0+4
   photo_view: ^0.4.2
-  agora_rtc_engine: 1.0.1
+  agora_rtc_engine: ^1.0.1
   video_player: ^0.10.11+2
   orientation: ^1.1.0
   common_utils: ^1.1.3

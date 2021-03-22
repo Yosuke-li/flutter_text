@@ -6,7 +6,7 @@ import 'package:flutter_text/model/book.dart';
 class BookApi {
   final FuzzySearchUrl = "http://api.zhuishushenqi.com/book/fuzzy-search";
   final detailUrl = "http://api.zhuishushenqi.com/book/";
-  BaseOptions baseOptions;
+  BaseOptions baseOptions = BaseOptions();
 
   //搜索小说
   Future searchBook(String key, int start, int limit) async {
@@ -19,7 +19,7 @@ class BookApi {
       return _bookResult;
     } catch (e) {
       print('error ================> $e');
-      return null;
+      rethrow;
     }
   }
 
@@ -33,7 +33,7 @@ class BookApi {
       return _books;
     } catch (e) {
       print('error ================> $e');
-      return null;
+      rethrow;
     }
   }
 
@@ -51,7 +51,7 @@ class BookApi {
       return getBookChapters(_btocResult.id);
     } catch (e) {
       print('error ================> $e');
-      return null;
+      rethrow;
     }
   }
 
@@ -68,7 +68,7 @@ class BookApi {
       return _chapterResult;
     } catch (e) {
       print('error ================> $e');
-      return null;
+      rethrow;
     }
   }
 
@@ -82,7 +82,7 @@ class BookApi {
       return _chapterInfo;
     } catch (e) {
       print('error ================> $e');
-      return null;
+      rethrow;
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_text/api/pear_video.dart';
 import 'package:flutter_text/model/pear_video.dart';
+import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/utils/date_format.dart';
 import 'package:flutter_text/utils/utils.dart';
 import 'package:flutter_text/widget/video_widget.dart';
@@ -63,7 +64,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
 
   //获取视频信息
   void getVideoList({bool isLoadMore = false}) async {
-    String id = ArrayUtil.get(tabs, currentIndex).categoryId;
+    String id = ArrayHelper.get(tabs, currentIndex).categoryId;
     final result = await PearVideoApi().getCategoryDataList(page, id);
     if(result != null) {
       setState(() {
@@ -121,7 +122,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
                       alignment: Alignment.center,
                       padding: EdgeInsets.only(left: 20, right: 20),
                       child: Text(
-                        '${ArrayUtil.get(tabs, index).name ?? ''}',
+                        '${ArrayHelper.get(tabs, index).name ?? ''}',
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -151,15 +152,15 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
         controller: swperController,
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, int index) {
-          return ArrayUtil.get(hot, index).videos != null
+          return ArrayHelper.get(hot, index).videos != null
               ? Stack(
                   children: <Widget>[
                     VideoPlayerText(
-                      url: ArrayUtil.get(hot, index)
+                      url: ArrayHelper.get(hot, index)
                           .videos
                           .url
                           .replaceAll('http:', 'https:'),
-                      title: '${ArrayUtil.get(hot, index).name ?? '示例视频'}',
+                      title: '${ArrayHelper.get(hot, index).name ?? '示例视频'}',
                       width: MediaQuery.of(context).size.width,
                     ),
                     Positioned(
@@ -173,14 +174,14 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
                               CircleAvatar(
                                 radius: 20,
                                 backgroundImage: NetworkImage(
-                                    ArrayUtil.get(hot, index)
+                                    ArrayHelper.get(hot, index)
                                         .nodeInfo
                                         ?.logoImg),
                               ),
                               Container(
                                 padding: EdgeInsets.only(left: 13),
                                 child: Text(
-                                  '${ArrayUtil.get(hot, index).nodeInfo?.name ?? ''}',
+                                  '${ArrayHelper.get(hot, index).nodeInfo?.name ?? ''}',
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 16),
                                 ),
@@ -197,7 +198,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
                               scrollDirection: Axis.horizontal,
                               children: <Widget>[
                                 Text(
-                                  '${ArrayUtil.get(hot, index).name ?? ''}',
+                                  '${ArrayHelper.get(hot, index).name ?? ''}',
                                   maxLines: 1,
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 16),
