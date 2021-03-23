@@ -242,4 +242,31 @@ class DateTimeHelper {
     }
     return result;
   }
+
+  //根据时间戳获取当月的时间戳范围
+  static List<int> timeToMouthTimeStamp(int time) {
+    final List<int> result = <int>[];
+    String date = '';
+    final String mouth = datetimeFormat(time, 'MM');
+    final String year = datetimeFormat(time, 'yyyy');
+
+    const List<String> big_mouth = <String>['01', '03', '05', '07', '08', '10', '12'];
+    date = year + mouth;
+    if (big_mouth.any((e) => e == mouth) == true) {
+      result.add(DateTime.parse(date + '01').millisecondsSinceEpoch ~/1000);
+      result.add(DateTime.parse(date + '31').millisecondsSinceEpoch ~/1000);
+    } else {
+      result.add(DateTime.parse(date + '01').millisecondsSinceEpoch ~/1000);
+      if (mouth == '02') {
+        if (int.tryParse(year) % 4 == 0) {
+          result.add(DateTime.parse(date + '29').millisecondsSinceEpoch ~/1000);
+        } else {
+          result.add(DateTime.parse(date + '28').millisecondsSinceEpoch ~/1000);
+        }
+      } else {
+        result.add(DateTime.parse(date + '30').millisecondsSinceEpoch ~/1000);
+      }
+    }
+    return result;
+  }
 }
