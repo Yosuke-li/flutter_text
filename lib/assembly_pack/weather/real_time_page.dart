@@ -223,7 +223,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                 children: _threeDaysForecast.dailyForecasts
                                     .map((item) {
                                   return _threeDayWeather(item);
-                                }).toList(),
+                                })?.toList() ?? [],
                               ),
                             ),
                           ),

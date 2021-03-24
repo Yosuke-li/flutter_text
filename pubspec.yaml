@@ -24,10 +24,10 @@ dependencies:
   table_calendar: 2.2.2
   simple_animations: 1.3.8
   google_sign_in: 4.0.12 #谷歌全家桶
-  firebase_analytics: 5.0.2
-  firebase_auth: 0.15.0
-  firebase_storage: 3.0.10
-  firebase_database: 3.0.9
+  firebase_analytics: ^5.0.2
+  firebase_auth: ^0.15.0
+  firebase_storage: ^3.0.10
+  firebase_database: ^3.0.9
   firebase_core: 0.4.0+9
   http: ^0.12.0+4
   photo_view: ^0.4.2
@@ -57,6 +57,8 @@ dependencies:
   flutter_local_notifications: 2.0.0
   scrollable_positioned_list: ^0.1.9
   lpinyin: ^1.0.9   # 汉字转拼音
+#  flutter_doraemonkit:
+#    path: C:\Users\coco\AndroidStudioProjects\flutter_doraemonkit
 
 dev_dependencies:
   flutter_test:
