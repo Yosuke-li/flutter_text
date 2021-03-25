@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_test/user_db_provider.dart';
 import 'package:flutter_text/model/db_user.dart';
+import 'package:flutter_text/utils/helpers/interfaces/login_api.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 
 class TestAdd extends StatefulWidget {
@@ -19,6 +20,8 @@ class TestAddState extends State<TestAdd> {
   UserDbProvider provider = UserDbProvider();
   User user;
   int count;
+
+  LoginApi iCacheApi = LoginApi(); //todo interfaces 接口测试
 
   TestAddState(this.user);
 
@@ -113,6 +116,7 @@ class TestAddState extends State<TestAdd> {
 
     int result = await provider.deleteUser(user.id);
     if (result != 0) {
+      iCacheApi.deleteCache(user.id);
       Navigator.pop(context, true);
       ToastUtils.showToast(msg: '删除成功');
     } else {
@@ -133,9 +137,8 @@ class TestAddState extends State<TestAdd> {
     int t = user.id;
     String n = user.name;
     String d = user.desc;
-    debugPrint("t:$t n:$n d:$d");
-    debugPrint("result: $result");
     if (result != 0) {
+      iCacheApi.setCache(user);
       Navigator.pop(context, true);
       ToastUtils.showToast(msg: '保存成功');
     } else {

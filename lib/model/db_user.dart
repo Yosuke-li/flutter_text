@@ -38,4 +38,24 @@ class User {
     this._name = map['name'];
     this._desc = map['desc'];
   }
+
+  String toString() {
+    return 'User[id=$id, name=$name, desc=$desc]';
+  }
+
+  User.fromJson(Map<String, dynamic> json) {
+    if (json == null || json?.keys.isNotEmpty != true) return;
+    final Map<String, dynamic> keyToLowerCaseJson = {};
+    keyToLowerCaseJson.addEntries(json.keys.map((element) {
+      final String key = element;
+      return MapEntry(key.toLowerCase(), json[element]);
+    }));
+    User.fromMapObject(keyToLowerCaseJson);
+  }
+
+  static List<User> listFromJson(List<dynamic> json) {
+    return json == null
+        ? List<User>()
+        : json.map((e) => User.fromJson(e)).toList();
+  }
 }

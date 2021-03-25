@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_test/test_add.dart';
 import 'package:flutter_text/assembly_pack/db_test/user_db_provider.dart';
 import 'package:flutter_text/model/db_user.dart';
+import 'package:flutter_text/utils/helpers/interfaces/login_api.dart';
 
 void main() => runApp(TestDb());
 
@@ -14,6 +17,8 @@ class _TestDbState extends State<TestDb> {
   UserDbProvider provider = UserDbProvider();
   List<User> userList = [];
 
+  LoginApi iCacheApi = LoginApi(); //todo interfaces 接口测试
+  
   void initState() {
     super.initState();
     getUserList();
@@ -22,7 +27,10 @@ class _TestDbState extends State<TestDb> {
   Future<void> getUserList() async {
     final list = await provider.getAllUser();
     final counts = await provider.getTableCountsV2();
+    
+    final List<User> cache = await iCacheApi.getAllCache();
     print('counts: $counts');
+    print('cache: ${jsonEncode(cache)}');
     setState(() {
       userList = list;
     });
