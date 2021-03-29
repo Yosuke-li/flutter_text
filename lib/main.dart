@@ -36,6 +36,7 @@ import 'package:flutter_text/assembly_pack/video_player/video_list.dart';
 import 'package:flutter_text/assembly_pack/weather/real_time_page.dart';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/global/store.dart';
+import 'package:flutter_text/utils/file_utils.dart';
 import 'package:flutter_text/utils/permission.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'assembly_pack/book/search_book.dart';
@@ -106,6 +107,7 @@ class TabBarDemoState extends State<TabBarDemo>
     super.initState();
     Permission.init();
     LocateStorage.init();
+    FileUtils.init();
     LogUtil.init(isDebug: true);
     tabController = TabController(length: 3, vsync: this)
       ..addListener(() {

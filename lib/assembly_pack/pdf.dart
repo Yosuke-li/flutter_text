@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_text/utils/file_to_locate.dart';
+import 'package:flutter_text/utils/file_utils.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -44,14 +46,12 @@ class pdfViewState extends State<pdfView> {
   //本地assert保存
   Future<void> _assertDownLoad() async {
     try {
-      final bytes = await rootBundle.load("assets/index.pdf");
-      final dir = await getTemporaryDirectory();
-      final filePath = dir.path + '${Random().nextInt(4294967000)}' + ('.pdf');
-
-      await writeToFile(bytes, filePath);
-
-      await ImageGallerySaver.saveFile(filePath);
-      ToastUtils.showToast(msg: '文件已保存到$filePath');
+      final bytes =
+         await FileToLocateHelper.getAssetFileBytes(assetPath: 'assets/index.pdf');
+      FileToLocateHelper.saveFileToLocated('魔法禁书目录.pdf', byteUrl: bytes,
+          onSuccessToast: (String name) {
+        ToastUtils.showToast(msg: '保存成功');
+      });
     } catch (error, stack) {
       rethrow;
     }
