@@ -12,6 +12,7 @@ import 'package:flutter_text/widget/video_widget.dart';
 void main() => runApp(PearVideoFirstPage());
 
 class PearVideoFirstPage extends StatefulWidget {
+  @override
   PearVideoFirstPageState createState() => PearVideoFirstPageState();
 }
 
@@ -79,21 +80,24 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
     }
   }
 
+  @override
   void initState() {
     super.initState();
-    this.startTimer();
+    startTimer();
     getCategoryList();
   }
 
   //页面销毁
+  @override
   void dispose() {
-    this.scroController?.dispose();
-    this.swperController?.dispose();
-    this.timer?.cancel();
+    scroController?.dispose();
+    swperController?.dispose();
+    timer?.cancel();
 
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return isShow
         ? Scaffold(

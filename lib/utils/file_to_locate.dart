@@ -13,6 +13,7 @@ import 'package:path_provider/path_provider.dart';
 class FileToLocateHelper {
   //下载保存到本地文件
   // getApplicationDocumentsDirectory result = await ImageGallerySaver.saveFile(filePath);
+  //netWorkUrl 网络url, fire 本地文件，byteUrl 大部分是asset文件
   static void saveFileToLocated(String fileName,
       {String netWorkUrl,
         String fileUrl,

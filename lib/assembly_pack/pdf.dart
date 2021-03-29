@@ -2,9 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_text/utils/file_to_locate.dart';
-import 'package:flutter_text/utils/file_utils.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -34,13 +32,6 @@ class pdfViewState extends State<pdfView> {
     } catch (e) {
       rethrow;
     }
-  }
-
-  //写入
-  Future<void> writeToFile(ByteData data, String path) async {
-    final buffer = data.buffer;
-    return new File(path).writeAsBytes(
-        buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
   }
 
   //本地assert保存

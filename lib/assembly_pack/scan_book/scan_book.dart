@@ -15,7 +15,7 @@ class TextState extends State<ScanBook> {
   ScanBookAModel _scanABook;        //阿里Api
 
   @override
-  initState() {
+  void initState() {
     super.initState();
   }
 

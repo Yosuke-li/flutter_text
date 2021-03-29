@@ -8,6 +8,7 @@ import 'package:simple_animations/simple_animations.dart';
 void main() => runApp(Hello());
 
 class Hello extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(body: HelloDemo());
   }
@@ -15,21 +16,25 @@ class Hello extends StatelessWidget {
 
 //scene主场景
 class HelloDemo extends StatefulWidget {
+  @override
   HelloDemoState createState() => HelloDemoState();
 }
 
 class HelloDemoState extends State<HelloDemo> {
+  @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]); //清除手机顶部和底部状态栏
   }
 
+  @override
   void dispose() {
     super.dispose();
     SystemChrome.setEnabledSystemUIOverlays(
         [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   }
 
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
@@ -65,7 +70,7 @@ class HelloDemoState extends State<HelloDemo> {
     );
   }
 
-  onWave(Widget child) => Positioned.fill(
+  Widget onWave(Widget child) => Positioned.fill(
           child: Align(
         alignment: Alignment.bottomCenter,
         child: child,
@@ -74,6 +79,7 @@ class HelloDemoState extends State<HelloDemo> {
 
 //背景渐变
 class LinearBackground extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     final tween = MultiTrackTween([
       Track("color1").add(Duration(seconds: 20),

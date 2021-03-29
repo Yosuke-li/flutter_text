@@ -508,7 +508,7 @@ class _BaseIndexBarState extends State<BaseIndexBar> {
   }
 
   /// trigger drag event.
-  _triggerDragEvent(int action) {
+  void _triggerDragEvent(int action) {
     widget.indexBarDragNotifier?.dragDetails?.value = IndexBarDragDetails(
       action: action,
       index: lastIndex,

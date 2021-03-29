@@ -139,7 +139,7 @@ class _TikTokFavoriteAnimationIconState
     super.initState();
   }
 
-  startAnimation() async {
+  void startAnimation() async {
     await _animationController.forward();
     widget.onAnimationComplete?.call();
   }

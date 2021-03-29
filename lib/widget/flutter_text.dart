@@ -7,6 +7,7 @@ class FlutterText extends StatefulWidget {
 
   FlutterText(this.str, this.style);
 
+  @override
   _FlutterTextState createState() => _FlutterTextState();
 }
 
@@ -15,7 +16,8 @@ class _FlutterTextState extends State<FlutterText>
   Animation<double> animation;
   AnimationController controller;
 
-  initState() {
+  @override
+  void initState() {
     super.initState();
     controller = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
@@ -38,7 +40,7 @@ class _FlutterTextState extends State<FlutterText>
   }
 
   Widget build(BuildContext context) {
-    var result = Transform(
+    Transform result = Transform(
       transform: Matrix4.rotationZ(animation.value * pi / 180),
       alignment: Alignment.center,
       child: Text(
@@ -49,7 +51,9 @@ class _FlutterTextState extends State<FlutterText>
 
     return result;
   }
-  dispose() {
+
+  @override
+  void dispose() {
     controller.dispose();
     super.dispose();
   }

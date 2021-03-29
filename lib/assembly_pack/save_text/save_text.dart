@@ -23,10 +23,10 @@ class _MyAppState extends State<TextT> {
   TextEditingController _outputController;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
-    this._inputController = new TextEditingController();
-    this._outputController = new TextEditingController();
+    _inputController = TextEditingController();
+    _outputController = TextEditingController();
   }
 
   @override
@@ -44,7 +44,7 @@ class _MyAppState extends State<TextT> {
                   child: Column(
                     children: <Widget>[
                       TextField(
-                        controller: this._inputController,
+                        controller: _inputController,
                         keyboardType: TextInputType.url,
                         textInputAction: TextInputAction.go,
                         onSubmitted: (value) => _generateBarCode(value),

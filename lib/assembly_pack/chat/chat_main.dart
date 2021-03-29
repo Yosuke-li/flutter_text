@@ -18,10 +18,11 @@ import 'package:flutter_text/widget/image_zoomable.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
 
 void main() {
-  return runApp(chatPackApp());
+  return runApp(ChatPackApp());
 }
 
-class chatPackApp extends StatelessWidget {
+class ChatPackApp extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "聊天室",
@@ -46,9 +47,9 @@ GoogleSignIn googleSignIn = new GoogleSignIn(
 
 class ChatSceneState extends State<ChatScene> {
   final auth = FirebaseAuth.instance; //监听用户UID
-  final analytics = new FirebaseAnalytics(); //监听事件
+  final analytics = FirebaseAnalytics(); //监听事件
   final TextEditingController _textEditingController =
-      new TextEditingController(); //输入框
+      TextEditingController(); //输入框
   bool isComposer = false; //输入框判断
   GoogleSignInAccount _currentUser; //谷歌信息
   bool isLoading = true; //加载中
@@ -56,6 +57,7 @@ class ChatSceneState extends State<ChatScene> {
   Lock lock = Lock();
 
   //生命周期
+  @override
   void initState() {
     super.initState();
     _ensureLoggedIn();
@@ -65,7 +67,7 @@ class ChatSceneState extends State<ChatScene> {
   Future<void> _setDatabase() async {
     final App = await FirebaseApp.configure(
       name: 'db2',
-      options: FirebaseOptions(
+      options: const FirebaseOptions(
         googleAppID: '1:32984109309:android:30927d8d01aa5b244eae94',
         apiKey: 'AIzaSyDmY0jjaHswJ65DP9KI4oEA4iyCkXiCZxQ',
         databaseURL: 'https://flutter-talk-app-3ed74.firebaseio.com',
@@ -73,7 +75,7 @@ class ChatSceneState extends State<ChatScene> {
     );
     var db = FirebaseDatabase(app: App);
     reference = db.reference().child('messages');
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       setState(() {
         isLoading = false;
       });
@@ -90,7 +92,7 @@ class ChatSceneState extends State<ChatScene> {
     if (_currentUser == null) await googleSignIn.signInSilently();
     if (_currentUser == null) {
       await googleSignIn.signIn();
-      analytics.logSignUp(); //google事件日志
+      analytics.logSignUp(signUpMethod: null); //google事件日志
     }
     // google用户登录
     if (auth.currentUser != null) {
@@ -132,14 +134,14 @@ class ChatSceneState extends State<ChatScene> {
   void _pickerImage() async {
     File imageFile =
         await ImagePickerSaver.pickImage(source: ImageSource.gallery);
-    int random = new Random().nextInt(100000);
+    final int random = Random().nextInt(100000);
     StorageReference ref =
         FirebaseStorage.instance.ref().child("image_$random.jpg");
-    StorageUploadTask uploadTask = ref.putFile(imageFile);
+    final StorageUploadTask uploadTask = ref.putFile(imageFile);
     await lock.mutex(() async {
       await uploadTask.onComplete;
     });
-    String downloadUrl = await uploadTask.lastSnapshot.ref.getDownloadURL();
+    final String downloadUrl = await uploadTask.lastSnapshot.ref.getDownloadURL();
     _sendMessage(imageUrl: downloadUrl);
   }
 
@@ -150,9 +152,9 @@ class ChatSceneState extends State<ChatScene> {
       child: Row(
         children: <Widget>[
           Container(
-            margin: new EdgeInsets.symmetric(horizontal: 4.0),
-            child: new IconButton(
-                icon: new Icon(Icons.photo_camera),
+            margin: EdgeInsets.symmetric(horizontal: 4.0),
+            child: IconButton(
+                icon: const Icon(Icons.photo_camera),
                 onPressed: () {
                   _pickerImage();
                 }),
@@ -162,16 +164,16 @@ class ChatSceneState extends State<ChatScene> {
               controller: _textEditingController,
               onChanged: (String text) {
                 setState(() {
-                  isComposer = text.length > 0;
+                  isComposer = text.isNotEmpty;
                 });
               },
-              decoration: InputDecoration.collapsed(
-                  hintText: "发送消息",
+              decoration: const InputDecoration.collapsed(
+                  hintText: '发送消息',
                   hintStyle: TextStyle(fontSize: 14, color: Colors.black12)),
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 4.0),
+            margin: const EdgeInsets.symmetric(horizontal: 4.0),
             child: IconButton(
               icon: Icon(
                 Icons.send,
@@ -188,32 +190,33 @@ class ChatSceneState extends State<ChatScene> {
   }
 
   //聊天消息查看
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(
           appBar: AppBar(
-            title: Text("聊天"),
+            title: const Text('聊天'),
             actions: <Widget>[
               PopupMenuButton(
-                offset: Offset(100, 100),
+                offset: const Offset(100, 100),
                 itemBuilder: (BuildContext context) => [
                   //菜单项构造器
                   PopupMenuItem(
                     //菜单项
                     child: GestureDetector(
                       onTap: () {},
-                      child: Text('删除数据'),
+                      child: const Text('删除数据'),
                     ),
                   ),
                   PopupMenuItem(
                     child: GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => VideoChat(
+                            builder: (BuildContext context) => const VideoChat(
                                   channelName: '12345',
                                 )));
                       },
-                      child: Text("进入视频聊天"),
+                      child: const Text('进入视频聊天'),
                     ),
                   ),
                 ],
@@ -221,7 +224,7 @@ class ChatSceneState extends State<ChatScene> {
             ],
           ),
           body: isLoading
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : GestureDetector(
@@ -234,7 +237,7 @@ class ChatSceneState extends State<ChatScene> {
                           child: FirebaseAnimatedList(
                               query: reference,
                               sort: (a, b) => b.key.compareTo(a.key),
-                              padding: new EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(8.0),
                               reverse: true,
                               itemBuilder: (_, DataSnapshot snapshot,
                                   Animation<double> animation, __) {
@@ -243,7 +246,7 @@ class ChatSceneState extends State<ChatScene> {
                                       snapshot: snapshot, animation: animation),
                                 );
                               })),
-                      Divider(height: 1.0),
+                      const Divider(height: 1.0),
                       Container(
                         decoration:
                             BoxDecoration(color: Theme.of(context).cardColor),
@@ -261,7 +264,7 @@ class ChatSceneState extends State<ChatScene> {
 
 //消息
 class ChatMessage extends StatelessWidget {
-  ChatMessage({this.snapshot, this.animation});
+  const ChatMessage({this.snapshot, this.animation});
 
   final DataSnapshot snapshot;
   final Animation animation;
@@ -269,16 +272,16 @@ class ChatMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizeTransition(
-      sizeFactor: new CurvedAnimation(parent: animation, curve: Curves.easeOut),
+      sizeFactor: CurvedAnimation(parent: animation, curve: Curves.easeOut),
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10.0),
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
         child: row(context),
       ),
     );
   }
 
   Widget row(BuildContext context) {
-    if (snapshot.value["id"] == googleSignIn.currentUser?.id) {
+    if (snapshot.value['id'] == googleSignIn.currentUser?.id) {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -289,7 +292,7 @@ class ChatMessage extends StatelessWidget {
               children: <Widget>[
                 Text(snapshot.value['senderName']),
                 Container(
-                  margin: EdgeInsets.only(top: 5.0),
+                  margin: const EdgeInsets.only(top: 5.0),
                   child: snapshot.value['imageUrl'] != null
                       ? GestureDetector(
                           onTap: () {
@@ -317,12 +320,12 @@ class ChatMessage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5)),
                           child: Container(
                             color: Colors.green,
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 top: 5, bottom: 5, right: 10, left: 10),
                             child: Text(
                               snapshot.value['text'],
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
+                                  const TextStyle(color: Colors.white, fontSize: 15),
                             ),
                           ),
                         ),
@@ -331,7 +334,7 @@ class ChatMessage extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 16),
+            margin: const EdgeInsets.only(left: 16),
             child: CircleAvatar(
               child: Image.network(snapshot.value['senderPhotoUrl']),
             ),
@@ -343,7 +346,7 @@ class ChatMessage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-              margin: EdgeInsets.only(right: 16),
+              margin: const EdgeInsets.only(right: 16),
               child: CircleAvatar(
                   child: Image.network(snapshot.value['senderPhotoUrl']))),
           Flexible(
@@ -352,7 +355,7 @@ class ChatMessage extends StatelessWidget {
               children: <Widget>[
                 Text(snapshot.value['senderName']),
                 Container(
-                  margin: EdgeInsets.only(top: 5.0),
+                  margin: const EdgeInsets.only(top: 5.0),
                   child: snapshot.value['imageUrl'] != null
                       ? GestureDetector(
                           onTap: () {
@@ -380,11 +383,11 @@ class ChatMessage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5)),
                           child: Container(
                             color: Colors.white,
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 top: 5, bottom: 5, right: 10, left: 10),
                             child: Text(
                               snapshot.value['text'],
-                              style: TextStyle(fontSize: 15),
+                              style: const TextStyle(fontSize: 15),
                             ),
                           ),
                         ),

@@ -4,11 +4,11 @@ import 'package:sqflite/sqflite.dart';
 abstract class BaseDbProvider {
   bool isTableExits = false;
 
-  createTableString();
+  String createTableString();
 
-  tableName();
+  String tableName();
 
-  tableBaseString(String sql) {
+  String tableBaseString(String sql) {
     return sql;
   }
 
@@ -17,7 +17,7 @@ abstract class BaseDbProvider {
   }
 
   ///函数对父类进行初始化
-  prepare(name, String createSql) async {
+  Future<void> prepare(String name, String createSql) async {
     isTableExits = await SqlManager.isTableExits(name);
     if (!isTableExits) {
       Database db = await SqlManager.getCurrentDatabase();
@@ -25,7 +25,7 @@ abstract class BaseDbProvider {
     }
   }
 
-  open() async {
+  Future<Database> open() async {
     if (!isTableExits) {
       await prepare(tableName(), createTableString());
     }

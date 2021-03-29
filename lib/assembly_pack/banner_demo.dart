@@ -23,6 +23,6 @@ class _bannerDemoState extends State<bannerDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: widgetBanner(_imgData));
+    return Scaffold(body: WidgetBanner(_imgData));
   }
 }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new textField());
+void main() => runApp(TextFieldPage());
 
-class textField extends StatelessWidget {
+class TextFieldPage extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return MaterialApp(
       title: 'slider Study',
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('text_field 组件'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('text_field 组件'),
         ),
         body: Center(
           child: contextPage(),
@@ -32,14 +32,15 @@ class contextPageState extends State<contextPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
-    return new Column(
+    return Column(
       children: <Widget>[
         TextField(
           controller: usernameController,
           textCapitalization: TextCapitalization.none,          //键盘大小写显示
           keyboardType: TextInputType.text,                     //键盘类型
-          decoration: InputDecoration(                          //设置装饰
+          decoration: const InputDecoration(                          //设置装饰
             contentPadding: EdgeInsets.all(10.0),               //控制input高度
             icon: Icon(Icons.person),
             labelText: "请输入你的手机号",
@@ -50,7 +51,7 @@ class contextPageState extends State<contextPage> {
         TextField(
           controller: passwordController,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             contentPadding: EdgeInsets.all(10.0),
             icon: Icon(Icons.lock),
             labelText: "请输入密码"
@@ -71,8 +72,8 @@ class contextPageState extends State<contextPage> {
   }
 
   //简单的登录判断
-  loginCheck() {
-    var content = '登录成功';
+  void loginCheck() {
+    String content = '登录成功';
 
     if ( passwordController.text.length < 6 ) {
       content = '请输入6位数以上的密码';
@@ -87,14 +88,14 @@ class contextPageState extends State<contextPage> {
         builder: (context) => AlertDialog(
           content: Text(content),
           actions: <Widget>[
-            new FlatButton(
-              child: new Text("取消"),
+            FlatButton(
+              child: const Text("取消"),
               onPressed: () {
                 Navigator.pop(context, '取消选择');
               },
             ),
-            new FlatButton(
-              child: new Text("确定"),
+            FlatButton(
+              child: const Text("确定"),
               onPressed: () {
                 Navigator.pop(context, usernameController);
               },

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(LiquidText());
 
 class LiquidText extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return LiquidDemo();
   }
@@ -18,6 +19,7 @@ class LiquidDemo extends StatefulWidget {
 class LiquidDemoState extends State<LiquidDemo> {
   WaveType currentAnimate = WaveType.circularReveal;
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: LiquidSwipe(
@@ -42,10 +44,10 @@ class LiquidDemoState extends State<LiquidDemo> {
       ),
     );
   }
-  pageChangeCallback(int page) {
+  void pageChangeCallback(int page) {
     print(page);
   }
-  updateTypeCallback(UpdateType updateType) {
+  void updateTypeCallback(UpdateType updateType) {
 
   }
 }

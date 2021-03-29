@@ -32,7 +32,7 @@ class SqlManager {
     return _database;
   }
 
-  static close() {
+  static void close() {
     _database.close();
     _database = null;
   }

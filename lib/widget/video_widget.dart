@@ -8,11 +8,11 @@ import 'package:orientation/orientation.dart';
 import 'package:video_player/video_player.dart'; // 引入官方插件
 
 class VideoPlayerText extends StatefulWidget {
-  VideoPlayerText({
-    @required this.url, // 当前需要播放的地址
-    @required this.file, //浏览本地视频的地址
-    @required this.width, // 播放器尺寸（大于等于视频播放区域）
-    @required this.height,
+  const VideoPlayerText({
+    this.url, // 当前需要播放的地址
+    this.file, //浏览本地视频的地址
+    this.width, // 播放器尺寸（大于等于视频播放区域）
+    this.height,
     this.title = '', // 视频需要显示的标题
   });
 

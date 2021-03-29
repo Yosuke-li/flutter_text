@@ -103,6 +103,7 @@ class TabBarDemoState extends State<TabBarDemo>
   TabController tabController;
   int currentIndex = 0;
 
+  @override
   void initState() {
     super.initState();
     Permission.init();
@@ -117,6 +118,7 @@ class TabBarDemoState extends State<TabBarDemo>
       });
   }
 
+  @override
   Widget build(BuildContext viewContext) {
     return MaterialApp(
       showPerformanceOverlay: GlobalStore.isShowOverlay ?? false,
@@ -144,7 +146,7 @@ class TabBarDemoState extends State<TabBarDemo>
                       ),
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => chatPackApp()),
+                          MaterialPageRoute(builder: (context) => ChatPackApp()),
                         );
                       },
                     ),
@@ -476,7 +478,7 @@ class TabBarDemoState extends State<TabBarDemo>
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => RangeSliderPage()),
+                                  builder: (BuildContext context) => RangeSliderPage()),
                             );
                           },
                         ),
@@ -522,8 +524,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           onTap: () {
                             Navigator.push(
                               context,
-                              new MaterialPageRoute(
-                                  builder: (BuildContext context) => textField()),
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => TextFieldPage()),
                             ).then((onValue) {
                               print('返回回来的手机号是：' + onValue);
                             });

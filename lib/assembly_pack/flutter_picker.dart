@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 
-void main() => runApp(new FlutterPickerDemo());
+void main() => runApp( FlutterPickerDemo());
 
 class FlutterPickerDemo extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<FlutterPickerDemo> {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-        home: new MyHomePage());
+    return MaterialApp(
+        home: MyHomePage());
   }
 }
 
@@ -110,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  showPickerIcons(BuildContext context) {
+  void showPickerIcons(BuildContext context) {
     Picker(
       adapter: PickerDataAdapter(data: [
         PickerItem(text: Icon(Icons.add), value: Icons.add, children: [
@@ -150,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
-  showPickerNumber(BuildContext context) {
+  void showPickerNumber(BuildContext context) {
     Picker(
         adapter: NumberPickerAdapter(data: [
           NumberPickerColumn(begin: 1, end: 100),
@@ -173,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ).showDialog(context);
   }
 
-  showPickerNumberFormatValue(BuildContext context) {
+  void showPickerNumberFormatValue(BuildContext context) {
     Picker(
         adapter: NumberPickerAdapter(data: [
           NumberPickerColumn(
@@ -202,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ).showDialog(context);
   }
 
-  showPickerDate(BuildContext context) {
+  void showPickerDate(BuildContext context) {
     Picker(
         hideHeader: true,
         adapter: DateTimePickerAdapter(),
@@ -214,8 +214,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ).showDialog(context);
   }
 
-  showPickerDateCustom(BuildContext context) {
-    new Picker(
+  void showPickerDateCustom(BuildContext context) {
+    Picker(
         hideHeader: true,
         adapter: new DateTimePickerAdapter(
           customColumnType: [2,1,0,3,4],
@@ -228,20 +228,20 @@ class _MyHomePageState extends State<MyHomePage> {
     ).showDialog(context);
   }
 
-  showPickerDateTime(BuildContext context) {
-    new Picker(
-        adapter: new DateTimePickerAdapter(
+  void showPickerDateTime(BuildContext context) {
+    Picker(
+        adapter: DateTimePickerAdapter(
           type: PickerDateTimeType.kYMD_AP_HM,
           isNumberMonth: true,
           //strAMPM: const["上午", "下午"],
-          yearSuffix: "年",
-          monthSuffix: "月",
-          daySuffix: "日",
+          yearSuffix: '年',
+          monthSuffix: '月',
+          daySuffix: '日',
           minValue: DateTime.now(),
           minuteInterval: 30,
           // twoDigitYear: true,
         ),
-        title: new Text("Select DateTime"),
+        title:  Text("Select DateTime"),
         textAlign: TextAlign.right,
         selectedTextStyle: TextStyle(color: Colors.blue),
         delimiter: [
@@ -268,26 +268,26 @@ class _MyHomePageState extends State<MyHomePage> {
     ).show(_scaffoldKey.currentState);
   }
 
-  showPickerDateRange(BuildContext context) {
+  void showPickerDateRange(BuildContext context) {
     print("canceltext: ${PickerLocalizations.of(context).cancelText}");
 
-    Picker ps = new Picker(
+    Picker ps =  Picker(
         hideHeader: true,
-        adapter: new DateTimePickerAdapter(type: PickerDateTimeType.kYMD, isNumberMonth: true),
+        adapter:  DateTimePickerAdapter(type: PickerDateTimeType.kYMD, isNumberMonth: true),
         onConfirm: (Picker picker, List value) {
           print((picker.adapter as DateTimePickerAdapter).value);
         }
     );
 
-    Picker pe = new Picker(
+    Picker pe =  Picker(
         hideHeader: true,
-        adapter: new DateTimePickerAdapter(type: PickerDateTimeType.kYMD),
+        adapter:  DateTimePickerAdapter(type: PickerDateTimeType.kYMD),
         onConfirm: (Picker picker, List value) {
           print((picker.adapter as DateTimePickerAdapter).value);
         }
     );
 
-    List<Widget> actions = [
+    final List<Widget> actions = [
       FlatButton(
           onPressed: () {
             Navigator.pop(context);
@@ -305,7 +305,7 @@ class _MyHomePageState extends State<MyHomePage> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return new AlertDialog(
+          return  AlertDialog(
             title: Text("Select Date Range"),
             actions: actions,
             content: Container(
@@ -324,7 +324,7 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
-  showPickerDateTime24(BuildContext context) {
+  void showPickerDateTime24(BuildContext context) {
     new Picker(
         adapter: new DateTimePickerAdapter(
             type: PickerDateTimeType.kMDYHM,
@@ -346,18 +346,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   /// 圆角背景
-  showPickerDateTimeRoundBg(BuildContext context) {
+  void showPickerDateTimeRoundBg(BuildContext context) {
     var picker = Picker(
         backgroundColor: Colors.transparent,
         headerDecoration: BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.black12, width: 0.5))
         ),
-        adapter: new DateTimePickerAdapter(
+        adapter: DateTimePickerAdapter(
             type: PickerDateTimeType.kMDYHM,
             isNumberMonth: true,
-            yearSuffix: "年",
-            monthSuffix: "月",
-            daySuffix: "日"
+            yearSuffix: '年',
+            monthSuffix: '月',
+            daySuffix: '日'
         ),
         delimiter: [
           PickerDelimiter(column: 3, child: Container(
@@ -376,7 +376,7 @@ class _MyHomePageState extends State<MyHomePage> {
           print(picker.adapter.text);
         },
         onSelect: (Picker picker, int index, List<int> selecteds) {
-          this.setState(() {
+          setState(() {
             stateText = picker.adapter.toString();
           });
         }

@@ -33,7 +33,7 @@ class TabBarDemo extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: TabBar(
+          title: const TabBar(
             tabs: [
               Tab(text: '美食'),
               Tab(text: '美食'),
@@ -45,10 +45,10 @@ class TabBarDemo extends StatelessWidget {
 
         body: TabBarView(
           children: [
-            new RandomWords(),
-            Icon(Icons.directions_transit),
-            Icon(Icons.directions_bike),
-            Icon(Icons.directions_bike),
+            RandomWords(),
+            const Icon(Icons.directions_transit),
+            const Icon(Icons.directions_bike),
+            const Icon(Icons.directions_bike),
           ],
         ),
       ),
@@ -58,7 +58,7 @@ class TabBarDemo extends StatelessWidget {
 
 class RandomWords extends StatefulWidget {
   @override
-  createState() => new RandomWordsState();
+  RandomWordsState createState() => RandomWordsState();
 }
 
 //list区
@@ -70,6 +70,7 @@ class RandomWordsState extends State<RandomWords> {
   ScrollController _scrollController = new ScrollController();
 
   //初始化数据
+  @override
   void initState() {
     super.initState();
     _scrollController.addListener(() {
@@ -142,8 +143,9 @@ class RandomWordsState extends State<RandomWords> {
     ];
   }
 
+  @override
   Widget build(BuildContext context) {
-    return new GestureDetector (
+    return GestureDetector (
       child: RefreshIndicator(
         onRefresh: _onRefresh,
         child: _buildSuggestions(),
@@ -152,7 +154,7 @@ class RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildSuggestions() {
-    return new ListView.builder(
+    return ListView.builder(
       itemCount: _shopList?.length,
       controller: _scrollController,
       padding: const EdgeInsets.all(16.0),
@@ -163,7 +165,7 @@ class RandomWordsState extends State<RandomWords> {
   }
 
   Future<Null> _onRefresh() async {
-    await Future.delayed(Duration(seconds: 3), () {
+    await Future<void>.delayed(const Duration(seconds: 3), () {
       print('refresh');
       setState(() {
         _shopList = [
@@ -233,11 +235,11 @@ class RandomWordsState extends State<RandomWords> {
 
   //模板
   Widget pageWidget(i) {
-    return new Column(
+    return Column(
         children: <Widget>[
-          new Row(
+          Row(
               children: <Widget>[
-                new Container(
+                Container(
                   child: new Image(
                     image: AssetImage('${_shopList[i]?.img}'),
                     width: 150,
@@ -249,54 +251,54 @@ class RandomWordsState extends State<RandomWords> {
                   padding: new EdgeInsets.only(top: 10, bottom: 10),
                   margin: new EdgeInsets.only(right: 10, left: 10),
                 ),
-                new Column(
+                Column(
                     children: <Widget>[
-                      new Row(
+                      Row(
                         children: <Widget>[
-                          new Container(
-                            padding: new EdgeInsets.only(right: 10),
+                          Container(
+                            padding: EdgeInsets.only(right: 10),
                             child: new Text(
                               '${_shopList[i]?.title}',
-                              style: new TextStyle(
+                              style: TextStyle(
                                   fontSize: 18
                               ),
                             ),
                           ),
-                          new Text('￥${_shopList[i]?.price}'),
+                          Text('￥${_shopList[i]?.price}'),
                         ],
                       ),
-                      new Row(
+                      Row(
                         children: <Widget>[
-                          new Container(
-                            padding: new EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 5),
-                            child:  new Text('当日午餐',
-                              style: new TextStyle(
+                          Container(
+                            padding: const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 5),
+                            child:  const Text('当日午餐',
+                              style: TextStyle(
                                   color: Color.fromARGB(100, 0, 0, 128)
                               ),
                             ),
                           ),
-                          new Container(
-                            padding: new EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 5),
-                            child: new Text('当日晚餐',
-                                style: new TextStyle(
+                          Container(
+                            padding: const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 5),
+                            child: const Text('当日晚餐',
+                                style: TextStyle(
                                     color: Color.fromRGBO(96, 96, 96, 0.5)
                                 )
                             ),
                           ),
-                          new Container(
-                            padding: new EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 5),
-                            child: new Text('当日夜宵',
-                                style: new TextStyle(
+                          Container(
+                            padding:const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 5),
+                            child: const Text('当日夜宵',
+                                style: TextStyle(
                                     color: Color.fromRGBO(96, 96, 96, 0.5)
                                 )
                             ),
                           ),
                         ],
                       ),
-                      new Container(
-                        padding: new EdgeInsets.only(bottom: 10),
-                        child: new GestureDetector(
-                          child: new Text(
+                      Container(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: GestureDetector(
+                          child: Text(
                               '${_shopList[i]?.is_collection}' == 'false' ? '收藏': '已收藏'
                           ),
                           onTap: () {
@@ -432,7 +434,7 @@ class SecondScreen extends StatefulWidget {
   final Model view; // 用来储存传递过来的值
   SecondScreen({this.view}); // 本页面的构造器，接收传递过来的参数
 
-  createState() => new _SecondContent();
+  _SecondContent createState() => new _SecondContent();
 
 }
 

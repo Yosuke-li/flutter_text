@@ -92,13 +92,13 @@ class Utils {
     return mediaQuery.padding.bottom;
   }
 
-  static updateStatusBarStyle(SystemUiOverlayStyle style) {
+  static void updateStatusBarStyle(SystemUiOverlayStyle style) {
     SystemChrome.setSystemUIOverlayStyle(style);
   }
 
   /// 复制到剪粘板
   ///
-  static copyToClipboard(String text) {
+  static void copyToClipboard(String text) {
     if (text == null) return;
     Clipboard.setData(new ClipboardData(text: text));
   }
