@@ -33,7 +33,7 @@ class _PdfReadState extends State<PdfRead> {
 
   void printFile() async {
     print('assets/data/test.pdf:');
-    var filebd = await rootBundle.load("assets/data/test.pdf");
+    final ByteData filebd = await rootBundle.load("assets/data/test.pdf");
     print(filebd.runtimeType);
   }
 
