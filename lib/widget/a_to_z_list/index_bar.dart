@@ -467,7 +467,7 @@ class _IndexBarState extends State<IndexBar> {
 }
 
 class BaseIndexBar extends StatefulWidget {
-  BaseIndexBar({
+  const BaseIndexBar({
     Key key,
     this.data = kIndexBarData,
     this.width = kIndexBarWidth,
@@ -520,7 +520,7 @@ class _BaseIndexBarState extends State<BaseIndexBar> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = List.generate(widget.data.length, (index) {
+    final List<Widget> children = List.generate(widget.data.length, (int index) {
       Widget child = widget.itemBuilder == null
           ? Center(
               child: Text('${widget.data[index]}', style: widget.textStyle))

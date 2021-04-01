@@ -10,6 +10,7 @@ class ScreenWidget extends StatefulWidget {
 
   ScreenWidget({Key key, this.child}) : super(key: key);
 
+  @override
   _ScreenWidgetState createState() => _ScreenWidgetState();
 }
 
@@ -41,6 +42,7 @@ class _ScreenWidgetState extends State<ScreenWidget>
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     ScreenUtil.init();
     return widget.child;

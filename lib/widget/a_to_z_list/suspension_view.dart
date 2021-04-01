@@ -7,7 +7,7 @@ const double kSusItemHeight = 40;
 
 /// SuspensionView.
 class SuspensionView extends StatefulWidget {
-  SuspensionView({
+  const SuspensionView({
     Key key,
     @required this.data,
     @required this.itemCount,

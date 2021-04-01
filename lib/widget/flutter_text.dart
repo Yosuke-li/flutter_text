@@ -39,6 +39,7 @@ class _FlutterTextState extends State<FlutterText>
     controller.forward();
   }
 
+  @override
   Widget build(BuildContext context) {
     Transform result = Transform(
       transform: Matrix4.rotationZ(animation.value * pi / 180),

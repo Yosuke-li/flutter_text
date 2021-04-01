@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FloatBox extends StatefulWidget {
+  @override
   _FloatBoxState createState() => _FloatBoxState();
 }
 
 class _FloatBoxState extends State<FloatBox> {
-  Offset offset = Offset(10, kToolbarHeight + 100);
+  Offset offset = const Offset(10, kToolbarHeight + 100);
 
   Offset _calOffset(Size size, Offset offset, Offset nextOffset) {
     double dx = 0;
@@ -31,6 +32,7 @@ class _FloatBoxState extends State<FloatBox> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
@@ -59,9 +61,9 @@ class _FloatBoxState extends State<FloatBox> {
             decoration: BoxDecoration(
               color: Colors.lightBlue,
               border: Border.all(width: 1, color: Colors.lightBlue),
-              borderRadius: BorderRadius.all(Radius.circular(33.0)),
+              borderRadius: const BorderRadius.all(Radius.circular(33.0)),
             ),
-            child: Icon(Icons.add,
+            child: const Icon(Icons.add,
                 color: Colors.white, size: 30),
           ),
         ),

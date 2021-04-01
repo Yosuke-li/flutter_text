@@ -48,7 +48,7 @@ class _ImageZoomableState extends State<ImageZoomable> {
               Navigator.of(context).pop();
             },
             child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.black,
                 ),
                 constraints: BoxConstraints.expand(
@@ -68,7 +68,7 @@ class _ImageZoomableState extends State<ImageZoomable> {
                       },
                       itemCount: widget.photoList.length,
                       // loadingChild: widget.loadingChild,
-                      backgroundDecoration: BoxDecoration(
+                      backgroundDecoration: const BoxDecoration(
                         color: Colors.black,
                       ),
                       pageController: PageController(initialPage: initialIndex),

@@ -32,7 +32,7 @@ class Refresh extends StatefulWidget {
     this.loadMoreFunc,
     this.firstFunc,
   })  : assert(refreshFunc != null || loadMoreFunc != null,
-  "refreshFunc和loadMoreFunc至少有一个"),
+  'refreshFunc和loadMoreFunc至少有一个'),
         super(key: key);
 
   @override

@@ -32,7 +32,7 @@ class Utils {
   }
 
   static Color randomARGB() {
-    Random random = new Random();
+    final Random random = new Random();
     return Color.fromARGB(random.nextInt(180), random.nextInt(255),
         random.nextInt(255), random.nextInt(255));
   }
@@ -42,7 +42,7 @@ class Utils {
   /// [len] 字符串长度
   ///
   static String randomString(int len) {
-    String character = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+    final String character = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
     String left = '';
     for (var i = 0; i < len; i++) {
       left = left + character[Random().nextInt(character.length)];
@@ -53,42 +53,42 @@ class Utils {
   /// 屏幕宽
   ///
   static double get width {
-    MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
+    final MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     return mediaQuery.size.width;
   }
 
   /// RPX 用于屏幕适配（比例适配）
   ///
   static double get rpx {
-    MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
+    final MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     return mediaQuery.size.width / 750;
   }
 
   /// 屏幕高
   ///
   static double get height {
-    MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
+    final MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     return mediaQuery.size.height;
   }
 
   /// 标题栏高度（包括状态栏）
   ///
   static double get navigationBarHeight {
-    MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
+    final MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     return mediaQuery.padding.top + kToolbarHeight;
   }
 
   /// 状态栏高度
   ///
   static double get topSafeHeight {
-    MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
+    final MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     return mediaQuery.padding.top;
   }
 
   /// 底部状态栏高度
   ///
   static double get bottomSafeHeight {
-    MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
+    final MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     return mediaQuery.padding.bottom;
   }
 
@@ -100,10 +100,10 @@ class Utils {
   ///
   static void copyToClipboard(String text) {
     if (text == null) return;
-    Clipboard.setData(new ClipboardData(text: text));
+    Clipboard.setData(ClipboardData(text: text));
   }
 
-  static const RollupSize_Units = ["GB", "MB", "KB", "B"];
+  static const RollupSize_Units = ['GB', 'MB', 'KB', 'B'];
 
   /// 返回文件大小字符串
   ///
@@ -183,11 +183,11 @@ class Utils {
   /// [colorStr] 颜色值 #FFEE22
   /// [alpha] 透明度（16进制）
   ///
-  static int getColorHexFromStr(String colorStr, {String alpha: "FF"}) {
+  static int getColorHexFromStr(String colorStr, {String alpha: 'FF'}) {
     if (colorStr == null) {
       return 0;
     }
-    colorStr = colorStr.replaceAll("#", "");
+    colorStr = colorStr.replaceAll('#', '');
     if (colorStr.length == 6) {
       colorStr = alpha + colorStr;
     }
@@ -204,7 +204,7 @@ class Utils {
         // a..f
         val += (hexDigit - 87) * (1 << (4 * (len - 1 - i)));
       } else {
-        throw FormatException("An error occurred when converting a color");
+        throw const FormatException('An error occurred when converting a color');
       }
     }
     return val;

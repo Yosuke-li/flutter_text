@@ -185,8 +185,8 @@ class _TikTokFavoriteAnimationIconState
       shaderCallback: (Rect bounds) => RadialGradient(
         center: Alignment.topLeft.add(Alignment(0.66, 0.66)),
         colors: [
-          Color(0xffEF6F6F),
-          Color(0xffF03E3E),
+          const Color(0xffEF6F6F),
+          const Color(0xffF03E3E),
         ],
       ).createShader(bounds),
     );

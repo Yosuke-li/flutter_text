@@ -37,8 +37,8 @@ class VideoPlayerText extends StatefulWidget {
 class _VideoPlayerTextState extends State<VideoPlayerText> {
   bool _videoInit = false; // video控件管理器
   VideoPlayerController _controller; // 记录video播放进度
-  Duration _position = Duration(seconds: 0); //播放时长
-  Duration _totalDuration = Duration(seconds: 0); //总时长
+  Duration _position = const Duration(seconds: 0); //播放时长
+  Duration _totalDuration = const Duration(seconds: 0); //总时长
   double movePan = 0.0; // 偏移量累计总和
   // 记录播放控件ui是否显示(进度条，播放按钮，全屏按钮等等)
   Timer _timer; // 计时器，用于延迟隐藏控件ui
@@ -83,7 +83,7 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
                 child: VideoPlayer(_controller),
               ),
             )
-                : Center(
+                : const Center(
               // 没加载完成时显示转圈圈loading
               child: SizedBox(
                 width: 20,
@@ -95,7 +95,7 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
           _bottomBar(context),    //底部栏
         ],
       )
-          : Center(
+          : const Center(
         // 判断是否传入了url或者file，没有的话显示"暂无视频信息"
         child: Text(
           '暂无视频信息',
@@ -111,16 +111,16 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
       offstage: _hidePlayControl,
       child: AnimatedOpacity(
         opacity: _playControlOpacity,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         child: Container(
           width: double.infinity,
           height: 40,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               // 来点黑色到透明的渐变优雅一下
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
-              colors: [
+              colors: <Color>[
                 Color.fromRGBO(0, 0, 0, .7),
                 Color.fromRGBO(0, 0, 0, .1)
               ],
@@ -133,14 +133,14 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
               ModalRoute.of(context).isFirst && !_isFullScreen
                   ? Container()
                   : IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back,
                     color: Colors.white,
                   ),
                   onPressed: backPress),
               Text(
                 widget.title,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             ],
           ),
@@ -161,17 +161,17 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
         child: AnimatedOpacity(
           // 加入透明度动画
           opacity: _playControlOpacity,
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           child: Container(
             // 底部控件的容器
             width: widget.width,
             height: 40,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 // 来点黑色到透明的渐变优雅一下
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
-                colors: [
+                colors: <Color>[
                   Color.fromRGBO(0, 0, 0, .7),
                   Color.fromRGBO(0, 0, 0, .1)
                 ],
@@ -207,21 +207,21 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
                   child: VideoProgressIndicator(
                     _controller,
                     allowScrubbing: true, // 允许手势操作进度条
-                    padding: EdgeInsets.all(0),
+                    padding: const EdgeInsets.all(0),
                     colors: VideoProgressColors(
                       // 配置进度条颜色，也是video_player现成的，直接用
                       playedColor: Theme.of(context).primaryColor,
                       // 已播放的颜色
-                      bufferedColor: Color.fromRGBO(255, 255, 255, .5),
+                      bufferedColor: const Color.fromRGBO(255, 255, 255, .5),
                       // 缓存中的颜色
                       backgroundColor:
-                      Color.fromRGBO(255, 255, 255, .2), // 为缓存的颜色
+                      const Color.fromRGBO(255, 255, 255, .2), // 为缓存的颜色
                     ),
                   ),
                 ),
                 Container(
                   // 播放时间
-                  margin: EdgeInsets.only(left: 10),
+                  margin: const EdgeInsets.only(left: 10),
                   child: Text(
                     '${DateUtil.formatDateMs(
                       _position?.inMilliseconds,
@@ -230,12 +230,12 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
                       _totalDuration?.inMilliseconds,
                       format: 'mm:ss',
                     )}',
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
                 IconButton(
                   iconSize: 23,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.settings,
                     color: Colors.white,
                   ),
@@ -317,7 +317,7 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
       // 重置组件参数
       _hidePlayControl = true;
       _videoInit = false;
-      _position = Duration(seconds: 0);
+      _position = const Duration(seconds: 0);
     });
     // 加载network的url，也支持本地文件，自行阅览官方api
     if (widget.url == null) {
@@ -374,8 +374,8 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
     if (!_videoInit) {
       return;
     }
-    double value = _setHorizontalValue();
-    int current = (value * _controller.value.duration.inMilliseconds).toInt();
+    final double value = _setHorizontalValue();
+    final int current = (value * _controller.value.duration.inMilliseconds).toInt();
     await _controller.seekTo(Duration(milliseconds: current)); //进度跳转
   }
 

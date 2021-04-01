@@ -22,9 +22,7 @@ class _CommentTextState extends State<CommentText> {
   bool expand;
 
   _CommentTextState(this.text, this.maxLines, this.style, this.expand) {
-    if (expand == null) {
-      expand = false;
-    }
+    expand ??= false;
   }
 
   @override
@@ -53,7 +51,7 @@ class _CommentTextState extends State<CommentText> {
                 });
               },
               child: Container(
-                padding: EdgeInsets.only(top: 2),
+                padding: const EdgeInsets.only(top: 2),
                 child: Text(expand ? '收起' : '全文', style: TextStyle(
                     fontSize: style != null ? style.fontSize : null,
                     color: Colors.blue)),
