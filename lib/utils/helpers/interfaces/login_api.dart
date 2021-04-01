@@ -6,12 +6,12 @@ import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/utils/helpers/interfaces/i_test.dart';
 
 class LoginApi implements TestCache<User> {
-  static String _key = '_user_cache';
+  static const String _key = '_user_cache';
 
   @override
   Future<User> getCache(int id) async {
     final List<User> allCache = await getAllCache();
-    return allCache.firstWhere((element) => element.id == id,
+    return allCache.firstWhere((User element) => element.id == id,
         orElse: () => null);
   }
 

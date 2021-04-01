@@ -11,7 +11,7 @@ class ArrayHelper {
     }
   }
 
-  static List<int> unique_int(List<int> list) {
+  static List<int> uniqueInt(List<int> list) {
     return unique<int>(listData: list, getKey: (int item) => item);
   }
 

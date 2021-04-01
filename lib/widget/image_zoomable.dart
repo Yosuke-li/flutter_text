@@ -7,7 +7,7 @@ class ImageZoomable extends StatefulWidget {
   final List<ImageProvider> photoList;
   final int index;
 
-  ImageZoomable({this.photoList, this.index});
+  const ImageZoomable({this.photoList, this.index});
 
   @override
   _ImageZoomableState createState() => _ImageZoomableState();
@@ -36,6 +36,7 @@ class _ImageZoomableState extends State<ImageZoomable> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(

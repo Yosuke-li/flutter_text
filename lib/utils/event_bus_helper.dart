@@ -3,10 +3,10 @@ import 'dart:async';
 //eventBus封装
 class EventBusHelper {
   //ignore:close_sinks
-  static final StreamController asyncStreamController =
+  static final StreamController<void> asyncStreamController =
   _GetAsyncStreamController.getInstance();
 
-  static StreamSubscription listen<T>(void onData(T event),
+  static StreamSubscription<void> listen<T>(void onData(T event),
       {Function onError, void onDone(), bool cancelOnError}) {
     return asyncStreamController.stream.listen((Object event) {
       if (event is T) {
@@ -20,12 +20,10 @@ class _GetAsyncStreamController {
   _GetAsyncStreamController._();
 
   //ignore:close_sinks
-  static StreamController _asyncStreamController;
+  static StreamController<void> _asyncStreamController;
 
-  static StreamController getInstance() {
-    if (_asyncStreamController == null) {
-      _asyncStreamController = StreamController.broadcast();
-    }
+  static StreamController<void> getInstance() {
+    _asyncStreamController ??= StreamController<void>.broadcast();
     return _asyncStreamController;
   }
 }
