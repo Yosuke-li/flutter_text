@@ -13,6 +13,7 @@ class _RegisterTableState extends State<RegisterTable> {
   RegisterProvider provider = RegisterProvider();
   List<DbRegister> userList = [];
 
+  @override
   void initState() {
     super.initState();
     getUserList();

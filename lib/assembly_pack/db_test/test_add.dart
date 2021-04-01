@@ -28,6 +28,7 @@ class TestAddState extends State<TestAdd> {
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
+  @override
   void initState() {
     super.initState();
     getTableCount();
@@ -47,7 +48,7 @@ class TestAddState extends State<TestAdd> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('User detail'),
+        title: const Text('User detail'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

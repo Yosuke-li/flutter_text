@@ -16,10 +16,11 @@ class RegisterPage extends StatefulWidget {
 class RegisterPageState extends State<RegisterPage> {
   String account;
   String password;
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   int count = 0;
 
+  @override
   void initState() {
     super.initState();
     getTableCount();
@@ -33,8 +34,8 @@ class RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> onSave() async {
-    final from = _formKey.currentState;
-    DbRegister register = DbRegister();
+    final FormState from = _formKey.currentState;
+    final DbRegister register = DbRegister();
     if (from.validate()) {
       from.save();
       final check = checkString();
@@ -74,10 +75,11 @@ class RegisterPageState extends State<RegisterPage> {
     return true;
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('注册'),
+        title: const Text('注册'),
         actions: <Widget>[
           GestureDetector(
             onTap: () {
@@ -86,8 +88,8 @@ class RegisterPageState extends State<RegisterPage> {
             },
             child: Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.only(right: 20),
-              child: Text('注册表'),
+              padding: const EdgeInsets.only(right: 20),
+              child: const Text('注册表'),
             ),
           )
         ],
@@ -100,7 +102,7 @@ class RegisterPageState extends State<RegisterPage> {
             Container(
               padding: const EdgeInsets.all(20),
               child: TextFormField(
-                decoration: InputDecoration(helperText: "请输入账号"),
+                decoration: const InputDecoration(helperText: "请输入账号"),
                 onSaved: (String val) {
                   setState(() {
                     account = val;
@@ -112,7 +114,7 @@ class RegisterPageState extends State<RegisterPage> {
               padding: const EdgeInsets.all(20),
               child: TextFormField(
                 keyboardType: TextInputType.visiblePassword,
-                decoration: InputDecoration(helperText: "请输入密码"),
+                decoration: const InputDecoration(helperText: "请输入密码"),
                 onSaved: (String val) {
                   setState(() {
                     password = val;
@@ -125,7 +127,7 @@ class RegisterPageState extends State<RegisterPage> {
               child: RaisedButton(
                 color: Theme.of(context).primaryColorDark,
                 textColor: Theme.of(context).primaryColorLight,
-                child: Text(
+                child: const Text(
                   '保存',
                 ),
                 onPressed: () {

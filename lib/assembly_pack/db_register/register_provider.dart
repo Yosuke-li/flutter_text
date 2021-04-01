@@ -5,11 +5,11 @@ import 'package:sqflite_common/sqlite_api.dart';
 class RegisterProvider extends BaseDbProvider {
   final String name = 'User';
 
-  final String id = "id";
-  final String account = "account";
-  final String password = "password";
-  final String updateTime = "updateTime";
-  final String createTime = "createTime";
+  final String id = 'id';
+  final String account = 'account';
+  final String password = 'password';
+  final String updateTime = 'updateTime';
+  final String createTime = 'createTime';
 
   RegisterProvider();
 

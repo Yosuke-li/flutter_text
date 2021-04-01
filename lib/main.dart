@@ -25,6 +25,7 @@ import 'package:flutter_text/assembly_pack/photo.dart';
 import 'package:flutter_text/assembly_pack/save_text/save_text.dart';
 import 'package:flutter_text/assembly_pack/scan_book/scan_book.dart';
 import 'package:flutter_text/assembly_pack/scheme_text.dart';
+import 'package:flutter_text/assembly_pack/skeleton_view.dart';
 import 'package:flutter_text/assembly_pack/slidable.dart';
 import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
 import 'package:flutter_text/assembly_pack/speed_dial.dart';
@@ -276,6 +277,20 @@ class TabBarDemoState extends State<TabBarDemo>
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => TestDb()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.shopping_basket_outlined),
+                      title: Text(
+                        '骨架屏--',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => SkeletonView()),
                         );
                       },
                     ),

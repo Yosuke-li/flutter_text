@@ -10,6 +10,7 @@ import 'package:flutter_text/utils/helpers/interfaces/login_api.dart';
 void main() => runApp(TestDb());
 
 class TestDb extends StatefulWidget {
+  @override
   _TestDbState createState() => _TestDbState();
 }
 
@@ -19,13 +20,14 @@ class _TestDbState extends State<TestDb> {
 
   LoginApi iCacheApi = LoginApi(); //todo interfaces 接口测试
   
+  @override
   void initState() {
     super.initState();
     getUserList();
   }
 
   Future<void> getUserList() async {
-    final list = await provider.getAllUser();
+    final List<User> list = await provider.getAllUser();
     final counts = await provider.getTableCountsV2();
     
     final List<User> cache = await iCacheApi.getAllCache();
@@ -36,6 +38,7 @@ class _TestDbState extends State<TestDb> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
