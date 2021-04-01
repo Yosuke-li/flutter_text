@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_test/user_db_provider.dart';
 import 'package:flutter_text/model/db_user.dart';
 import 'package:flutter_text/utils/date_format.dart';
+import 'package:flutter_text/widget/api_call_back.dart';
 import 'package:flutter_text/widget/skeleton.dart';
 
 class SkeletonView extends StatelessWidget {
@@ -36,7 +37,7 @@ class SkeletonPageState extends State<SkeletonPage> {
     try {
       final SkeletonManager<User> r =
           SkeletonManager<User>((List<User> items) async {
-        await Future<void>.delayed(const Duration(seconds: 2));
+        await loadingCallback(() => Future<void>.delayed(const Duration(seconds: 2)));
         final List<User> list = await provider.getAllUser();
         setState(() {
           user = list;
