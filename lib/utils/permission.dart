@@ -2,7 +2,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 class Permission {
   //请求权限
-  static Future init() async {
+  static Future<void> init() async {
     Map<PermissionGroup, PermissionStatus> permissions =
         await PermissionHandler().requestPermissions([
       PermissionGroup.location,

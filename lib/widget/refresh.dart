@@ -68,16 +68,16 @@ class _RefreshState extends State<Refresh> {
           //表示在边缘
           if (notification.metrics.extentAfter == 0 && !handleLoadMoreing) {
             handleLoadMoreing = true;
-            LogUtil.d("handleLoadMoreing");
+            LogUtil.d('handleLoadMoreing');
                 () async {
               try{
                 final refreshEnum = await widget.canLoadMore?.call(context);
                 if (refreshEnum == null || refreshEnum == RefreshEnum.needMore) {
-                  LogUtil.d("需要加载更多");
+                  LogUtil.d('需要加载更多');
                   await widget.loadMoreFunc(context);
-                  LogUtil.d("加载更多完成");
+                  LogUtil.d('加载更多完成');
                 } else {
-                  LogUtil.d("没调用加载更多方法");
+                  LogUtil.d('没调用加载更多方法');
                 }
               }finally{
                 handleLoadMoreing = false;

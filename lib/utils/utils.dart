@@ -7,6 +7,8 @@ import 'dart:ui' as ui show window;
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+typedef CancelCallBack = void Function();
+
 class Utils {
   /// 获取运行平台是Android还是IOS
   static bool get isAndroid => Platform.isAndroid;
