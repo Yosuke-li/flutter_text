@@ -54,6 +54,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
   }
 
   //生命周期
+  @override
   void initState() {
     super.initState();
     final getCity = LocateStorage.getString('lastCity');
@@ -72,17 +73,19 @@ class RealTimeWeatherState extends State<RealTimePage> {
   }
 
   //清除轮询
+  @override
   void dispose() {
     _timer.cancel();
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil(width: 1000, height: 2111)..init(context);
     ScreenUtil screenUtil = ScreenUtil();
     return Scaffold(
         body: isLoading
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Stack(
@@ -98,11 +101,11 @@ class RealTimeWeatherState extends State<RealTimePage> {
                       alignment: Alignment.center,
                       child: Column(
                         children: <Widget>[
-                          SizedBox(
+                          const SizedBox(
                             height: 100.0,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Text(
                               '${_realTimeWeather.basic.location}',
                               style: TextStyle(
@@ -112,13 +115,13 @@ class RealTimeWeatherState extends State<RealTimePage> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 30.0, bottom: 60.0),
+                            padding: const EdgeInsets.only(top: 30.0, bottom: 60.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 Container(
-                                  padding: EdgeInsets.only(right: 10.0),
+                                  padding: const EdgeInsets.only(right: 10.0),
                                   child: Text(
                                     '${_realTimeWeather.now.fl} ℃',
                                     style: TextStyle(
@@ -137,7 +140,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                       ),
                                       Text(
                                         '${_realTimeWeather.now.condTxt}',
-                                        style: TextStyle(color: Colors.white),
+                                        style: const TextStyle(color: Colors.white),
                                       )
                                     ],
                                   ),
@@ -146,7 +149,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 50.0, bottom: 30.0),
+                            padding: const EdgeInsets.only(top: 50.0, bottom: 30.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
@@ -160,7 +163,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                     ),
                                     Column(
                                       children: <Widget>[
-                                        Text('风向',
+                                        const Text('风向',
                                             style:
                                                 TextStyle(color: Colors.white)),
                                         Text('${_realTimeWeather.now.windDir}',
@@ -180,7 +183,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                     ),
                                     Column(
                                       children: <Widget>[
-                                        Text('湿度',
+                                        const Text('湿度',
                                             style:
                                                 TextStyle(color: Colors.white)),
                                         Text('${_realTimeWeather.now.hum}%',
@@ -200,12 +203,12 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                     ),
                                     Column(
                                       children: <Widget>[
-                                        Text('气压',
+                                        const Text('气压',
                                             style:
                                                 TextStyle(color: Colors.white)),
                                         Text('${_realTimeWeather.now.pres}hpa',
                                             style:
-                                                TextStyle(color: Colors.white)),
+                                                const TextStyle(color: Colors.white)),
                                       ],
                                     ),
                                   ],
@@ -216,12 +219,12 @@ class RealTimeWeatherState extends State<RealTimePage> {
                           Expanded(
                             child: Container(
                               color: Colors.white,
-                              padding: EdgeInsets.symmetric(vertical: 30),
+                              padding: const EdgeInsets.symmetric(vertical: 30),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: _threeDaysForecast.dailyForecasts
-                                    .map((item) {
+                                    .map((DailyForecast item) {
                                   return _threeDayWeather(item);
                                 })?.toList() ?? [],
                               ),
@@ -278,18 +281,18 @@ class RealTimeWeatherState extends State<RealTimePage> {
     String date = DateFormat('EE').format(DateTime.parse(dailyForecast.date));
     return Column(
       children: <Widget>[
-        Text(date, style: TextStyle(color: Color(0xff8a8a8a))),
+        Text(date, style: const TextStyle(color: Color(0xff8a8a8a))),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 8.0),
           child: Image.asset('images/weather/${dailyForecast.condCodeD}.png',
               width: 50, height: 50, color: Colors.blue),
         ),
         Text(dailyForecast.condTxtD,
-            style: TextStyle(color: Color(0xff8a8a8a))),
+            style: const TextStyle(color: Color(0xff8a8a8a))),
         Padding(
-          padding: EdgeInsets.only(top: 8.0),
+          padding: const EdgeInsets.only(top: 8.0),
           child: Text(dailyForecast.tmpMin + '℃~' + dailyForecast.tmpMax + '℃',
-              style: TextStyle(color: Color(0xff8a8a8a))),
+              style: const TextStyle(color: Color(0xff8a8a8a))),
         ),
       ],
     );
