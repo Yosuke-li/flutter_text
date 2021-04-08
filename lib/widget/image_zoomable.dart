@@ -79,7 +79,7 @@ class _ImageZoomableState extends State<ImageZoomable> {
                     Container(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
-                        "Image ${currentIndex + 1}",
+                        'Image ${currentIndex + 1}',
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 17.0,

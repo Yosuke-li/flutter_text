@@ -22,6 +22,7 @@ import 'package:flutter_text/assembly_pack/pdf.dart';
 import 'package:flutter_text/assembly_pack/pdf_read.dart';
 import 'package:flutter_text/assembly_pack/pear_video/pear_video.dart';
 import 'package:flutter_text/assembly_pack/photo.dart';
+import 'package:flutter_text/assembly_pack/refrash_view.dart';
 import 'package:flutter_text/assembly_pack/save_text/save_text.dart';
 import 'package:flutter_text/assembly_pack/scan_book/scan_book.dart';
 import 'package:flutter_text/assembly_pack/scheme_text.dart';
@@ -39,6 +40,7 @@ import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/utils/file_utils.dart';
 import 'package:flutter_text/utils/listener/listen_test.dart';
+import 'package:flutter_text/utils/mixin/keep_alive.dart';
 import 'package:flutter_text/utils/permission.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/utils.dart';
@@ -434,6 +436,22 @@ class TabBarDemoState extends State<TabBarDemo>
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => SlidingUpText()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.line_style_rounded),
+                      title: Text(
+                        'ReFresh使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => RefreshPage()),
                         );
                       },
                     ),
@@ -1088,12 +1106,12 @@ class TabBarDemoState extends State<TabBarDemo>
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: [
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.contacts), title: Text('聊天室')),
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.apps), title: Text('组件')),
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.account_circle), title: Text('Api')),
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.contacts), label: '聊天室'),
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.apps), label: '组件'),
+            const BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle), label: 'Api'),
           ],
           currentIndex: currentIndex,
           onTap: (index) {
