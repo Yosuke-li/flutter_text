@@ -164,7 +164,6 @@ class TabBarDemoState extends State<TabBarDemo>
         ),
         body: Builder(
           builder: (BuildContext context) => TabBarView(
-            physics: const NeverScrollableScrollPhysics(), //禁止滑动
             controller: tabController,
             children: <Widget>[
               RepaintBoundary(

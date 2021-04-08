@@ -41,8 +41,10 @@ class _ViewBuildState extends State<_ViewBuild> {
 
   Future<void> load({bool isLoadMore = false}) async {
     if (isLoadMore == false) {
-      time = [];
-      total = 0;
+      setState(() {
+        time = [];
+        total = 0;
+      });
     }
     const int top = 100;
     final int skip = isLoadMore ? total : 0;
