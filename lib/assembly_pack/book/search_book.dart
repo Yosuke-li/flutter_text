@@ -11,8 +11,8 @@ class SearchBook extends StatefulWidget {
 }
 
 class SearchBookState extends State<SearchBook> {
-  TextEditingController _controller = new TextEditingController();
-  ScrollController _scrollController = ScrollController(); //listview的控制器
+  final TextEditingController _controller = TextEditingController();
+  final ScrollController _scrollController = ScrollController(); //listview的控制器
   bool hasData = false;
   BookResult _bookResult;
   int page = 0;
@@ -40,7 +40,7 @@ class SearchBookState extends State<SearchBook> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(56.0),
           child: Container(

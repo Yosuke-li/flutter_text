@@ -22,7 +22,7 @@ class SearchCityState extends State<SearchCity> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(56.0),
         child: Container(
