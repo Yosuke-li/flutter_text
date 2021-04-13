@@ -56,7 +56,7 @@ class LocalNotificationState extends State<LocalNotification> {
     const iOS =  IOSNotificationDetails();
     const platform = NotificationDetails(android: android, iOS: iOS);
     await flutterLocalNotificationsPlugin.show(
-        0, 'New Video is out', 'Flutter Local Notification', platform,
-        payload: 'Nitish Kumar Singh is part time Youtuber');
+        0, '本地推送测试标题', '本地推送测试内容', platform,
+        payload: '测试测试');
   }
 }
