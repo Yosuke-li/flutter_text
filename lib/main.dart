@@ -14,6 +14,7 @@ import 'package:flutter_text/assembly_pack/flutter_picker.dart';
 import 'package:flutter_text/assembly_pack/hello.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/local_auth_check.dart';
+import 'package:flutter_text/assembly_pack/local_notification/view.dart';
 import 'package:flutter_text/assembly_pack/login/login_video_page.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
 import 'package:flutter_text/assembly_pack/mic_stream_demo.dart';
@@ -41,6 +42,7 @@ import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/utils/file_utils.dart';
 import 'package:flutter_text/utils/listener/listen_test.dart';
 import 'package:flutter_text/utils/mixin/keep_alive.dart';
+import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/utils/permission.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/utils.dart';
@@ -88,9 +90,12 @@ Future<void> main() async {
 class Assembly extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final toastWidget = BotToastInit();
     return ScreenWidget(
-      child: BotToastInit(
-        child: TabBarDemo(),
+      child: MaterialApp(
+        builder: (BuildContext c, Widget child) {
+          return toastWidget(c, TabBarDemo());
+        },
       ),
     );
   }
@@ -401,6 +406,19 @@ class TabBarDemoState extends State<TabBarDemo>
                           GlobalStore.isShowOverlay =
                               !GlobalStore.isShowOverlay;
                         });
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.messenger_outline_sharp),
+                      title: Text(
+                        '本地消息推送',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () {
+                        ListenStateTest.setNum(ListenTestModel()..num = 16);
+                        NavigatorUtils.pushWidget(context, LocalNotification());
                       },
                     ),
                     ListTile(
@@ -719,10 +737,10 @@ class TabBarDemoState extends State<TabBarDemo>
                                 child: Container(
                                   width: 350,
                                   height: 100,
-                                  decoration: new BoxDecoration(
+                                  decoration: BoxDecoration(
                                     color: Colors.grey,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4.0)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(4.0)),
                                     border: new Border.all(
                                         width: 1, color: Colors.grey),
                                   ),
@@ -1107,8 +1125,7 @@ class TabBarDemoState extends State<TabBarDemo>
           items: [
             const BottomNavigationBarItem(
                 icon: Icon(Icons.contacts), label: '聊天室'),
-            const BottomNavigationBarItem(
-                icon: Icon(Icons.apps), label: '组件'),
+            const BottomNavigationBarItem(icon: Icon(Icons.apps), label: '组件'),
             const BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle), label: 'Api'),
           ],
