@@ -45,22 +45,24 @@ class BooksDetailState extends State<BooksDetail> {
     }
   }
 
+  @override
   void initState() {
     getBooksDetail();
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return isShowPage
         ? Scaffold(
             appBar: AppBar(
               centerTitle: true,
               title: Text(_books.title,
-                  style: TextStyle(fontSize: 15, color: Colors.black)),
+                  style: const TextStyle(fontSize: 15, color: Colors.black)),
               backgroundColor: Colors.transparent,
               elevation: 0,
               leading: IconButton(
-                  icon: Icon(Icons.arrow_back, color: Colors.black),
+                  icon: const Icon(Icons.arrow_back, color: Colors.black),
                   onPressed: () {
                     Navigator.of(context).pop();
                   }),
@@ -73,7 +75,7 @@ class BooksDetailState extends State<BooksDetail> {
                     child: Row(
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           alignment: Alignment.topCenter,
                           child: Image.network(
                             _books.cover,
@@ -86,17 +88,17 @@ class BooksDetailState extends State<BooksDetail> {
                             child: Column(
                               children: <Widget>[
                                 Container(
-                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                                   alignment: Alignment.topLeft,
                                   child: Text('作者： ${_books.author}'),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                                   alignment: Alignment.topLeft,
                                   child: Text('标签： ${_books.cat}'),
                                 ),
                                 Container(
-                                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                                   alignment: Alignment.topLeft,
                                   child: Text('简介： ${_books.longIntro}',
                                       maxLines: 2),
@@ -104,7 +106,7 @@ class BooksDetailState extends State<BooksDetail> {
                                 Expanded(
                                   child: Container(
                                     alignment: Alignment.bottomCenter,
-                                    padding: EdgeInsets.only(bottom: 20),
+                                    padding: const EdgeInsets.only(bottom: 20),
                                     child: InkWell(
                                       onTap: () {
                                         Navigator.of(context).push(
@@ -117,7 +119,7 @@ class BooksDetailState extends State<BooksDetail> {
                                         );
                                       },
                                       child: Container(
-                                        child: Text('开始阅读'),
+                                        child: const Text('开始阅读'),
                                       ),
                                     ),
                                   ),
@@ -143,7 +145,7 @@ class BooksDetailState extends State<BooksDetail> {
                                           index: index)));
                                 },
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 15.0),
                                   child: Text(
                                       _chapterResult?.chapters[index].title),
@@ -153,13 +155,13 @@ class BooksDetailState extends State<BooksDetail> {
                             itemCount: _chapterResult.chapters.length,
                           ),
                         )
-                      : Center(
+                      : const Center(
                           child: CircularProgressIndicator(),
                         ),
                 ],
               ),
             ))
-        : Center(
+        : const Center(
             child: CircularProgressIndicator(),
           );
   }

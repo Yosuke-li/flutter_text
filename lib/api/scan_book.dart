@@ -18,7 +18,7 @@ class ScanBookApi {
       return _scanBook;
     } catch (e) {
       print('IsbnGetBookDetailP error = ${e}');
-      return null;
+      rethrow;
     }
   }
 
@@ -32,7 +32,7 @@ class ScanBookApi {
       return _scanABook;
     } catch (e) {
       print('IsbnGetBookDetailP error = ${e}');
-      return null;
+      rethrow;
     }
   }
 }

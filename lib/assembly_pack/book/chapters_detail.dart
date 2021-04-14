@@ -16,12 +16,13 @@ class ChaptersDetail extends StatefulWidget {
 
   ChaptersDetail({this.link, this.chapters, this.index});
 
+  @override
   ChaptersDetailState createState() => ChaptersDetailState();
 }
 
 class ChaptersDetailState extends State<ChaptersDetail> {
-  AudioPlayer audioPlayer = new AudioPlayer();
-  ScrollController _scrollController = ScrollController();
+  AudioPlayer audioPlayer = AudioPlayer();
+  final ScrollController _scrollController = ScrollController();
   Token _token;
   ChapterInfo _chapterInfo;
   bool isPlay = false;
@@ -38,7 +39,8 @@ class ChaptersDetailState extends State<ChaptersDetail> {
 
   //获取章节详情
   void getChaptersDetail() async {
-    final result = await BookApi().getChaptersDetail(widget.link);
+    final String link = widget.link.replaceAll('http://', 'https://');
+    final result = await BookApi().getChaptersDetail(link);
     if (result == null) {
     } else {
       setState(() {
@@ -104,6 +106,7 @@ class ChaptersDetailState extends State<ChaptersDetail> {
     });
   }
 
+  @override
   void initState() {
     super.initState();
     getToken();
@@ -112,6 +115,7 @@ class ChaptersDetailState extends State<ChaptersDetail> {
     _listenScrollView();
   }
 
+  @override
   void dispose() {
     super.dispose();
     audioPlayer.pause();
@@ -124,10 +128,10 @@ class ChaptersDetailState extends State<ChaptersDetail> {
   // 计时器，用法和前端js的大同小异
   void _startControlTimer() {
     if (_timer != null) _timer.cancel();
-    _timer = Timer(Duration(seconds: 3), () {
+    _timer = Timer(const Duration(seconds: 3), () {
       setState(() {
         _controlOpacity = 0;
-        Future.delayed(Duration(milliseconds: 300)).whenComplete(() {
+        Future.delayed(const Duration(milliseconds: 300)).whenComplete(() {
           isShowBar = false;
         });
       });
@@ -143,6 +147,7 @@ class ChaptersDetailState extends State<ChaptersDetail> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: isShow
@@ -151,9 +156,9 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                 SingleChildScrollView(
                   controller: _scrollController,
                   child: Container(
-                    color: Color(0xffFAF9DE),
+                    color: const Color(0xffFAF9DE),
                     padding:
-                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+                        const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
                     child: Text(
                       _chapterInfo.cpContent,
                       style: TextStyle(letterSpacing: 4.0, fontSize: _fontsize),
@@ -168,9 +173,9 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                     offstage: !isShowBar,
                     child: AnimatedOpacity(
                       opacity: _controlOpacity,
-                      duration: Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 300),
                       child: Container(
-                        color: Color(0x40000000),
+                        color: const Color(0x40000000),
                         height: MediaQuery.of(context).size.height * 0.08,
                         width: MediaQuery.of(context).size.width,
                         child: Row(
@@ -179,14 +184,14 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_back,
                                 color: Colors.white,
                               ),
                             ),
                             Text(
                               _chapterInfo.title,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                           ],
                         ),
@@ -205,9 +210,9 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                         setState(() {
                           if (isShowBar) {
                             if (_timer != null) _timer.cancel();
-                            _timer = Timer(Duration(seconds: 3), () {
+                            _timer = Timer(const Duration(seconds: 3), () {
                               _controlOpacity = 0;
-                              Future.delayed(Duration(milliseconds: 300))
+                              Future.delayed(const Duration(milliseconds: 300))
                                   .whenComplete(() {
                                 isShowBar = false;
                               });
@@ -229,7 +234,7 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                 )
               ],
             )
-          : Center(
+          : const Center(
               child: CircularProgressIndicator(),
             ),
     );
@@ -240,22 +245,22 @@ class ChaptersDetailState extends State<ChaptersDetail> {
       offstage: !isShowBar,
       child: AnimatedOpacity(
         opacity: _controlOpacity,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          color: Color(0x40000000),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          color: const Color(0x40000000),
           height: MediaQuery.of(context).size.height * 0.18,
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.symmetric(vertical: 5.0),
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
                 child: SliderTheme(
                   data: SliderTheme.of(context).copyWith(
                     activeTrackColor: Colors.greenAccent,
                     inactiveTrackColor: Colors.green,
                     valueIndicatorColor: Colors.green,
-                    valueIndicatorTextStyle: TextStyle(
+                    valueIndicatorTextStyle: const TextStyle(
                       color: Colors.white,
                     ),
                     thumbColor: Colors.blueAccent,
@@ -281,14 +286,14 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                 children: <Widget>[
                   IconButton(
                     iconSize: 30.0,
-                    icon: Icon(Icons.font_download),
+                    icon: const Icon(Icons.font_download),
                     onPressed: () {
                       _changeFont();
                     },
                   ),
                   IconButton(
                     iconSize: 30.0,
-                    icon: Icon(Icons.skip_previous),
+                    icon: const Icon(Icons.skip_previous),
                     onPressed: () {
                       if (widget.index != 0) {
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -308,7 +313,7 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                   ),
                   IconButton(
                     iconSize: 30.0,
-                    icon: Icon(Icons.skip_next),
+                    icon: const Icon(Icons.skip_next),
                     onPressed: () {
                       if (widget.index != widget.chapters.length) {
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -321,7 +326,7 @@ class ChaptersDetailState extends State<ChaptersDetail> {
                   ),
                   IconButton(
                     iconSize: 30.0,
-                    icon: Icon(Icons.line_style),
+                    icon: const Icon(Icons.line_style),
                     onPressed: () {
                       _changeLead();
                     },

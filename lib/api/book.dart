@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_text/model/book.dart';
 
 class BookApi {
-  final FuzzySearchUrl = "http://api.zhuishushenqi.com/book/fuzzy-search";
-  final detailUrl = "http://api.zhuishushenqi.com/book/";
+  final String FuzzySearchUrl = 'https://api.zhuishushenqi.com/book/fuzzy-search';
+  final String detailUrl = 'https://api.zhuishushenqi.com/book/';
   BaseOptions baseOptions = BaseOptions();
 
   //搜索小说

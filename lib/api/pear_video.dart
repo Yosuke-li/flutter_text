@@ -28,7 +28,7 @@ class PearVideoApi {
       return _contList;
     } catch (e) {
       print('error ============> $e');
-      return null;
+      rethrow;
     }
   }
 
@@ -44,7 +44,7 @@ class PearVideoApi {
       return categoryList;
     } catch (e) {
       print('error ============> $e');
-      return null;
+      rethrow;
     }
   }
 
@@ -77,7 +77,7 @@ class PearVideoApi {
       return _hotList;
     } catch (e) {
       print('error ============> $e');
-      return null;
+      rethrow;
     }
   }
 
@@ -94,12 +94,12 @@ class PearVideoApi {
       return _videos;
     } catch (e) {
       print('error ============> $e');
-      return null;
+      rethrow;
     }
   }
 
   Future getHeaders() async {
-    var headers = Map<String, String>();
+    final Map<String, String> headers = <String, String>{};
     headers['X-Channel-Code'] = 'official';
     headers['X-Client-Agent'] = 'Xiaomi';
     headers['X-Client-Hash'] = '2f3d6ffkda95dlz2fhju8d3s6dfges3t';
@@ -109,7 +109,7 @@ class PearVideoApi {
     headers['X-Platform-Type'] = '0';
     headers['X-Platform-Version'] = '5.0';
     headers['X-Serial-Num'] =
-        '${(DateTime.now().millisecondsSinceEpoch / 1000).toInt()}';
+        '${DateTime.now().millisecondsSinceEpoch ~/ 1000}';
     headers['X-User-ID'] = '';
     return headers;
   }

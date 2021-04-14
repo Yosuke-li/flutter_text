@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_text/model/translate.dart';
 
 class translateApi {
-  final String translateUrl = "http://fy.iciba.com/ajax.php";
+  final String translateUrl = 'http://fy.iciba.com/ajax.php';
   final BaseOptions baseOptions = BaseOptions();
 
   Future getTrans(String form, String to, String word) async {
@@ -22,8 +22,8 @@ class translateApi {
         return {'Content': contentE, 'status': 0};
       }
     } catch (e) {
-      print("error ==========> $e");
-      return null;
+      print('error ==========> $e');
+      rethrow;
     }
   }
 }
