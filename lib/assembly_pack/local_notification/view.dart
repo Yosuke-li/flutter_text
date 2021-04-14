@@ -7,7 +7,7 @@ class LocalNotification extends StatefulWidget {
 }
 
 class LocalNotificationState extends State<LocalNotification> {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin fNotification =
       FlutterLocalNotificationsPlugin();
 
   @override
@@ -17,7 +17,7 @@ class LocalNotificationState extends State<LocalNotification> {
         AndroidInitializationSettings('@mipmap/ic_launcher');
     const InitializationSettings initSettings =
         InitializationSettings(android: android);
-    flutterLocalNotificationsPlugin.initialize(initSettings, onSelectNotification: onSelectNotification);
+    fNotification.initialize(initSettings, onSelectNotification: onSelectNotification);
   }
 
   Future<void> onSelectNotification(String payload) async {
@@ -29,6 +29,12 @@ class LocalNotificationState extends State<LocalNotification> {
         content: Text('$payload'),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    fNotification.cancel(0);
+    super.dispose();
   }
 
   @override
@@ -50,12 +56,12 @@ class LocalNotificationState extends State<LocalNotification> {
   }
 
   void showNotification() async {
-    const android = AndroidNotificationDetails(
+    const AndroidNotificationDetails android = AndroidNotificationDetails(
         'channel id', 'channel NAME', 'CHANNEL DESCRIPTION',
         priority: Priority.high, importance: Importance.max);
     const iOS =  IOSNotificationDetails();
     const platform = NotificationDetails(android: android, iOS: iOS);
-    await flutterLocalNotificationsPlugin.show(
+    await fNotification.show(
         0, '本地推送测试标题', '本地推送测试内容', platform,
         payload: '测试测试');
   }

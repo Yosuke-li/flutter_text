@@ -41,8 +41,10 @@ import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/utils/file_utils.dart';
 import 'package:flutter_text/utils/listener/listen_test.dart';
-import 'package:flutter_text/utils/mixin/keep_alive.dart';
 import 'package:flutter_text/utils/navigator.dart';
+import 'package:flutter_text/utils/notification_center/notification_controller.dart';
+import 'package:flutter_text/utils/notification_center/notification_listener.dart';
+import 'package:flutter_text/utils/notification_center/notification_widget.dart';
 import 'package:flutter_text/utils/permission.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/utils.dart';
@@ -53,6 +55,7 @@ import 'assembly_pack/event_bus/event_util.dart';
 import 'package:flutter_text/assembly_pack/canvas_paint.dart';
 import 'package:flutter_text/assembly_pack/stepper.dart';
 
+import 'assembly_pack/local_notification/list_view.dart';
 import 'assembly_pack/range_slider.dart';
 import 'assembly_pack/slideing_panel.dart';
 import 'assembly_pack/slider.dart';
@@ -92,10 +95,12 @@ class Assembly extends StatelessWidget {
   Widget build(BuildContext context) {
     final toastWidget = BotToastInit();
     return ScreenWidget(
-      child: MaterialApp(
-        builder: (BuildContext c, Widget child) {
-          return toastWidget(c, TabBarDemo());
-        },
+      child: NotificationListenPage(
+        child: MaterialApp(
+          builder: (BuildContext c, Widget child) {
+            return toastWidget(c, TabBarDemo());
+          },
+        ),
       ),
     );
   }
@@ -419,6 +424,19 @@ class TabBarDemoState extends State<TabBarDemo>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 16);
                         NavigatorUtils.pushWidget(context, LocalNotification());
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.messenger_rounded),
+                      title: Text(
+                        '本地消息推送2',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () {
+                        ListenStateTest.setNum(ListenTestModel()..num = 17);
+                        NavigatorUtils.pushWidget(context, LocalNotificationList());
                       },
                     ),
                     ListTile(
