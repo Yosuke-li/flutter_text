@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_text/utils/notification_center/notification_controller.dart';
 import 'package:flutter_text/utils/notification_center/notification_listener.dart';
 import 'package:flutter_text/utils/notification_center/notification_model.dart';
 import 'package:flutter_text/utils/screen.dart';
-import 'package:flutter_text/widget/api_call_back.dart';
 import 'package:move_to_background/move_to_background.dart';
 
 class LocalNotificationList extends StatefulWidget {
@@ -13,8 +10,6 @@ class LocalNotificationList extends StatefulWidget {
 }
 
 class LocalNotificationListState extends State<LocalNotificationList> {
-
-
 
   @override
   void initState() {
