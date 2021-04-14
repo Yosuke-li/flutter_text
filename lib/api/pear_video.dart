@@ -6,10 +6,10 @@ import 'package:flutter_text/utils/httpHeaders.dart';
 
 class PearVideoApi {
   final ListUrl = 'https://app.pearvideo.com/clt/jsp/v2/getCategorys.jsp';  //获取类别
-  final HotNewsUrl = 'http://app.pearvideo.com/clt/jsp/v2/home.jsp';  //获取热点
+  final HotNewsUrl = 'https://app.pearvideo.com/clt/jsp/v2/home.jsp';  //获取热点
   final getListData =
-      'http://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp'; //获取该类别下的数据
-  final getContentUrl = 'http://app.pearvideo.com/clt/jsp/v2/content.jsp';//获取详情
+      'https://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp'; //获取该类别下的数据
+  final getContentUrl = 'https://app.pearvideo.com/clt/jsp/v2/content.jsp';//获取详情
   BaseOptions baseOptions;
 
   Future getPearVideoList() async {
@@ -53,13 +53,13 @@ class PearVideoApi {
     try {
       List<HotList> _hotList = [];
       HotList hot;
-      Response response = await Dio().post(getListData,
+      final Response response = await Dio().post(getListData,
           options: Options(headers: headers),
           queryParameters: {
             'hotPageidx': page,
             'categoryId': categoryId,
           });
-      List list = response.data['hotList'];
+      final List list = response.data['hotList'];
       _hotList = list.map((e) {
         hot = HotList.fromJson(e);
         hot.nodeInfo = NodeInfo.fromJson(hot.mNodeInfo);

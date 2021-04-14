@@ -21,11 +21,13 @@ class PearVideoPlayState extends State<PearVideoPlay> {
     });
   }
 
+  @override
   void initState() {
     super.initState();
     _getPearVideoList();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(

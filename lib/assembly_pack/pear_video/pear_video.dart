@@ -5,8 +5,6 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_text/api/pear_video.dart';
 import 'package:flutter_text/model/pear_video.dart';
 import 'package:flutter_text/utils/array_helper.dart';
-import 'package:flutter_text/utils/date_format.dart';
-import 'package:flutter_text/utils/utils.dart';
 import 'package:flutter_text/widget/video_widget.dart';
 
 void main() => runApp(PearVideoFirstPage());
@@ -30,20 +28,20 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
   //title自动滚动
   void startTimer() {
     int time = 10000;
-    timer = Timer.periodic(new Duration(milliseconds: time), (timer) {
+    timer = Timer.periodic(Duration(milliseconds: time), (Timer timer) {
       if (scroController.positions.isNotEmpty == false) {
         print('界面被销毁');
         return;
       }
-      double maxScrollExtent = scroController.position.maxScrollExtent;
+      final double maxScrollExtent = scroController.position.maxScrollExtent;
       if (maxScrollExtent > 0) {
         scroController.animateTo(maxScrollExtent,
-            duration: new Duration(milliseconds: (time * 0.5).toInt()),
+            duration: Duration(milliseconds: (time * 0.5).toInt()),
             curve: Curves.linear);
         Future.delayed(Duration(milliseconds: (time * 0.5).toInt()), () {
           if (scroController.positions.isNotEmpty == true) {
             scroController.animateTo(0,
-                duration: new Duration(milliseconds: (time * 0.5).toInt()),
+                duration: Duration(milliseconds: (time * 0.5).toInt()),
                 curve: Curves.linear);
           }
         });
@@ -124,7 +122,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      padding: const EdgeInsets.only(left: 20, right: 20),
                       child: Text(
                         '${ArrayHelper.get(tabs, index).name ?? ''}',
                         style: const TextStyle(color: Colors.white),
@@ -135,7 +133,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
               ),
             ),
           )
-        : Scaffold(
+        : const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
@@ -148,7 +146,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
       child: Swiper(
         loop: false,
         itemCount: hot?.length ?? 0,
-        onIndexChanged: (val) {
+        onIndexChanged: (int val) {
           if (val == hot.length - 1) {
             getVideoList(isLoadMore: true);
           }
@@ -183,7 +181,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
                                         ?.logoImg),
                               ),
                               Container(
-                                padding: EdgeInsets.only(left: 13),
+                                padding: const EdgeInsets.only(left: 13),
                                 child: Text(
                                   '${ArrayHelper.get(hot, index).nodeInfo?.name ?? ''}',
                                   style: const TextStyle(
@@ -193,12 +191,12 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
                             ],
                           ),
                           Container(
-                            padding: EdgeInsets.only(top: 10),
+                            padding: const EdgeInsets.only(top: 10),
                             width: 150,
                             height: 30,
                             child: ListView(
                               controller: scroController,
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               scrollDirection: Axis.horizontal,
                               children: <Widget>[
                                 Text(
