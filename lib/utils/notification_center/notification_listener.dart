@@ -16,7 +16,6 @@ class NotificationCenterListener {
   static CancelCallBack listenModel() {
     final CancelCallBack callBack =
         controller.stream.listen((NotificationModel event) {
-          LogUtil.v(event.toString());
           NotificationHelper.initEvent(event);
         })?.cancel;
     return callBack;

@@ -55,15 +55,6 @@ class LocalNotificationListState extends State<LocalNotificationList> {
                 child: Text('测试demo2 -- 后台隐藏发送'),
               ),
             ),
-            InkWell(
-              onTap: () {
-
-              },
-              child: Container(
-                height: screenUtil.adaptive(200),
-                child: Text('测试demo3'),
-              ),
-            ),
           ],
         ),
       ),

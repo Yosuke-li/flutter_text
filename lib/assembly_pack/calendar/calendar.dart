@@ -3,14 +3,17 @@ import 'package:table_calendar/table_calendar.dart';
 
 void main() => runApp(CalendarDemo());
 
-class CalendarDemo extends StatelessWidget{
+class CalendarDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Row(
           children: <Widget>[
-            Hero(tag: "calendar", child: Icon(Icons.calendar_today)),
-            Text("  日历")
+            const Hero(
+              tag: 'calendar',
+              child: Icon(Icons.calendar_today),
+            ),
+            const Text('  日历')
           ],
         ),
       ),
@@ -20,23 +23,27 @@ class CalendarDemo extends StatelessWidget{
 }
 
 class _CalendarDemo extends StatefulWidget {
+  @override
   _CalendarDemoState createState() => _CalendarDemoState();
 }
 
 class _CalendarDemoState extends State<_CalendarDemo> {
   CalendarController _calendarController;
 
+  @override
   void initState() {
     super.initState();
     _calendarController = CalendarController();
   }
 
+  @override
   void dispose() {
     _calendarController.dispose();
     super.dispose();
   }
 
-  Widget build (BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         TableCalendar(
