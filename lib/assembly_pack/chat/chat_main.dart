@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/chat/sign_in.dart';
 import 'package:flutter_text/utils/lock.dart';
+import 'package:flutter_text/widget/api_call_back.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -120,28 +121,33 @@ class ChatSceneState extends State<ChatScene> {
 
   //发送消息
   void _sendMessage({String text, String imageUrl}) {
-    reference.push().set({
-      'id': googleSignIn.currentUser.id,
-      'text': text,
-      'imageUrl': imageUrl,
-      'senderName': googleSignIn.currentUser.displayName,
-      'senderPhotoUrl': googleSignIn.currentUser.photoUrl,
-    });
+    loadingCallback(
+      () async => await lock.mutex(
+        () => reference.push().set({
+          'id': googleSignIn.currentUser.id,
+          'text': text,
+          'imageUrl': imageUrl,
+          'senderName': googleSignIn.currentUser.displayName,
+          'senderPhotoUrl': googleSignIn.currentUser.photoUrl,
+        }),
+      ),
+    );
     analytics.logEvent(name: 'send_message'); //google事件日志
   }
 
   //选择图片
   void _pickerImage() async {
-    File imageFile =
+    final File imageFile =
         await ImagePickerSaver.pickImage(source: ImageSource.gallery);
     final int random = Random().nextInt(100000);
-    StorageReference ref =
-        FirebaseStorage.instance.ref().child("image_$random.jpg");
+    final StorageReference ref =
+        FirebaseStorage.instance.ref().child('image_$random.jpg');
     final StorageUploadTask uploadTask = ref.putFile(imageFile);
-    await lock.mutex(() async {
-      await uploadTask.onComplete;
-    });
-    final String downloadUrl = await uploadTask.lastSnapshot.ref.getDownloadURL();
+    await loadingCallback(() => lock.mutex(() async {
+          await uploadTask.onComplete;
+        }));
+    final String downloadUrl =
+        await uploadTask.lastSnapshot.ref.getDownloadURL();
     _sendMessage(imageUrl: downloadUrl);
   }
 
@@ -324,8 +330,8 @@ class ChatMessage extends StatelessWidget {
                                 top: 5, bottom: 5, right: 10, left: 10),
                             child: Text(
                               snapshot.value['text'],
-                              style:
-                                  const TextStyle(color: Colors.white, fontSize: 15),
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 15),
                             ),
                           ),
                         ),
