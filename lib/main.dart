@@ -3,8 +3,6 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/animation/component.dart';
 import 'package:flutter_text/assembly_pack/banner_demo.dart';
-import 'package:flutter_text/assembly_pack/calendar/calendar.dart';
-import 'package:flutter_text/assembly_pack/calendar/mini_calendar.dart';
 import 'package:flutter_text/assembly_pack/chat/chat_main.dart';
 import 'package:flutter_text/assembly_pack/connected/connect_data.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
@@ -980,40 +978,6 @@ class TabBarDemoState extends State<TabBarDemo>
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => SpeedDialDemo()),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.calendar_today),
-                      title: Text(
-                        'MiniCalendar组件',
-                        style: TextStyle(
-                          fontSize: screenUtil.adaptive(40),
-                        ),
-                      ),
-                      trailing: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => MonthPageViewDemo()),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: const Hero(
-                          tag: 'calendar',
-                          child: const Icon(Icons.calendar_today)),
-                      title: Text(
-                        'Calendar组件',
-                        style: TextStyle(
-                          fontSize: screenUtil.adaptive(40),
-                        ),
-                      ),
-                      trailing: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => CalendarDemo()),
                         );
                       },
                     ),

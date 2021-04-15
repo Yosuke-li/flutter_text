@@ -49,8 +49,8 @@ class SignInDemoState extends State<SignInDemo> {
       _contactText = "Loading contact info...";
     });
     final http.Response response = await http.get(
-      'https://people.googleapis.com/v1/people/me/connections'
-          '?requestMask.includeField=person.names',
+      Uri.parse('https://people.googleapis.com/v1/people/me/connections'
+          '?requestMask.includeField=person.names'),
       headers: await _currentUser.authHeaders,
     );
     if (response.statusCode != 200) {
@@ -75,12 +75,12 @@ class SignInDemoState extends State<SignInDemo> {
   String _pickFirstNamedContact(Map<String, dynamic> data) {
     final List<dynamic> connections = data['connections'];
     final Map<String, dynamic> contact = connections?.firstWhere(
-          (dynamic contact) => contact['names'] != null,
+      (dynamic contact) => contact['names'] != null,
       orElse: () => null,
     );
     if (contact != null) {
       final Map<String, dynamic> name = contact['names'].firstWhere(
-            (dynamic name) => name['displayName'] != null,
+        (dynamic name) => name['displayName'] != null,
         orElse: () => null,
       );
       if (name != null) {

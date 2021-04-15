@@ -1,7 +1,10 @@
 import 'package:sentry/sentry.dart';
 
 class ReportError {
-  final SentryClient _sentryClient = SentryClient(dsn: 'https://ba709b0b128b46a183f63a5601dc49fd@o396530.ingest.sentry.io/5249966');
+  // 'https://ba709b0b128b46a183f63a5601dc49fd@o396530.ingest.sentry.io/5249966'
+  final SentryClient _sentryClient = SentryClient(SentryOptions(
+      dsn:
+          'https://ba709b0b128b46a183f63a5601dc49fd@o396530.ingest.sentry.io/5249966'));
 
   bool get isInDebugMode {
     bool inDebugMode = false;
@@ -16,7 +19,7 @@ class ReportError {
       return;
     } else {
       _sentryClient.captureException(
-        exception: error,
+        error,
         stackTrace: stackTrace,
       );
     }
