@@ -97,9 +97,9 @@ class ChatSceneState extends State<ChatScene> {
     }
     // google用户登录
     if (auth.currentUser != null) {
-      GoogleSignInAuthentication credentials =
+      final GoogleSignInAuthentication credentials =
           await googleSignIn.currentUser.authentication;
-      final AuthCredential credential = await GoogleAuthProvider.getCredential(
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
         idToken: credentials.idToken,
         accessToken: credentials.accessToken,
       );
