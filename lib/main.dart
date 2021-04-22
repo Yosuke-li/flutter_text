@@ -15,6 +15,7 @@ import 'package:flutter_text/assembly_pack/local_auth_check.dart';
 import 'package:flutter_text/assembly_pack/local_notification/view.dart';
 import 'package:flutter_text/assembly_pack/login/login_video_page.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
+import 'package:flutter_text/assembly_pack/management/home_page/home_page.dart';
 import 'package:flutter_text/assembly_pack/mic_stream_demo.dart';
 import 'package:flutter_text/assembly_pack/overlay_demo.dart';
 import 'package:flutter_text/assembly_pack/pdf.dart';
@@ -447,6 +448,19 @@ class TabBarDemoState extends State<TabBarDemo>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 18);
                         NavigatorUtils.pushWidget(context, ProviderTextPage());
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.precision_manufacturing_rounded),
+                      title: Text(
+                        'management 管理后台',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () {
+                        ListenStateTest.setNum(ListenTestModel()..num = 19);
+                        NavigatorUtils.pushWidget(context, HomePage());
                       },
                     ),
                     ListTile(

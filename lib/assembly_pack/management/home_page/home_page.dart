@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.black,
-        title: Text('展览宝后台管理'),
+        title: Text('管理后台'),
       ),
       body: Row(
         children: [
