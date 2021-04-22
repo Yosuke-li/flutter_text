@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/_show_model/show_model.dart';
 import 'package:flutter_text/assembly_pack/animation/component.dart';
 import 'package:flutter_text/assembly_pack/banner_demo.dart';
 import 'package:flutter_text/assembly_pack/chat/chat_main.dart';
@@ -44,6 +45,7 @@ import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/utils/permission.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/utils.dart';
+import 'package:flutter_text/widget/modal_utils.dart';
 import 'package:flutter_text/widget/notification_center/notification_widget.dart';
 import 'assembly_pack/book/search_book.dart';
 import 'assembly_pack/car_pages.dart';
@@ -94,10 +96,12 @@ class Assembly extends StatelessWidget {
     final toastWidget = BotToastInit();
     return ScreenWidget(
       child: NotificationListenPage(
-        child: MaterialApp(
-          builder: (BuildContext c, Widget child) {
-            return toastWidget(c, TabBarDemo());
-          },
+        child: ModalStyleWidget(
+          child: MaterialApp(
+            builder: (BuildContext c, Widget child) {
+              return toastWidget(c, TabBarDemo());
+            },
+          ),
         ),
       ),
     );
@@ -434,11 +438,13 @@ class TabBarDemoState extends State<TabBarDemo>
                       ),
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 17);
-                        NavigatorUtils.pushWidget(context, LocalNotificationList());
+                        NavigatorUtils.pushWidget(
+                            context, LocalNotificationList());
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.precision_manufacturing_rounded),
+                      leading:
+                          const Icon(Icons.precision_manufacturing_rounded),
                       title: Text(
                         'provider text',
                         style: TextStyle(
@@ -451,7 +457,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.precision_manufacturing_rounded),
+                      leading:
+                          const Icon(Icons.precision_manufacturing_rounded),
                       title: Text(
                         'management 管理后台',
                         style: TextStyle(
@@ -512,6 +519,19 @@ class TabBarDemoState extends State<TabBarDemo>
                           MaterialPageRoute(
                               builder: (context) => RefreshPage()),
                         );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'modal Utils使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        ModalText.model(context);
                       },
                     ),
                     ListTile(
