@@ -31,6 +31,7 @@ class _localAuthCheckState extends State<LocalAuthCheck> {
       canCheckBiometrics = await auth.canCheckBiometrics;
     } on PlatformException catch (e) {
       print(e);
+      rethrow;
     }
     if (!mounted) return;
 

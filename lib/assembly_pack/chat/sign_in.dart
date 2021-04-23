@@ -95,6 +95,7 @@ class SignInDemoState extends State<SignInDemo> {
       await _googleSignIn.signIn();
     } catch (error) {
       print(error);
+      rethrow;
     }
   }
 

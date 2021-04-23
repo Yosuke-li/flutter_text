@@ -26,7 +26,7 @@ class WeatherApi {
       return _realTimeWeather;
     } catch (e) {
       print('getRealTimeWeather error = ${e}');
-      return null;
+      rethrow;
     }
   }
 
@@ -51,7 +51,7 @@ class WeatherApi {
       return _threeDaysForecast;
     } catch (e) {
       print('getThreeDayWeather error = ${e}');
-      return null;
+      rethrow;
     }
   }
 
@@ -72,7 +72,7 @@ class WeatherApi {
       print(response.data);
       return cityList;
     } catch (e) {
-      return null;
+      rethrow;
     }
   }
 }
