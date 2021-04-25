@@ -28,7 +28,7 @@ class _TestDbState extends State<TestDb> {
 
   Future<void> getUserList() async {
     final List<User> list = await provider.getAllUser();
-    final counts = await provider.getTableCountsV2();
+    final int counts = await provider.getTableCountsV2();
     
     final List<User> cache = await iCacheApi.getAllCache();
     print('counts: $counts');
@@ -42,7 +42,7 @@ class _TestDbState extends State<TestDb> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sql 练习'),
+        title: const Text('Sql 练习'),
       ),
       body: Container(
         child: RepaintBoundary(
@@ -53,8 +53,8 @@ class _TestDbState extends State<TestDb> {
                     onTap: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => TestAdd(e))).then((value) {
+                          MaterialPageRoute<bool>(
+                              builder: (BuildContext context) => TestAdd(e))).then((bool value) {
                         if (value == true) {
                           getUserList();
                         }
@@ -74,8 +74,8 @@ class _TestDbState extends State<TestDb> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => TestAdd(User())))
-              .then((value) {
+                  MaterialPageRoute<bool>(builder: (BuildContext context) => TestAdd(User())))
+              .then((bool value) {
             if (value == true) {
               getUserList();
             }

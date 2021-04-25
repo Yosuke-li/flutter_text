@@ -3,14 +3,12 @@ import 'package:flutter_text/widget/management/common/listenable.dart';
 import 'package:flutter_text/widget/management/common/view_key.dart';
 import 'package:flutter_text/widget/management/widget/stack_view.dart';
 
-
-
 abstract class EditorListener {
   void onOpen(
       {@required ViewKey key,
-        @required String tab,
-        @required WidgetBuilder contentIfAbsent,
-        VoidCallback onTapTab});
+      @required String tab,
+      @required WidgetBuilder contentIfAbsent,
+      VoidCallback onTapTab});
 
   void onClose(ViewKey key);
 }
@@ -18,9 +16,9 @@ abstract class EditorListener {
 class EditorController with GenericListenable<EditorListener> {
   void open(
       {@required ViewKey key,
-        @required String tab,
-        @required WidgetBuilder contentIfAbsent,
-        VoidCallback onTapTab}) {
+      @required String tab,
+      @required WidgetBuilder contentIfAbsent,
+      VoidCallback onTapTab}) {
     foreach((entry) {
       entry.onOpen(
           key: key,
@@ -54,9 +52,9 @@ class _TabPage {
 
   _TabPage(
       {@required this.tab,
-        @required this.builder,
-        @required this.key,
-        this.onTapTab});
+      @required this.builder,
+      @required this.key,
+      this.onTapTab});
 }
 
 class _EditorState extends State<Editor> implements EditorListener {
@@ -93,9 +91,9 @@ class _EditorState extends State<Editor> implements EditorListener {
   @override
   void onOpen(
       {@required ViewKey key,
-        @required String tab,
-        @required WidgetBuilder contentIfAbsent,
-        VoidCallback onTapTab}) {
+      @required String tab,
+      @required WidgetBuilder contentIfAbsent,
+      VoidCallback onTapTab}) {
     _open(
         key: key,
         tab: tab,
@@ -105,9 +103,9 @@ class _EditorState extends State<Editor> implements EditorListener {
 
   void _open(
       {@required ViewKey key,
-        @required String tab,
-        @required WidgetBuilder contentIfAbsent,
-        VoidCallback onTapTab}) {
+      @required String tab,
+      @required WidgetBuilder contentIfAbsent,
+      VoidCallback onTapTab}) {
     if (_tabs.any((element) => element.key == key)) {
       if (current.key != key) {
         controller.open(key, contentIfAbsent);
@@ -151,7 +149,7 @@ class _EditorState extends State<Editor> implements EditorListener {
         children: [
           if (_tabs.isNotEmpty)
             Container(
-              padding: EdgeInsets.only(left: 8,bottom: 4),
+              padding: EdgeInsets.only(left: 8, bottom: 4),
               alignment: Alignment.topLeft,
               child: Wrap(
                   alignment: WrapAlignment.start,
@@ -159,8 +157,8 @@ class _EditorState extends State<Editor> implements EditorListener {
                   children: _tabs.map((e) => _buildButton(e)).toList()),
             ),
           if (_tabs.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.only(top: 6),
+            const Padding(
+              padding: EdgeInsets.only(top: 6),
               child: Divider(
                 height: 2,
                 thickness: 5,
@@ -168,9 +166,9 @@ class _EditorState extends State<Editor> implements EditorListener {
             ),
           Expanded(
               child: StackView(
-                controller: controller,
-                onCurrentIndexChanged: _onCurrentIndexChanged,
-              ))
+            controller: controller,
+            onCurrentIndexChanged: _onCurrentIndexChanged,
+          ))
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:common_utils/common_utils.dart';
@@ -111,7 +112,8 @@ class TabBarDemoState extends State<TabBarDemo>
   @override
   void initState() {
     super.initState();
-    Permission.init();
+    if (Platform.isAndroid || Platform.isIOS)
+      Permission.init();
     LocateStorage.init().whenComplete(
           () => listenTest(),
     );

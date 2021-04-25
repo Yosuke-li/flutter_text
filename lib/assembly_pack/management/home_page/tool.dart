@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/management/function_page/manage/manage_list.dart';
+import 'package:flutter_text/index.dart';
+import 'package:flutter_text/utils/navigator.dart';
+import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/widget/management/common/view_key.dart';
 import 'package:flutter_text/widget/management/widget/custom_expansion_tile.dart';
 import 'dart:math' as math;
@@ -31,6 +35,13 @@ class _ToolState extends State<Tool> {
         contentIfAbsent: (_) => null);
   }
 
+  void _manageListPage() {
+    widget.controller.open(
+        key: ConstViewKey.manageListPage,
+        tab: '管理员列表',
+        contentIfAbsent: (_) => ManageListPage());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,8 +52,20 @@ class _ToolState extends State<Tool> {
         children: [
           Material(
             type: MaterialType.transparency,
+            child: buildToolGroup(
+              groupName: '首页',
+              callback: () {
+                NavigatorUtils.pop(context);
+              },
+              icon: Container(
+                width: screenUtil.adaptive(10),
+              ),
+            ),
+          ),
+          Material(
+            type: MaterialType.transparency,
             child: buildToolGroup(groupName: '管理员管理', groupItems: [
-              _GroupItem('管理员列表', _handlePromotionalInfoTap),
+              _GroupItem('管理员列表', _manageListPage),
               _GroupItem('管理员部门管理', _handlePromotionalInfoTap)
             ]),
           ),
@@ -92,7 +115,12 @@ class _ToolState extends State<Tool> {
     );
   }
 
-  Widget buildToolGroup({String groupName, List<_GroupItem> groupItems}) {
+  Widget buildToolGroup(
+      {String groupName,
+      List<_GroupItem> groupItems,
+      VoidCallback callback,
+      Widget icon}) {
+    assert(groupItems?.isNotEmpty == true || callback != null);
     return CustomExpansionTile(
       value: expanded[groupName] == true,
       customHead: (_, animation) => InkWell(
@@ -103,13 +131,14 @@ class _ToolState extends State<Tool> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Transform.rotate(
-                angle: math.pi * (1.5 + animation.value / 2),
-                child: const Icon(
-                  Icons.expand_more,
-                  size: 16,
-                ),
-              ),
+              icon ??
+                  Transform.rotate(
+                    angle: math.pi * (1.5 + animation.value / 2),
+                    child: const Icon(
+                      Icons.expand_more,
+                      size: 16,
+                    ),
+                  ),
               Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.only(left: 4),
@@ -122,24 +151,29 @@ class _ToolState extends State<Tool> {
           ),
         ),
         onTap: () {
-          if (expanded[groupName] == null) {
-            expanded[groupName] = true;
+          if (callback != null) {
+            callback?.call();
           } else {
-            expanded[groupName] = !expanded[groupName];
+            if (expanded[groupName] == null) {
+              expanded[groupName] = true;
+            } else {
+              expanded[groupName] = !expanded[groupName];
+            }
           }
           setState(() {});
         },
       ),
       children: groupItems
-          .map((e) => InkWell(
-                onTap: e.callback,
-                child: Container(
-                  padding: const EdgeInsets.all(8.0).copyWith(left: 32),
-                  alignment: Alignment.centerLeft,
-                  child: Text(e.title),
-                ),
-              ))
-          .toList(growable: false),
+              ?.map((e) => InkWell(
+                    onTap: e.callback,
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0).copyWith(left: 32),
+                      alignment: Alignment.centerLeft,
+                      child: Text(e.title),
+                    ),
+                  ))
+              ?.toList(growable: false) ??
+          [],
     );
   }
 }

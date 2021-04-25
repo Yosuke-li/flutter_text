@@ -35,5 +35,6 @@ class ViewKeyWidget extends StatelessWidget {
 
 class ConstViewKey {
   static const ViewKey promotionalInfo = ViewKey(namespace: 'promotional', id: 'info');
+  static const ViewKey manageListPage = ViewKey(namespace: 'manageList', id: 'manageList');
 
 }

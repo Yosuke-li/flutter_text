@@ -28,10 +28,11 @@ class _RegisterTableState extends State<RegisterTable> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('所有注册人员'),
+        title: const Text('所有注册人员'),
       ),
       body: Container(
         child: RepaintBoundary(
