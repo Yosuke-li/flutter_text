@@ -47,6 +47,7 @@ import 'package:flutter_text/utils/permission.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/utils.dart';
 import 'package:flutter_text/widget/modal_utils.dart';
+import 'package:flutter_text/widget/navigator_helper.dart';
 import 'package:flutter_text/widget/notification_center/notification_widget.dart';
 import 'assembly_pack/_show_model/show_model.dart';
 import 'assembly_pack/book/search_book.dart';
@@ -81,12 +82,14 @@ class Assembly extends StatelessWidget {
   Widget build(BuildContext context) {
     final toastWidget = BotToastInit();
     return ScreenWidget(
-      child: NotificationListenPage(
-        child: ModalStyleWidget(
-          child: MaterialApp(
-            builder: (BuildContext c, Widget child) {
-              return toastWidget(c, TabBarDemo());
-            },
+      child: NavigatorInitializer(
+        child: NotificationListenPage(
+          child: ModalStyleWidget(
+            child: MaterialApp(
+              builder: (BuildContext c, Widget child) {
+                return toastWidget(c, TabBarDemo());
+              },
+            ),
           ),
         ),
       ),

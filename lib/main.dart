@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/utils/api_exception.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
+import 'package:flutter_text/widget/navigator_helper.dart';
 import 'assembly_pack/event_bus/event_util.dart';
 import 'index.dart';
 import 'utils/init.dart';
@@ -33,10 +34,14 @@ void _errorHandler(FlutterErrorDetails details) async {
       final String message = e.message;
       switch (code) {
         case 401:
+          final navigatorHelper = await NavigatorHelper.navigatorState;
           ToastUtils.showToast(msg: '401错误');
+          navigatorHelper.popUntil((Route route) => route.isFirst);
           break;
         case 403:
+          final navigatorHelper = await NavigatorHelper.navigatorState;
           ToastUtils.showToast(msg: '403错误');
+          navigatorHelper.popUntil((Route route) => route.isFirst);
           break;
         default:
           ToastUtils.showToast(msg: message);
