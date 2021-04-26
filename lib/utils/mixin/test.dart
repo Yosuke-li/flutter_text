@@ -4,6 +4,7 @@
 // 混合使用 with 关键字，with 后面可以是 class、abstract class 和 mixin 的类型。
 // Mixins 不是多重继承，相反，它只是在多个层次结构中重用类中的代码而无需扩展它们的一种方式。
 
+///Mixin解决了无法多重继承的问题。代码复用
 
 class Person {
   void eat() {
