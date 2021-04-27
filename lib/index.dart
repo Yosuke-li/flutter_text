@@ -46,6 +46,7 @@ import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/utils/permission.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/utils.dart';
+import 'package:flutter_text/widget/app_lifecycle_widget.dart';
 import 'package:flutter_text/widget/modal_utils.dart';
 import 'package:flutter_text/widget/navigator_helper.dart';
 import 'package:flutter_text/widget/notification_center/notification_widget.dart';
@@ -84,13 +85,15 @@ class Assembly extends StatelessWidget {
     return ScreenWidget(
       child: NavigatorInitializer(
         child: NotificationListenPage(
-          child: ModalStyleWidget(
-            child: MaterialApp(
-              builder: (BuildContext c, Widget child) {
-                return toastWidget(c, TabBarDemo());
-              },
+          child: AppLifecycleWidget(
+            child: ModalStyleWidget(
+              child: MaterialApp(
+                builder: (BuildContext c, Widget child) {
+                  return toastWidget(c, TabBarDemo());
+                },
+              ),
             ),
-          ),
+          )
         ),
       ),
     );
