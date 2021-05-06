@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:tl_utils/src/array_helpers/array_util.dart';
+import 'package:flutter_text/utils/array_helper.dart';
 
 //用于输入金钱 如 ：21.2121
 class TlMoneyTextInputFormatter extends TextInputFormatter {
@@ -37,7 +37,7 @@ class TlMoneyTextInputFormatter extends TextInputFormatter {
       }
       final List<String> list = newValue.text.split('.');
       if (list[0].length > integerMaxLen ||
-          ((ArrayUtil.get(list, 1))?.length ?? 0) > decimalMaxLen) {
+          ((ArrayHelper.get(list, 1))?.length ?? 0) > decimalMaxLen) {
         return oldValue;
       }
     } else if (newValue.text.length > integerMaxLen) {
