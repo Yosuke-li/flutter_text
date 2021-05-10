@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_text/model/weather.dart';
+import 'package:flutter_text/utils/dio/dio_helper.dart';
 
 class WeatherApi {
   final String rootUrl = "https://free-api.heweather.net/s6/weather";
@@ -12,11 +13,17 @@ class WeatherApi {
     String url = rootUrl + '/now';
     RealTimeWeather _realTimeWeather;
     try {
-      Response response =
-          await Dio(baseOptions).get(url, options: Options(), queryParameters: {
+
+      final Response response = await Request.get(url, params:{
         'location': cid,
         'key': key,
       });
+
+      // Response response =
+      //     await Dio(baseOptions).get(url, options: Options(), queryParameters: {
+      //   'location': cid,
+      //   'key': key,
+      // });
       _realTimeWeather =
           RealTimeWeather.fromJson(response.data['HeWeather6'].first);
       _realTimeWeather.basic = Basic.fromJson(_realTimeWeather.mBasic);

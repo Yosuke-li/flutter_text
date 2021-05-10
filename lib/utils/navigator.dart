@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/global/global.dart';
+import 'package:flutter_text/utils/event_bus_helper.dart';
 
 class NavigatorUtils {
   static Future<T> pushWidget<T>(
@@ -9,7 +11,10 @@ class NavigatorUtils {
     bool opaque = false,
     bool replaceCurrent = false,
     bool cleanFocus = false,
+    bool isAddRoute = true,
   }) {
+    if (isAddRoute == true)
+      EventBusHelper.asyncStreamController.add(EventCache()..isRoute = true);
     if (cleanFocus == true)
       FocusScope.of(context).unfocus(disposition: UnfocusDisposition.scope);
     return pushRoute<T>(
@@ -46,6 +51,7 @@ class NavigatorUtils {
 
   static bool pop(BuildContext context, {dynamic results}) {
     if (Navigator.of(context).canPop()) {
+      EventBusHelper.asyncStreamController.add(EventCache().isRoute = false);
       Navigator.of(context).pop(results);
       return true;
     } else
