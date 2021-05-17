@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:common_utils/common_utils.dart';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 
 class Request {
@@ -21,6 +25,18 @@ class Request {
     //一般情况下，未登陆前没token。
     if (token != null && token.isNotEmpty == true) {
       headers['Authorization'] = token;
+    }
+
+    //Fiddler抓包设置代理
+    if (GlobalStore.isUserFiddle == true) {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client){
+        client.findProxy = (Uri url){
+          return 'PROXY ${GlobalStore.homeIp}:8888';
+        };
+        //抓Https包设置
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+      };
     }
 
     try {
