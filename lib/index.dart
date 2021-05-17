@@ -6,6 +6,7 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/animation/component.dart';
 import 'package:flutter_text/assembly_pack/banner_demo.dart';
+import 'package:flutter_text/assembly_pack/bloc_text/bloc_text.dart';
 import 'package:flutter_text/assembly_pack/chat/chat_main.dart';
 import 'package:flutter_text/assembly_pack/connected/connect_data.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
@@ -459,6 +460,20 @@ class TabBarDemoState extends State<TabBarDemo>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 19);
                         NavigatorUtils.pushWidget(context, HomePage());
+                      },
+                    ),
+                    ListTile(
+                      leading:
+                      const Icon(Icons.app_blocking),
+                      title: Text(
+                        'bloc',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () {
+                        ListenStateTest.setNum(ListenTestModel()..num = 20);
+                        NavigatorUtils.pushWidget(context, BlocTextWidget());
                       },
                     ),
                     ListTile(

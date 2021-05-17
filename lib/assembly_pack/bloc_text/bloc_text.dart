@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_text/widget/bloc/bloc_widget.dart';
+
+import 'bloc_model.dart';
+
+
+int i = 0;
+
+class BlocTextWidget extends StatefulWidget {
+  @override
+  _BlocTextWidgetState createState() => _BlocTextWidgetState();
+}
+
+class _BlocTextWidgetState extends State<BlocTextWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: BlocWidget<BlocModel>(bloc: BlocModel(), child: BlocPage()),
+    );
+  }
+}
+
+class BlocPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final BlocModel bloc = BlocWidget.of<BlocModel>(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Bloc Text'),
+      ),
+      body: Center(
+        child: StreamBuilder<int>(
+          stream: bloc.outCount,
+          initialData: 0,
+          builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+            return Text('${snapshot.data ?? 0}');
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          bloc.actionStream.add(i++);
+        },
+      ),
+    );
+  }
+}
