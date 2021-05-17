@@ -52,6 +52,7 @@ import 'package:flutter_text/widget/modal_utils.dart';
 import 'package:flutter_text/widget/navigator_helper.dart';
 import 'package:flutter_text/widget/notification_center/notification_widget.dart';
 import 'package:flutter_text/widget/window.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'assembly_pack/_show_model/show_model.dart';
 import 'assembly_pack/book/search_book.dart';
 import 'assembly_pack/car_pages.dart';
@@ -474,6 +475,20 @@ class TabBarDemoState extends State<TabBarDemo>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 20);
                         NavigatorUtils.pushWidget(context, BlocTextWidget());
+                      },
+                    ),
+                    ListTile(
+                      leading:
+                      const Icon(Icons.scanner),
+                      title: Text(
+                        'url scheme',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () async {
+                        //todo market://需要后面对应的app才能打开,只有details也不行
+                        launch('market://details?id=com.example.exhibition');
                       },
                     ),
                     ListTile(
