@@ -17,21 +17,24 @@ class _EventBusDemo2State extends State<EventBusDemo2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            padding: EdgeInsets.only(bottom: 25),
-            child: Column(
-              children: <Widget>[
-                TextField(
-                  controller: textController,
-                ),
-                FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    EventBusUtil.getInstance().fire(PageEvent('${textController.text}'));
-                  },
-                  child: Text('传值'),
-                ),
-              ],
-            )));
+      body: Container(
+        padding: const EdgeInsets.only(bottom: 25),
+        child: Column(
+          children: <Widget>[
+            TextField(
+              controller: textController,
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                EventBusUtil.getInstance()
+                    .fire(PageEvent('${textController.text}'));
+              },
+              child: const Text('传值'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

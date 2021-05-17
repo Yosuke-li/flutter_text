@@ -3,9 +3,6 @@ import 'package:flutter_text/widget/bloc/bloc_widget.dart';
 
 import 'bloc_model.dart';
 
-
-int i = 0;
-
 class BlocTextWidget extends StatefulWidget {
   @override
   _BlocTextWidgetState createState() => _BlocTextWidgetState();
@@ -21,6 +18,8 @@ class _BlocTextWidgetState extends State<BlocTextWidget> {
 }
 
 class BlocPage extends StatelessWidget {
+  int i = 0; //todo 放外面就变全局变量了
+
   @override
   Widget build(BuildContext context) {
     final BlocModel bloc = BlocWidget.of<BlocModel>(context);
