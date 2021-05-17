@@ -4,14 +4,14 @@ import 'package:flutter_text/widget/management/common/function_util.dart';
 FormColumn<T> buildTextFormColumn<T>(
     {@required String title, @required String text(T value)}) {
   return FormColumn<T>(
-      title: title, builder: (_, value) => Text(text(value) ?? ''));
+      title: title, builder: (_, T value) => Text(text(value) ?? ''));
 }
 
 FormColumn<T> buildButtonFormColumn<T>(
     {@required String title, @required String text(T value), InFunc<T> onTap}) {
   return FormColumn<T>(
       title: title,
-      builder: (_, value) => ElevatedButton(
+      builder: (_, T value) => ElevatedButton(
             child: Text(text(value)),
             onPressed: onTap == null
                 ? null
@@ -25,7 +25,7 @@ FormColumn<T> buildIconButtonFormColumn<T>(
     {String title, IconData icon, InFunc<T> onTap}) {
   return FormColumn<T>(
       title: title,
-      builder: (_, value) => IconButton(
+      builder: (_, T value) => IconButton(
             icon: Icon(icon),
             onPressed: onTap == null
                 ? null
@@ -78,7 +78,7 @@ class _CommonFormState<T> extends State<CommonForm<T>> {
             border: Border.all(width: 0.4, color: Colors.black26),
             color: color),
         height: 40,
-        padding: EdgeInsets.all(4),
+        padding: const EdgeInsets.all(4),
         alignment: Alignment.center,
         child: child,
       ),
@@ -87,7 +87,7 @@ class _CommonFormState<T> extends State<CommonForm<T>> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> children = <Widget>[];
+    final List<Widget> children = <Widget>[];
     children.add(buildTitleRow());
     children.addAll(widget.values.map((e) => buildRow(e)));
 

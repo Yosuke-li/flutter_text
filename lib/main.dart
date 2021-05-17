@@ -29,7 +29,7 @@ void _errorHandler(FlutterErrorDetails details) async {
 
   if (details.exception != null) {
     if (details.exception is ApiException) {
-      final e = details.exception as ApiException;
+      final ApiException e = details.exception as ApiException;
       final int code = e.code;
       final String message = e.message;
       switch (code) {

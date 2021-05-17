@@ -13,13 +13,13 @@ abstract class StackViewListener {
 
 class StackController with GenericListenable<StackViewListener> {
   void open(ViewKey key, WidgetBuilder createIfAbsent) {
-    foreach((entry) {
+    foreach((StackViewListener entry) {
       entry.onOpen(key, createIfAbsent);
     });
   }
 
   void close(ViewKey key) {
-    foreach((entry) {
+    foreach((StackViewListener entry) {
       entry.onClose(key);
     });
   }
@@ -37,7 +37,7 @@ class StackView extends StatefulWidget {
 
 class _StackViewState extends State<StackView> implements StackViewListener {
   int _currentIndex = 0;
-  List<ViewKeyWidget> _list = <ViewKeyWidget>[];
+  final List<ViewKeyWidget> _list = <ViewKeyWidget>[];
 
   @override
   void initState() {
@@ -71,7 +71,7 @@ class _StackViewState extends State<StackView> implements StackViewListener {
   }
 
   void _open(ViewKey key, WidgetBuilder createIfAbsent) {
-    int index = _list.indexWhere((element) => element.key == key);
+    int index = _list.indexWhere((ViewKeyWidget element) => element.key == key);
     if (index == _currentIndex) {
       return;
     }
@@ -87,7 +87,7 @@ class _StackViewState extends State<StackView> implements StackViewListener {
   }
 
   void _close(ViewKey key) {
-    int index = _list.indexWhere((element) => element.key == key);
+    int index = _list.indexWhere((ViewKeyWidget element) => element.key == key);
     if (index == -1) {
       return;
     }

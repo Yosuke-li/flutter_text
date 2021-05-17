@@ -11,7 +11,7 @@ class PageButton extends StatefulWidget {
 
   final ValueChanged<int> onChanged;
 
-  PageButton({Key key, this.current, this.total, this.onChanged})
+  const PageButton({Key key, this.current, this.total, this.onChanged})
       : super(key: key);
 
   @override
@@ -52,7 +52,7 @@ class _PageButtonState extends State<PageButton> {
     int start = max(widget.current - 2, 0);
     int end = min(widget.current + 3, widget.total);
 
-    List<int> pages = <int>[];
+    final List<int> pages = <int>[];
     if (start != 0) {
       pages.add(0);
     }

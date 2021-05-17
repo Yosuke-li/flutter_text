@@ -22,7 +22,7 @@ abstract class GenericListenable<T>  {
   }
 
   void removeListener(T listener) {
-    for (final _ListenerEntry entry in _list) {
+    for (final _ListenerEntry<T> entry in _list) {
       if (entry.listener == listener) {
         entry.unlink();
         return;
@@ -31,7 +31,7 @@ abstract class GenericListenable<T>  {
   }
 
   void foreach(void action(T entry)){
-    final List<_ListenerEntry> copy = List<_ListenerEntry>.from(_list);
+    final List<_ListenerEntry<T>> copy = List<_ListenerEntry<T>>.from(_list);
     copy.forEach((entry) {
       action(entry.listener);
     });
