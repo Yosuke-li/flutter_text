@@ -11,7 +11,7 @@ class SlidableText extends StatelessWidget{
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Slidable组件'),
+          title: const Text('Slidable组件'),
         ),
         body: SlidableDemo(),
       );
