@@ -57,7 +57,7 @@ class contextPageState extends State<contextPage> {
         floatingActionButton: !_isFullScreen
             ? FloatingActionButton(
           onPressed: () async {
-            File video =
+            final File video =
             await ImagePickerSaver.pickVideo(source: ImageSource.gallery);
             if (video != null && video.path != '') {
               setState(() {
@@ -66,7 +66,7 @@ class contextPageState extends State<contextPage> {
             }
           },
           tooltip: 'pickImage',
-          child: new Icon(Icons.add),
+          child: Icon(Icons.add),
         )
             : null);
   }
