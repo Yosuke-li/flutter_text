@@ -35,7 +35,6 @@ class LiquidDemoState extends State<LiquidDemo> {
           ),
         ],
         fullTransitionValue: 500,//滑动阀值
-        enableSlideIcon: false, //显示右侧图标
         enableLoop: false,//循环切换
         positionSlideIcon: 0.5,//右侧图标的位置
         waveType: currentAnimate,//切换效果

@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_text/utils/array_helper.dart';
+import 'package:flutter_text/utils/navigator.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 void main() => runApp(PickImage());
 
@@ -21,7 +24,7 @@ class PickImageDemo extends StatefulWidget {
 }
 
 class PickImageState extends State<PickImageDemo> {
-  List _imageList = List<File> ();
+  final List<File> _imageList = <File>[];
 
   void initState() {
     super.initState();
@@ -64,6 +67,14 @@ class PickImageState extends State<PickImageDemo> {
               child: Text('图片'),
             ),
           ),
+          Container(
+            child: FlatButton(
+              onPressed: () {
+                _getWechatPicker();
+              },
+              child: const Text('相册多选图片'),
+            ),
+          ),
           Wrap(
             spacing: 10,
             children: _getImageList(),
@@ -73,7 +84,21 @@ class PickImageState extends State<PickImageDemo> {
     );
   }
 
-  Future _getImage(_photoIndex) async {
+  Future<void> _getWechatPicker() async {
+    final List<AssetEntity> images = await AssetPicker.pickAssets(context);
+    if(images != null) {
+      final List<File> list = <File>[];
+      for (int i = 0; i< images.length; i++) {
+        final File file = await ArrayHelper.get(images, i).file;
+        list.add(file);
+      }
+      setState(() {
+        _imageList.addAll(list);
+      });
+    }
+  }
+
+  Future<void> _getImage(_photoIndex) async {
     Navigator.of(context).pop();
     final image = await ImagePickerSaver.pickImage(
         source: _photoIndex == 0 ? ImageSource.camera : ImageSource.gallery, maxWidth: 1024.0, maxHeight: 1024.0);

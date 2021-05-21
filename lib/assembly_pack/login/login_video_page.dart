@@ -44,7 +44,7 @@ class LoginVideoPageState extends State<LoginVideoPage> {
               MediaQuery.of(context).size.aspectRatio,
           child: Center(
             child: Container(
-              child: _controller.value.initialized
+              child: _controller.value.isInitialized
                   ? AspectRatio(
                       aspectRatio: _controller.value.aspectRatio,
                       child: VideoPlayer(_controller),
