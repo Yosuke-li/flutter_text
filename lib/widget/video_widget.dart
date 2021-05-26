@@ -36,6 +36,8 @@ class VideoPlayerText extends StatefulWidget {
 
 // 指示video资源是否加载完成，加载完成后会获得总时长和视频长宽比等信息
 class _VideoPlayerTextState extends State<VideoPlayerText> {
+  GlobalKey anchorKey = GlobalKey();
+
   bool _videoInit = false; // video控件管理器
   VideoPlayerController _controller; // 记录video播放进度
   Duration _position = const Duration(seconds: 0); //播放时长
@@ -48,8 +50,7 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
   // 记录是否全屏
   bool get _isFullScreen =>
       MediaQuery.of(context).orientation == Orientation.landscape;
-
-  bool isFinish = false; //是否播放完成
+  double speed = 1.0; //默认
 
   //内容区
   @override
@@ -64,7 +65,6 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
               children: <Widget>[
                 _topBar(context), //头部栏
                 GestureDetector(
-                  // 手势组件
                   onTap: () {
                     // 点击显示/隐藏控件ui
                     _togglePlayControl();
@@ -200,9 +200,7 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
                             // 同样的，点击动态播放或者暂停
                             _controller.value.isPlaying
                                 ? _controller.pause()
-                                : isFinish
-                                    ? _urlChange()
-                                    : _controller.play();
+                                : _controller.play();
                             _startPlayControlTimer(); // 操作控件后，重置延迟隐藏控件的timer
                           });
                         },
@@ -239,13 +237,21 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
                           style: const TextStyle(color: Colors.white),
                         ),
                       ),
-                      IconButton(
-                        iconSize: 23,
-                        icon: const Icon(
-                          Icons.settings,
-                          color: Colors.white,
+                      GestureDetector(
+                        key: anchorKey,
+                        onTapDown: (TapDownDetails details) {
+                          _startPlayControlTimer();
+                          _showMenu(context, details);
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 10),
+                          child: Center(
+                            child: Text(
+                              '${speed == 1.0 ? '倍速' : 'x $speed'}',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                         ),
-                        onPressed: () {},
                       ),
                       IconButton(
                         iconSize: 26,
@@ -268,6 +274,76 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
         ),
       ),
     );
+  }
+
+  PopupMenuButton<double> _popMenu() {
+    return PopupMenuButton<double>(
+      itemBuilder: (BuildContext context) => _getPopupMenu(context),
+      onSelected: (double value) {
+        setSpeed(value);
+      },
+    );
+  }
+
+  void _showMenu(BuildContext context, TapDownDetails detail) {
+    final RenderBox renderBox = anchorKey.currentContext.findRenderObject();
+    final Offset offset =
+        renderBox.localToGlobal(Offset(0.0, renderBox.size.height));
+    final RelativeRect position = RelativeRect.fromLTRB(
+        detail.globalPosition.dx, //取点击位置坐弹出x坐标
+        offset.dy * 0.8, //取text高度做弹出y坐标（这样弹出就不会遮挡文本）
+        detail.globalPosition.dx,
+        0);
+    final PopupMenuButton<double> pop = _popMenu();
+    showMenu<double>(
+      context: context,
+      items: pop.itemBuilder(context),
+      position: position, //弹出框位置
+    ).then((double newValue) {
+      if (!mounted) return null;
+      if (newValue == null) {
+        if (pop.onCanceled != null) pop.onCanceled();
+        return null;
+      }
+      if (pop.onSelected != null) pop.onSelected(newValue);
+    });
+  }
+
+  List<PopupMenuEntry<double>> _getPopupMenu(BuildContext context) {
+    return <PopupMenuEntry<double>>[
+      const PopupMenuItem<double>(
+        value: 0.5,
+        child: Text('x0.5'),
+      ),
+      const PopupMenuItem<double>(
+        value: 0.75,
+        child: Text('x0.75'),
+      ),
+      const PopupMenuItem<double>(
+        value: 1.0,
+        child: Text('x1.0'),
+      ),
+      const PopupMenuItem<double>(
+        value: 1.25,
+        child: Text('x1.25'),
+      ),
+      const PopupMenuItem<double>(
+        value: 1.5,
+        child: Text('x1.5'),
+      ),
+      const PopupMenuItem<double>(
+        value: 2.0,
+        child: Text('x2.0'),
+      ),
+    ];
+  }
+
+  //设置倍速
+  void setSpeed(double s) {
+    _controller.setPlaybackSpeed(s);
+    setState(() {
+      speed = s;
+    });
   }
 
   //返回按钮
@@ -319,7 +395,6 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
       // 如果控制器存在，清理掉重新创建
       _controller.removeListener(_videoListener);
       _controller.dispose();
-      _controller = null;
     }
     // 重置组件参数
     _hidePlayControl = true;
@@ -425,22 +500,19 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
 
   //视频控件显示隐藏控制
   void _togglePlayControl() {
-    setState(() {
-      if (_hidePlayControl) {
-        // 如果隐藏则显示
-        _hidePlayControl = false;
-        _playControlOpacity = 1;
-        _startPlayControlTimer(); // 开始计时器，计时后隐藏
-      } else {
-        // 如果显示就隐藏
-        if (_timer != null) _timer.cancel(); // 有计时器先移除计时器
-        _playControlOpacity = 0;
-        Future<void>.delayed(const Duration(milliseconds: 2000))
-            .whenComplete(() {
-          _hidePlayControl = true; // 延迟300ms(透明度动画结束)后，隐藏
-        });
-      }
-    });
+    if (_hidePlayControl) {
+      // 如果隐藏则显示
+      _hidePlayControl = false;
+      _playControlOpacity = 1;
+      _startPlayControlTimer(); // 开始计时器，计时后隐藏
+    } else {
+      // 如果显示就隐藏
+      if (_timer != null) _timer.cancel(); // 有计时器先移除计时器
+      _playControlOpacity = 0;
+      Future.delayed(Duration(milliseconds: 300)).whenComplete(() {
+        _hidePlayControl = true; // 延迟300ms(透明度动画结束)后，隐藏
+      });
+    }
   }
 
   //控件隐藏计时器

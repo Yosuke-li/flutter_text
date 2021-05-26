@@ -11,6 +11,9 @@ class PopupMenu extends StatelessWidget {
         title: Text('PopupMenu弹出组件'),
         actions: <Widget>[
             PopupMenuButton(
+              child: Center(
+                child: Text('倍速'),
+              ),
               offset: Offset(100, 100),
               itemBuilder: (BuildContext context) => [ //菜单项构造器
                 const PopupMenuItem(//菜单项

@@ -40,7 +40,7 @@ class contextPageState extends State<contextPage> {
                 ? VideoPlayerText(
               //network视频
               url:
-              'https://gss3.baidu.com/6LZ0ej3k1Qd3ote6lo7D0j9wehsv/tieba-smallvideo-transcode-crf/60609889_0b5d29ee8e09fad4cc4f40f314d737ca_0.mp4',
+              'https://video.pearvideo.com/mp4/adshort/20200520/cont-1675664-15155134_adpkg-ad_hd.mp4',
               title: '示例视频',
               width: _window.width,
               height:

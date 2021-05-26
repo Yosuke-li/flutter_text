@@ -57,7 +57,7 @@ class _VideoWidgetState extends State<VideoWidget> {
         if (snapshot.connectionState == ConnectionState.done) {
           return VideoPlayer(_controller);
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
