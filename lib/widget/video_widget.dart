@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:orientation/orientation.dart';
 import 'package:video_player/video_player.dart'; // 引入官方插件
@@ -248,7 +249,7 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
                           child: Center(
                             child: Text(
                               '${speed == 1.0 ? '倍速' : 'x $speed'}',
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                           ),
                         ),
@@ -297,6 +298,7 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
     final PopupMenuButton<double> pop = _popMenu();
     showMenu<double>(
       context: context,
+      color: const Color(0xD90000000),
       items: pop.itemBuilder(context),
       position: position, //弹出框位置
     ).then((double newValue) {
@@ -311,29 +313,41 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
 
   List<PopupMenuEntry<double>> _getPopupMenu(BuildContext context) {
     return <PopupMenuEntry<double>>[
-      const PopupMenuItem<double>(
+      PopupMenuItem<double>(
         value: 0.5,
-        child: Text('x0.5'),
+        height: screenUtil.adaptive(80),
+        child: const Text('x0.5'),
+        textStyle: const TextStyle(color: Colors.white),
       ),
-      const PopupMenuItem<double>(
+      PopupMenuItem<double>(
         value: 0.75,
-        child: Text('x0.75'),
+        height: screenUtil.adaptive(80),
+        child: const Text('x0.75'),
+        textStyle: const TextStyle(color: Colors.white),
       ),
-      const PopupMenuItem<double>(
+      PopupMenuItem<double>(
         value: 1.0,
-        child: Text('x1.0'),
+        height: screenUtil.adaptive(80),
+        child: const Text('x1.0'),
+        textStyle: const TextStyle(color: Colors.white),
       ),
-      const PopupMenuItem<double>(
+      PopupMenuItem<double>(
         value: 1.25,
-        child: Text('x1.25'),
+        height: screenUtil.adaptive(80),
+        child: const Text('x1.25'),
+        textStyle: const TextStyle(color: Colors.white),
       ),
-      const PopupMenuItem<double>(
+      PopupMenuItem<double>(
         value: 1.5,
-        child: Text('x1.5'),
+        height: screenUtil.adaptive(80),
+        child: const Text('x1.5'),
+        textStyle: const TextStyle(color: Colors.white),
       ),
-      const PopupMenuItem<double>(
+      PopupMenuItem<double>(
         value: 2.0,
-        child: Text('x2.0'),
+        height: screenUtil.adaptive(80),
+        child: const Text('x2.0'),
+        textStyle: const TextStyle(color: Colors.white),
       ),
     ];
   }
