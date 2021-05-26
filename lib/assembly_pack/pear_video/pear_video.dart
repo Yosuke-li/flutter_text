@@ -29,7 +29,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
   void startTimer() {
     int time = 10000;
     timer = Timer.periodic(Duration(milliseconds: time), (Timer timer) {
-      if (scroController.positions.isNotEmpty == false) {
+      if (scroController.hasClients == false) {
         print('界面被销毁');
         return;
       }
@@ -39,7 +39,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
             duration: Duration(milliseconds: (time * 0.5).toInt()),
             curve: Curves.linear);
         Future.delayed(Duration(milliseconds: (time * 0.5).toInt()), () {
-          if (scroController.positions.isNotEmpty == true) {
+          if (scroController.hasClients == true) {
             scroController.animateTo(0,
                 duration: Duration(milliseconds: (time * 0.5).toInt()),
                 curve: Curves.linear);

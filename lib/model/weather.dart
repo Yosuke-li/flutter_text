@@ -215,7 +215,7 @@ class RealTimeWeather {
 class ThreeDaysForecast {
   Map mBasic;
   Map mUpdate;
-  List mDailyForecasts;
+  List<dynamic> mDailyForecasts;
 
   String status;
   Basic basic;

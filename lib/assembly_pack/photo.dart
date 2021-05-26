@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/utils/navigator.dart';
+import 'package:flutter_text/utils/screen.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -41,30 +42,53 @@ class PickImageState extends State<PickImageDemo> {
                     context: context,
                     builder: (BuildContext context) {
                       return Container(
-                        child: Column(
+                        height: screenUtil.adaptive(250),
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            new ListTile(
-                              leading: new Icon(Icons.photo_camera),
-                              title: new Text("Camera"),
-                              onTap: ()  {
-                                _getImage(0);
-                              },
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  _getImage(0);
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      child: const Icon(Icons.photo_camera),),
+                                    const Text('Camera')
+                                  ],
+                                ),
+                              ),
                             ),
-                            new ListTile(
-                              leading: new Icon(Icons.photo_library),
-                              title: new Text("Gallery"),
-                              onTap: ()  {
-                                _getImage(1);
-                              },
+                            Container(
+                              margin: const EdgeInsets.only(left: 10, right: 10),
+                              width: 1,
+                              height: 28,
+                              color: const Color(0xffE6E6E6),
+                            ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  _getImage(1);
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      child: const Icon(Icons.photo_library),),
+                                    const Text('Gallery')
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),
                       );
-                    }
-                );
+                    });
               },
-              child: Text('图片'),
+              child: const Text('图片'),
             ),
           ),
           Container(
@@ -86,9 +110,9 @@ class PickImageState extends State<PickImageDemo> {
 
   Future<void> _getWechatPicker() async {
     final List<AssetEntity> images = await AssetPicker.pickAssets(context);
-    if(images != null) {
+    if (images != null) {
       final List<File> list = <File>[];
-      for (int i = 0; i< images.length; i++) {
+      for (int i = 0; i < images.length; i++) {
         final File file = await ArrayHelper.get(images, i).file;
         list.add(file);
       }
@@ -98,10 +122,12 @@ class PickImageState extends State<PickImageDemo> {
     }
   }
 
-  Future<void> _getImage(_photoIndex) async {
+  Future<void> _getImage(int _photoIndex) async {
     Navigator.of(context).pop();
-    final image = await ImagePickerSaver.pickImage(
-        source: _photoIndex == 0 ? ImageSource.camera : ImageSource.gallery, maxWidth: 1024.0, maxHeight: 1024.0);
+    final File image = await ImagePickerSaver.pickImage(
+        source: _photoIndex == 0 ? ImageSource.camera : ImageSource.gallery,
+        maxWidth: 1024.0,
+        maxHeight: 1024.0);
 
     //没有选择图片或者没有拍照
     if (image != null) {
@@ -153,5 +179,4 @@ class PickImageState extends State<PickImageDemo> {
       );
     }).toList();
   }
-
 }

@@ -10,7 +10,7 @@ class ScanBook extends StatefulWidget {
 }
 
 class TextState extends State<ScanBook> {
-  String barcode = "";
+  String barcode = '';
   ScanBookPModel _scanPBook;        //私人Api
   ScanBookAModel _scanABook;        //阿里Api
 
@@ -78,10 +78,10 @@ class TextState extends State<ScanBook> {
   }
 
   //私人Api扫码
-  Future scan() async {
+  Future<void> scan() async {
     try {
-      String barcode = await scanner.scan();
-      ScanBookPModel scanBook = await ScanBookApi().IsbnGetBookDetailP(barcode);
+      final String barcode = await scanner.scan();
+      final ScanBookPModel scanBook = await ScanBookApi().isbnGetBookDetailP(barcode);
       setState(() {
         _scanPBook = scanBook;
       });
@@ -97,20 +97,20 @@ class TextState extends State<ScanBook> {
   }
 
   //阿里云扫图书条形码
-  Future scanAli() async {
+  Future<void> scanAli() async {
     try {
-      String barcode = await scanner.scan();
-      ScanBookAModel scanBook = await ScanBookApi().IsbnGetBookDetailA(barcode);
+      final String barcode = await scanner.scan();
+      final ScanBookAModel scanBook = await ScanBookApi().isbnGetBookDetailA(barcode);
       setState(() {
         _scanABook = scanBook;
       });
     } on Exception catch (e) {
       if (e == scanner.CameraAccessDenied) {
         setState(() {
-          this.barcode = 'The user did not grant the camera permission!';
+          barcode = 'The user did not grant the camera permission!';
         });
       } else {
-        setState(() => this.barcode = 'Unknown error: $e');
+        setState(() => barcode = 'Unknown error: $e');
       }
     }
   }

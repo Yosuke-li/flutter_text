@@ -4,13 +4,14 @@ import 'package:common_utils/common_utils.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_text/global/global.dart';
+import 'package:flutter_text/utils/api_exception.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 
 class Request {
   // 配置 Dio 实例
   static final BaseOptions _options = BaseOptions(
     baseUrl: '',
-    connectTimeout: 5000,
+    connectTimeout: 10000,
     receiveTimeout: 3000,
   );
 
@@ -51,11 +52,11 @@ class Request {
         LogUtil.v(response.statusCode, tag: 'HTTP错误，状态码为：');
         ToastUtils.showToast(msg: 'HTTP错误，状态码为${response.statusCode}');
         _handleHttpError(response.statusCode);
-        return Future.error('HTTP错误');
+        throw ApiException(response.statusCode, response.statusMessage);
       }
     } on DioError catch (e, s) {
       LogUtil.v(_dioError(e), tag: '请求异常');
-      return Future.error(_dioError(e));
+      throw ApiException(e.response?.statusCode ?? 0, _dioError(e));
     } catch (e, s) {
       LogUtil.v(e, tag: '未知异常');
       rethrow;
