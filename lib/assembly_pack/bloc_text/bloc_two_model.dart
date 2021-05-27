@@ -1,7 +1,7 @@
 import 'package:flutter_text/assembly_pack/event_bus/event_util.dart';
 import 'package:flutter_text/widget/bloc/bloc_widget.dart';
 
-class BlocModel implements BlocBase {
+class BlocTwoModel implements BlocBase {
   static int _count;
 
   final StreamController<int> _controller = StreamController<int>();
@@ -11,10 +11,8 @@ class BlocModel implements BlocBase {
   final StreamController _action = StreamController();
   StreamSink get actionStream => _action.sink;
 
-  int get count => _count;
-
   //构造函数
-  BlocModel() {
+  BlocTwoModel() {
     _count = 0;
     _action.stream.listen(_handleVoid);
   }
