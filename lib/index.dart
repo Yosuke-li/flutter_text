@@ -92,12 +92,10 @@ class Assembly extends StatelessWidget {
         child: NotificationListenPage(
           child: AppLifecycleWidget(
             child: ModalStyleWidget(
-              child: GetMaterialApp(
-                home: Builder(
-                  builder: (BuildContext c) {
-                    return toastWidget(c, TabBarDemo());
-                  },
-                ),
+              child: MaterialApp(
+                builder: (BuildContext c, Widget child) {
+                  return toastWidget(c, TabBarDemo());
+                },
               ),
             ),
           ),
@@ -165,7 +163,7 @@ class TabBarDemoState extends State<TabBarDemo>
 
   @override
   Widget build(BuildContext viewContext) {
-    return MaterialApp(
+    return GetMaterialApp(
       showPerformanceOverlay: GlobalStore.isShowOverlay ?? false,
       title: 'Flutter Study',
       navigatorObservers: <NavigatorObserver>[BotToastNavigatorObserver()],
@@ -508,7 +506,7 @@ class TabBarDemoState extends State<TabBarDemo>
                         final String result =
                             await NavigatorUtils.getXOfPush<String>(
                                 context, GetxTextPage(),
-                                arguments: <String, dynamic>{'count': 20});
+                                arguments: <String, dynamic>{'count': 10});
                         LogUtil.v('result: $result');
                       },
                     ),

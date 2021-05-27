@@ -26,14 +26,20 @@ class _GetxTextPageState extends State<GetxTextPage> {
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: 'back',
             child: const Icon(Icons.arrow_back),
             onPressed: () {
-              NavigatorUtils.pop(context, results: 'back');
+              NavigatorUtils.pop(context, results: '${state.count.value ?? 0}');
             },
           ),
+          Container(
+            width: screenUtil.adaptive(25),
+          ),
           FloatingActionButton(
+            heroTag: 'add',
             child: const Icon(Icons.add),
             onPressed: () {
               logic.increase();

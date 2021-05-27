@@ -60,6 +60,12 @@ class NavigatorUtils {
   }
 
   //用于跳转get路由 arguments参数
+  //todo 等价于
+  // Navigator.of(context).push(MaterialPageRoute(
+  //     builder: (context) => GetxTextPage(),
+  //     settings: const RouteSettings(arguments: {'count': 10}),
+  //     ),
+  // );
   static Future<T> getXOfPush<T>(
     BuildContext context,
     Widget widget, {
