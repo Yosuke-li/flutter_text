@@ -60,6 +60,7 @@ dependencies:
   lpinyin: ^1.0.9   # 汉字转拼音
 #  flutter_doraemonkit:
 #    path: C:\Users\coco\AndroidStudioProjects\flutter_doraemonkit
+  get: ^4.1.4
 
 dev_dependencies:
   flutter_test:

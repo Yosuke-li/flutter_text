@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/event_bus_helper.dart';
+import 'package:get/get.dart';
 
 class NavigatorUtils {
   static Future<T> pushWidget<T>(
@@ -56,5 +57,18 @@ class NavigatorUtils {
       return true;
     } else
       return false;
+  }
+
+  //用于跳转get路由 arguments参数
+  static Future<T> getXOfPush<T>(
+    BuildContext context,
+    Widget widget, {
+    Map<String, dynamic> arguments,
+    bool cleanFocus = false,
+  }) async {
+    if (cleanFocus == true)
+      FocusScope.of(context).unfocus(disposition: UnfocusDisposition.scope);
+
+    return await Get.to<T>(() => widget, arguments: arguments);
   }
 }

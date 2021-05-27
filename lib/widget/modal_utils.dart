@@ -19,9 +19,7 @@ class ModalUtils {
         Text button3,
         void Function(BuildContext context) onFun3,
         Widget dynamicBottom}) {
-    if (modalBackgroundColor == null) {
-      modalBackgroundColor = const Color(0xffffffff);
-    }
+    modalBackgroundColor ??= const Color(0xffffffff);
     Widget Function(ModalStyle style) header;
     if (title != null) {
       header = (ModalStyle style) {
@@ -30,7 +28,7 @@ class ModalUtils {
             Container(
               decoration: BoxDecoration(
                 color: style.titleBackgroundColor,
-                borderRadius: new BorderRadius.vertical(
+                borderRadius: BorderRadius.vertical(
                   top: Radius.elliptical(
                       screenUtil.adaptive(20), screenUtil.adaptive(20)),
                 ),
@@ -65,7 +63,7 @@ class ModalUtils {
                 borderRadius: BorderRadius.vertical(
                     bottom: Radius.elliptical(
                         screenUtil.adaptive(22), screenUtil.adaptive(22)))),
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               bottom: 0.0,
             ),
             child: dynamicBottom,
@@ -84,7 +82,7 @@ class ModalUtils {
               borderRadius: BorderRadius.vertical(
                   bottom: Radius.elliptical(
                       screenUtil.adaptive(22), screenUtil.adaptive(22)))),
-          margin: EdgeInsets.only(
+          margin: const EdgeInsets.only(
             bottom: 0.0,
           ),
           child: Row(

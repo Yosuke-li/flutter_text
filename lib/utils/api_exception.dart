@@ -17,10 +17,12 @@ class ApiException implements Exception {
       this.code, this.message, this.innerException, this.stackTrace);
 
   String toString() {
-    if (message.isNotEmpty != true) return "服务器异常";
+    if (message.isNotEmpty != true) {
+      return '服务器异常';
+    }
 
     if (innerException == null) {
-      return "$message";
+      return '$message';
     }
 
     return "ApiException $code: $message ${level ?? ''} (Inner exception: $innerException)\n\n" +
