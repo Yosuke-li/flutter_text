@@ -63,7 +63,7 @@ class NavigatorUtils {
   static Future<T> getXOfPush<T>(
     BuildContext context,
     Widget widget, {
-    Map<String, dynamic> arguments,
+    dynamic arguments,
     bool cleanFocus = false,
   }) async {
     if (cleanFocus == true)
