@@ -50,7 +50,7 @@ class _BlocTwoPage extends StatelessWidget {
           stream: bloc.outCount,
           initialData: 0,
           builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
-            return Text('${snapshot.data ?? i}');
+            return Text('$i');
           },
         ),
       ),
