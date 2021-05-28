@@ -61,6 +61,8 @@ dependencies:
 #  flutter_doraemonkit:
 #    path: C:\Users\coco\AndroidStudioProjects\flutter_doraemonkit
   get: ^4.1.4
+  ios_share:
+    git: https://github.com/NayoLx/ios_share.git
 
 dev_dependencies:
   flutter_test:

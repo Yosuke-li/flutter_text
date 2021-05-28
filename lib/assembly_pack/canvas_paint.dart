@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_text/utils/screen.dart';
 
 class PainterSketchDome extends StatefulWidget {
   PainterSketchDome({Key key, this.title}) : super(key: key);
@@ -44,8 +45,8 @@ class _PainterSketchDomeState extends State<PainterSketchDome> {
   }
 
   void changeColor(Color c) {
-    if (nowPoints.length != 0) {
-      LinePoints l = LinePoints(new List<Offset>.from(nowPoints), nowColor);
+    if (nowPoints.isNotEmpty) {
+      final LinePoints l = LinePoints(List<Offset>.from(nowPoints), nowColor);
       lines.add(l);
     }
     if (mounted) {
@@ -78,6 +79,8 @@ class _PainterSketchDomeState extends State<PainterSketchDome> {
     }
   }
 
+  void _savePic() {}
+
   @override
   Widget build(BuildContext context) {
     List<Widget> pallet = <Widget>[];
@@ -91,13 +94,13 @@ class _PainterSketchDomeState extends State<PainterSketchDome> {
     }
 
     return SizedBox(
-        width: MediaQuery.of(context).size.width * 0.9,
-        height: MediaQuery.of(context).size.height * 0.6,
-        child: new Scaffold(
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.6,
+      child: Scaffold(
           primary: false,
-          body: new Container(
+          body: Container(
             decoration: BoxDecoration(color: Colors.white),
-            child: new Flex(
+            child: Flex(
               direction: Axis.vertical,
               children: <Widget>[
                 Container(
@@ -109,31 +112,47 @@ class _PainterSketchDomeState extends State<PainterSketchDome> {
                   height: 60.0,
                 ),
                 Expanded(
-                  child: RepaintBoundary(
-                    child: AspectRatio(
-                      aspectRatio: 1.0,
-                      child: GestureDetector(
-                        child: CustomPaint(
-                          painter: PaintCanvas(lines, nowPoints, nowColor),
-                        ),
-                        onHorizontalDragUpdate: moveGestureDetector,
-                        onVerticalDragUpdate: moveGestureDetector,
-                        onHorizontalDragStart: newGestureDetector,
-                        onVerticalDragStart: newGestureDetector,
+                    child: RepaintBoundary(
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
+                    child: GestureDetector(
+                      child: CustomPaint(
+                        painter: PaintCanvas(lines, nowPoints, nowColor),
                       ),
+                      onHorizontalDragUpdate: moveGestureDetector,
+                      onVerticalDragUpdate: moveGestureDetector,
+                      onHorizontalDragStart: newGestureDetector,
+                      onVerticalDragStart: newGestureDetector,
                     ),
-                  )
-                )
+                  ),
+                ))
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: _tapClear,
-            backgroundColor: Colors.redAccent,
-            foregroundColor: Colors.white,
-            child: Icon(Icons.delete),
-          ),
-        ));
+          floatingActionButton: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              FloatingActionButton(
+                onPressed: _tapClear,
+                heroTag: 'save',
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                child: const Icon(Icons.save),
+              ),
+              Container(
+                margin: EdgeInsets.only(right: screenUtil.adaptive(25)),
+              ),
+              FloatingActionButton(
+                onPressed: _tapClear,
+                heroTag: 'delete',
+                backgroundColor: Colors.redAccent,
+                foregroundColor: Colors.white,
+                child: const Icon(Icons.delete),
+              ),
+            ],
+          )),
+    );
   }
 }
 
@@ -146,23 +165,23 @@ class PaintCanvas extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Paint p = new Paint()
+    final Paint p = Paint()
       ..color = Colors.redAccent
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
     canvas.save();
     for (int i = 0; i < lines.length; i++) {
-      LinePoints l = lines[i];
+      final LinePoints l = lines[i];
       for (int j = 1; j < l.points.length; j++) {
-        Offset p1 = l.points[j - 1];
-        Offset p2 = l.points[j];
+        final Offset p1 = l.points[j - 1];
+        final Offset p2 = l.points[j];
         p.color = l.lineColor;
         canvas.drawLine(p1, p2, p);
       }
     }
     for (int i = 1; i < nowPoints.length; i++) {
-      Offset p1 = nowPoints[i - 1];
-      Offset p2 = nowPoints[i];
+      final Offset p1 = nowPoints[i - 1];
+      final Offset p2 = nowPoints[i];
       p.color = nowColor;
       canvas.drawLine(p1, p2, p);
     }
@@ -179,12 +198,14 @@ class PaintCanvas extends CustomPainter {
 class LinePoints {
   final List<Offset> points;
   final Color lineColor;
+
   LinePoints(this.points, this.lineColor);
 }
 
 class ColorPallet extends StatelessWidget {
   final Color color;
   final Function changeColor;
+
   const ColorPallet({Key key, this.color, this.changeColor, this.isSelect})
       : super(key: key);
   final bool isSelect;
@@ -195,18 +216,19 @@ class ColorPallet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new RawMaterialButton(
-        onPressed: onPressed,
-        constraints: BoxConstraints(minWidth: 60.0, minHeight: 50.0),
-        child: new Container(
-          margin: EdgeInsets.only(top: 5.0, bottom: 5.0),
-          width: 50.0,
-          height: 50.0,
-          decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.all(Radius.circular(25.0)),
-              border:
-              Border.all(color: Colors.white, width: isSelect ? 3.0 : 0.0)),
-        ));
+    return RawMaterialButton(
+      onPressed: onPressed,
+      constraints: const BoxConstraints(minWidth: 60.0, minHeight: 50.0),
+      child: Container(
+        margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+        width: 50.0,
+        height: 50.0,
+        decoration: BoxDecoration(
+            color: color,
+            borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+            border:
+                Border.all(color: Colors.white, width: isSelect ? 3.0 : 0.0)),
+      ),
+    );
   }
 }

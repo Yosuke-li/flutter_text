@@ -8,6 +8,7 @@ import 'package:flutter_text/utils/file_utils.dart';
 import 'package:flutter_text/utils/network_file_util/network_file_util.dart';
 import 'package:flutter_text/utils/permission/check_permission.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:ios_share/ios_share.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FileToLocateHelper {
@@ -43,6 +44,7 @@ class FileToLocateHelper {
         }
       } else {
         //ios
+        IosShare.iosShareHelper(file1.absolute.path);
       }
     } catch (e, s) {
       rethrow;

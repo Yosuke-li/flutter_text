@@ -6,6 +6,7 @@ import 'package:flutter_text/utils/file_to_locate.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:ios_share/ios_share.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart';
 
@@ -26,9 +27,13 @@ class pdfViewState extends State<pdfView> {
     final filePath =
         dir.path + '${Random().nextInt(4294967000)}' + ('/example.pdf');
     try {
-      await dio.download(url, filePath);
-      await ImageGallerySaver.saveFile(filePath);
-      ToastUtils.showToast(msg: '文件已保存到$filePath');
+      if (Platform.isAndroid) {
+        await dio.download(url, filePath);
+        await ImageGallerySaver.saveFile(filePath);
+        ToastUtils.showToast(msg: '文件已保存到$filePath');
+      } else if (Platform.isIOS) {
+        await IosShare.iosShareHelper(filePath);
+      }
     } catch (e) {
       rethrow;
     }
@@ -37,8 +42,8 @@ class pdfViewState extends State<pdfView> {
   //本地assert保存
   Future<void> _assertDownLoad() async {
     try {
-      final bytes =
-         await FileToLocateHelper.getAssetFileBytes(assetPath: 'assets/index.pdf');
+      final bytes = await FileToLocateHelper.getAssetFileBytes(
+          assetPath: 'assets/index.pdf');
       FileToLocateHelper.saveFileToLocated('魔法禁书目录.pdf', byteUrl: bytes,
           onSuccessToast: (String name) {
         ToastUtils.showToast(msg: '保存成功');
@@ -54,8 +59,7 @@ class pdfViewState extends State<pdfView> {
         margin: EdgeInsets.only(top: 128),
         child: Column(
           children: [
-            FlatButton(
-              padding: const EdgeInsets.all(0),
+            FloatingActionButton(
               onPressed: () {
                 _downLoad();
               },
@@ -81,8 +85,7 @@ class pdfViewState extends State<pdfView> {
             Container(
               height: screenUtil.adaptive(20),
             ),
-            FlatButton(
-              padding: const EdgeInsets.all(0),
+            FloatingActionButton(
               onPressed: () async {
                 await _assertDownLoad();
               },

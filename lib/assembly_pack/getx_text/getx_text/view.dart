@@ -22,7 +22,19 @@ class _GetxTextPageState extends State<GetxTextPage> {
         title: const Text(''),
       ),
       body: Center(
-        child: Obx(() => Text('点击了：${state.count.value ?? 0}')),
+        child: Obx(
+          () => Column(
+            children: [
+              Text('点击了：${state.count.value ?? 0}'),
+              DropdownButton(
+                value: state.select?.value ?? '',
+                items: state.list.map((e) {
+                  return DropdownMenuItem(child: Text(e.value), value: e.value);
+                }).toList(),
+              ),
+            ],
+          ),
+        ),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
