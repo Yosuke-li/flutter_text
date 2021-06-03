@@ -20,6 +20,7 @@ import 'package:flutter_text/assembly_pack/local_notification/view.dart';
 import 'package:flutter_text/assembly_pack/login/login_video_page.dart';
 import 'package:flutter_text/assembly_pack/main.dart';
 import 'package:flutter_text/assembly_pack/mic_stream_demo.dart';
+import 'package:flutter_text/assembly_pack/mqtt_text/real_time_list/view.dart';
 import 'package:flutter_text/assembly_pack/overlay_demo.dart';
 import 'package:flutter_text/assembly_pack/pdf.dart';
 import 'package:flutter_text/assembly_pack/pdf_read.dart';
@@ -43,6 +44,7 @@ import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/utils/file_utils.dart';
 import 'package:flutter_text/utils/listener/listen_test.dart';
+import 'package:flutter_text/utils/mqtt_helper.dart';
 import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/utils/permission.dart';
 import 'package:flutter_text/utils/screen.dart';
@@ -128,6 +130,7 @@ class TabBarDemoState extends State<TabBarDemo>
       () => listenTest(),
     );
     FileUtils.init();
+    MqttHelper.connect();
     LogUtil.init(isDebug: true);
     tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
@@ -362,6 +365,22 @@ class TabBarDemoState extends State<TabBarDemo>
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => RegisterPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.chat),
+                      title: Text(
+                        'mqtt--',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () {
+                        ListenStateTest.setNum(ListenTestModel()..num = 1);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => RealTimeListPage()),
                         );
                       },
                     ),
