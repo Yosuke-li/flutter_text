@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:common_utils/common_utils.dart';
+import 'package:flutter_text/utils/array_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocateStorage {
@@ -28,12 +32,23 @@ class LocateStorage {
     final keys = lStorage.getKeys();
   }
 
-  //查看所有keys
+  //查看keys 仅用于缓存一段时间
   static String getOneKey(String key) {
-    final keys = lStorage.getKeys();
+    final Set<String> keys = lStorage.getKeys();
     if (keys != null && keys.isNotEmpty == true) {
-      String hasKey = keys.firstWhere((element) => element.contains('$key '));
-      return hasKey;
+      final String hasKey = keys.firstWhere(
+          (String element) => element.contains('$key '),
+          orElse: () => null);
+      if (hasKey != null) {
+        final List<String> keyWithTime = hasKey.split(' ');
+        if (DateTime.now().millisecondsSinceEpoch >
+            int.tryParse(ArrayHelper.get(keyWithTime, 1))) {
+          clean(key: hasKey);
+          return null;
+        } else {
+          return hasKey;
+        }
+      }
     }
     return null;
   }
@@ -45,7 +60,7 @@ class LocateStorage {
 
   //获取String缓存
   static String getString(String key) {
-    final value = lStorage.getString('$key');
+    final String value = lStorage.getString('$key');
     return value;
   }
 
@@ -56,7 +71,7 @@ class LocateStorage {
 
   //获取bool缓存
   static bool getBool(String key) {
-    final value = lStorage.getBool('$key');
+    final bool value = lStorage.getBool('$key');
     return value;
   }
 
@@ -67,7 +82,7 @@ class LocateStorage {
 
   //获取int缓存
   static int getInt(String key) {
-    final value = lStorage.getInt('$key');
+    final int value = lStorage.getInt('$key');
     return value;
   }
 
@@ -82,68 +97,97 @@ class LocateStorage {
     return lists;
   }
 
+  //获取过期时间
+  static int getExpireTime(int expireTime) {
+    return DateTime.now().millisecondsSinceEpoch + (expireTime * 1000);
+  }
+
   //设置String缓存
   static void setStringWithExpire(String key, String val, Duration expireTime) {
-    final hasKey = getOneKey(key);
+    final int exTime = getExpireTime(expireTime.inSeconds);
+    final String hasKey = getOneKey(key);
     if (hasKey != null) {
       clean(key: hasKey);
     }
-    lStorage.setString('$key ${expireTime.inSeconds}', val);
+    lStorage.setString('$key $exTime', val);
+    LogUtil.v(val, tag: 'setStringWithExpire: $key $exTime');
   }
 
   //获取String缓存
   static String getStringWithExpire(String key) {
-    final hasKey = getOneKey(key);
-    final value = lStorage.getString('$hasKey');
-    return value;
+    final String hasKey = getOneKey(key);
+    if (hasKey != null) {
+      final String value = lStorage.getString('$hasKey');
+      return value;
+    } else {
+      return null;
+    }
   }
 
   //设置bool缓存
   static void setBoolWithExpire(String key, bool val, Duration expireTime) {
-    final hasKey = getOneKey(key);
+    final int exTime = getExpireTime(expireTime.inSeconds);
+    final String hasKey = getOneKey(key);
     if (hasKey != null) {
       clean(key: hasKey);
     }
-    lStorage.setBool('$key ${expireTime.inSeconds}', val);
+    lStorage.setBool('$key $exTime', val);
+    LogUtil.v(val, tag: 'setBoolWithExpire: $key $exTime');
   }
 
   //获取bool缓存
   static bool getBoolWithExpire(String key) {
-    final hasKey = getOneKey(key);
-    final value = lStorage.getBool('$hasKey');
-    return value;
+    final String hasKey = getOneKey(key);
+    if (hasKey != null) {
+      final bool value = lStorage.getBool('$hasKey');
+      return value;
+    } else {
+      return false;
+    }
   }
 
   //设置int缓存
   static void setIntWithExpire(String key, int val, Duration expireTime) {
-    final hasKey = getOneKey(key);
+    final int exTime = getExpireTime(expireTime.inSeconds);
+    final String hasKey = getOneKey(key);
     if (hasKey != null) {
       clean(key: hasKey);
     }
-    lStorage.setInt('$key ${expireTime.inSeconds}', val);
+    lStorage.setInt('$key $exTime', val);
+    LogUtil.v(val, tag: 'setIntWithExpire: $key $exTime');
   }
 
   //获取int缓存
   static int getIntWithExpire(String key) {
-    final hasKey = getOneKey(key);
-    final value = lStorage.getInt('$hasKey');
-    return value;
+    final String hasKey = getOneKey(key);
+    if (hasKey != null) {
+      final int value = lStorage.getInt('$hasKey');
+      return value;
+    } else {
+      return null;
+    }
   }
 
   //设置字符串数组
   static void setStringListWithExpire(
       String key, List<String> lists, Duration expireTime) {
-    final hasKey = getOneKey(key);
+    final int exTime = getExpireTime(expireTime.inSeconds);
+    final String hasKey = getOneKey(key);
     if (hasKey != null) {
       clean(key: hasKey);
     }
-    lStorage.setStringList('$key  ${expireTime.inSeconds}', lists);
+    lStorage.setStringList('$key $exTime', lists);
+    LogUtil.v(json.encode(lists), tag: 'setStringListWithExpire: $key $exTime');
   }
 
   //获取字符串数组
   static List<String> getStringListWithExpire(String key) {
-    final hasKey = getOneKey(key);
-    final List<String> lists = lStorage.getStringList(hasKey);
-    return lists;
+    final String hasKey = getOneKey(key);
+    if (hasKey != null) {
+      final List<String> lists = lStorage.getStringList(hasKey);
+      return lists;
+    } else {
+      return null;
+    }
   }
 }

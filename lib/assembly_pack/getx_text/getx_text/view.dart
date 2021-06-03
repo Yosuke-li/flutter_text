@@ -3,6 +3,7 @@ import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:get/get.dart';
 
+import 'down_menu.dart';
 import 'logic.dart';
 import 'state.dart';
 
@@ -22,19 +23,18 @@ class _GetxTextPageState extends State<GetxTextPage> {
         title: const Text(''),
       ),
       body: Center(
-        child: Obx(
-          () => Column(
-            children: [
-              Text('点击了：${state.count.value ?? 0}'),
-              DropdownButton(
-                value: state.select?.value ?? '',
-                items: state.list.map((e) {
-                  return DropdownMenuItem(child: Text(e.value), value: e.value);
-                }).toList(),
-              ),
-            ],
-          ),
-        ),
+        child: Obx(() => Column(
+          children: [
+            Text('点击了：${state.count.value ?? 0}'),
+            DownMenuWidget(
+              select: state.select.value,
+              menus: state.servers,
+              selectFunc: (String value) {
+                state.select.value = value;
+              },
+            ),
+          ],
+        ),),
       ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
