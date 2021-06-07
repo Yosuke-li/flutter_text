@@ -62,6 +62,7 @@ dependencies:
 #  flutter_doraemonkit:
 #    path: C:\Users\coco\AndroidStudioProjects\flutter_doraemonkit
   get: ^4.1.4
+  call: ^0.3.0
   ios_share:
     git: https://github.com/NayoLx/ios_share.git
 
@@ -90,4 +91,5 @@ flutter:
     - images/_cat_sky.jpg
     - assets/index.pdf
     - assets/data/
+    - assets/dll/
 
