@@ -10,12 +10,14 @@ class RealTimeListPage extends StatefulWidget {
   _RealTimeListPageState createState() => _RealTimeListPageState();
 }
 
-class _RealTimeListPageState extends State<RealTimeListPage> {
+class _RealTimeListPageState extends State<RealTimeListPage>
+    with AutomaticKeepAliveClientMixin<RealTimeListPage> {
   final RealTimeListLogic logic = Get.put(RealTimeListLogic());
   final RealTimeListState state = Get.find<RealTimeListLogic>().state;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Obx(
@@ -44,4 +46,8 @@ class _RealTimeListPageState extends State<RealTimeListPage> {
     state.voidCallback?.call();
     super.dispose();
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:common_utils/common_utils.dart';
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/api_exception.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
@@ -21,6 +23,9 @@ class Request {
   // _request 是核心函数，所有的请求都会走这里
   static Future<Response> _request<T>(String path,
       {String method, Map<String, dynamic> params, data, String token}) async {
+    CookieJar cookie = CookieJar();
+    _dio.interceptors.add(CookieManager(cookie));
+
     // restful 请求处理
     final Map<String, dynamic> headers = <String, dynamic>{};
     //一般情况下，未登陆前没token。
@@ -30,14 +35,7 @@ class Request {
 
     //Fiddler抓包设置代理
     if (GlobalStore.isUserFiddle == true) {
-      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client){
-        client.findProxy = (Uri url){
-          return 'PROXY ${GlobalStore.homeIp}:8888';
-        };
-        //抓Https包设置
-        client.badCertificateCallback =
-            (X509Certificate cert, String host, int port) => true;
-      };
+      setProxy();
     }
 
     try {
@@ -61,6 +59,18 @@ class Request {
       LogUtil.v(e, tag: '未知异常');
       rethrow;
     }
+  }
+
+  //设置抓包
+  static void setProxy() {
+    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client){
+      client.findProxy = (Uri url){
+        return 'PROXY ${GlobalStore.homeIp}:8888';
+      };
+      //抓Https包设置
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+    };
   }
 
   // 处理 Dio 异常
