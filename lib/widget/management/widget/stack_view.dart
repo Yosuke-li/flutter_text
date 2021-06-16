@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_text/utils/date_format.dart';
 import 'package:flutter_text/widget/management/common/listenable.dart';
 
 import '../common/view_key.dart';
@@ -27,9 +28,12 @@ class StackController with GenericListenable<StackViewListener> {
 
 class StackView extends StatefulWidget {
   final StackController controller;
+  final Widget child;
   final ValueChanged<ViewKey> onCurrentIndexChanged;
 
-  const StackView({Key key, this.controller, this.onCurrentIndexChanged}) : super(key: key);
+  const StackView(
+      {Key key, this.controller, this.child, this.onCurrentIndexChanged})
+      : super(key: key);
 
   @override
   _StackViewState createState() => _StackViewState();
@@ -95,9 +99,9 @@ class _StackViewState extends State<StackView> implements StackViewListener {
     if (index <= _currentIndex) {
       _currentIndex--;
       _currentIndex = max(0, _currentIndex);
-      if(_list.isEmpty){
+      if (_list.isEmpty) {
         widget.onCurrentIndexChanged?.call(null);
-      }else{
+      } else {
         widget.onCurrentIndexChanged?.call(_list[_currentIndex].key);
       }
     }
@@ -112,9 +116,13 @@ class _StackViewState extends State<StackView> implements StackViewListener {
 
   @override
   Widget build(BuildContext context) {
-    return IndexedStack(
-      index: _currentIndex,
-      children: _list,
-    );
+    return _list.isNotEmpty
+        ? IndexedStack(
+            index: _currentIndex,
+            children: _list,
+          )
+        : Container(
+            child: widget.child,
+          );
   }
 }

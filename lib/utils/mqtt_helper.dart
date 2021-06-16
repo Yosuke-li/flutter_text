@@ -26,7 +26,7 @@ class MqttHelper {
     client.pongCallback = pong;
 
     final connMessage = MqttConnectMessage()
-        .withClientIdentifier('Mqtt_MyClientUniqueId')
+        .withClientIdentifier('mymqtt')
         .withWillTopic('willtopic')
         .withWillMessage('Will message')
         .startClean()
@@ -43,7 +43,7 @@ class MqttHelper {
       client.disconnect();
     }
 
-    client.subscribe("topic/test1", MqttQos.atLeastOnce);
+    client.subscribe("topic/test2", MqttQos.atLeastOnce);
 
     client.updates.listen((List<MqttReceivedMessage<MqttMessage>> c) {
       final MqttPublishMessage message = c[0].payload;

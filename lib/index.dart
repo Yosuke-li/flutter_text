@@ -13,6 +13,7 @@ import 'package:flutter_text/assembly_pack/curved_bar.dart';
 import 'package:flutter_text/assembly_pack/db_register/register.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/flutter_picker.dart';
+import 'package:flutter_text/assembly_pack/group_list_page.dart';
 import 'package:flutter_text/assembly_pack/hello.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/local_auth_check.dart';
@@ -564,6 +565,22 @@ class TabBarDemoState extends State<TabBarDemo>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => SlidingUpText()),
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.group_add),
+                          title: Text(
+                            '分组列表',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => GroupListPage()),
                             );
                           },
                         ),

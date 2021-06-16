@@ -32,7 +32,7 @@ class _RealTimeListPageState extends State<RealTimeListPage>
             heroTag: 'add',
             child: const Icon(Icons.add),
             onPressed: () {
-              logic.publish('123');
+              logic.publish('456');
             },
           )
         ],
