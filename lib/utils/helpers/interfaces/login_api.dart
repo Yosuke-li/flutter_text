@@ -35,7 +35,7 @@ class LoginApi implements TestCache<User> {
   @override
   Future<List<User>> getAllCache() async {
     List<User> result = <User>[];
-    String json = LocateStorage.getString(_key);
+    final String json = LocateStorage.getString(_key);
     if (json != null && json.isNotEmpty == true) {
       result = User.listFromJson(jsonDecode(json));
     }

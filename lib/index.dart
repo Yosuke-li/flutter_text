@@ -15,6 +15,7 @@ import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/flutter_picker.dart';
 import 'package:flutter_text/assembly_pack/group_list_page.dart';
 import 'package:flutter_text/assembly_pack/hello.dart';
+import 'package:flutter_text/assembly_pack/intro/intro.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/local_auth_check.dart';
 import 'package:flutter_text/assembly_pack/local_notification/view.dart';
@@ -597,6 +598,22 @@ class TabBarDemoState extends State<TabBarDemo>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => RefreshPage()),
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.line_style_rounded),
+                          title: Text(
+                            'intro 引导页',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => IntroPage()),
                             );
                           },
                         ),

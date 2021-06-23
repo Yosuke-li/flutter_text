@@ -20,7 +20,7 @@ import 'dart:isolate';
 ///
 
 Future<String> load() async {
-  final ReceivePort receivePort = ReceivePort();
+  final ReceivePort receivePort = ReceivePort(); //创建管道
   await Isolate.spawn(messageIso, receivePort.sendPort);
   await for (dynamic msg in receivePort) {
     if (msg is SendPort) {

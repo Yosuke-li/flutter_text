@@ -5,6 +5,8 @@ import 'package:flutter_text/model/AComponent.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/utils/utils.dart';
 
+import 'circle_light.dart';
+
 void main() => runApp(AnimaComponentPage());
 
 class AnimaComponentPage extends StatefulWidget {
@@ -15,6 +17,7 @@ class AnimaComponentPage extends StatefulWidget {
 class AnimaComponentPageState extends State<AnimaComponentPage> {
   List<PageModel> _page = [];
 
+  @override
   void initState() {
     super.initState();
     _page = [
@@ -23,7 +26,10 @@ class AnimaComponentPageState extends State<AnimaComponentPage> {
         ..pageUrl = AnimatedContainerPage(),
       PageModel()
         ..name = 'AnimatedCrossFadePage'
-        ..pageUrl = AnimatedCrossFadePage()
+        ..pageUrl = AnimatedCrossFadePage(),
+      PageModel()
+        ..name = 'circle_light'
+        ..pageUrl = CircleLightPage()
     ];
   }
 
