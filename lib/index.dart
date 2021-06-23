@@ -604,7 +604,7 @@ class TabBarDemoState extends State<TabBarDemo>
                         ListTile(
                           leading: const Icon(Icons.line_style_rounded),
                           title: Text(
-                            'intro 引导页',
+                            'intro 引导教程页',
                             style: TextStyle(
                               fontSize: screenUtil.adaptive(40),
                             ),
@@ -1246,11 +1246,11 @@ class TabBarDemoState extends State<TabBarDemo>
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          items: [
-            const BottomNavigationBarItem(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
                 icon: Icon(Icons.contacts), label: '聊天室'),
-            const BottomNavigationBarItem(icon: Icon(Icons.apps), label: '组件'),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(icon: Icon(Icons.apps), label: '组件'),
+            BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle), label: 'Api'),
           ],
           currentIndex: currentIndex,

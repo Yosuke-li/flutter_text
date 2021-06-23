@@ -20,21 +20,20 @@ class _IntroState extends State<IntroPage> {
       onHighlightWidgetTap: (IntroStatus introStatus) {
         print(introStatus);
       },
-        // StepWidgetBuilder.useDefaultTheme(texts: texts, buttonTextBuilder: buttonTextBuilder)
 
       /// use defaultTheme
       widgetBuilder: (StepWidgetParams params) {
-        Map position = IntroHelper.smartGetPosition(
+        final Map position = IntroHelper.smartGetPosition(
           screenSize: params.screenSize,
           size: params.size,
           offset: params.offset,
         );
 
-        List<String> texts = [
-          'Hello, I\'m Flutter Intro.',
-          'I can help you quickly implement the Step By Step guide in the Flutter project.',
-          'My usage is also very simple, you can quickly learn and use it through example and api documentation.',
-          'In order to quickly implement the guidance, I also provide a set of out-of-the-box themes, I wish you all a happy use, goodbye!',
+        final List<String> texts = [
+          '开始动作，点击可以重新开始教程引导',
+          '第一个功能模块，功能是xxxxxx',
+          '第二个功能模块，辣么长的功能模块',
+          '最后一个教程模块，点击finish结束',
         ];
         return Stack(
           children: [
@@ -83,9 +82,9 @@ class _IntroState extends State<IntroPage> {
                               params.onNext();
                             },
                             child: const Text(
-                              'next',
+                              '下一步',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: 12,
                               ),
                             ),
                           ),
@@ -119,9 +118,9 @@ class _IntroState extends State<IntroPage> {
                             params.onFinish();
                           },
                           child: const Text(
-                            'Finish',
+                            '结束',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 12,
                             ),
                           ),
                         ),
@@ -159,6 +158,7 @@ class _IntroState extends State<IntroPage> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       child: Scaffold(
