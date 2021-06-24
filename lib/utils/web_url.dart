@@ -2,6 +2,8 @@ import 'package:common_utils/common_utils.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'log_utils.dart';
+
 class WebUrl {
   //判断链接的可用性
   static Future<String> checkUrl(String value,
@@ -26,7 +28,7 @@ class WebUrl {
     try {
       await launch(url);
     } catch (error, stack) {
-      LogUtil.v(error, tag: 'debug: ${DateTime.now()} launchSchemeUrl $stack');
+      Log.error(error, stackTrace: stack);
       rethrow;
     }
   }

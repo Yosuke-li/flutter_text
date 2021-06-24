@@ -1,5 +1,6 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_text/utils/log_utils.dart';
 
 class AppLifecycleWidget extends StatefulWidget {
   Widget child;
@@ -28,7 +29,7 @@ class _AppLifecycleWidgetState extends State<AppLifecycleWidget>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    LogUtil.v('', tag: '==========Now AppLifeCycle is $state');
+    Log.info('==========Now AppLifeCycle is $state');
   }
 
   @override

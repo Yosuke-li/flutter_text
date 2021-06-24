@@ -68,6 +68,8 @@ dependencies:
   flutter_intro: ^2.3.0
   ios_share:
     git: https://github.com/NayoLx/ios_share.git
+  ota_update: ^3.0.2
+  package_info: ^2.0.2
 
 dev_dependencies:
   flutter_test:

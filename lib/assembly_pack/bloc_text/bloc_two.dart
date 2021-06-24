@@ -1,6 +1,7 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/bloc_text/bloc_model.dart';
+import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/widget/bloc/bloc_widget.dart';
 
 import 'bloc_two_model.dart';
@@ -19,7 +20,7 @@ class _BlocTwoState extends State<BlocTwo> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    LogUtil.v('widget.blocModel.count: ${widget.blocModel.count}');
+    Log.info('widget.blocModel.count: ${widget.blocModel.count}');
   }
 
   @override

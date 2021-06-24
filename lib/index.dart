@@ -13,6 +13,7 @@ import 'package:flutter_text/assembly_pack/curved_bar.dart';
 import 'package:flutter_text/assembly_pack/db_register/register.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/flutter_picker.dart';
+import 'package:flutter_text/assembly_pack/get_package.dart';
 import 'package:flutter_text/assembly_pack/group_list_page.dart';
 import 'package:flutter_text/assembly_pack/hello.dart';
 import 'package:flutter_text/assembly_pack/intro/intro.dart';
@@ -46,6 +47,7 @@ import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/utils/file_utils.dart';
 import 'package:flutter_text/utils/listener/listen_test.dart';
+import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/utils/mqtt_helper.dart';
 import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/utils/permission.dart';
@@ -136,7 +138,7 @@ class TabBarDemoState extends State<TabBarDemo>
     );
     FileUtils.init();
     MqttHelper.connect();
-    LogUtil.init(isDebug: true);
+    Log.init(isDebug: true);
     tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
         setState(() {
@@ -531,7 +533,7 @@ class TabBarDemoState extends State<TabBarDemo>
                         await NavigatorUtils.getXOfPush<String>(
                             context, GetxTextPage(),
                             arguments: <String, dynamic>{'count': 10});
-                        LogUtil.v('result: $result');
+                        Log.info('result: $result');
                       },
                     ),
                     ListTile(
@@ -674,6 +676,22 @@ class TabBarDemoState extends State<TabBarDemo>
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(builder: (context) => TextT()),
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.backpack),
+                          title: Text(
+                            '获取package info',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => GetPackageWidget()),
                             );
                           },
                         ),

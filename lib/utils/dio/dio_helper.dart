@@ -9,6 +9,8 @@ import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/api_exception.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 
+import '../log_utils.dart';
+
 class Request {
   // 配置 Dio 实例
   static final BaseOptions _options = BaseOptions(
@@ -47,16 +49,16 @@ class Request {
       if (response.statusCode == 200) {
         return response;
       } else {
-        LogUtil.v(response.statusCode, tag: 'HTTP错误，状态码为：');
+        Log.info('HTTP错误，状态码为：${response.statusCode}');
         ToastUtils.showToast(msg: 'HTTP错误，状态码为${response.statusCode}');
         _handleHttpError(response.statusCode);
         throw ApiException(response.statusCode, response.statusMessage);
       }
     } on DioError catch (e, s) {
-      LogUtil.v(_dioError(e), tag: '请求异常');
+      Log.error('请求异常: ${_dioError(e)}', stackTrace: s);
       throw ApiException(e.response?.statusCode ?? 0, _dioError(e));
     } catch (e, s) {
-      LogUtil.v(e, tag: '未知异常');
+      Log.error('未知异常: $e', stackTrace: s);
       rethrow;
     }
   }

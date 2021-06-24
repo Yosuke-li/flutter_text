@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter_text/utils/array_helper.dart';
+import 'package:flutter_text/utils/log_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocateStorage {
@@ -110,7 +111,7 @@ class LocateStorage {
       clean(key: hasKey);
     }
     lStorage.setString('$key $exTime', val);
-    LogUtil.v(val, tag: 'setStringWithExpire: $key $exTime');
+    Log.info('setStringWithExpire: $key $exTime: $val');
   }
 
   //获取String缓存
@@ -132,7 +133,7 @@ class LocateStorage {
       clean(key: hasKey);
     }
     lStorage.setBool('$key $exTime', val);
-    LogUtil.v(val, tag: 'setBoolWithExpire: $key $exTime');
+    Log.info('setBoolWithExpire: $key $exTime: $val');
   }
 
   //获取bool缓存
@@ -154,7 +155,7 @@ class LocateStorage {
       clean(key: hasKey);
     }
     lStorage.setInt('$key $exTime', val);
-    LogUtil.v(val, tag: 'setIntWithExpire: $key $exTime');
+    Log.info('setIntWithExpire: $key $exTime: $val');
   }
 
   //获取int缓存
@@ -177,7 +178,7 @@ class LocateStorage {
       clean(key: hasKey);
     }
     lStorage.setStringList('$key $exTime', lists);
-    LogUtil.v(json.encode(lists), tag: 'setStringListWithExpire: $key $exTime');
+    Log.info('setStringListWithExpire: $key $exTime: ${json.encode(lists)}');
   }
 
   //获取字符串数组
