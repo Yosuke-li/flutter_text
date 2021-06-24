@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_text/model/img_model.dart';
+import 'package:flutter_text/widget/image_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WidgetBanner extends StatefulWidget {
@@ -107,7 +108,7 @@ class _WidgetBannerState extends State<WidgetBanner> {
                   _overBrowserUrl(widget._images[index % length].overBrowerUrl);
                 }
               },
-              child: Image.network(
+              child: CustomNetWorkImage(
                 widget._images[index % length].image,
                 fit: BoxFit.cover,
               ),
@@ -119,10 +120,10 @@ class _WidgetBannerState extends State<WidgetBanner> {
   //初始化定时任务
   void _initTimer() {
     _timer ??= Timer.periodic(const Duration(seconds: 3), (Timer t) {
-        _currentIndex++;
-        _pageController.animateToPage(_currentIndex,
-            duration: const Duration(milliseconds: 300), curve: Curves.linear);
-      });
+      _currentIndex++;
+      _pageController.animateToPage(_currentIndex,
+          duration: const Duration(milliseconds: 300), curve: Curves.linear);
+    });
   }
 
   //切换banner页
