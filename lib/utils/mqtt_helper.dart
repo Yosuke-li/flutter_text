@@ -30,7 +30,7 @@ class MqttHelper {
         .withWillTopic('willtopic')
         .withWillMessage('Will message')
         .startClean()
-        .withWillQos(MqttQos.atLeastOnce);
+        .withWillQos(MqttQos.exactlyOnce);
     client.connectionMessage = connMessage;
 
     try {
@@ -43,7 +43,7 @@ class MqttHelper {
       client.disconnect();
     }
 
-    client.subscribe("topic/test2", MqttQos.atLeastOnce);
+    client.subscribe("topic/test2", MqttQos.exactlyOnce);
 
     client.updates.listen((List<MqttReceivedMessage<MqttMessage>> c) {
       final MqttPublishMessage message = c[0].payload;

@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/animation/component.dart';
 import 'package:flutter_text/assembly_pack/banner_demo.dart';
 import 'package:flutter_text/assembly_pack/bloc_text/bloc_text.dart';
+import 'package:flutter_text/assembly_pack/box/box.dart';
 import 'package:flutter_text/assembly_pack/chat/chat_main.dart';
+import 'package:flutter_text/assembly_pack/chat_self/chat_list.dart';
 import 'package:flutter_text/assembly_pack/connected/connect_data.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
 import 'package:flutter_text/assembly_pack/db_register/register.dart';
@@ -137,7 +139,6 @@ class TabBarDemoState extends State<TabBarDemo>
       () => listenTest(),
     );
     FileUtils.init();
-    MqttHelper.connect();
     Log.init(isDebug: true);
     tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
@@ -201,6 +202,21 @@ class TabBarDemoState extends State<TabBarDemo>
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => ChatPackApp()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.chat),
+                      title: Text(
+                        '聊天列表--',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => ChatListWidget()),
                         );
                       },
                     ),
@@ -692,6 +708,22 @@ class TabBarDemoState extends State<TabBarDemo>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => GetPackageWidget()),
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.account_box),
+                          title: Text(
+                            'Box合集',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => BoxPage()),
                             );
                           },
                         ),
