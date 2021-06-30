@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'notification_controller.dart';
@@ -19,9 +21,11 @@ class NotificationListenPageState extends State<NotificationListenPage> {
   @override
   void initState() {
     super.initState();
-    NotificationCenterListener.init();
-    NotificationHelper.init();
-    _controller = NotificationController.listen();
+    if (Platform.isAndroid == true) {
+      NotificationCenterListener.init();
+      NotificationHelper.init();
+      _controller = NotificationController.listen();
+    }
   }
 
   @override

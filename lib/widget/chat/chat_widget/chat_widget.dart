@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/widget/chat/helper/chat_helper.dart';
+import 'package:mqtt_client/mqtt_client.dart';
 
 class ChatConnectWidget extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class ChatConnectWidget extends StatefulWidget {
   _ChatConnectState createState() => _ChatConnectState();
 }
 
-class _ChatConnectState extends State<ChatConnectWidget> {
+class _ChatConnectState extends State<ChatConnectWidget> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -25,15 +26,15 @@ class _ChatConnectState extends State<ChatConnectWidget> {
     if (GlobalStore.user != null &&
         GlobalStore.user.name != null &&
         GlobalStore.user.name.isNotEmpty == true) {
-      ChatHelper.init();
-      setState(() {});
+      if (ChatHelper.client?.connectionStatus?.state != MqttConnectionState.connecting) {
+        ChatHelper.init();
+      }
     }
   }
 
   @override
   void didUpdateWidget(covariant ChatConnectWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    Log.info('${widget.key}');
     if (widget.key != oldWidget.key) {
       clientConnect();
     }
@@ -41,6 +42,10 @@ class _ChatConnectState extends State<ChatConnectWidget> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return widget.child;
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -4,12 +4,15 @@ class User {
   int _id;
   String _name;
   String _desc;
+  String _image;
 
   int get id => _id;
 
   String get name => _name;
 
   String get desc => _desc;
+
+  String get image => _image;
 
   set desc(String value) {
     _desc = value;
@@ -23,12 +26,17 @@ class User {
     _id = value;
   }
 
+  set image(String value) {
+    _image = value;
+  }
+
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
 
     map['id'] = _id;
     map['name'] = _name;
     map['desc'] = _desc;
+    map['image'] = _image;
 
     return map;
   }
@@ -37,10 +45,11 @@ class User {
     this._id = map['id'];
     this._name = map['name'];
     this._desc = map['desc'];
+    this._image = map['image'];
   }
 
   String toString() {
-    return 'User[id=$id, name=$name, desc=$desc]';
+    return 'User[id=$id, name=$name, desc=$desc, image=$image]';
   }
 
   User.fromJson(Map<String, dynamic> json) {
