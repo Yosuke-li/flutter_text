@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/widget/chat/helper/global/event.dart';
-import 'package:flutter_text/widget/chat/helper/message/message_center.dart';
+import 'package:flutter_text/widget/chat/helper/message/message_control.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
@@ -57,10 +57,10 @@ class ChatHelper {
 
   static List<String> getSubscribe() {
     if (GlobalStore.user != null && GlobalStore.user.name.isNotEmpty == true) {
-      final List<String> topics = <String>['topic/test2', 'topic/test'];
+      final List<String> topics = <String>['topic/test2', 'topic/test3'];
       return topics;
     }
-    return [];
+    return <String>[];
   }
 
   //设置主题

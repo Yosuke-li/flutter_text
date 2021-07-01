@@ -15,7 +15,8 @@ class ChatConnectWidget extends StatefulWidget {
   _ChatConnectState createState() => _ChatConnectState();
 }
 
-class _ChatConnectState extends State<ChatConnectWidget> with AutomaticKeepAliveClientMixin {
+class _ChatConnectState extends State<ChatConnectWidget>
+    with AutomaticKeepAliveClientMixin<ChatConnectWidget> {
   @override
   void initState() {
     super.initState();
@@ -26,7 +27,8 @@ class _ChatConnectState extends State<ChatConnectWidget> with AutomaticKeepAlive
     if (GlobalStore.user != null &&
         GlobalStore.user.name != null &&
         GlobalStore.user.name.isNotEmpty == true) {
-      if (ChatHelper.client?.connectionStatus?.state != MqttConnectionState.connecting) {
+      if (ChatHelper.client?.connectionStatus?.state !=
+          MqttConnectionState.connecting) {
         ChatHelper.init();
       }
     }

@@ -17,7 +17,7 @@ class ChatMsgConduit {
 
   static void msgSendCenter(MqttReceivedMessage event) {
     msgList.add(event);
-    MessageCenter.sendMsg(EventChat()..msg = event);
+    MessageControl.sendMsg(EventChat()..msg = event);
   }
 
   //获取对应topic的记录
@@ -28,7 +28,7 @@ class ChatMsgConduit {
   }
 
   static void sendOutMsg(String topic, String msg) {
-    final builder = MqttClientPayloadBuilder();
+    final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
     builder.addString(msg);
     ChatHelper.client
         .publishMessage(topic, MqttQos.exactlyOnce, builder.payload);

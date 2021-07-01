@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/datetime_utils.dart';
 import 'package:flutter_text/utils/lock.dart';
+import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:flutter_text/widget/chat/helper/chat_helper.dart';
 import 'package:flutter_text/widget/chat/helper/message/message_center.dart';
+import 'package:flutter_text/widget/chat/helper/message/message_control.dart';
 import 'package:flutter_text/widget/chat/helper/message/message_model.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
@@ -22,11 +24,10 @@ class ChatInfoPage extends StatefulWidget {
   _ChatInfoState createState() => _ChatInfoState();
 }
 
-class _ChatInfoState extends State<ChatInfoPage> {
+class _ChatInfoState extends State<ChatInfoPage>
+    with MessageCenter<ChatInfoPage> {
   List<MessageModel> msgs = [];
-  MessageCenter controller = MessageCenter();
   final ScrollController _scrollController = ScrollController();
-  final Lock _lock = Lock();
 
   final TextEditingController _textEditingController =
       TextEditingController(); //输入框
@@ -35,40 +36,13 @@ class _ChatInfoState extends State<ChatInfoPage> {
   @override
   void initState() {
     super.initState();
-    getMsg();
-    listener();
-  }
-
-  void getMsg() async {
-    final List<MqttReceivedMessage> msg =
-        ChatMsgConduit.getMsgWithTopic(widget.topic);
-    await _lock.mutex(() async {
-      msg.forEach((MqttReceivedMessage element) {
-        final String message = MqttPublishPayload.bytesToStringAsString(
-            element.payload.payload.message);
-        final MessageModel model = MessageModel.fromJson(json.decode(message));
-        msgs.add(model);
-      });
+    getTopicMsg((List<MessageModel> list) {
+      msgs = list;
+      setState(() {});
     });
-    setState(() {});
-  }
-
-  void listener() {
-    controller.listenEvent(listenFunc: (MqttReceivedMessage msg) {
-      if (msg.topic == widget.topic) {
-        final String message = MqttPublishPayload.bytesToStringAsString(
-            msg.payload.payload.message);
-        final MessageModel model = MessageModel.fromJson(json.decode(message));
-        msgs.add(model);
-        if (_scrollController.offset > MediaQuery.of(context).size.height)
-        _scrollController.animateTo(
-            _scrollController.position.maxScrollExtent + 200,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeIn);
-        if (mounted) {
-          setState(() {});
-        }
-      }
+    listener((MessageModel msg) {
+      msgs.add(msg);
+      setState(() {});
     });
   }
 
@@ -159,8 +133,12 @@ class _ChatInfoState extends State<ChatInfoPage> {
       ..name = GlobalStore.user.name
       ..type = 'text'
       ..time = DateTimeHelper.getLocalTimeStamp();
-    controller.sendOutMsg(widget.topic, json.encode(model));
+
+    sendMsg(json.encode(model));
   }
+
+  @override
+  String get topic => widget.topic;
 }
 
 //消息

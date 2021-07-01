@@ -59,6 +59,7 @@ class _ChatListState extends State<ChatListWidget> {
           child: Column(
             children: rooms?.map((e) {
                   return ChatHeadPage(
+                    key: Key(e.hashCode.toString()),
                     topic: e,
                     child: ListTile(
                       title: Text(e),

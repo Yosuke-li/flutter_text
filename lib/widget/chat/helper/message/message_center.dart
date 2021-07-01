@@ -1,36 +1,61 @@
-import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_text/utils/utils.dart';
-import 'package:flutter_text/widget/chat/helper/global/event.dart';
+import 'package:flutter_text/utils/lock.dart';
+import 'package:flutter_text/widget/chat/helper/message/message_control.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
 import '../chat_helper.dart';
+import 'message_model.dart';
 
-class MessageCenter {
-  static StreamController<MqttReceivedMessage> _controller =
-      StreamController<MqttReceivedMessage>.broadcast();
+mixin MessageCenter<T extends StatefulWidget> on State<T> {
+  final Lock _lock = Lock();
 
-  static void sendMsg(EventChat event) {
-    _controller?.add(event.msg);
+  MessageControl control = MessageControl();
+
+  String get topic;
+
+  //注册监听标记
+  @override
+  void initState() {
+    super.initState();
+    control.init(topic);
   }
 
-  CancelCallBack listenEvent(
-      {@required Function(MqttReceivedMessage test) listenFunc}) {
-    final CancelCallBack callBack =
-        _controller?.stream?.listen((MqttReceivedMessage event) {
-      listenFunc(event);
-    })?.cancel;
-    return callBack;
-  }
-
-  void sendOutMsg(String topic, String msg) {
-    ChatMsgConduit.sendOutMsg(topic, msg);
-  }
-
+  @override
   void dispose() {
-    _controller.close();
-    _controller = null;
-    _controller = StreamController<MqttReceivedMessage>.broadcast();
+    control.dispose();
+    super.dispose();
+  }
+
+  //监听消息
+  void listener(void Function(MessageModel msg) getLastMsg) {
+    control.listenEvent(listenFunc: (MqttReceivedMessage msg) {
+      final String message =
+      MqttPublishPayload.bytesToStringAsString(msg.payload.payload.message);
+      final MessageModel model = MessageModel.fromJson(json.decode(message));
+      getLastMsg(model);
+    });
+  }
+
+  //获取该主题下的所有消息
+  Future<void> getTopicMsg(void Function(List<MessageModel> list) getMsg) async {
+    final List<MqttReceivedMessage> msg =
+        ChatMsgConduit.getMsgWithTopic(topic);
+    final List<MessageModel> msgs = <MessageModel>[];
+    await _lock.mutex(() async {
+      msg.forEach((MqttReceivedMessage element) {
+        final String message = MqttPublishPayload.bytesToStringAsString(
+            element.payload.payload.message);
+        final MessageModel model = MessageModel.fromJson(json.decode(message));
+        msgs.add(model);
+      });
+    });
+    getMsg(msgs);
+  }
+
+  //发送消息
+  void sendMsg(String jsonMsg) {
+    control.sendOutMsg(topic, jsonMsg);
   }
 }
