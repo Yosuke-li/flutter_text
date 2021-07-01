@@ -22,12 +22,6 @@ mixin MessageCenter<T extends StatefulWidget> on State<T> {
     control.init(topic);
   }
 
-  @override
-  void dispose() {
-    control.dispose();
-    super.dispose();
-  }
-
   //监听消息
   void listener(void Function(MessageModel msg) getLastMsg) {
     control.listenEvent(listenFunc: (MqttReceivedMessage msg) {

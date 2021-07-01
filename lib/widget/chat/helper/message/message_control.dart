@@ -34,7 +34,7 @@ class MessageControl {
     ChatMsgConduit.sendOutMsg(topic, msg);
   }
 
-  void dispose() {
+  static void dispose() {
     _controller.close();
     _controller = null;
     _controller = StreamController<MqttReceivedMessage>.broadcast();

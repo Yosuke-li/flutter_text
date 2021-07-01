@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/api_exception.dart';
+import 'package:flutter_text/utils/date_format.dart';
 import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/widget/chat/helper/global/event.dart';
 import 'package:flutter_text/widget/chat/helper/message/message_control.dart';
@@ -24,7 +25,7 @@ class ChatHelper {
 
   static void init() async {
     // client = MqttServerClient('ws://172.31.41.83/mqtt', '');
-    client = MqttServerClient.withPort('broker.emqx.io', '', 1883);
+    client ??= MqttServerClient.withPort('broker.emqx.io', '', 1883);
     client.logging(on: false);
     // client.port = 8888;
     // client.useWebSocket = true;
@@ -39,6 +40,14 @@ class ChatHelper {
 
     try {
       await client.connect();
+
+      final List<String> topics = getSubscribe();
+
+      topics.forEach((String element) {
+        setSubscribe(element);
+      });
+
+      ChatMsgConduit.listener();
     } on SocketException catch (e) {
       print(e);
       client.disconnect();
@@ -46,14 +55,6 @@ class ChatHelper {
       print(e);
       client.disconnect();
     }
-
-    final List<String> topics = getSubscribe();
-
-    topics.forEach((String element) {
-      setSubscribe(element);
-    });
-
-    ChatMsgConduit.listener();
   }
 
   static List<String> getSubscribe() {

@@ -61,13 +61,6 @@ class _ChatListState extends State<ChatListWidget> {
                   return ChatHeadPage(
                     key: Key(e.hashCode.toString()),
                     topic: e,
-                    child: ListTile(
-                      title: Text(e),
-                      onTap: () {
-                        NavigatorUtils.getXOfPush(context, ChatRoomPage(),
-                            arguments: {'topic': e});
-                      },
-                    ),
                   );
                 })?.toList() ??
                 [],
