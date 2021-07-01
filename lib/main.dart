@@ -34,12 +34,12 @@ void _errorHandler(FlutterErrorDetails details) async {
       final String message = e.message;
       switch (code) {
         case 401:
-          final navigatorHelper = await NavigatorHelper.navigatorState;
+          final NavigatorState navigatorHelper = await NavigatorHelper.navigatorState;
           ToastUtils.showToast(msg: '401错误');
           navigatorHelper.popUntil((Route route) => route.isFirst);
           break;
         case 403:
-          final navigatorHelper = await NavigatorHelper.navigatorState;
+          final NavigatorState navigatorHelper = await NavigatorHelper.navigatorState;
           ToastUtils.showToast(msg: '403错误');
           navigatorHelper.popUntil((Route route) => route.isFirst);
           break;

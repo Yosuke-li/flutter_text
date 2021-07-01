@@ -31,22 +31,20 @@ mixin MessageCenter<T extends StatefulWidget> on State<T> {
   //监听消息
   void listener(void Function(MessageModel msg) getLastMsg) {
     control.listenEvent(listenFunc: (MqttReceivedMessage msg) {
-      final String message =
-      MqttPublishPayload.bytesToStringAsString(msg.payload.payload.message);
+      final String message = utf8.decode(msg.payload.payload.message);
       final MessageModel model = MessageModel.fromJson(json.decode(message));
       getLastMsg(model);
     });
   }
 
   //获取该主题下的所有消息
-  Future<void> getTopicMsg(void Function(List<MessageModel> list) getMsg) async {
-    final List<MqttReceivedMessage> msg =
-        ChatMsgConduit.getMsgWithTopic(topic);
+  Future<void> getTopicMsg(
+      void Function(List<MessageModel> list) getMsg) async {
+    final List<MqttReceivedMessage> msg = ChatMsgConduit.getMsgWithTopic(topic);
     final List<MessageModel> msgs = <MessageModel>[];
     await _lock.mutex(() async {
       msg.forEach((MqttReceivedMessage element) {
-        final String message = MqttPublishPayload.bytesToStringAsString(
-            element.payload.payload.message);
+        final String message = utf8.decode(element.payload.payload.message);
         final MessageModel model = MessageModel.fromJson(json.decode(message));
         msgs.add(model);
       });

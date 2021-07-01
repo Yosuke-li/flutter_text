@@ -11,7 +11,7 @@ class ChatMsgConduit {
       final String message =
           MqttPublishPayload.bytesToStringAsString(m.payload.message);
       msgSendCenter(event[0]);
-      Log.info('${event[0].topic} $message');
+      Log.info('${event[0].topic} ${utf8.decode(m.payload.message)}');
     });
   }
 
@@ -29,7 +29,7 @@ class ChatMsgConduit {
 
   static void sendOutMsg(String topic, String msg) {
     final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
-    builder.addString(msg);
+    builder.addUTF8String(msg);
     ChatHelper.client
         .publishMessage(topic, MqttQos.exactlyOnce, builder.payload);
   }
