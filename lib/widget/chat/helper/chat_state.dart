@@ -9,6 +9,7 @@ class ChatState {
   // 连接断开
   static void onDisconnected() {
     print('Disconnected');
+    throw ApiException(401, 'mqtt disConnected');
   }
 
   // 订阅主题成功
