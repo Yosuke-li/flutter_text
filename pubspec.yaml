@@ -70,6 +70,7 @@ dependencies:
     git: https://github.com/NayoLx/ios_share.git
   ota_update: ^3.0.2
   package_info: ^2.0.2
+  postgres: ^2.3.2
 
 dev_dependencies:
   flutter_test:
