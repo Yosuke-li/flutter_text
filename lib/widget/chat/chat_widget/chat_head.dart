@@ -104,7 +104,7 @@ class _ChatHeadState extends State<ChatHeadPage>
                             visible: lastMsg?.time != null,
                             child: Container(
                               child: Text(
-                                  '${DateTimeHelper.datetimeFormat((lastMsg?.time ?? 0) ~/ 1000, 'yyyy-MM-dd')}'),
+                                  '${DateTimeHelper.toChatTime((lastMsg?.time ?? 0) ~/ 1000)}'),
                             ),
                           ),
                         ],

@@ -17,7 +17,7 @@ class ChatHelper {
   static MqttServerClient client;
 
   static MqttConnectMessage message = MqttConnectMessage()
-      .withClientIdentifier('${GlobalStore.user.id}')
+      .withClientIdentifier('${GlobalStore.user.name.hashCode}')
       .withWillTopic('willtopic')
       .withWillMessage('Will message')
       .startClean()
@@ -26,7 +26,7 @@ class ChatHelper {
   static void init() async {
     // client = MqttServerClient('ws://172.31.41.83/mqtt', '');
     client ??= MqttServerClient.withPort('broker.emqx.io', '', 1883);
-    client.logging(on: true);
+    client.logging(on: false);
     // client.port = 8888;
     // client.useWebSocket = true;
     client.keepAlivePeriod = 20;

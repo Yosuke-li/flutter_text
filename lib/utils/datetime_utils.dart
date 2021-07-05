@@ -269,4 +269,20 @@ class DateTimeHelper {
     }
     return result;
   }
+
+  ///获取聊天时间，当日显示小时当年显示月日，其他时间显示年月日
+  static String toChatTime(int time) {
+    if (isItTheSameDay(time)) {
+      return datetimeFormat(time, 'HH:mm');
+    } else {
+      final int now = (timeToTimeStamp(getNow())).floor();
+
+      if (DateTime.fromMillisecondsSinceEpoch(time * 1000).year ==
+          DateTime.fromMillisecondsSinceEpoch(now * 1000).year) {
+        return datetimeFormat(time, 'MM-dd');
+      } else {
+        return datetimeFormat(time, 'yyyy-MM-dd');
+      }
+    }
+  }
 }
