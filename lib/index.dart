@@ -57,6 +57,7 @@ import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:flutter_text/utils/utils.dart';
 import 'package:flutter_text/widget/app_lifecycle_widget.dart';
+import 'package:flutter_text/widget/chat/helper/user/user_db.dart';
 import 'package:flutter_text/widget/modal_utils.dart';
 import 'package:flutter_text/widget/navigator_helper.dart';
 import 'package:flutter_text/widget/notification_center/notification_widget.dart';
@@ -134,6 +135,7 @@ class TabBarDemoState extends State<TabBarDemo>
   @override
   void initState() {
     super.initState();
+    PostgresUser.init();
     if (Platform.isAndroid || Platform.isIOS) Permission.init();
     LocateStorage.init().whenComplete(
       () => listenTest(),

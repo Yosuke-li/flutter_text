@@ -1,4 +1,6 @@
-import 'package:flutter_text/model/db_user.dart';
+
+
+import 'package:flutter_text/widget/chat/helper/user/user.dart';
 
 class GlobalStore {
   static bool isShowOverlay = false; //flutter自带的性能监听 控制

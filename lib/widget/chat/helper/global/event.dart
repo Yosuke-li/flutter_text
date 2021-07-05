@@ -9,4 +9,5 @@ class DbGlobal {
   static int port = 5433;
   static String database = 'db4d3c49473a7e4472961204b7a3838a5euser';
   static String username = 'nayo';
+  static String password = 'Lix690575679';
 }
