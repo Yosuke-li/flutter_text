@@ -66,13 +66,26 @@ class PostgresUser {
         .mappedResultsQuery('select * from $name where id = ${user.id}');
 
     if (result != null && result.isNotEmpty == true) {
-      final User hasUser = User.fromJson(result[0]['user_db']);
+      final User hasUser = User.fromJson(result[0]['$name']);
       if (hasUser.name == user.name) {
         hasUser.updateTime = DateTimeHelper.getLocalTimeStamp() ~/ 1000;
         updateUser(hasUser);
         return hasUser;
       }
       return null;
+    } else {
+      return null;
+    }
+  }
+
+  //通过id查找user
+  static Future<User> getOneWithId(int id) async {
+    final List<Map<String, Map<String, dynamic>>> result = await connection
+        .mappedResultsQuery('select * from $name where id = $id');
+
+    if (result != null && result.isNotEmpty == true) {
+      final User hasUser = User.fromJson(result[0]['$name']);
+      return hasUser;
     } else {
       return null;
     }

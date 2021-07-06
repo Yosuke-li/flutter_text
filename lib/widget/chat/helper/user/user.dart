@@ -30,4 +30,10 @@ class User {
     map['updateTime'] = updateTime;
     return map;
   }
+
+  static List<User> listFromJson(List<dynamic> json) {
+    return json == null
+        ? <User>[]
+        : json.map((e) => User.fromJson(e)).toList();
+  }
 }

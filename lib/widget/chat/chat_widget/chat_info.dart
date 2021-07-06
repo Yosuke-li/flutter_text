@@ -5,8 +5,11 @@ import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/datetime_utils.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
+import 'package:flutter_text/widget/api_call_back.dart';
 import 'package:flutter_text/widget/chat/helper/message/message_center.dart';
 import 'package:flutter_text/widget/chat/helper/message/message_model.dart';
+import 'package:flutter_text/widget/chat/helper/user/user.dart';
+import 'package:flutter_text/widget/chat/helper/user/user_cache.dart';
 
 import '../../image_zoomable.dart';
 
@@ -37,7 +40,7 @@ class _ChatInfoState extends State<ChatInfoPage>
     });
     listener((MessageModel msg) {
       msgs.add(msg);
-      if(mounted) {
+      if (mounted) {
         setState(() {});
       }
     });
@@ -54,7 +57,7 @@ class _ChatInfoState extends State<ChatInfoPage>
             child: ListView(
               controller: _scrollController,
               shrinkWrap: true,
-              children: msgs?.map((e) {
+              children: msgs?.map((MessageModel e) {
                     return ChatMessage(
                       msg: e,
                     );
@@ -126,8 +129,6 @@ class _ChatInfoState extends State<ChatInfoPage>
       ..id = GlobalStore.user.id
       ..topic = widget.topic
       ..msg = text
-      ..headImage = GlobalStore.user.image
-      ..name = GlobalStore.user.name
       ..type = 'text'
       ..time = DateTimeHelper.getLocalTimeStamp();
 
@@ -139,10 +140,34 @@ class _ChatInfoState extends State<ChatInfoPage>
 }
 
 //消息
-class ChatMessage extends StatelessWidget {
+class ChatMessage extends StatefulWidget {
   const ChatMessage({this.msg});
 
   final MessageModel msg;
+
+  @override
+  _ChatMessageState createState() => _ChatMessageState();
+}
+
+class _ChatMessageState extends State<ChatMessage> {
+  User user = User();
+
+  @override
+  void initState() {
+    super.initState();
+    getUser();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getUser();
+  }
+
+  void getUser() async {
+    user = await loadingCallback(() => UserCache().getCache(widget.msg.id));
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +182,7 @@ class ChatMessage extends StatelessWidget {
   }
 
   Widget row(BuildContext context) {
-    if (msg.id == GlobalStore.user?.id) {
+    if (widget.msg.id == GlobalStore.user?.id) {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -166,24 +191,26 @@ class ChatMessage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Text(msg.name),
+                Text(user?.name ?? ''),
                 Container(
                   margin: const EdgeInsets.only(top: 5.0),
-                  child: msg.sendImage != null &&
-                          msg.sendImage.isNotEmpty == true
+                  child: widget.msg.sendImage != null &&
+                          widget.msg.sendImage.isNotEmpty == true
                       ? GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => ImageZoomable(
-                                  photoList: [NetworkImage(msg.sendImage)],
+                                  photoList: [
+                                    NetworkImage(widget.msg.sendImage)
+                                  ],
                                   index: 0,
                                 ),
                               ),
                             );
                           },
                           child: Image.network(
-                            msg.sendImage,
+                            widget.msg.sendImage,
                             width: 150.0,
                             height: 150.0,
                             fit: BoxFit.fitWidth,
@@ -198,7 +225,7 @@ class ChatMessage extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 top: 5, bottom: 5, right: 10, left: 10),
                             child: Text(
-                              msg.msg ?? '',
+                              widget.msg.msg ?? '',
                               style: const TextStyle(
                                   color: Colors.white, fontSize: 15),
                             ),
@@ -208,10 +235,11 @@ class ChatMessage extends StatelessWidget {
               ],
             ),
           ),
+          if (user != null && user.image?.isNotEmpty == true)
           Container(
             margin: const EdgeInsets.only(left: 16),
             child: CircleAvatar(
-              backgroundImage: NetworkImage(msg.headImage),
+              backgroundImage: NetworkImage(user?.image ?? ''),
             ),
           ),
         ],
@@ -220,33 +248,37 @@ class ChatMessage extends StatelessWidget {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          if (user != null && user.image?.isNotEmpty == true)
           Container(
-              margin: const EdgeInsets.only(right: 16),
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(msg.headImage),
-              )),
+            margin: const EdgeInsets.only(right: 16),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(user?.image ?? ''),
+            ),
+          ),
           Flexible(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(msg.name),
+                Text(user?.name ?? ''),
                 Container(
                   margin: const EdgeInsets.only(top: 5.0),
-                  child: msg.sendImage != null &&
-                          msg.sendImage.isNotEmpty == true
+                  child: widget.msg.sendImage != null &&
+                          widget.msg.sendImage.isNotEmpty == true
                       ? GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => ImageZoomable(
-                                  photoList: [NetworkImage(msg.sendImage)],
+                                  photoList: [
+                                    NetworkImage(widget.msg.sendImage)
+                                  ],
                                   index: 0,
                                 ),
                               ),
                             );
                           },
                           child: Image.network(
-                            msg.sendImage,
+                            widget.msg.sendImage,
                             width: 150.0,
                             height: 150.0,
                             fit: BoxFit.fitWidth,
@@ -261,7 +293,7 @@ class ChatMessage extends StatelessWidget {
                             padding: const EdgeInsets.only(
                                 top: 5, bottom: 5, right: 10, left: 10),
                             child: Text(
-                              msg.msg ?? '',
+                              widget.msg.msg ?? '',
                               style: const TextStyle(fontSize: 15),
                             ),
                           ),
