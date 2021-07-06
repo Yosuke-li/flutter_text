@@ -48,7 +48,7 @@ class UserCache implements TestCache<User> {
     final List<User> allCache = await getAllCache();
     allCache.add(data);
     newList =
-        ArrayHelper.unique<User>(listData: allCache, getKey: (item) => item.id);
+        ArrayHelper.unique<User>(listData: allCache, getKey: (User item) => item.id);
     LocateStorage.setStringWithExpire(_key + '${GlobalStore.user.id}',
         jsonEncode(newList), const Duration(days: 1));
   }

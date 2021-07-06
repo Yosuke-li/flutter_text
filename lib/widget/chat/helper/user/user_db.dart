@@ -18,11 +18,12 @@ class PostgresUser {
   static String columnCreateTime = 'createTime';
   static String columnUpdateTime = 'updateTime';
 
-  static PostgreSQLConnection connection = PostgreSQLConnection(
-      DbGlobal.ip, DbGlobal.port, DbGlobal.database,
-      username: DbGlobal.username, password: DbGlobal.password);
+  static PostgreSQLConnection connection;
 
-  static void init() async {
+  static Future<void> init() async {
+    connection = PostgreSQLConnection(
+        DbGlobal.ip, DbGlobal.port, DbGlobal.database,
+        username: DbGlobal.username, password: DbGlobal.password);
     await connection.open();
     Log.info('连接数据库');
     try {
@@ -48,6 +49,9 @@ class PostgresUser {
   }
 
   static Future<int> getMapList() async {
+    if (connection.isClosed) {
+      await init();
+    }
     final List<Map<String, Map<String, dynamic>>> result = await connection
         .mappedResultsQuery('SELECT * FROM $name order by $columnId ASC');
     return result?.length ?? 0;
@@ -55,6 +59,9 @@ class PostgresUser {
 
   //添加数据
   static Future<int> addUser(User user) async {
+    if (connection.isClosed) {
+      await init();
+    }
     final String sql = insert(name, user.toJson());
     final int res =
         await connection.execute(sql, substitutionValues: user.toJson());
@@ -62,6 +69,9 @@ class PostgresUser {
   }
 
   static Future<User> checkUser(User user) async {
+    if (connection.isClosed) {
+      await init();
+    }
     final List<Map<String, Map<String, dynamic>>> result = await connection
         .mappedResultsQuery('select * from $name where id = ${user.id}');
 
@@ -80,6 +90,9 @@ class PostgresUser {
 
   //通过id查找user
   static Future<User> getOneWithId(int id) async {
+    if (connection.isClosed) {
+      await init();
+    }
     final List<Map<String, Map<String, dynamic>>> result = await connection
         .mappedResultsQuery('select * from $name where id = $id');
 
@@ -93,6 +106,9 @@ class PostgresUser {
 
   //更新数据
   static Future<int> updateUser(User user) async {
+    if (connection.isClosed) {
+      await init();
+    }
     final String sql = update(
         name,
         user.toJson(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/chat_self/chat_room/view.dart';
+import 'package:flutter_text/assembly_pack/chat_self/user_change/view.dart';
 import 'package:flutter_text/assembly_pack/chat_self/user_login/view.dart';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/model/db_user.dart';
@@ -61,7 +62,12 @@ class _ChatListState extends State<ChatListWidget> {
                   child: GestureDetector(
                     child: const Text('修改'),
                     onTap: () {
-
+                      NavigatorUtils.getXOfPush<bool>(context, UserChangePage())
+                          .then((bool value) {
+                        if (value == true) {
+                          getRoom();
+                        }
+                      });
                     },
                   ),
                 ),
