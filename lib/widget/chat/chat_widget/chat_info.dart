@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/datetime_utils.dart';
+import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:flutter_text/widget/api_call_back.dart';
@@ -36,10 +37,16 @@ class _ChatInfoState extends State<ChatInfoPage>
     super.initState();
     getTopicMsg((List<MessageModel> list) {
       msgs = list;
+      if (_scrollController.hasClients && _scrollController.position.maxScrollExtent > 0) {
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent + 35);
+      }
       setState(() {});
     });
     listener((MessageModel msg) {
       msgs.add(msg);
+      if (_scrollController.hasClients && _scrollController.position.maxScrollExtent > 0) {
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent + 35);
+      }
       if (mounted) {
         setState(() {});
       }
@@ -54,15 +61,22 @@ class _ChatInfoState extends State<ChatInfoPage>
         children: [
           Expanded(
             flex: 1,
-            child: ListView(
-              controller: _scrollController,
-              shrinkWrap: true,
-              children: msgs?.map((MessageModel e) {
+            child: RepaintBoundary(
+              child: GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
+                },
+                child: ListView(
+                  controller: _scrollController,
+                  shrinkWrap: true,
+                  children: msgs?.map((MessageModel e) {
                     return ChatMessage(
                       msg: e,
                     );
                   })?.toList() ??
-                  [],
+                      [],
+                ),
+              ),
             ),
           ),
           const Divider(height: 1.0),
@@ -165,8 +179,10 @@ class _ChatMessageState extends State<ChatMessage> {
   }
 
   void getUser() async {
-    user = await loadingCallback(() => UserCache().getCache(widget.msg.id));
-    setState(() {});
+    user = await UserCache().getCache(widget.msg.id);
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override

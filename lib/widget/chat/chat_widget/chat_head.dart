@@ -25,10 +25,14 @@ class _ChatHeadState extends State<ChatHeadPage>
   @override
   void initState() {
     super.initState();
+    getLastMsgWithTopic((MessageModel msg) {
+      lastMsg = msg;
+      setState(() {});
+    });
     listener((MessageModel msg) {
       lastMsg = msg;
       unRead = true;
-      if(mounted) {
+      if (mounted) {
         setState(() {});
       }
     });

@@ -31,6 +31,16 @@ mixin MessageCenter<T extends StatefulWidget> on State<T> {
     });
   }
 
+  Future<void> getLastMsgWithTopic(void Function(MessageModel msg) getLastMsg) async {
+    List<MessageModel> list = <MessageModel>[];
+    await getTopicMsg((List<MessageModel> getMsg) {
+      list = getMsg;
+    });
+    if (list.isNotEmpty == true) {
+      getLastMsg(list[list.length - 1]);
+    }
+  }
+
   //获取该主题下的所有消息
   Future<void> getTopicMsg(
       void Function(List<MessageModel> list) getMsg) async {

@@ -54,6 +54,18 @@ class _ChatListState extends State<ChatListWidget> {
                   ),
                 ),
               )
+            else
+              Center(
+                child: Container(
+                  margin: const EdgeInsets.only(right: 20),
+                  child: GestureDetector(
+                    child: const Text('修改'),
+                    onTap: () {
+
+                    },
+                  ),
+                ),
+              ),
           ],
         ),
         body: SingleChildScrollView(
