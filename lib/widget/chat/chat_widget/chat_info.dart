@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/datetime_utils.dart';
@@ -37,20 +38,24 @@ class _ChatInfoState extends State<ChatInfoPage>
     super.initState();
     getTopicMsg((List<MessageModel> list) {
       msgs = list;
-      if (_scrollController.hasClients && _scrollController.position.maxScrollExtent > 0) {
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent + 35);
-      }
+      onScrollBottom();
       setState(() {});
     });
     listener((MessageModel msg) {
       msgs.add(msg);
-      if (_scrollController.hasClients && _scrollController.position.maxScrollExtent > 0) {
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent + 35);
-      }
+      onScrollBottom();
       if (mounted) {
         setState(() {});
       }
     });
+  }
+
+  void onScrollBottom() {
+    Future<void>.delayed(const Duration(milliseconds: 16)).then((value) =>
+        _scrollController.animateTo(
+            _scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutQuart));
   }
 
   @override
