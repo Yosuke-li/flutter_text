@@ -57,7 +57,7 @@ dependencies:
   sqflite: ^1.3.1+1
   bot_toast: 4.0.0
   flutter_local_notifications: ^5.0.0+1
-  scrollable_positioned_list: ^0.1.9
+  scrollable_positioned_list: ^0.2.0-nullsafety.0
   wechat_assets_picker: ^5.5.3
   move_to_background: ^1.0.0
   lpinyin: ^1.0.9   # 汉字转拼音
@@ -71,6 +71,8 @@ dependencies:
   ota_update: ^3.0.2
   package_info: ^2.0.2
   postgres: ^2.3.2
+  epubx: ^3.0.0-dev.3
+  epub_view: ^2.1.0
 
 dev_dependencies:
   flutter_test:
@@ -96,6 +98,7 @@ flutter:
     - images/voice/
     - images/_cat_sky.jpg
     - assets/index.pdf
+    - assets/long14.epub
     - assets/data/
     - assets/dll/
 

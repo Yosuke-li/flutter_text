@@ -19,6 +19,8 @@ import 'package:flutter_text/assembly_pack/get_package.dart';
 import 'package:flutter_text/assembly_pack/group_list_page.dart';
 import 'package:flutter_text/assembly_pack/hello.dart';
 import 'package:flutter_text/assembly_pack/intro/intro.dart';
+import 'package:flutter_text/assembly_pack/j_book/book_shelf.dart';
+import 'package:flutter_text/assembly_pack/j_book/book_view.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/local_auth_check.dart';
 import 'package:flutter_text/assembly_pack/local_notification/view.dart';
@@ -1272,6 +1274,21 @@ class TabBarDemoState extends State<TabBarDemo>
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => SearchBook()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.book),
+                      title: Text(
+                        'equb阅读--',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => BookView()),
                         );
                       },
                     ),
