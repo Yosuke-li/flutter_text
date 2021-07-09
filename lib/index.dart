@@ -1293,6 +1293,21 @@ class TabBarDemoState extends State<TabBarDemo>
                       },
                     ),
                     ListTile(
+                      leading: const Icon(Icons.book),
+                      title: Text(
+                        '书架--',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => BookShelf()),
+                        );
+                      },
+                    ),
+                    ListTile(
                       leading: const Icon(Icons.video_library),
                       title: Text(
                         '梨视频--',

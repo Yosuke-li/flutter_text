@@ -73,6 +73,7 @@ dependencies:
   postgres: ^2.3.2
   epubx: ^3.0.0-dev.3
   epub_view: ^2.1.0
+  file_picker: ^3.0.3
 
 dev_dependencies:
   flutter_test:
