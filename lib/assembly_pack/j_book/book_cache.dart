@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:epub_view/epub_view.dart';
@@ -7,30 +8,31 @@ import 'package:flutter_text/utils/array_helper.dart';
 
 class BookModel {
   int id;
-  Uint8List book;
+  String bookPath;
   int index;
 
-  BookModel({this.book, this.index, this.id});
+  BookModel({this.bookPath, this.index, this.id});
 
   Map<String, dynamic> toJson() {
     var map = Map<String, dynamic>();
 
-    map['book'] = book;
+    map['bookPath'] = bookPath;
     map['id'] = id;
     map['index'] = index;
 
     return map;
   }
 
+  //todo Uint8List.fromList((json['book'] as List<dynamic>).cast<int>().toList());
   BookModel.fromJson(dynamic json) {
-    book = Uint8List.fromList((json['book'] as List<dynamic>).cast<int>().toList());
+    bookPath = json['bookPath'];
     index = json['index'];
     id = json['id'];
   }
 
   @override
   String toString() {
-    return 'BookModel[book=$book, index=$index, id=$id]';
+    return 'BookModel[bookPath=$bookPath, index=$index, id=$id]';
   }
 
   static List<BookModel> listFromJson(List<dynamic> json) {
@@ -68,7 +70,8 @@ class BookCache {
     final List<BookModel> allCache = await getAllCache();
     BookModel result;
     for (int i = 0; i<allCache.length; i++) {
-      final EpubBook book = await EpubReader.readBook(ArrayHelper.get(allCache, i).book);
+      final Uint8List byte = File(ArrayHelper.get(allCache, i).bookPath).readAsBytesSync();
+      final EpubBook book = await EpubReader.readBook(byte);
       if (book.Title == title) {
         result = ArrayHelper.get(allCache, i);
         break;
@@ -82,7 +85,7 @@ class BookCache {
     List<BookModel> newList = <BookModel>[];
     final List<BookModel> allCache = await getAllCache();
     allCache.add(data);
-    newList = ArrayHelper.unique(listData: allCache, getKey: (BookModel model) => model.book);
+    newList = ArrayHelper.unique(listData: allCache, getKey: (BookModel model) => model.id);
     LocateStorage.setStringWithExpire(_key ,
         jsonEncode(newList), const Duration(days: 1));
   }
@@ -93,7 +96,7 @@ class BookCache {
     final book = allCache.firstWhere((BookModel element) => element.id == id, orElse: () => null);
     book.index = index;
     allCache.add(book);
-    newList = ArrayHelper.unique(listData: allCache, getKey: (BookModel model) => model.book);
+    newList = ArrayHelper.unique(listData: allCache, getKey: (BookModel model) => model.id);
     LocateStorage.setStringWithExpire(_key ,
         jsonEncode(newList), const Duration(days: 1));
   }

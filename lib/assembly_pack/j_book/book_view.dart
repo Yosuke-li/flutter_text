@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:epub_view/epub_view.dart';
@@ -23,9 +24,10 @@ class _BookViewState extends State<BookView> {
 
   @override
   void initState() {
+    final Uint8List bytes = File(widget.book.bookPath).readAsBytesSync();
     _epubController = EpubController(
       // Load document
-      document: EpubReader.readBook(widget.book.book),
+      document: EpubReader.readBook(bytes),
     );
     setState(() {});
     super.initState();
