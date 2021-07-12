@@ -1280,21 +1280,6 @@ class TabBarDemoState extends State<TabBarDemo>
                     ListTile(
                       leading: const Icon(Icons.book),
                       title: Text(
-                        'equb阅读--',
-                        style: TextStyle(
-                          fontSize: screenUtil.adaptive(40),
-                        ),
-                      ),
-                      trailing: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => BookView()),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.book),
-                      title: Text(
                         '书架--',
                         style: TextStyle(
                           fontSize: screenUtil.adaptive(40),

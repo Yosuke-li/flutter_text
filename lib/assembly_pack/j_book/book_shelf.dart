@@ -4,12 +4,11 @@ import 'dart:typed_data';
 import 'package:epubx/epubx.dart' as epub;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_text/assembly_pack/canvas_paint.dart';
 import 'package:flutter_text/assembly_pack/j_book/book_helper.dart';
 import 'package:flutter_text/assembly_pack/j_book/book_view.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/utils/lock.dart';
+import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/widget/api_call_back.dart';
@@ -28,7 +27,6 @@ class BookShelfWithId {
 
 class _BookShelfState extends State<BookShelf> {
   final List<BookModel> _book = <BookModel>[];
-  final List<BookShelfWithId> bookShelfList = <BookShelfWithId>[];
 
   final Lock lock = Lock();
 
@@ -40,23 +38,8 @@ class _BookShelfState extends State<BookShelf> {
 
   Future<void> onRead() async {
     List<BookModel> getCache = [];
-    List<BookShelfWithId> bookShelfs = <BookShelfWithId>[];
-    getCache = await loadingCallback(() => BookCache().getAllCache());
-    await loadingCallback(
-      () => lock.mutex(() async {
-        for (int i = 0; i < getCache.length; i++) {
-          final BookModel cache = ArrayHelper.get(getCache, i);
-          final Uint8List bookByte = File(cache.bookPath).readAsBytesSync();
-          final epub.EpubBook epubBook =
-              await epub.EpubReader.readBook(bookByte);
-          bookShelfs.add(BookShelfWithId()
-            ..id = cache.id
-            ..epubBook = epubBook);
-        }
-      }),
-    );
+    getCache = await loadingCallback(() => BookCache.getAllCache());
     _book.addAll(getCache);
-    bookShelfList.addAll(bookShelfs);
     setState(() {});
   }
 
@@ -71,23 +54,20 @@ class _BookShelfState extends State<BookShelf> {
       final List<File> files = result.paths.map((String e) => File(e)).toList();
       final List<File> locateFile = await BookHelper.setAppLocateFile(files);
       final List<BookModel> books = <BookModel>[];
-      final List<BookShelfWithId> bookShelfs = <BookShelfWithId>[];
       for (int i = 0; i < locateFile.length; i++) {
         final Uint8List unit8 = ArrayHelper.get(locateFile, i).readAsBytesSync();
         final epub.EpubBook epubBook = await epub.EpubReader.readBook(unit8);
+        final String image = await BookHelper.getCoverImageWithFile(epubBook.Content.Images.values.first.Content);
         final BookModel model = BookModel()
           ..id = epubBook.hashCode
+          ..coverImage = image
+          ..title = epubBook.Title
           ..bookPath = ArrayHelper.get(locateFile, i).path
           ..index = 0;
-        final BookShelfWithId bookShelfWithId = BookShelfWithId()
-          ..id = epubBook.hashCode
-          ..epubBook = epubBook;
-        BookCache().setCache(model);
+        BookCache.setCache(model);
         books.add(model);
-        bookShelfs.add(bookShelfWithId);
       }
       _book.addAll(books);
-      bookShelfList.addAll(bookShelfs);
       setState(() {});
     }
   }
@@ -112,60 +92,55 @@ class _BookShelfState extends State<BookShelf> {
         ],
       ),
       body: SingleChildScrollView(
-        child: GridView.custom(
-          shrinkWrap: true,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            mainAxisExtent: 250,
-            mainAxisSpacing: 10.0,
-            crossAxisSpacing: 1.0,
-          ),
-          childrenDelegate:
-              SliverChildBuilderDelegate((BuildContext context, int index) {
-            final int id = ArrayHelper.get(_book, index).id;
-            final epub.EpubBook book = bookShelfList
-                .firstWhere((BookShelfWithId element) => element.id == id,
-                    orElse: (null))
-                ?.epubBook;
-            return InkWell(
-              onLongPress: () {
-                BookCache().deleteCache(id);
-                _book.removeWhere((BookModel element) => element.id == id);
-                bookShelfList
-                    .removeWhere((BookShelfWithId element) => element.id == id);
-                setState(() {});
-              },
-              onTap: () {
-                NavigatorUtils.pushWidget<int>(
-                    context,
-                    BookView(
-                      book: ArrayHelper.get(_book, index),
-                    )).then((int val) {
-                  if (val != null) {
-                    ArrayHelper.get(_book, index).index = val;
-                  }
-                });
-              },
-              child: Container(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: book.Content.Images['Images/001.jpg'] != null
-                          ? Image.memory(
-                              Uint8List.fromList(book
-                                  .Content.Images['Images/001.jpg'].Content),
-                              fit: BoxFit.fitWidth,
-                            )
-                          : Container(),
-                    ),
-                    Container(
-                      child: Text('${book.Title ?? ''}'),
-                    ),
-                  ],
+        child: RepaintBoundary(
+          child: GridView.custom(
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              mainAxisExtent: 250,
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 1.0,
+            ),
+            childrenDelegate:
+            SliverChildBuilderDelegate((BuildContext context, int index) {
+              final BookModel book = ArrayHelper.get(_book, index);;
+              return InkWell(
+                onLongPress: () {
+                  BookCache.deleteCache(book.id);
+                  _book.removeWhere((BookModel element) => element.id == book.id);
+                  setState(() {});
+                },
+                onTap: () {
+                  NavigatorUtils.pushWidget<int>(
+                      context,
+                      BookView(
+                        book: ArrayHelper.get(_book, index),
+                      )).then((int val) {
+                    if (val != null) {
+                      ArrayHelper.get(_book, index).index = val;
+                    }
+                  });
+                },
+                child: Container(
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: book.coverImage != null
+                            ? Image.file(
+                          File(book.coverImage),
+                          fit: BoxFit.fitWidth,
+                        )
+                            : Container(),
+                      ),
+                      Container(
+                        child: Text('${book.title ?? ''}'),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          }, childCount: _book.length ?? 0),
+              );
+            }, childCount: _book.length ?? 0),
+          ),
         ),
       ),
     );
