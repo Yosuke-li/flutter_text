@@ -12,7 +12,7 @@ void main() {
   runApp(TextT());
 }
 
-class TextT extends StatefulWidget {
+class   TextT extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }

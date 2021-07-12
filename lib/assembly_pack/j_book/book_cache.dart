@@ -5,20 +5,23 @@ import 'dart:typed_data';
 import 'package:epub_view/epub_view.dart';
 import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/utils/array_helper.dart';
+import 'package:flutter_text/utils/datetime_utils.dart';
 
 class BookModel {
   int id;
   String bookPath;
   int index;
+  int updateTime;
   String title;
   String coverImage;
 
-  BookModel({this.bookPath, this.index, this.id, this.title, this.coverImage});
+  BookModel({this.bookPath, this.index, this.id, this.title, this.coverImage, this.updateTime});
 
   Map<String, dynamic> toJson() {
     var map = Map<String, dynamic>();
 
     map['bookPath'] = bookPath;
+    map['updateTime'] = updateTime;
     map['title'] = title;
     map['coverImage'] = coverImage;
     map['id'] = id;
@@ -32,13 +35,14 @@ class BookModel {
     bookPath = json['bookPath'];
     index = json['index'];
     coverImage = json['coverImage'];
+    updateTime = json['updateTime'];
     title = json['title'];
     id = json['id'];
   }
 
   @override
   String toString() {
-    return 'BookModel[bookPath=$bookPath, index=$index, id=$id, coverImage=$coverImage, title=$title]';
+    return 'BookModel[bookPath=$bookPath, index=$index, id=$id, coverImage=$coverImage, title=$title, updateTime=$updateTime]';
   }
 
   static List<BookModel> listFromJson(List<dynamic> json) {
@@ -50,6 +54,11 @@ class BookModel {
 
 class BookCache {
   static const String _key = 'book_cache';
+
+  static Future<void> clear() async {
+    final String hasKey = LocateStorage.getOneKey(_key);
+    LocateStorage.clean(key: hasKey);
+  }
 
   @override
   static Future<void> deleteCache(int id) async {
@@ -97,8 +106,9 @@ class BookCache {
   static Future<void> updateIndex({int id, int index}) async {
     List<BookModel> newList = <BookModel>[];
     final List<BookModel> allCache = await getAllCache();
-    final book = allCache.firstWhere((BookModel element) => element.id == id, orElse: () => null);
+    final BookModel book = allCache.firstWhere((BookModel element) => element.id == id, orElse: () => null);
     book.index = index;
+    book.updateTime = DateTimeHelper.getLocalTimeStamp();
     allCache.add(book);
     newList = ArrayHelper.unique(listData: allCache, getKey: (BookModel model) => model.id);
     LocateStorage.setStringWithExpire(_key ,
