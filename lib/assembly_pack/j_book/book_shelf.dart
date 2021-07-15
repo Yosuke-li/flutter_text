@@ -50,7 +50,7 @@ class _BookShelfState extends State<BookShelf> {
         FilePicker.platform.pickFiles(
             allowMultiple: true,
             type: FileType.custom,
-            allowedExtensions: ['epub']));
+            allowedExtensions: ['epub, txt, pdf']));
 
     if (result != null) {
       final List<File> files = result.paths.map((String e) => File(e)).toList();
@@ -99,7 +99,9 @@ class _BookShelfState extends State<BookShelf> {
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.only(
-              right: screenUtil.adaptive(15), left: screenUtil.adaptive(15)),
+            right: screenUtil.adaptive(15),
+            left: screenUtil.adaptive(15),
+          ),
           child: RepaintBoundary(
             child: GridView.custom(
               shrinkWrap: true,
@@ -130,7 +132,8 @@ class _BookShelfState extends State<BookShelf> {
                       if (val != null) {
                         book.index = val;
                         book.updateTime = DateTimeHelper.getLocalTimeStamp();
-                        _book.sort((BookModel a, BookModel b) => b.updateTime - a.updateTime);
+                        _book.sort((BookModel a, BookModel b) =>
+                            b.updateTime - a.updateTime);
                         setState(() {});
                       }
                     });

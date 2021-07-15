@@ -64,15 +64,15 @@ class BookCache {
   static Future<void> deleteCache(int id) async {
     final List<BookModel> allCache = await getAllCache();
     allCache.removeWhere((BookModel element) => element.id == id);
-    LocateStorage.setStringWithExpire(_key,
-        jsonEncode(allCache), const Duration(days: 1));
+    LocateStorage.setString(_key,
+        jsonEncode(allCache));
   }
 
   @override
   static Future<List<BookModel>> getAllCache() async {
     List<BookModel> result = <BookModel>[];
     final String json =
-    LocateStorage.getStringWithExpire(_key);
+    LocateStorage.getString(_key);
     print(json);
     if (json != null && json.isNotEmpty == true) {
       result = BookModel.listFromJson(jsonDecode(json));
@@ -99,8 +99,8 @@ class BookCache {
     final List<BookModel> allCache = await getAllCache();
     allCache.add(data);
     newList = ArrayHelper.unique(listData: allCache, getKey: (BookModel model) => model.id);
-    LocateStorage.setStringWithExpire(_key ,
-        jsonEncode(newList), const Duration(days: 1));
+    LocateStorage.setString(_key ,
+        jsonEncode(newList));
   }
 
   static Future<void> updateIndex({int id, int index}) async {
@@ -111,7 +111,7 @@ class BookCache {
     book.updateTime = DateTimeHelper.getLocalTimeStamp();
     allCache.add(book);
     newList = ArrayHelper.unique(listData: allCache, getKey: (BookModel model) => model.id);
-    LocateStorage.setStringWithExpire(_key ,
-        jsonEncode(newList), const Duration(days: 1));
+    LocateStorage.setString(_key ,
+        jsonEncode(newList));
   }
 }

@@ -17,7 +17,7 @@ class FileUtils {
   ///path 为额外路径
   ///格式必需为 /pathA/pathB/
   ///已斜杠开始,并且斜杠结尾
-  static Future<File> generateRandomTempFile(
+static Future<File> generateRandomTempFile(
       {String path = '/', String fileType}) async {
     String tempFilePath =
         await generateRandomTempFilePath(path: path, fileType: fileType);
