@@ -144,7 +144,7 @@ class _ToolState extends State<Tool> {
                 padding: const EdgeInsets.only(left: 4),
                 child: Text(
                   groupName,
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                  style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
               )
             ],
