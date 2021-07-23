@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/utils/api_exception.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
+import 'package:flutter_text/widget/keyboard/security_keyboard.dart';
 import 'package:flutter_text/widget/navigator_helper.dart';
 import 'assembly_pack/event_bus/event_util.dart';
 import 'index.dart';
 import 'utils/init.dart';
 
 Future<void> main() async {
+  SecurityKeyboard.register();
   runZonedGuarded<Future<void>>(() async {
     FlutterError.onError = _errorHandler;
     runApp(Assembly());

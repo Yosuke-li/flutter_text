@@ -60,6 +60,7 @@ import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:flutter_text/utils/utils.dart';
 import 'package:flutter_text/widget/app_lifecycle_widget.dart';
 import 'package:flutter_text/widget/chat/helper/user/user_db.dart';
+import 'package:flutter_text/widget/keyboard/keyboard_root.dart';
 import 'package:flutter_text/widget/modal_utils.dart';
 import 'package:flutter_text/widget/navigator_helper.dart';
 import 'package:flutter_text/widget/notification_center/notification_widget.dart';
@@ -105,9 +106,9 @@ class Assembly extends StatelessWidget {
           child: AppLifecycleWidget(
             child: ModalStyleWidget(
               child: MaterialApp(
-                builder: (BuildContext c, Widget child) {
-                  return toastWidget(c, TabBarDemo());
-                },
+                builder: BotToastInit(),
+                navigatorObservers: <NavigatorObserver>[BotToastNavigatorObserver()],
+                home: KeyboardRootWidget(child: TabBarDemo(),),
               ),
             ),
           ),

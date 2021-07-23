@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/chat_self/user_register/view.dart';
 import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/utils/screen.dart';
+import 'package:flutter_text/widget/keyboard/security_keyboard.dart';
 import 'package:get/get.dart';
 
 import 'logic.dart';
@@ -43,7 +44,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
             Container(
               padding: const EdgeInsets.all(20),
               child: TextField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: SecurityKeyboard.number,
                   controller: state.idController,
                   decoration: const InputDecoration(helperText: '请输入id'),
                   onSubmitted: (String value) {
