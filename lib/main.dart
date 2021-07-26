@@ -10,7 +10,7 @@ import 'index.dart';
 import 'utils/init.dart';
 
 Future<void> main() async {
-  SecurityKeyboard.register();
+  SecurityKeyboardCenter.register();
   runZonedGuarded<Future<void>>(() async {
     FlutterError.onError = _errorHandler;
     runApp(Assembly());
