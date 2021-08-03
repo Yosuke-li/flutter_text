@@ -56,6 +56,7 @@ import 'package:flutter_text/utils/mqtt_helper.dart';
 import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/utils/permission.dart';
 import 'package:flutter_text/utils/screen.dart';
+import 'package:flutter_text/utils/test.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:flutter_text/utils/utils.dart';
 import 'package:flutter_text/widget/app_lifecycle_widget.dart';
@@ -64,6 +65,7 @@ import 'package:flutter_text/widget/keyboard/keyboard_root.dart';
 import 'package:flutter_text/widget/modal_utils.dart';
 import 'package:flutter_text/widget/navigator_helper.dart';
 import 'package:flutter_text/widget/notification_center/notification_widget.dart';
+import 'package:flutter_text/widget/three_d_widget.dart';
 import 'package:flutter_text/widget/window.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -107,8 +109,12 @@ class Assembly extends StatelessWidget {
             child: ModalStyleWidget(
               child: MaterialApp(
                 builder: BotToastInit(),
-                navigatorObservers: <NavigatorObserver>[BotToastNavigatorObserver()],
-                home: KeyboardRootWidget(child: TabBarDemo(),),
+                navigatorObservers: <NavigatorObserver>[
+                  BotToastNavigatorObserver()
+                ],
+                home: KeyboardRootWidget(
+                  child: TabBarDemo(),
+                ),
               ),
             ),
           ),
@@ -177,9 +183,19 @@ class TabBarDemoState extends State<TabBarDemo>
     });
   }
 
+  Image getImage(String s) {
+    return Image.asset(
+      'assets/banner/$s',
+      width: MediaQuery.of(context).size.width,
+      height: 200,
+      fit: BoxFit.fill,
+      scale: 3.0,
+    );
+  }
+
   @override
   Widget build(BuildContext viewContext) {
-    return WillPopScope(child: GetMaterialApp(
+    return GetMaterialApp(
       showPerformanceOverlay: GlobalStore.isShowOverlay ?? false,
       title: 'Flutter Study',
       navigatorObservers: <NavigatorObserver>[BotToastNavigatorObserver()],
@@ -194,6 +210,26 @@ class TabBarDemoState extends State<TabBarDemo>
               RepaintBoundary(
                 child: ListView(
                   children: <Widget>[
+                    RepaintBoundary(
+                      child: InteractionalWidget(
+                        width: MediaQuery.of(context).size.width,
+                        height: 200,
+                        maxAngleY: 30,
+                        maxAngleX: 40,
+                        middleScale: 1,
+                        foregroundScale: 1.1,
+                        backgroundScale: 1.3,
+                        backgroundWidget: Container(
+                          child: getImage('back.png'),
+                        ),
+                        middleWidget: Container(
+                          child: getImage('mid.png'),
+                        ),
+                        foregroundWidget: Container(
+                          child: getImage('fore.png'),
+                        ),
+                      ),
+                    ),
                     ListTile(
                       leading: const Icon(Icons.chat),
                       title: Text(
@@ -252,7 +288,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 3);
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => videoIndex()),
+                          MaterialPageRoute(
+                              builder: (context) => videoIndex()),
                         );
                       },
                     ),
@@ -267,7 +304,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 4);
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => VideoList()),
+                          MaterialPageRoute(
+                              builder: (context) => VideoList()),
                         );
                       },
                     ),
@@ -298,7 +336,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 6);
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => PdfRead()),
+                          MaterialPageRoute(
+                              builder: (context) => PdfRead()),
                         );
                       },
                     ),
@@ -313,7 +352,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 7);
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => pdfView()),
+                          MaterialPageRoute(
+                              builder: (context) => pdfView()),
                         );
                       },
                     ),
@@ -439,7 +479,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 14);
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => SchemeText()),
+                          MaterialPageRoute(
+                              builder: (context) => SchemeText()),
                         );
                       },
                     ),
@@ -469,7 +510,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       ),
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 16);
-                        NavigatorUtils.pushWidget(context, LocalNotification());
+                        NavigatorUtils.pushWidget(
+                            context, LocalNotification());
                       },
                     ),
                     ListTile(
@@ -497,7 +539,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       ),
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 18);
-                        NavigatorUtils.pushWidget(context, ProviderTextPage());
+                        NavigatorUtils.pushWidget(
+                            context, ProviderTextPage());
                       },
                     ),
                     ListTile(
@@ -524,7 +567,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       ),
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 20);
-                        NavigatorUtils.pushWidget(context, BlocTextWidget());
+                        NavigatorUtils.pushWidget(
+                            context, BlocTextWidget());
                       },
                     ),
                     ListTile(
@@ -537,7 +581,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       ),
                       onTap: () async {
                         //todo market://需要后面对应的app才能打开,只有details也不行
-                        launch('market://details?id=com.example.exhibition');
+                        launch(
+                            'market://details?id=com.example.exhibition');
                       },
                     ),
                     ListTile(
@@ -575,7 +620,8 @@ class TabBarDemoState extends State<TabBarDemo>
               RepaintBoundary(
                 child: Container(
                   child: ListView(
-                      children: ListTile.divideTiles(context: context, tiles: [
+                      children:
+                      ListTile.divideTiles(context: context, tiles: [
                         ListTile(
                           leading: const Icon(Icons.keyboard),
                           title: Text(
@@ -589,6 +635,23 @@ class TabBarDemoState extends State<TabBarDemo>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => SlidingUpText()),
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.keyboard),
+                          title: Text(
+                            '金融list',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      DemoPage(MediaQuery.of(context).size)),
                             );
                           },
                         ),
@@ -743,7 +806,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => ScanBook()),
+                              MaterialPageRoute(
+                                  builder: (context) => ScanBook()),
                             );
                           },
                         ),
@@ -821,7 +885,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => layoutRow()),
+                              MaterialPageRoute(
+                                  builder: (context) => layoutRow()),
                             );
                           },
                         ),
@@ -888,7 +953,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => gridView()),
+                              MaterialPageRoute(
+                                  builder: (context) => gridView()),
                             );
                           },
                         ),
@@ -974,7 +1040,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => LayoutDemo()),
+                              MaterialPageRoute(
+                                  builder: (context) => LayoutDemo()),
                             );
                           },
                         ),
@@ -989,7 +1056,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => bottomBar()),
+                              MaterialPageRoute(
+                                  builder: (context) => bottomBar()),
                             );
                           },
                         ),
@@ -1004,7 +1072,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => PopupMenu()),
+                              MaterialPageRoute(
+                                  builder: (context) => PopupMenu()),
                             );
                           },
                         ),
@@ -1019,7 +1088,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => FormText()),
+                              MaterialPageRoute(
+                                  builder: (context) => FormText()),
                             );
                           },
                         ),
@@ -1034,7 +1104,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => DragText()),
+                              MaterialPageRoute(
+                                  builder: (context) => DragText()),
                             );
                           },
                         ),
@@ -1065,7 +1136,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => LiquidText()),
+                              MaterialPageRoute(
+                                  builder: (context) => LiquidText()),
                             );
                           },
                         ),
@@ -1112,7 +1184,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => PickImage()),
+                              MaterialPageRoute(
+                                  builder: (context) => PickImage()),
                             );
                           },
                         ),
@@ -1127,7 +1200,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => curvedBar()),
+                              MaterialPageRoute(
+                                  builder: (context) => curvedBar()),
                             );
                           },
                         ),
@@ -1142,7 +1216,8 @@ class TabBarDemoState extends State<TabBarDemo>
                           trailing: const Icon(Icons.keyboard_arrow_right),
                           onTap: () {
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => bannerDemo()),
+                              MaterialPageRoute(
+                                  builder: (context) => bannerDemo()),
                             );
                           },
                         ),
@@ -1274,7 +1349,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       trailing: const Icon(Icons.keyboard_arrow_right),
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => SearchBook()),
+                          MaterialPageRoute(
+                              builder: (context) => SearchBook()),
                         );
                       },
                     ),
@@ -1289,7 +1365,8 @@ class TabBarDemoState extends State<TabBarDemo>
                       trailing: const Icon(Icons.keyboard_arrow_right),
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => BookShelf()),
+                          MaterialPageRoute(
+                              builder: (context) => BookShelf()),
                         );
                       },
                     ),
@@ -1329,20 +1406,11 @@ class TabBarDemoState extends State<TabBarDemo>
               currentIndex = index;
             });
             tabController.animateTo(index,
-                duration: Duration(milliseconds: 300), curve: Curves.linear);
+                duration: Duration(milliseconds: 300),
+                curve: Curves.linear);
           },
         ),
       ),
-    ), onWillPop: () async {
-      if (lastPressedAt == null ||
-          lastPressedAt != 3) {
-        //两次点击间隔超过1秒则重新计时
-        Timer(Duration(seconds: 1), () => lastPressedAt++);
-        ToastUtils.showToast(msg: '再次点击退出应用');
-        return false;
-      }
-      lastPressedAt = 0;
-      return true;
-    });
+    );
   }
 }
