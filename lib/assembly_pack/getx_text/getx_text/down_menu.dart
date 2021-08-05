@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/widget/self_down_menu.dart';
 
 class DownMenuWidget extends StatefulWidget {
   String select;
@@ -19,10 +20,11 @@ class _DownMenuWidget extends State<DownMenuWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton(
+    return ACEDropdownButton(
         value: widget.select ?? '',
+        isChecked: true,
         items: widget.menus?.map((e) {
-          return DropdownMenuItem(
+          return ACEDropdownMenuItem(
               child: Text(e), value: e);
         })?.toList() ??
             [],
