@@ -50,7 +50,7 @@ class _BookShelfState extends State<BookShelf> {
         FilePicker.platform.pickFiles(
             allowMultiple: true,
             type: FileType.custom,
-            allowedExtensions: ['epub, txt, pdf']));
+            allowedExtensions: ['epub']));
 
     if (result != null) {
       final List<File> files = result.paths.map((String e) => File(e)).toList();

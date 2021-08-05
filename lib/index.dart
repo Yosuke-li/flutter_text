@@ -82,6 +82,7 @@ import 'assembly_pack/local_notification/list_view.dart';
 import 'assembly_pack/management/home_page/home_page.dart';
 import 'assembly_pack/provider/view.dart';
 import 'assembly_pack/range_slider.dart';
+import 'assembly_pack/search_page.dart';
 import 'assembly_pack/slideing_panel.dart';
 import 'assembly_pack/slider.dart';
 import 'assembly_pack/layout_row.dart';
@@ -635,6 +636,22 @@ class TabBarDemoState extends State<TabBarDemo>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => SlidingUpText()),
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.keyboard),
+                          title: Text(
+                            '搜索',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => SearchDemoPage()),
                             );
                           },
                         ),
