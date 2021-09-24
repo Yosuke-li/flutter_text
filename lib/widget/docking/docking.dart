@@ -236,7 +236,7 @@ class _DockingTabsWidgetState
             buildDraggable(tab.value as DockingItem, tabWidget),
         onTabSelection: (int index) {
           lastSelectedTabIndex = index;
-        }, theme: widget.theme);
+        });
 
     DockingState state = DockingState.of(context);
     if (state.dragging) {

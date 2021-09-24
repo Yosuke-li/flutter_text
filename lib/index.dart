@@ -13,6 +13,7 @@ import 'package:flutter_text/assembly_pack/chat_self/chat_list.dart';
 import 'package:flutter_text/assembly_pack/connected/connect_data.dart';
 import 'package:flutter_text/assembly_pack/curved_bar.dart';
 import 'package:flutter_text/assembly_pack/db_register/register.dart';
+import 'package:flutter_text/assembly_pack/dll_text/dll_text.dart';
 import 'package:flutter_text/assembly_pack/drag_list.dart';
 import 'package:flutter_text/assembly_pack/flutter_picker.dart';
 import 'package:flutter_text/assembly_pack/get_package.dart';
@@ -77,9 +78,11 @@ import 'package:flutter_text/assembly_pack/canvas_paint.dart';
 import 'package:flutter_text/assembly_pack/stepper.dart';
 
 import 'assembly_pack/event_bus/event_util.dart';
+import 'assembly_pack/focus_page.dart';
 import 'assembly_pack/getx_text/getx_text/view.dart';
 import 'assembly_pack/local_notification/list_view.dart';
 import 'assembly_pack/management/home_page/home_page.dart';
+import 'assembly_pack/ota_update_text.dart';
 import 'assembly_pack/provider/view.dart';
 import 'assembly_pack/range_slider.dart';
 import 'assembly_pack/search_page.dart';
@@ -604,6 +607,21 @@ class TabBarDemoState extends State<TabBarDemo>
                       },
                     ),
                     ListTile(
+                      leading: const Icon(Icons.dirty_lens),
+                      title: Text(
+                        'dll 测试页面',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute<void>(
+                              builder: (_) => DllTextPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
                       leading: const Icon(Icons.timer),
                       title: Text(
                         '点击id ${tapTimes ?? 0}',
@@ -636,6 +654,22 @@ class TabBarDemoState extends State<TabBarDemo>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => SlidingUpText()),
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.keyboard),
+                          title: Text(
+                            'text',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => OtaUpdateWidget()),
                             );
                           },
                         ),

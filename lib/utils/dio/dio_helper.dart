@@ -67,7 +67,7 @@ class Request {
   static void setProxy() {
     (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client){
       client.findProxy = (Uri url){
-        return 'PROXY ${GlobalStore.homeIp}:8888';
+        return 'PROXY ${GlobalStore.companyIp}:8888';
       };
       //抓Https包设置
       client.badCertificateCallback =

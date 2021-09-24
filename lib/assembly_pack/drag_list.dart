@@ -35,7 +35,7 @@ class DragDemoState extends State<DragDemo> {
         //height
         scrollDirection: Axis.vertical,
         //数据方向
-        itemBuilder: (context, item, handle) {
+        itemBuilder: (context, DragItem item, Widget handle) {
           //or builder: (context, item, handle) handle是拖动点
           return Container(
             height: 72,

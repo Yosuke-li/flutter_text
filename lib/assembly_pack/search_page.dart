@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:searchfield/searchfield.dart';
+import 'package:flutter_text/utils/screen.dart';
+import 'package:flutter_text/widget/search_field.dart';
 
 /// 搜索 demo
 
@@ -76,14 +77,26 @@ class _SearchDemoPageState extends State<SearchDemoPage> {
           SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+
+          Container(
+            width: 200,
             child: SearchField(
               suggestions: _suggestions,
               controller: _searchController,
+              width: screenUtil.adaptive(200),
               hint: 'SearchField Sample 1',
+              searchInputDecoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red),
+                ),
+              ),
               initialValue: _suggestions[2],
-              maxSuggestionsInViewPort: 3,
+              maxSuggestionsInViewPort: 4,
               itemHeight: 45,
               onTap: (x) {
                 print('selected =$x ${_searchController.text}');
@@ -97,34 +110,37 @@ class _SearchDemoPageState extends State<SearchDemoPage> {
             padding: const EdgeInsets.all(8.0),
             child: Form(
               key: _formKey,
-              child: SearchField(
-                suggestions: _statesOfIndia,
-                hint: 'SearchField Sample 2',
-                searchStyle: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black.withOpacity(0.8),
-                ),
-                validator: (x) {
-                  if (!_statesOfIndia.contains(x) || x.isEmpty) {
-                    return 'Please Enter a valid State';
-                  }
-                  return null;
-                },
-                searchInputDecoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.black.withOpacity(0.8),
+              child: Container(
+                width: screenUtil.adaptive(200),
+                child: SearchField(
+                  suggestions: _statesOfIndia,
+                  hint: 'SearchField Sample 2',
+                  searchStyle: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black.withOpacity(0.8),
+                  ),
+                  validator: (x) {
+                    if (!_statesOfIndia.contains(x) || x.isEmpty) {
+                      return 'Please Enter a valid State';
+                    }
+                    return null;
+                  },
+                  searchInputDecoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black.withOpacity(0.8),
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
                     ),
                   ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red),
-                  ),
+                  maxSuggestionsInViewPort: 6,
+                  itemHeight: 50,
+                  onTap: (x) {
+                    print(x);
+                  },
                 ),
-                maxSuggestionsInViewPort: 6,
-                itemHeight: 50,
-                onTap: (x) {
-                  print(x);
-                },
               ),
             ),
           ),
@@ -199,6 +215,67 @@ class _SearchDemoPageState extends State<SearchDemoPage> {
               onTap: (x) {
                 print(x);
               },
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Color(0xffffffff),
+              border: Border.all(
+                color: Color(0xE6797979),
+                width: 1.0,
+              ),
+            ),
+            child: SearchField(
+              suggestions: _suggestions,
+              controller: _searchController,
+              width: screenUtil.adaptive(200),
+              textHeight: screenUtil.adaptive(30),
+              hint: 'SearchField Sample 1',
+              initialValue: _suggestions[2],
+              maxSuggestionsInViewPort: 4,
+              itemHeight: screenUtil.adaptive(30),
+              onTap: (x) {
+                print('selected =$x ${_searchController.text}');
+              },
+            ),
+          ),
+
+          Container(
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  margin: EdgeInsets.only(
+                      top: screenUtil.adaptive(15),
+                      bottom: screenUtil.adaptive(10)),
+                  child: Text(
+                    '价格',
+                    style: TextStyle(
+                        color: Color(0xBFffffff),
+                        fontSize: screenUtil.adaptive(18)),
+                  ),
+                ),
+                Container(decoration: BoxDecoration(
+                  color: Color(0xffffffff),
+                  border: Border.all(
+                    color: Color(0xE6797979),
+                    width: 1.0,
+                  ),
+                ),
+                  child: SearchField(
+                    suggestions: _suggestions,
+                    controller: _searchController,
+                    width: screenUtil.adaptive(122),
+                    initialValue: _suggestions[2],
+                    maxSuggestionsInViewPort: 3,
+                    textHeight: screenUtil.adaptive(30),
+                    itemHeight: screenUtil.adaptive(30),
+                    onTap: (x) {
+                      print('selected =$x ${_searchController.text}');
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
           Container(

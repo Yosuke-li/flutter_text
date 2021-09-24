@@ -36,25 +36,25 @@ class _ManageListPageState extends State<ManageListPage> {
           CommonForm<User>(
             columns: [
               FormColumn<User>(
-                  title: 'id',
+                  title: const Text('id'),
                   builder: (_, v) => Container(
                     child: Text('${v.id ?? ''}'),
                   ),
               ),
               FormColumn<User>(
-                  title: '姓名',
+                  title: const Text('姓名'),
                   builder: (_, v) => Container(
                     child: Text('${v.name ?? ''}'),
                   ),
               ),
               FormColumn<User>(
-                  title: '详情',
+                  title: const Text('详情'),
                   builder: (_, v) => Container(
                     child: Text('${v.desc ?? ''}'),
                   ),
               ),
               FormColumn<User>(
-                  title: '操作',
+                  title: const Text('操作'),
                   builder: (_, v) => GestureDetector(
                     child: const Icon(Icons.edit),
                   ),

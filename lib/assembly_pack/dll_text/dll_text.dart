@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:ffi' as ffi;
 import 'package:call/call.dart';
+import 'package:flutter_text/utils/log_utils.dart';
 
 ///just use windows
 
-typedef FuncVersion = ffi.Void Function();
-typedef FuncDartV = void Function();
+typedef FuncVersion = ffi.Int32 Function();
+typedef FuncDartV = int Function();
 
 
 class DllTextPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class DllTextPage extends StatefulWidget {
 }
 
 class _DllTextPageState extends State<DllTextPage> {
-  dynamic version;
+  Function() version;
 
   @override
   void initState() {
@@ -27,9 +28,10 @@ class _DllTextPageState extends State<DllTextPage> {
   }
 
   void _setVoid() {
-    final ffi.DynamicLibrary dll = getDyLibModule('assets/dll/HsFutuSystemInfo.dll');
-    final FuncDartV getVersion = dll.lookupFunction<FuncVersion, FuncDartV>('hundsun_getversion');
-    print(getVersion);
+    var dll = getDyLibModule('assets/dll/HsFutuSystemInfo.dll');
+    Log.info(dll);
+    var getVersion = dll.lookupFunction<FuncVersion, FuncDartV>('hundsun_getversion');
+    Log.info('version: ${getVersion()}');
     version = getVersion;
     setState(() {});
   }
@@ -37,8 +39,11 @@ class _DllTextPageState extends State<DllTextPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('dll 测试'),
+      ),
       body: Center(
-        child: Text('getVersion: $version'),
+        child: Text('getVersion: ${version()}'),
       ),
     );
   }

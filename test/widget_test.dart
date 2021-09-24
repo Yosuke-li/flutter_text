@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_text/utils/lock.dart';
+import 'package:flutter_text/utils/singleton.dart';
 import 'package:lpinyin/lpinyin.dart';
 
 void main() {
@@ -40,7 +41,21 @@ void main() {
     expect(i,5);
   });
 
-  test('', () {
+  //单例
+  test('SingleTon', () async {
+    final SingleTon a = SingleTon('a');
+    final SingleTon b = SingleTon('b');
+    final SingleTon c = SingleTon('c');
 
+    a.test();
+    b.test();
+    c.test();
+
+    // print(identical(a, b));
+    // print(a == b);
+
+    // a 测试
+    // a 测试
+    // a 测试
   });
 }

@@ -217,10 +217,10 @@ class ChatSceneState extends State<ChatScene> {
                   PopupMenuItem(
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => const VideoChat(
-                                  channelName: '12345',
-                                )));
+                        // Navigator.of(context).push(MaterialPageRoute(
+                        //     builder: (BuildContext context) => const VideoChat(
+                        //           channelName: '12345',
+                        //         )));
                       },
                       child: const Text('进入视频聊天'),
                     ),

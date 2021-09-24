@@ -20,7 +20,7 @@ class _CheckRoomState extends State<CheckRoomId> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('选择RoomId'),
+        title: const Text('选择RoomId'),
       ),
       body: Center(
         child: Column(
@@ -34,7 +34,7 @@ class _CheckRoomState extends State<CheckRoomId> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text('视频通话模式'),
+                      const Text('视频通话模式'),
                       Checkbox(
                         value: is_video_chat,
                         onChanged: (val) {
@@ -69,13 +69,13 @@ class _CheckRoomState extends State<CheckRoomId> {
             RaisedButton(
               onPressed: () {
                 print(_controller.text);
-                if (_controller.text.isNotEmpty) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => VideoChat(
-                            channelName: _controller.text,
-                            is_video: is_video_chat,
-                          )));
-                }
+                // if (_controller.text.isNotEmpty) {
+                //   Navigator.of(context).push(MaterialPageRoute(
+                //       builder: (context) => VideoChat(
+                //             channelName: _controller.text,
+                //             is_video: is_video_chat,
+                //           )));
+                // }
               },
               child: Text('Join'),
             )
