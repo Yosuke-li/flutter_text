@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_test/user_db_provider.dart';
-import 'package:flutter_text/model/db_user.dart';
+import 'package:flutter_text/model/sql_user.dart';
 import 'package:flutter_text/widget/management/widget/common_form.dart';
 
 class ManageListPage extends StatefulWidget {
@@ -10,7 +10,7 @@ class ManageListPage extends StatefulWidget {
 
 class _ManageListPageState extends State<ManageListPage> {
   UserDbProvider provider = UserDbProvider();
-  List<User> users = [];
+  List<SqlUser> users = [];
 
 
   @override
@@ -20,7 +20,7 @@ class _ManageListPageState extends State<ManageListPage> {
   }
 
   void _load() async {
-    final List<User> list = await provider.getAllUser();
+    final List<SqlUser> list = await provider.getAllUser();
     final int counts = await provider.getTableCountsV2();
     print('counts: $counts');
     setState(() {
@@ -33,27 +33,27 @@ class _ManageListPageState extends State<ManageListPage> {
     return RepaintBoundary(
       child: Column(
         children: [
-          CommonForm<User>(
+          CommonForm<SqlUser>(
             columns: [
-              FormColumn<User>(
+              FormColumn<SqlUser>(
                   title: const Text('id'),
                   builder: (_, v) => Container(
                     child: Text('${v.id ?? ''}'),
                   ),
               ),
-              FormColumn<User>(
+              FormColumn<SqlUser>(
                   title: const Text('姓名'),
                   builder: (_, v) => Container(
                     child: Text('${v.name ?? ''}'),
                   ),
               ),
-              FormColumn<User>(
+              FormColumn<SqlUser>(
                   title: const Text('详情'),
                   builder: (_, v) => Container(
                     child: Text('${v.desc ?? ''}'),
                   ),
               ),
-              FormColumn<User>(
+              FormColumn<SqlUser>(
                   title: const Text('操作'),
                   builder: (_, v) => GestureDetector(
                     child: const Icon(Icons.edit),

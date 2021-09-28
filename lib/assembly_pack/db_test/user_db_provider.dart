@@ -1,5 +1,5 @@
 import 'package:flutter_text/assembly_pack/database/base_db_provider.dart';
-import 'package:flutter_text/model/db_user.dart';
+import 'package:flutter_text/model/sql_user.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/utils/utils.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -44,33 +44,33 @@ class UserDbProvider extends BaseDbProvider {
   }
 
   //获取数据库里所有user
-  Future<List<User>> getAllUser() async {
+  Future<List<SqlUser>> getAllUser() async {
     final List<Map<String, dynamic>> userMapList = await selectMapList();
     final int count = userMapList.length;
-    final List<User> userList = <User>[];
+    final List<SqlUser> userList = <SqlUser>[];
 
     for (int i = 0; i < count; i++) {
-      userList.add(User.fromMapObject(userMapList[i]));
+      userList.add(SqlUser.fromMapObject(userMapList[i]));
     }
     return userList;
   }
 
   //根据id查询user
-  Future<User> getUser(int id) async {
+  Future<SqlUser> getUser(int id) async {
     final List<Map<String, dynamic>> noteMapList = await selectUser(id); // Get 'Map List' from database
-    final User user = User.fromMapObject(noteMapList[id]);
+    final SqlUser user = SqlUser.fromMapObject(noteMapList[id]);
     return user;
   }
 
   //增加数据
-  Future<int> insertUser(User user) async {
+  Future<int> insertUser(SqlUser user) async {
     Database db = await getDataBase();
     final int result = await db.insert(name, user.toMap());
     return result;
   }
 
   //更新数据
-  Future<int> update(User user) async {
+  Future<int> update(SqlUser user) async {
     final Database database = await getDataBase();
     final int result = await database.rawUpdate(
         'update $name set $columnName = ?,$columnDesc = ? where $columnId= ?',

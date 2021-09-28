@@ -11,6 +11,7 @@ class AnimatedWave extends StatelessWidget {
 
   AnimatedWave({this.height, this.offset = 0.0, this.speed});
 
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return Container(

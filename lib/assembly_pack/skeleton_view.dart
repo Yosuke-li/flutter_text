@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_test/user_db_provider.dart';
-import 'package:flutter_text/model/db_user.dart';
-import 'package:flutter_text/utils/date_format.dart';
+import 'package:flutter_text/model/sql_user.dart';
 import 'package:flutter_text/widget/api_call_back.dart';
 import 'package:flutter_text/widget/skeleton.dart';
 
@@ -24,8 +23,8 @@ class SkeletonPage extends StatefulWidget {
 
 class SkeletonPageState extends State<SkeletonPage> {
   UserDbProvider provider = UserDbProvider();
-  List<User> user = <User>[];
-  SkeletonManager<User> skeletonManager;
+  List<SqlUser> user = <SqlUser>[];
+  SkeletonManager<SqlUser> skeletonManager;
 
   @override
   void initState() {
@@ -35,10 +34,10 @@ class SkeletonPageState extends State<SkeletonPage> {
 
   Future<void> load() async {
     try {
-      final SkeletonManager<User> r =
-          SkeletonManager<User>((List<User> items) async {
+      final SkeletonManager<SqlUser> r =
+          SkeletonManager<SqlUser>((List<SqlUser> items) async {
         await loadingCallback(() => Future<void>.delayed(const Duration(seconds: 2)));
-        final List<User> list = await provider.getAllUser();
+        final List<SqlUser> list = await provider.getAllUser();
         setState(() {
           user = list;
         });
@@ -47,7 +46,7 @@ class SkeletonPageState extends State<SkeletonPage> {
       setState(() {
         skeletonManager = r;
         for (int i = 0; i < count; i++) {
-          user.add(User());
+          user.add(SqlUser());
         }
       });
     } catch (error, stack) {
@@ -58,8 +57,8 @@ class SkeletonPageState extends State<SkeletonPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: user?.map((User e) {
-            return SkeletonItem<User>(
+      children: user?.map((SqlUser e) {
+            return SkeletonItem<SqlUser>(
               source: e,
               skeletonManager: skeletonManager,
               status: e.id != null

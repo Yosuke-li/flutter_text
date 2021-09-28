@@ -82,6 +82,7 @@ import 'assembly_pack/focus_page.dart';
 import 'assembly_pack/getx_text/getx_text/view.dart';
 import 'assembly_pack/local_notification/list_view.dart';
 import 'assembly_pack/management/home_page/home_page.dart';
+import 'assembly_pack/notified_scroll.dart';
 import 'assembly_pack/ota_update_text.dart';
 import 'assembly_pack/provider/view.dart';
 import 'assembly_pack/range_slider.dart';
@@ -719,6 +720,22 @@ class TabBarDemoState extends State<TabBarDemo>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => GroupListPage()),
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.group_add),
+                          title: Text(
+                            '懒加载列表',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => NotifiedScrollPage()),
                             );
                           },
                         ),

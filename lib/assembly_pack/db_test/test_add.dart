@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_test/user_db_provider.dart';
 import 'package:flutter_text/model/db_user.dart';
+import 'package:flutter_text/model/sql_user.dart';
 import 'package:flutter_text/utils/helpers/interfaces/login_api.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 
 class TestAdd extends StatefulWidget {
-  final User user;
+  final SqlUser user;
 
   TestAdd(this.user);
 
@@ -18,7 +19,7 @@ class TestAdd extends StatefulWidget {
 
 class TestAddState extends State<TestAdd> {
   UserDbProvider provider = UserDbProvider();
-  User user;
+  SqlUser user;
   int count;
 
   LoginApi iCacheApi = LoginApi(); //todo interfaces 接口测试
