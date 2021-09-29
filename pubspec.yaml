@@ -78,6 +78,7 @@ dependencies:
   multi_split_view: ^1.5.0
   back_button_interceptor: ^5.0.1
   nayuta_sensors: ^1.0.0
+  k_chart: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -103,6 +104,8 @@ flutter:
     - images/voice/
     - images/_cat_sky.jpg
     - assets/index.pdf
+    - assets/depth.json
+    - assets/result.json
     - assets/long14.epub
     - assets/data/
     - assets/dll/

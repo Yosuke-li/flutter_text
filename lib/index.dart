@@ -22,6 +22,7 @@ import 'package:flutter_text/assembly_pack/hello.dart';
 import 'package:flutter_text/assembly_pack/intro/intro.dart';
 import 'package:flutter_text/assembly_pack/j_book/book_shelf.dart';
 import 'package:flutter_text/assembly_pack/j_book/book_view.dart';
+import 'package:flutter_text/assembly_pack/k_chart/k_chart.dart';
 import 'package:flutter_text/assembly_pack/liquid_text.dart';
 import 'package:flutter_text/assembly_pack/local_auth_check.dart';
 import 'package:flutter_text/assembly_pack/local_notification/view.dart';
@@ -655,6 +656,22 @@ class TabBarDemoState extends State<TabBarDemo>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => SlidingUpText()),
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.keyboard),
+                          title: Text(
+                            'kchart',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => KChartPage()),
                             );
                           },
                         ),
