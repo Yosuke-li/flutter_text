@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(TextFieldPage());
-
 class TextFieldPage extends StatelessWidget {
   @override
   Widget build(BuildContext context){

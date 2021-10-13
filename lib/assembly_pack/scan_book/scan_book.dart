@@ -3,8 +3,6 @@ import 'package:flutter_text/api/scan_book.dart';
 import 'package:flutter_text/model/scan_book.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
-void main() => runApp(ScanBook());
-
 class ScanBook extends StatefulWidget {
   TextState createState() => TextState();
 }

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-void main() => runApp(SlidingUpText());
-
 class SlidingUpText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SlidingUpPanel组件'),
+        title: const Text('SlidingUpPanel组件'),
       ),
       body: SlidingDemo(),
     );
@@ -16,6 +14,8 @@ class SlidingUpText extends StatelessWidget {
 }
 
 class SlidingDemo extends StatefulWidget {
+
+  @override
   SlidingDemoState createState() => SlidingDemoState();
 }
 
@@ -24,6 +24,7 @@ class SlidingDemoState extends State<SlidingDemo> {
   double offsetDistance = 0.0;
   double offsetY = 0;
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: SlidingUpPanel(

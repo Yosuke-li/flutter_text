@@ -18,10 +18,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_text/widget/image_zoomable.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
 
-void main() {
-  return runApp(ChatPackApp());
-}
-
 class ChatPackApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new FormText());
-
 class FormText extends StatefulWidget {
   @override
   _FormTextState createState() => new _FormTextState();

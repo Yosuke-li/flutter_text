@@ -6,13 +6,12 @@ import 'package:flutter_text/utils/screen.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
-void main() => runApp(PickImage());
-
 class PickImage extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('图片，拍照'),
+        title: const Text('图片，拍照'),
         centerTitle: true,
       ),
       body: PickImageDemo(),
@@ -21,16 +20,19 @@ class PickImage extends StatelessWidget {
 }
 
 class PickImageDemo extends StatefulWidget {
+  @override
   PickImageState createState() => PickImageState();
 }
 
 class PickImageState extends State<PickImageDemo> {
   final List<File> _imageList = <File>[];
 
+  @override
   void initState() {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(

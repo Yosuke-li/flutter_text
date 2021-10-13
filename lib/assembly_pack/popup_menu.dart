@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(PopupMenu());
-
 enum ConferenceItem { AddMember, LockConference, ModifyLayout, TurnoffAll }
 
 class PopupMenu extends StatelessWidget {

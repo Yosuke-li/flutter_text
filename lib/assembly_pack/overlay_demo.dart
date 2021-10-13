@@ -2,15 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/widget/float_box.dart';
 
-void main() => runApp(overlayDemo());
-
 class overlayDemo extends StatefulWidget {
+
+  @override
   overlayDemoState createState() => overlayDemoState();
 }
 
 class overlayDemoState extends State<overlayDemo> {
   static OverlayEntry entry;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

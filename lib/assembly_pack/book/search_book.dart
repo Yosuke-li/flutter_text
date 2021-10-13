@@ -4,9 +4,9 @@ import 'package:flutter_text/assembly_pack/book/books_detail.dart';
 import 'package:flutter_text/model/book.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-void main() => runApp(SearchBook());
-
 class SearchBook extends StatefulWidget {
+
+  @override
   SearchBookState createState() => SearchBookState();
 }
 
@@ -19,6 +19,7 @@ class SearchBookState extends State<SearchBook> {
   int limit = 25;
   List<Books> _books;
 
+  @override
   void initState() {
     super.initState();
     _scrollController.addListener(() {
@@ -38,6 +39,7 @@ class SearchBookState extends State<SearchBook> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,

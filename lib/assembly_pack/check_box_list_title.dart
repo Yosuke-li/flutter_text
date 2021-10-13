@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new checkBoxListTitle());
-
-class checkBoxListTitle extends StatelessWidget {
+class CheckBoxListTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return MaterialApp(

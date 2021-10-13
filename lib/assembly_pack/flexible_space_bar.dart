@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new flexibleSpaceBar());
-
-class flexibleSpaceBar extends StatelessWidget {
+class FlexibleSpaceBarPage extends StatelessWidget {
   @override
-
   // AppBar和SliverAppBar都是继承StatefulWidget类，都代表Toolbar，
   // 二者的区别在于AppBar位置固定在应用的最上面；而SliverAppBar是可以随内容滚动的
   // AppBar和SliverAppBar的构造方法类似
@@ -39,21 +36,23 @@ class flexibleSpaceBar extends StatelessWidget {
           BoxFit.scaleDown   //效果和contain差不多,但是此属性不允许显示超过源图片大小，可小不可大
   */
 
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'slider Study',
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('flexibleSpaceBar 组件'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('flexibleSpaceBar 组件'),
         ),
         body: NestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
-                  expandedHeight: 200.0,                                  //展开高度
-                  floating: false,                                        //是否随滑动隐藏标题
-                  pinned: true,                                           //是否固定在顶部
-                  flexibleSpace: FlexibleSpaceBar(                        //可折叠的应用栏
+                  expandedHeight: 200.0, //展开高度
+                  floating: false, //是否随滑动隐藏标题
+                  pinned: true, //是否固定在顶部
+                  flexibleSpace: FlexibleSpaceBar(
+                    //可折叠的应用栏
                     centerTitle: true,
                     title: Text(
                       '可折叠的组件',
@@ -61,20 +60,18 @@ class flexibleSpaceBar extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
-                    background: Image.asset('images/sun.jpg', fit: BoxFit.cover,),
+                    background: Image.asset(
+                      'images/sun.jpg',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 )
               ];
             },
             body: Center(
               child: Container(),
-            )
-          ),
-        ),
+            )),
+      ),
     );
   }
 }
-
-
-
-

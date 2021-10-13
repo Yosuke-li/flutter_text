@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 
-void main() => runApp( FlutterPickerDemo());
-
 class FlutterPickerDemo extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();

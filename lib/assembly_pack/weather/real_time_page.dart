@@ -9,9 +9,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_text/api/weather.dart';
 import 'package:flutter_text/model/weather.dart';
 
-void main() => runApp(RealTimePage());
-
 class RealTimePage extends StatefulWidget {
+
+  @override
   RealTimeWeatherState createState() => RealTimeWeatherState();
 }
 

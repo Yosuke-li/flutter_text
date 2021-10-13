@@ -7,8 +7,6 @@ import 'package:flutter_text/assembly_pack/db_test/user_db_provider.dart';
 import 'package:flutter_text/model/sql_user.dart';
 import 'package:flutter_text/utils/helpers/interfaces/login_api.dart';
 
-void main() => runApp(TestDb());
-
 class TestDb extends StatefulWidget {
   @override
   _TestDbState createState() => _TestDbState();

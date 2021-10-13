@@ -5,9 +5,9 @@ import 'package:flutter_text/api/translate.dart';
 import 'package:flutter_text/model/baidu_tts.dart';
 import 'package:flutter_text/model/translate.dart';
 
-void main() => runApp(translatePage());
-
 class translatePage extends StatefulWidget {
+
+  @override
   translatePageState createState() => translatePageState();
 }
 

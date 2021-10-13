@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 
-void main() => runApp(StorageTest());
-
 class StorageTest extends StatefulWidget {
+
+  @override
   _StorageTestState createState() => _StorageTestState();
 }
 
 class _StorageTestState extends State<StorageTest> {
   TextEditingController controller = TextEditingController();
 
+  @override
   void initState() {
     super.initState();
   }
@@ -22,6 +23,7 @@ class _StorageTestState extends State<StorageTest> {
     ToastUtils.showToast(msg: '保存成功');
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

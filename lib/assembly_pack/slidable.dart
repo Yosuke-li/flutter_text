@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:drag_list/drag_list.dart';
 
-void main() => runApp(SlidableText());
-
 class SlidableText extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -26,6 +24,7 @@ class SlidableDemo extends StatefulWidget {
 class SlidableState extends State<SlidableDemo> {
   List<String> data = ['1', '2', '3', '4', '5', '6'];
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: DragList(          // handleless取消拖动点，是整个widget都可以拖动

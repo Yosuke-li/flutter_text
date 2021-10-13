@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new slider());
-
 class slider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,6 +26,7 @@ class contextPageState extends State<contextPage> {
   @override
   double value = 0.0;
 
+  @override
   Widget build(BuildContext context) {
     return SliderTheme(
       data: SliderTheme.of(context).copyWith(

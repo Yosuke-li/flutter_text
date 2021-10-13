@@ -8,10 +8,6 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
-void main() {
-  runApp(TextT());
-}
-
 class   TextT extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();

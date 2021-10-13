@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new gridView());
-
-class gridView extends StatelessWidget {
+class GridViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return MaterialApp(

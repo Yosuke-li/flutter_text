@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/utils/web_url.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-void main() => runApp(SchemeText());
-
 class SchemeText extends StatefulWidget {
+
+  @override
   _SchemeTextState createState() => _SchemeTextState();
 }
 
 class _SchemeTextState extends State<SchemeText> {
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

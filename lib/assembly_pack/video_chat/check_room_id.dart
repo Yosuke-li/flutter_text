@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/assembly_pack/video_chat/video_chat.dart';
-
-void main() => runApp(CheckRoomId());
 
 class CheckRoomId extends StatefulWidget {
+
+  @override
   _CheckRoomState createState() => _CheckRoomState();
 }
 
@@ -11,12 +10,14 @@ class _CheckRoomState extends State<CheckRoomId> {
   TextEditingController _controller = new TextEditingController();
   bool is_video_chat = true;
 
+  @override
   void dispose() {
     // dispose input controller
     _controller.dispose();
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

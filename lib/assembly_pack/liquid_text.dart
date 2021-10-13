@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(LiquidText());
-
 class LiquidText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

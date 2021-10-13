@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(bottomBar());
-
-class bottomBar extends StatelessWidget {
+class BottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
         body: homePage(),

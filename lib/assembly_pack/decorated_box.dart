@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new decoratedBox());
-
-class decoratedBox extends StatelessWidget {
+class DecoratedBoxPage extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return MaterialApp(
       title: 'slider Study',
-      home: new Scaffold(
+      home: Scaffold(
         appBar: new AppBar(
           title: new Text('Decorated Box 组件'),
         ),

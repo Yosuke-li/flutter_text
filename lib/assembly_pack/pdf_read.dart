@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:path_provider/path_provider.dart';
 
-void main() => runApp(PdfRead());
-
 class PdfRead extends StatefulWidget {
   @override
   _PdfReadState createState() => new _PdfReadState();

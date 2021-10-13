@@ -1,19 +1,12 @@
 
 import 'package:flutter/material.dart';
 
-void main() => runApp(
-  new MaterialApp(
-    title: 'Drawer抽屉组件示例',
-    home: new LayoutDemo(),
-  ),
-);
-
 class LayoutDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
 
-    return new Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text('Drawer抽屉组件示例'),
       ),

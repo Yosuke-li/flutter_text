@@ -7,8 +7,6 @@ import 'package:flutter_text/utils/utils.dart';
 
 import 'circle_light.dart';
 
-void main() => runApp(AnimaComponentPage());
-
 class AnimaComponentPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => AnimaComponentPageState();

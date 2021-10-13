@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/widget/video_widget.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
 
-void main() => runApp(videoIndex());
-
 class videoIndex extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

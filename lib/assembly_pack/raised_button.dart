@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(new raisedButton());
-
-class raisedButton extends StatelessWidget {
+class RaisedButtonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return MaterialApp(
@@ -29,7 +27,7 @@ class contextPage extends StatefulWidget  {
 class contextPageState extends State<contextPage> {
   @override
   Widget build(BuildContext context) {
-    return new Center(
+    return Center(
       child: RaisedButton(
         child: Text(
           'Hello World',

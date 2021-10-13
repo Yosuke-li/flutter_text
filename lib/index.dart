@@ -1,94 +1,9 @@
-import 'dart:async';
-import 'dart:io';
+import 'init.dart';
 
-import 'package:bot_toast/bot_toast.dart';
-import 'package:common_utils/common_utils.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_text/assembly_pack/animation/component.dart';
-import 'package:flutter_text/assembly_pack/banner_demo.dart';
-import 'package:flutter_text/assembly_pack/bloc_text/bloc_text.dart';
-import 'package:flutter_text/assembly_pack/box/box.dart';
-import 'package:flutter_text/assembly_pack/chat/chat_main.dart';
-import 'package:flutter_text/assembly_pack/chat_self/chat_list.dart';
-import 'package:flutter_text/assembly_pack/connected/connect_data.dart';
-import 'package:flutter_text/assembly_pack/curved_bar.dart';
-import 'package:flutter_text/assembly_pack/db_register/register.dart';
-import 'package:flutter_text/assembly_pack/dll_text/dll_text.dart';
-import 'package:flutter_text/assembly_pack/drag_list.dart';
-import 'package:flutter_text/assembly_pack/flutter_picker.dart';
-import 'package:flutter_text/assembly_pack/get_package.dart';
-import 'package:flutter_text/assembly_pack/group_list_page.dart';
-import 'package:flutter_text/assembly_pack/hello.dart';
-import 'package:flutter_text/assembly_pack/intro/intro.dart';
-import 'package:flutter_text/assembly_pack/j_book/book_shelf.dart';
-import 'package:flutter_text/assembly_pack/j_book/book_view.dart';
-import 'package:flutter_text/assembly_pack/k_chart/k_chart.dart';
-import 'package:flutter_text/assembly_pack/liquid_text.dart';
-import 'package:flutter_text/assembly_pack/local_auth_check.dart';
-import 'package:flutter_text/assembly_pack/local_notification/view.dart';
-import 'package:flutter_text/assembly_pack/login/login_video_page.dart';
-import 'package:flutter_text/assembly_pack/main.dart';
-import 'package:flutter_text/assembly_pack/mic_stream_demo.dart';
-import 'package:flutter_text/assembly_pack/mqtt_text/real_time_list/view.dart';
-import 'package:flutter_text/assembly_pack/overlay_demo.dart';
-import 'package:flutter_text/assembly_pack/pdf.dart';
-import 'package:flutter_text/assembly_pack/pdf_read.dart';
-import 'package:flutter_text/assembly_pack/pear_video/pear_video.dart';
-import 'package:flutter_text/assembly_pack/photo.dart';
-import 'package:flutter_text/assembly_pack/refrash_view.dart';
-import 'package:flutter_text/assembly_pack/save_text/save_text.dart';
-import 'package:flutter_text/assembly_pack/scan_book/scan_book.dart';
-import 'package:flutter_text/assembly_pack/scheme_text.dart';
-import 'package:flutter_text/assembly_pack/skeleton_view.dart';
-import 'package:flutter_text/assembly_pack/slidable.dart';
-import 'package:flutter_text/assembly_pack/sliding_up_panel.dart';
-import 'package:flutter_text/assembly_pack/speed_dial.dart';
-import 'package:flutter_text/assembly_pack/storage_test.dart';
-import 'package:flutter_text/assembly_pack/translate/translate_page.dart';
-import 'package:flutter_text/assembly_pack/video_chat/check_room_id.dart';
-import 'package:flutter_text/assembly_pack/video_player/play_local_video.dart';
-import 'package:flutter_text/assembly_pack/video_player/video_list.dart';
-import 'package:flutter_text/assembly_pack/weather/real_time_page.dart';
-import 'package:flutter_text/global/global.dart';
-import 'package:flutter_text/global/store.dart';
-import 'package:flutter_text/utils/file_utils.dart';
-import 'package:flutter_text/utils/listener/listen_test.dart';
-import 'package:flutter_text/utils/log_utils.dart';
-import 'package:flutter_text/utils/mqtt_helper.dart';
-import 'package:flutter_text/utils/navigator.dart';
-import 'package:flutter_text/utils/permission.dart';
-import 'package:flutter_text/utils/screen.dart';
-import 'package:flutter_text/utils/test.dart';
-import 'package:flutter_text/utils/toast_utils.dart';
-import 'package:flutter_text/utils/utils.dart';
-import 'package:flutter_text/widget/app_lifecycle_widget.dart';
-import 'package:flutter_text/widget/chat/helper/user/user_db.dart';
-import 'package:flutter_text/widget/keyboard/keyboard_root.dart';
-import 'package:flutter_text/widget/modal_utils.dart';
-import 'package:flutter_text/widget/navigator_helper.dart';
-import 'package:flutter_text/widget/notification_center/notification_widget.dart';
-import 'package:flutter_text/widget/three_d_widget.dart';
-import 'package:flutter_text/widget/window.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'assembly_pack/_show_model/show_model.dart';
-import 'assembly_pack/book/search_book.dart';
-import 'assembly_pack/car_pages.dart';
-import 'assembly_pack/db_test/test_ui.dart';
-import 'package:flutter_text/assembly_pack/canvas_paint.dart';
-import 'package:flutter_text/assembly_pack/stepper.dart';
 
-import 'assembly_pack/event_bus/event_util.dart';
-import 'assembly_pack/focus_page.dart';
-import 'assembly_pack/getx_text/getx_text/view.dart';
-import 'assembly_pack/local_notification/list_view.dart';
-import 'assembly_pack/management/home_page/home_page.dart';
-import 'assembly_pack/notified_scroll.dart';
-import 'assembly_pack/ota_update_text.dart';
-import 'assembly_pack/provider/view.dart';
-import 'assembly_pack/range_slider.dart';
-import 'assembly_pack/search_page.dart';
 import 'assembly_pack/slideing_panel.dart';
+import 'assembly_pack/sliding_up_panel.dart';
 import 'assembly_pack/slider.dart';
 import 'assembly_pack/layout_row.dart';
 import 'assembly_pack/decorated_box.dart';
@@ -97,17 +12,12 @@ import 'assembly_pack/check_box_list_title.dart';
 import 'assembly_pack/gridview.dart';
 import 'assembly_pack/raised_button.dart';
 import 'assembly_pack/flexible_space_bar.dart';
-import 'assembly_pack/event_bus/first_page.dart';
-import 'assembly_pack/layout_demo.dart';
-import 'assembly_pack/bottom_bar.dart';
-import 'assembly_pack/popup_menu.dart';
-import 'assembly_pack/form_text.dart';
+
 
 ///BotToastInit BotToastNavigatorObserver toast弹窗初始化
 class Assembly extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final TransitionBuilder toastWidget = BotToastInit();
     return ScreenWidget(
       child: NavigatorInitializer(
         child: NotificationListenPage(
@@ -658,6 +568,21 @@ class TabBarDemoState extends State<TabBarDemo>
                                   builder: (context) => SlidingUpText()),
                             );
                           },
+                        ),ListTile(
+                          leading: const Icon(Icons.image_search),
+                          title: Text(
+                            'Cache Image Page',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => CacheImagePage()),
+                            );
+                          },
                         ),
                         ListTile(
                           leading: const Icon(Icons.keyboard),
@@ -987,7 +912,7 @@ class TabBarDemoState extends State<TabBarDemo>
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => decoratedBox()),
+                                  builder: (context) => DecoratedBoxPage()),
                             );
                           },
                         ),
@@ -1023,7 +948,7 @@ class TabBarDemoState extends State<TabBarDemo>
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => checkBoxListTitle()),
+                                  builder: (context) => CheckBoxListTitle()),
                             );
                           },
                         ),
@@ -1039,7 +964,7 @@ class TabBarDemoState extends State<TabBarDemo>
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => gridView()),
+                                  builder: (context) => GridViewPage()),
                             );
                           },
                         ),
@@ -1055,7 +980,7 @@ class TabBarDemoState extends State<TabBarDemo>
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => raisedButton()),
+                                  builder: (context) => RaisedButtonPage()),
                             );
                           },
                         ),
@@ -1071,7 +996,7 @@ class TabBarDemoState extends State<TabBarDemo>
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => flexibleSpaceBar()),
+                                  builder: (context) => FlexibleSpaceBarPage()),
                             );
                           },
                         ),
@@ -1142,7 +1067,7 @@ class TabBarDemoState extends State<TabBarDemo>
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (context) => bottomBar()),
+                                  builder: (context) => BottomBar()),
                             );
                           },
                         ),

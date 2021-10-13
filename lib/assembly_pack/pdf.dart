@@ -10,9 +10,9 @@ import 'package:ios_share/ios_share.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart';
 
-void main() => runApp(pdfView());
-
 class pdfView extends StatefulWidget {
+
+  @override
   pdfViewState createState() => pdfViewState();
 }
 
@@ -53,6 +53,7 @@ class pdfViewState extends State<pdfView> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(

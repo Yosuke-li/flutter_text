@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-void main() => runApp(SpeedDialDemo());
-
 class SpeedDialDemo extends StatelessWidget{
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(),
@@ -13,12 +13,15 @@ class SpeedDialDemo extends StatelessWidget{
 }
 
 class _SpeedDialDemo extends StatefulWidget {
+
+  @override
   _SpeedDialDemoState createState() => _SpeedDialDemoState();
 }
 
 class _SpeedDialDemoState extends State<_SpeedDialDemo> {
   IconData _icon;
 
+  @override
   Widget build (BuildContext context) {
     return SpeedDial(
         curve: Curves.linear,

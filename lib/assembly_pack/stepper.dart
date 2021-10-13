@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(StepperDemo());
-
 class StepperDemo extends StatelessWidget {
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
@@ -20,6 +20,7 @@ class HorizontalStepper extends StatefulWidget {
 class HorizontalStepperState extends State<HorizontalStepper> {
   var _horStep = 0;
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: Stepper(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/widget/slide_panel_left.dart';
 
-void main() => runApp(SlidingUpPanelText());
-
 class SlidingUpPanelText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,6 +11,7 @@ class SlidingUpPanelText extends StatelessWidget {
 }
 
 class SlidingDemo extends StatefulWidget {
+  @override
   SlidingDemoState createState() => SlidingDemoState();
 }
 

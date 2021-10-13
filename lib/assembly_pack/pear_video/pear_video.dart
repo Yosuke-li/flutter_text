@@ -7,8 +7,6 @@ import 'package:flutter_text/model/pear_video.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/widget/video_widget.dart';
 
-void main() => runApp(PearVideoFirstPage());
-
 class PearVideoFirstPage extends StatefulWidget {
   @override
   PearVideoFirstPageState createState() => PearVideoFirstPageState();

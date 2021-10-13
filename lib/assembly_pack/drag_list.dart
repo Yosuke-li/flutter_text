@@ -2,8 +2,6 @@ import 'package:drag_list/drag_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(DragText());
-
 class DragText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
