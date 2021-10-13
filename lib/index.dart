@@ -13,39 +13,12 @@ import 'assembly_pack/gridview.dart';
 import 'assembly_pack/raised_button.dart';
 import 'assembly_pack/flexible_space_bar.dart';
 
-
-///BotToastInit BotToastNavigatorObserver toast弹窗初始化
-class Assembly extends StatelessWidget {
+class MainIndexPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return ScreenWidget(
-      child: NavigatorInitializer(
-        child: NotificationListenPage(
-          child: AppLifecycleWidget(
-            child: ModalStyleWidget(
-              child: MaterialApp(
-                builder: BotToastInit(),
-                navigatorObservers: <NavigatorObserver>[
-                  BotToastNavigatorObserver()
-                ],
-                home: KeyboardRootWidget(
-                  child: TabBarDemo(),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  MainIndexState createState() => MainIndexState();
 }
 
-class TabBarDemo extends StatefulWidget {
-  @override
-  TabBarDemoState createState() => TabBarDemoState();
-}
-
-class TabBarDemoState extends State<TabBarDemo>
+class MainIndexState extends State<MainIndexPage>
     with SingleTickerProviderStateMixin {
   StreamSubscription<PageEvent> eventBus;
   String eventData;

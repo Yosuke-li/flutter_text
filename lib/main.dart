@@ -1,6 +1,7 @@
-import 'dart:io';
+import 'package:flutter_text/splash.dart';
 
-import 'package:flutter/material.dart';
+import 'init.dart';
+
 import 'package:flutter_text/utils/api_exception.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:flutter_text/widget/keyboard/security_keyboard.dart';
@@ -17,6 +18,33 @@ Future<void> main() async {
   }, (Object error, StackTrace stackTrace) async {
     _errorHandler(FlutterErrorDetails(exception: error, stack: stackTrace));
   });
+}
+
+///BotToastInit BotToastNavigatorObserver toast弹窗初始化
+class Assembly extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ScreenWidget(
+      child: NavigatorInitializer(
+        child: NotificationListenPage(
+          child: AppLifecycleWidget(
+            child: ModalStyleWidget(
+              child: MaterialApp(
+                builder: BotToastInit(),
+                navigatorObservers: <NavigatorObserver>[
+                  BotToastNavigatorObserver()
+                ],
+                home: KeyboardRootWidget(
+                  child: SplashPage(),
+                  // child: MainIndexPage(),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 //错误信息处理

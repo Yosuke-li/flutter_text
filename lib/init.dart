@@ -1,6 +1,6 @@
 library init;
 
-export  'dart:async';
+export 'dart:async';
 export 'dart:io';
 
 export 'package:bot_toast/bot_toast.dart';

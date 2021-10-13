@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/event_bus_helper.dart';
+import 'package:flutter_text/widget/animate_router.dart';
 import 'package:get/get.dart';
 
 class NavigatorUtils {
@@ -13,11 +14,20 @@ class NavigatorUtils {
     bool replaceCurrent = false,
     bool cleanFocus = false,
     bool isAddRoute = true,
+    AnimateType type,
   }) {
     if (isAddRoute == true)
       EventBusHelper.asyncStreamController.add(EventCache()..isRoute = true);
     if (cleanFocus == true)
       FocusScope.of(context).unfocus(disposition: UnfocusDisposition.scope);
+    if (type != null) {
+      return pushRoute<T>(
+        context,
+        CustomRouter<T>(widget, type),
+        replaceRoot: replaceRoot,
+        replaceCurrent: replaceCurrent,
+      );
+    }
     return pushRoute<T>(
       context,
       MaterialPageRoute<T>(builder: (BuildContext ctx) => widget),
