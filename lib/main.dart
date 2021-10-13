@@ -1,4 +1,5 @@
 import 'package:flutter_text/splash.dart';
+import 'package:flutter_text/widget/api_call_back.dart';
 
 import 'init.dart';
 
@@ -21,7 +22,38 @@ Future<void> main() async {
 }
 
 ///BotToastInit BotToastNavigatorObserver toast弹窗初始化
-class Assembly extends StatelessWidget {
+class Assembly extends StatefulWidget {
+  @override
+  AssemblyState createState() => AssemblyState();
+}
+
+class AssemblyState extends State<Assembly> {
+  bool todayShowAd;
+
+  @override
+  void initState() {
+    Future<void>.delayed(Duration.zero, () async {
+      await init();
+    });
+    super.initState();
+  }
+
+  Future<void> init() async {
+    await LocateStorage.init().whenComplete(
+      () => getTodayShow(),
+    );
+  }
+
+  void getTodayShow() {
+    final bool splashShow = LocateStorage.getBoolWithExpire('SplashShow');
+    if (splashShow == true) {
+      todayShowAd = true;
+    } else {
+      todayShowAd = false;
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenWidget(
@@ -35,7 +67,11 @@ class Assembly extends StatelessWidget {
                   BotToastNavigatorObserver()
                 ],
                 home: KeyboardRootWidget(
-                  child: SplashPage(),
+                  child: todayShowAd != null
+                      ? (todayShowAd ? MainIndexPage() : SplashPage())
+                      : Container(
+                          color: Colors.white,
+                        ),
                   // child: MainIndexPage(),
                 ),
               ),
@@ -64,12 +100,14 @@ void _errorHandler(FlutterErrorDetails details) async {
       final String message = e.message;
       switch (code) {
         case 401:
-          final NavigatorState navigatorHelper = await NavigatorHelper.navigatorState;
+          final NavigatorState navigatorHelper =
+              await NavigatorHelper.navigatorState;
           ToastUtils.showToast(msg: '401错误');
           navigatorHelper.popUntil((Route route) => route.isFirst);
           break;
         case 403:
-          final NavigatorState navigatorHelper = await NavigatorHelper.navigatorState;
+          final NavigatorState navigatorHelper =
+              await NavigatorHelper.navigatorState;
           ToastUtils.showToast(msg: '403错误');
           navigatorHelper.popUntil((Route route) => route.isFirst);
           break;

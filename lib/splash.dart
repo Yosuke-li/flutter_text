@@ -18,11 +18,18 @@ class _SplashState extends State<SplashPage> {
   }
 
   void setTimer() {
-    _timer = Timer(const Duration(seconds: 5), toIndex);
+    _timer = Timer(const Duration(seconds: 5), () {
+      toIndex();
+    });
     setState(() {});
   }
 
   void toIndex() {
+    LocateStorage.setBoolWithExpire(
+      'SplashShow',
+      true,
+      const Duration(days: 1),
+    );
     NavigatorUtils.pushWidget(context, MainIndexPage(),
         replaceRoot: true, type: AnimateType.Fade);
   }

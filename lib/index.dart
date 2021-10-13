@@ -35,11 +35,9 @@ class MainIndexState extends State<MainIndexPage>
     super.initState();
     PostgresUser.init();
     if (Platform.isAndroid || Platform.isIOS) Permission.init();
-    LocateStorage.init().whenComplete(
-      () => listenTest(),
-    );
     FileUtils.init();
     Log.init(isDebug: true);
+    listenTest();
     tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
         setState(() {
