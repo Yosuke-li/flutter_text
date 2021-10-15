@@ -1,3 +1,5 @@
+import 'package:flutter_text/global/global.dart';
+
 import 'init.dart';
 
 import 'package:get/get.dart';

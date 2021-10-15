@@ -26,7 +26,7 @@ class CustomRouter<T> extends PageRouteBuilder<T> {
             //FadeTransition渐隐渐现
             if (type == AnimateType.Fade) {
               return FadeTransition(
-                opacity: Tween(begin: 0.0, end: 2.0)
+                opacity: Tween<double>(begin: 0.0, end: 2.0)
                     //fastOutSlowIn快出慢进
                     .animate(CurvedAnimation(
                         parent: animation, curve: Curves.fastOutSlowIn)),
@@ -35,19 +35,19 @@ class CustomRouter<T> extends PageRouteBuilder<T> {
             } else if (type == AnimateType.Scale) {
               //缩放动画
               return ScaleTransition(
-                scale: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+                scale: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
                     parent: animation, curve: Curves.fastOutSlowIn)),
                 child: child,
               );
             } else if (type == AnimateType.Rotation) {
               //旋转缩放动画
               return RotationTransition(
-                turns: Tween(begin: 0.0, end: 1.0).animate(
+                turns: Tween<double>(begin: 0.0, end: 1.0).animate(
                   CurvedAnimation(
                       parent: animation, curve: Curves.fastOutSlowIn),
                 ),
                 child: ScaleTransition(
-                    scale: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+                    scale: Tween<void>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
                         parent: animation, curve: Curves.fastOutSlowIn)),
                     child: child),
               );

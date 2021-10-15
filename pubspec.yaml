@@ -61,7 +61,8 @@ dependencies:
   move_to_background: ^1.0.0
   lpinyin: ^1.0.9   # 汉字转拼音
 #  flutter_doraemonkit:
-#    path: C:\Users\coco\AndroidStudioProjects\flutter_doraemonkit
+#    git:
+#      url: https://github.com/NayoLx/flutter_doraemonkit_plugin.git
   get: ^4.1.4
   call: ^0.3.0
   flutter_intro: ^2.3.0
