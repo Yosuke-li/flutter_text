@@ -1,5 +1,3 @@
-import 'package:flutter_text/global/global.dart';
-
 import 'init.dart';
 
 import 'package:get/get.dart';
@@ -554,6 +552,21 @@ class MainIndexState extends State<MainIndexPage>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => CacheImagePage()),
+                            );
+                          },
+                        ),ListTile(
+                          leading: const Icon(Icons.image_search),
+                          title: Text(
+                            'inheried 测试',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => InheritedShowPage()),
                             );
                           },
                         ),

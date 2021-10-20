@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_text/utils/encrypt.dart';
 import 'package:flutter_text/utils/lock.dart';
 import 'package:flutter_text/utils/singleton.dart';
 import 'package:lpinyin/lpinyin.dart';
@@ -57,5 +58,14 @@ void main() {
     // a 测试
     // a 测试
     // a 测试
+  });
+
+  test('解密', () {
+    const String password = 'Love0823';
+    final String base = Encrypt.encryptToBase64(password); // L4Sye2/O0ecveY5QW7okBA==
+
+    print(base);
+    final String decrypt = Encrypt.decryptWithBase64(base);
+    print(decrypt==password);
   });
 }

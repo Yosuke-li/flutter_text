@@ -75,6 +75,8 @@ export 'assembly_pack/car_pages.dart';
 export 'assembly_pack/db_test/test_ui.dart';
 export 'package:flutter_text/assembly_pack/canvas_paint.dart';
 export 'package:flutter_text/assembly_pack/stepper.dart';
+export 'package:flutter_text/global/global.dart';
+export 'package:flutter_text/widget/inherited_widget.dart';
 
 export 'assembly_pack/event_bus/event_util.dart';
 export 'assembly_pack/getx_text/getx_text/view.dart';
