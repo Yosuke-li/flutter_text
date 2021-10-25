@@ -68,4 +68,36 @@ void main() {
     final String decrypt = Encrypt.decryptWithBase64(base);
     print(decrypt==password);
   });
+
+
+  test('yield', () {
+    Iterable<int> naturalsTo(int n) sync* {
+      int k = 0;
+      while (k<n) yield k++;
+    }
+
+    final a = naturalsTo(10);
+    print(a.runtimeType);
+    final b = a.iterator;
+    b.moveNext();
+    print(b.current);
+    b.moveNext();
+    print(b.current);
+    b.moveNext();
+    print(b.current);
+  });
+
+
+  test('yield2', () {
+    Stream<int> getInt() async* {
+      for (int i = 0; i < 10; i++) {
+        await Future<void>.delayed(const Duration(seconds: 1));
+        yield i;
+      }
+    }
+
+    final a = getInt();
+    print(a.runtimeType);
+    print(a);
+  });
 }

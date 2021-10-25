@@ -1,3 +1,6 @@
+import 'package:flutter_text/assembly_pack/choose_seat/choose_seat.dart';
+
+import 'assembly_pack/choose_seat/StreamText.dart';
 import 'init.dart';
 
 import 'package:get/get.dart';
@@ -725,6 +728,22 @@ class MainIndexState extends State<MainIndexPage>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => SlidingUpPanelText()),
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: const Icon(Icons.stream),
+                          title: Text(
+                            'StreamText',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => StreamTextPage()),
                             );
                           },
                         ),

@@ -31,6 +31,7 @@ mixin Sing{
 mixin Code on Person {
   @override
   void eat() {
+    super.eat();
     print('Code eat');
   }
 
