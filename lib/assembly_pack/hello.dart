@@ -1,11 +1,13 @@
+import 'dart:convert';
 import 'dart:math';
+import 'dart:ui' as ui;
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_text/init.dart';
 import 'package:flutter_text/widget/animated_wave.dart';
 import 'package:simple_animations/simple_animations.dart';
-
-void main() => runApp(Hello());
 
 class Hello extends StatelessWidget {
   @override
@@ -25,6 +27,17 @@ class HelloDemoState extends State<HelloDemo> {
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]); //清除手机顶部和底部状态栏
+    _getPlane();
+  }
+
+  //获取gif图的帧数
+  Future<void> _getPlane() async {
+    final ByteData data = await rootBundle.load('images/plane2.gif');
+    final Uint8List uintList = Uint8List.view(data.buffer);
+    final ui.Codec code = await ui.instantiateImageCodec(uintList);
+    final first = await code.getNextFrame();
+    Log.info(first.image);
+    Log.info(code.frameCount);
   }
 
   @override
