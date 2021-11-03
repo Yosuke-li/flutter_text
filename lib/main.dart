@@ -1,3 +1,4 @@
+// import 'package:flutter_doraemonkit/flutter_doraemonkit.dart';
 import 'package:flutter_text/splash.dart';
 import 'package:flutter_text/widget/api_call_back.dart';
 
@@ -66,14 +67,19 @@ class AssemblyState extends State<Assembly> {
                 navigatorObservers: <NavigatorObserver>[
                   BotToastNavigatorObserver()
                 ],
-                home: KeyboardRootWidget(
-                  child: todayShowAd != null
-                      ? (todayShowAd ? MainIndexPage() : SplashPage())
-                      : Container(
-                          color: Colors.white,
-                        ),
-                  // child: MainIndexPage(),
-                ),
+                home: GestureDetector(
+                  onLongPress: () {
+                    // FlutterDoraemonkit.toggle();
+                  },
+                  child: KeyboardRootWidget(
+                    child: todayShowAd != null
+                        ? (todayShowAd ? MainIndexPage() : SplashPage())
+                        : Container(
+                      color: Colors.white,
+                    ),
+                    // child: MainIndexPage(),
+                  ),
+                )
               ),
             ),
           ),

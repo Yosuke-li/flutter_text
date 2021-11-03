@@ -67,7 +67,7 @@ class SecurityKeyboardCenter {
 class SecurityKeyboard extends StatelessWidget {
 
   static double getHeight(BuildContext ctx) {
-    MediaQueryData mediaQuery = MediaQuery.of(ctx);
+    final MediaQueryData mediaQuery = MediaQuery.of(ctx);
     return mediaQuery.size.width / 3 / 2 * 4;
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter_text/assembly_pack/choose_seat/choose_seat.dart';
 
 import 'assembly_pack/choose_seat/StreamText.dart';
+import 'assembly_pack/controller_test/test_page.dart';
 import 'assembly_pack/decode_gif.dart';
 import 'assembly_pack/slide_image/slide_image.dart';
 import 'init.dart';
@@ -542,6 +543,21 @@ class MainIndexState extends State<MainIndexPage>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => SlidingUpText()),
+                            );
+                          },
+                        ),ListTile(
+                          leading: const Icon(Icons.keyboard),
+                          title: Text(
+                            'Controller 使用',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => TestControlPage()),
                             );
                           },
                         ),ListTile(

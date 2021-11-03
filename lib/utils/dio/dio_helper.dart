@@ -72,6 +72,8 @@ class Request {
       //抓Https包设置
       client.badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;
+
+      return client;
     };
   }
 
