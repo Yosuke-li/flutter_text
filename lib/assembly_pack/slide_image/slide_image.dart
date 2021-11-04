@@ -72,7 +72,7 @@ class _SlideImageState extends State<SlideImagePage> {
                 child: RepaintBoundary(
                   child: PageView(
                     controller: controller,
-                    children: List<void>.generate(
+                    children: List<Widget>.generate(
                       movies.length,
                       (int index) => SlidingCard(
                         offset: pageOffset - index,
