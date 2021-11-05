@@ -39,7 +39,7 @@ class KeyboardManager {
     if (isInterceptor) return;
     isInterceptor = true;
     ServicesBinding.instance.defaultBinaryMessenger
-        .setMockMessageHandler("flutter/textinput", _textInputHanlde);
+        .setMessageHandler("flutter/textinput", _textInputHanlde);
   }
 
   static Future<ByteData> _textInputHanlde(ByteData data) async {

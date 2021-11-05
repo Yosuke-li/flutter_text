@@ -737,7 +737,7 @@ class _DropdownButtonState<T> extends State<ACEDropdownButton<T>>
   }
 
   TextStyle get _textStyle =>
-      widget.style ?? Theme.of(context).textTheme.subhead;
+      widget.style ?? Theme.of(context).textTheme.subtitle1;
 
   void _handleTap() {
     final RenderBox itemBox = context.findRenderObject();
@@ -784,7 +784,7 @@ class _DropdownButtonState<T> extends State<ACEDropdownButton<T>>
 
   double get _denseButtonHeight {
     final double fontSize =
-        _textStyle.fontSize ?? Theme.of(context).textTheme.subhead.fontSize;
+        _textStyle.fontSize ?? Theme.of(context).textTheme.subtitle1.fontSize;
     return math.max(fontSize, math.max(widget.iconSize, _kDenseButtonHeight));
   }
 
