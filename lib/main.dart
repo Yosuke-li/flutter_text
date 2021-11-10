@@ -64,6 +64,9 @@ class AssemblyState extends State<Assembly> {
             child: ModalStyleWidget(
               child: MaterialApp(
                 builder: BotToastInit(),
+                theme: ThemeData(
+                  scaffoldBackgroundColor: Colors.white,
+                ),
                 navigatorObservers: <NavigatorObserver>[
                   BotToastNavigatorObserver()
                 ],
