@@ -1,4 +1,6 @@
 import 'package:flutter_text/init.dart';
+import 'package:flutter_text/utils/datetime_utils.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import 'data.dart';
@@ -27,12 +29,25 @@ class _MultipleChartState extends State<MultipleCharts> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: RepaintBoundary(
-        child: Container(
-          height: screenUtil.adaptive(600),
-          child: _buildMultipleAxisLineChart(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RepaintBoundary(
+              child: Container(
+                height: screenUtil.adaptive(700),
+                child: _buildMultipleAxisLineChart(),
+              ),
+            ),
+            RepaintBoundary(
+              child: Container(
+                height: screenUtil.adaptive(700),
+                child: _buildMultipleAxisSpLineChart(),
+              ),
+            )
+          ],
         ),
-      )),
+      ),
     );
   }
 
@@ -44,39 +59,152 @@ class _MultipleChartState extends State<MultipleCharts> {
           zoomMode: ZoomMode.xy,
           enablePanning: true,
           enableMouseWheelZooming: false),
-      primaryXAxis:
-          DateTimeAxis(majorGridLines: const MajorGridLines(width: 0)),
+      primaryXAxis: DateTimeAxis(
+        majorGridLines: const MajorGridLines(width: 0),
+        dateFormat: DateFormat('MM/dd'),
+      ),
       primaryYAxis: NumericAxis(
         majorGridLines: const MajorGridLines(width: 0),
         opposedPosition: false,
         interval: 1000,
         labelFormat: '{value}',
+        numberFormat: NumberFormat.compact(),
       ),
+      legend: Legend(
+          isVisible: true,
+          position: LegendPosition.bottom,
+          alignment: ChartAlignment.near,
+          overflowMode: LegendItemOverflowMode.wrap),
       series: _getMultipleAxisLineSeries(),
-      tooltipBehavior: TooltipBehavior(enable: true),
+      trackballBehavior: TrackballBehavior(
+          enable: true,
+          shouldAlwaysShow: true,
+          activationMode: ActivationMode.singleTap,
+          builder: (BuildContext context, TrackballDetails trackballDetails) {
+            return trackballDetails.groupingModeInfo.points.isNotEmpty
+                ? Container(
+              height: 75,
+              decoration: const BoxDecoration(
+                  color: Color.fromRGBO(66, 244, 164, 0)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      '时间：${DateTimeHelper.datetimeFormat(trackballDetails.groupingModeInfo.points[0].xValue ~/ 1000, 'yyyy-MM-dd')}'),
+                  for (int i = 0;
+                  i < trackballDetails.groupingModeInfo.points.length;
+                  i++)
+                    Text(
+                        '${trackballDetails.groupingModeInfo.points[i].dataLabelMapper}：${trackballDetails.groupingModeInfo.points[i].y}'),
+                ],
+              ),
+            )
+                : Container();
+          },
+          tooltipDisplayMode: TrackballDisplayMode.groupAllPoints,
+          tooltipSettings: const InteractiveTooltip(
+              format: 'point.x : point.y', borderWidth: 0)),
     );
   }
 
-  /// Returns the list of chart series which need to
-  /// render on the multiple axes chart.
   List<ChartSeries<ChartsData, DateTime>> _getMultipleAxisLineSeries() {
     final List<ChartsData> chartData = data;
     return <ChartSeries<ChartsData, DateTime>>[
       ColumnSeries<ChartsData, DateTime>(
-          dataSource: chartData,
-          xValueMapper: (ChartsData sales, _) =>
-              DateTime.parse(sales.date) as DateTime,
-          yValueMapper: (ChartsData sales, _) => sales.profit,
-          pointColorMapper: (ChartsData sales, _) =>
-              sales.profit > 0 ? Colors.red : Colors.green,
-          name: '收益'),
+        dataSource: chartData,
+        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date),
+        yValueMapper: (ChartsData sales, _) => sales.profit,
+        dataLabelMapper: (ChartsData sales, _) => '收益',
+        pointColorMapper: (ChartsData sales, _) =>
+            sales.profit > 0 ? Colors.red : Colors.green,
+        name: '收益',
+      ),
+      LineSeries<ChartsData, DateTime>(
+        dataSource: chartData,
+        yAxisName: 'yAxis1',
+        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date),
+        yValueMapper: (ChartsData sales, _) => sales.totalProfit,
+        dataLabelMapper: (ChartsData sales, _) => '总收益',
+        name: '总收益',
+      )
+    ];
+  }
+
+  SfCartesianChart _buildMultipleAxisSpLineChart() {
+    return SfCartesianChart(
+      zoomPanBehavior: ZoomPanBehavior(
+          enablePinching: true,
+          zoomMode: ZoomMode.xy,
+          enablePanning: true,
+          enableMouseWheelZooming: false),
+      primaryXAxis: DateTimeAxis(
+        majorGridLines: const MajorGridLines(width: 0),
+        dateFormat: DateFormat('MM/dd'),
+      ),
+      primaryYAxis: NumericAxis(
+        majorGridLines: const MajorGridLines(width: 0),
+        opposedPosition: false,
+        interval: 1000,
+        labelFormat: '{value}',
+        numberFormat: NumberFormat.compact(),
+      ),
+      legend: Legend(
+          isVisible: true,
+          position: LegendPosition.bottom,
+          alignment: ChartAlignment.near,
+          overflowMode: LegendItemOverflowMode.wrap),
+      series: _getMultipleAxisSpLineSeries(),
+      trackballBehavior: TrackballBehavior(
+          enable: true,
+          shouldAlwaysShow: true,
+          activationMode: ActivationMode.singleTap,
+          builder: (BuildContext context, TrackballDetails trackballDetails) {
+            return trackballDetails.groupingModeInfo.points.isNotEmpty
+                ? Container(
+                    height: 75,
+                    decoration: const BoxDecoration(
+                        color: Color.fromRGBO(66, 244, 164, 0)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            '时间：${DateTimeHelper.datetimeFormat(trackballDetails.groupingModeInfo.points[0].xValue ~/ 1000, 'yyyy-MM-dd')}'),
+                        for (int i = 0;
+                            i < trackballDetails.groupingModeInfo.points.length;
+                            i++)
+                          Text(
+                              '${trackballDetails.groupingModeInfo.points[i].dataLabelMapper}：${trackballDetails.groupingModeInfo.points[i].y}'),
+                      ],
+                    ),
+                  )
+                : Container();
+          },
+          tooltipDisplayMode: TrackballDisplayMode.groupAllPoints,
+          tooltipSettings: const InteractiveTooltip(
+              format: 'point.x : point.y', borderWidth: 0)),
+    );
+  }
+
+  List<ChartSeries<ChartsData, DateTime>> _getMultipleAxisSpLineSeries() {
+    final List<ChartsData> chartData = data;
+    return <ChartSeries<ChartsData, DateTime>>[
+      ColumnSeries<ChartsData, DateTime>(
+        dataSource: chartData,
+        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date),
+        yValueMapper: (ChartsData sales, _) => sales.profit,
+        dataLabelMapper: (ChartsData sales, _) => '收益',
+        pointColorMapper: (ChartsData sales, _) =>
+            sales.profit > 0 ? Colors.red : Colors.green,
+        name: '收益',
+      ),
       SplineSeries<ChartsData, DateTime>(
-          dataSource: chartData,
-          yAxisName: 'yAxis1',
-          xValueMapper: (ChartsData sales, _) =>
-              DateTime.parse(sales.date) as DateTime,
-          yValueMapper: (ChartsData sales, _) => sales.totalProfit,
-          name: '总收益')
+        dataSource: chartData,
+        yAxisName: 'yAxis1',
+        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date),
+        yValueMapper: (ChartsData sales, _) => sales.totalProfit,
+        dataLabelMapper: (ChartsData sales, _) => '总收益',
+        name: '总收益',
+      )
     ];
   }
 }
