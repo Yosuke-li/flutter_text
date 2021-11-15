@@ -1,6 +1,8 @@
 import 'package:flutter_text/init.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 
+import 'candle_charts.dart';
+import 'mac_charts.dart';
 import 'mp_chart.dart';
 import 'multiple_charts.dart';
 
@@ -26,6 +28,12 @@ class _ListGroupState extends State<ListGroupPage> {
       ChartsList()
         ..name = 'multi'
         ..route = MultipleCharts(),
+      ChartsList()
+        ..name = 'candle'
+        ..route = CandleChartsPage(),
+      ChartsList()
+        ..name = 'mac_chart'
+        ..route = MACChartsPage(),
     ];
     setState(() {});
   }

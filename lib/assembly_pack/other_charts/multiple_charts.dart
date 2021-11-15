@@ -188,15 +188,6 @@ class _MultipleChartState extends State<MultipleCharts> {
   List<ChartSeries<ChartsData, DateTime>> _getMultipleAxisSpLineSeries() {
     final List<ChartsData> chartData = data;
     return <ChartSeries<ChartsData, DateTime>>[
-      ColumnSeries<ChartsData, DateTime>(
-        dataSource: chartData,
-        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date),
-        yValueMapper: (ChartsData sales, _) => sales.profit,
-        dataLabelMapper: (ChartsData sales, _) => '收益',
-        pointColorMapper: (ChartsData sales, _) =>
-            sales.profit > 0 ? Colors.red : Colors.green,
-        name: '收益',
-      ),
       SplineSeries<ChartsData, DateTime>(
         dataSource: chartData,
         yAxisName: 'yAxis1',
@@ -204,7 +195,16 @@ class _MultipleChartState extends State<MultipleCharts> {
         yValueMapper: (ChartsData sales, _) => sales.totalProfit,
         dataLabelMapper: (ChartsData sales, _) => '总收益',
         name: '总收益',
-      )
+      ),
+      ColumnSeries<ChartsData, DateTime>(
+        dataSource: chartData,
+        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date),
+        yValueMapper: (ChartsData sales, _) => sales.profit,
+        dataLabelMapper: (ChartsData sales, _) => '收益',
+        pointColorMapper: (ChartsData sales, _) =>
+        sales.profit > 0 ? Colors.red : Colors.green,
+        name: '收益',
+      ),
     ];
   }
 }

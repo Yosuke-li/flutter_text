@@ -1,5 +1,6 @@
 // import 'package:flutter_doraemonkit/flutter_doraemonkit.dart';
 import 'package:flutter_text/splash.dart';
+import 'package:flutter_text/utils/shortcuts.dart';
 import 'package:flutter_text/widget/api_call_back.dart';
 
 import 'init.dart';
@@ -34,6 +35,7 @@ class AssemblyState extends State<Assembly> {
   @override
   void initState() {
     Future<void>.delayed(Duration.zero, () async {
+      ShortCutsInit.init();
       await init();
     });
     super.initState();
