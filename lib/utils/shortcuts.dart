@@ -3,14 +3,15 @@ import 'package:flutter_text/assembly_pack/other_charts/list_group.dart';
 import 'package:flutter_text/init.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 
+//单例
 class ShortCutsInit {
   static ShortCutsInit _init;
 
   static final FlutterShortcuts _flutterShortcuts = FlutterShortcuts();
 
-  factory ShortCutsInit() => _init ?? ShortCutsInit.init();
+  factory ShortCutsInit() => _init ?? ShortCutsInit._this();
 
-  ShortCutsInit.init() {
+  ShortCutsInit._this() {
     _flutterShortcuts.initialize(debug: true);
     _flutterShortcuts.listenAction((String key) {
       _getShortcuts(key);
@@ -22,13 +23,13 @@ class ShortCutsInit {
   //处理shortcuts
   static void _getShortcuts(String key) async {
     ToastUtils.showToast(msg: '正在前往$key...');
-    await Future<void>.delayed(const Duration(seconds: 3));
+    await Future<void>.delayed(const Duration(seconds: 2));
     switch (key) {
       case 'charts':
         final NavigatorState navigatorHelper =
             await NavigatorHelper.navigatorState;
         navigatorHelper.push(
-          MaterialPageRoute(
+          MaterialPageRoute<void>(
               builder: (BuildContext context) => ListGroupPage()),
         );
       break;
@@ -42,6 +43,7 @@ class ShortCutsInit {
         id: '1',
         action: 'charts',
         shortLabel: 'charts',
+        icon: 'images/sun.jpg',
       ),
     ]);
   }

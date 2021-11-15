@@ -35,7 +35,9 @@ class AssemblyState extends State<Assembly> {
   @override
   void initState() {
     Future<void>.delayed(Duration.zero, () async {
-      ShortCutsInit.init();
+      if (Platform.isAndroid == true) {
+        ShortCutsInit();
+      }
       await init();
     });
     super.initState();
