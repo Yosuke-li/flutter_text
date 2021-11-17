@@ -1,8 +1,10 @@
 import 'package:flutter_text/assembly_pack/choose_seat/choose_seat.dart';
 
+import 'assembly_pack/InterView.dart';
 import 'assembly_pack/choose_seat/StreamText.dart';
 import 'assembly_pack/controller_test/test_page.dart';
 import 'assembly_pack/decode_gif.dart';
+import 'assembly_pack/keyboardPage.dart';
 import 'assembly_pack/other_charts/list_group.dart';
 import 'assembly_pack/other_charts/mp_chart.dart';
 import 'assembly_pack/pc_keyboard.dart';
@@ -606,6 +608,21 @@ class MainIndexState extends State<MainIndexPage>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => ListGroupPage()),
+                            );
+                          },
+                        ),ListTile(
+                          leading: const Icon(Icons.keyboard),
+                          title: Text(
+                            'KeyboardPage',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => KeyboardPage()),
                             );
                           },
                         ),ListTile(

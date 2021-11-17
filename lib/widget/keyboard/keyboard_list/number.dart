@@ -16,21 +16,21 @@ class _SecurityKeyboardNumberState extends State<SecurityKeyboardNumber> {
   @override
   Widget build(BuildContext context) {
     return DefaultTextStyle(
-        style: TextStyle(
+        style: const TextStyle(
             fontWeight: FontWeight.w500,
             color: Colors.black,
             fontSize: 23.0),
         child: Container(
           height: MediaQuery.of(context).size.height / 3 / 2 * 2,
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xffafafaf),
           ),
           child: GridView.count(
               childAspectRatio: 2 / 1,
               mainAxisSpacing: 0.5,
               crossAxisSpacing: 0.5,
-              padding: EdgeInsets.all(0.0),
+              padding: const EdgeInsets.all(0.0),
               crossAxisCount: 3,
               children: <Widget>[
                 buildButton('1'),
@@ -43,10 +43,10 @@ class _SecurityKeyboardNumberState extends State<SecurityKeyboardNumber> {
                 buildButton('8'),
                 buildButton('9'),
                 Container(
-                  color: Color(0xFFd3d6dd),
+                  color: const Color(0xFFd3d6dd),
                   child: GestureDetector(
                     behavior: HitTestBehavior.translucent,
-                    child: Center(
+                    child: const Center(
                       child: Icon(Icons.expand_more),
                     ),
                     onTap: () {
@@ -56,10 +56,10 @@ class _SecurityKeyboardNumberState extends State<SecurityKeyboardNumber> {
                 ),
                 buildButton('0'),
                 Container(
-                  color: Color(0xFFd3d6dd),
+                  color: const Color(0xFFd3d6dd),
                   child: GestureDetector(
                     behavior: HitTestBehavior.translucent,
-                    child: Center(
+                    child: const Center(
                       child: Text('X'),
                     ),
                     onTap: () {

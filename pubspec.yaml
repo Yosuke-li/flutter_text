@@ -85,6 +85,7 @@ dependencies:
   encrypt: ^5.0.1
   syncfusion_flutter_charts : ^19.3.48
   flutter_shortcuts : ^1.2.2
+  keyboard_actions: ^3.4.4
 
 dev_dependencies:
   flutter_test:

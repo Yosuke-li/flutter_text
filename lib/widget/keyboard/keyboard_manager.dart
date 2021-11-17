@@ -364,6 +364,7 @@ class SecurityTextInputType extends TextInputType {
         'decimal: $decimal)';
   }
 
+  @override
   bool operator ==(Object target) {
     if (target is SecurityTextInputType) {
       if (this.name == target.toString()) {

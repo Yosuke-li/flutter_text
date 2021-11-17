@@ -19,6 +19,7 @@ class NavigatorHelper {
     }
   }
 
+  //递归找最后一个element，返回widget的state
   static void _configNavigatorState(BuildContext context) {
     void visitor(Element element) {
       if (element.widget is Navigator) {
