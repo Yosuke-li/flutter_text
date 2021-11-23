@@ -3,12 +3,17 @@ import 'dart:developer';
 enum LogLevel { DEBUG, INFO, WARNING, ERROR }
 
 class Log {
+  static Log _log;
   static bool _debugMode = false;
   static int _maxLen = 128;
 
-  static void init({bool isDebug = false, int maxLen = 128}) {
+  //单例
+  factory Log({bool isDebug, int maxLen}) => _log ?? Log._init(isDebug: isDebug, maxLen: maxLen);
+
+  Log._init({bool isDebug = false, int maxLen = 128}) {
     _debugMode = isDebug;
     _maxLen = maxLen;
+    _log = this;
   }
 
   static void debug(Object message, {StackTrace stackTrace}) {

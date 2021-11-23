@@ -1,8 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
 
-import 'package:epub_view/epub_view.dart';
 import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/utils/datetime_utils.dart';
@@ -60,7 +57,6 @@ class BookCache {
     LocateStorage.clean(key: hasKey);
   }
 
-  @override
   static Future<void> deleteCache(int id) async {
     final List<BookModel> allCache = await getAllCache();
     allCache.removeWhere((BookModel element) => element.id == id);
@@ -68,7 +64,6 @@ class BookCache {
         jsonEncode(allCache));
   }
 
-  @override
   static Future<List<BookModel>> getAllCache() async {
     List<BookModel> result = <BookModel>[];
     final String json =
@@ -80,7 +75,6 @@ class BookCache {
     return result;
   }
 
-  @override
   static Future<BookModel> getCache(String title) async {
     final List<BookModel> allCache = await getAllCache();
     BookModel result;
@@ -93,7 +87,6 @@ class BookCache {
     return result;
   }
 
-  @override
   static Future<void> setCache(BookModel data) async {
     List<BookModel> newList = <BookModel>[];
     final List<BookModel> allCache = await getAllCache();

@@ -8,13 +8,13 @@ import 'package:permission_handler/permission_handler.dart';
 
 class PermissionHelper {
   ///程序权限请求被拒绝后的弹窗(neverAskAgain)次数,每次启动只弹出一次
-  static final Set<PermissionGroup> _permissionSet = <PermissionGroup>{};
+  static final Set<Permission> _permissionSet = <Permission>{};
 
   //检查位置授权
   static Future<bool> checkLocationPermission(
       {String textTip, void Function(bool check) onCancel}) async {
     return await checkPermission(
-        checkPermission: PermissionGroup.locationWhenInUse,
+        checkPermission: Permission.locationWhenInUse,
         textTip: textTip,
         onCancel: onCancel);
   }
@@ -24,7 +24,7 @@ class PermissionHelper {
       {String textTip, void Function(bool check) onCancel}) async {
     return await checkPermission(
         checkPermission:
-            Platform.isIOS ? PermissionGroup.photos : PermissionGroup.storage,
+            Platform.isIOS ? Permission.photos : Permission.storage,
         textTip: textTip);
   }
 
@@ -32,30 +32,29 @@ class PermissionHelper {
   static Future<bool> checkStoragePermission(
       {String textTip, void Function(bool check) onCancel}) async {
     return await checkPermission(
-        checkPermission: PermissionGroup.storage, textTip: textTip);
+        checkPermission: Permission.storage, textTip: textTip);
   }
 
   //检查麦克风授权
   static Future<bool> checkMicrophonePermission(
       {String textTip, void Function(bool check) onCancel}) async {
     return await checkPermission(
-        checkPermission: PermissionGroup.microphone, textTip: textTip);
+        checkPermission: Permission.microphone, textTip: textTip);
   }
 
   //检查照相机授权
   static Future<bool> checkCameraPermission(
       {String textTip, void Function(bool check) onCancel}) async {
     return await checkPermission(
-        checkPermission: PermissionGroup.camera, textTip: textTip);
+        checkPermission: Permission.camera, textTip: textTip);
   }
 
   ///通用检查权限函数,使用权限枚举之前需要自行审查平台差异
   static Future<bool> checkPermission(
-      {@required PermissionGroup checkPermission,
+      {@required Permission checkPermission,
       String textTip,
       void Function(bool check) onCancel}) async {
-    final PermissionStatus status =
-        await PermissionHandler().checkPermissionStatus(checkPermission);
+    final PermissionStatus status = await checkPermission.request();
     switch (status) {
       case PermissionStatus.granted:
         return true;
@@ -74,20 +73,15 @@ class PermissionHelper {
           gotoIOSPermissionTip(checkPermission, onCancel: onCancel);
         return false;
         break;
-      case PermissionStatus.unknown:
-        return await requestPermission(checkPermission,
-            onCancel: onCancel, textTip: textTip);
-        break;
       default:
         return false;
     }
   }
 
-  static Future<bool> requestPermission(PermissionGroup requestPermission,
+  static Future<bool> requestPermission(Permission requestPermission,
       {void Function(bool check) onCancel, String textTip}) async {
-    final Map<PermissionGroup, PermissionStatus> future =
-        await PermissionHandler()
-            .requestPermissions(<PermissionGroup>[requestPermission]);
+    final Map<Permission, PermissionStatus> future =
+        await [requestPermission].request();
     final PermissionStatus status = future[requestPermission];
     switch (status) {
       case PermissionStatus.restricted:
@@ -101,50 +95,36 @@ class PermissionHelper {
       case PermissionStatus.denied:
         return false;
         break;
-      case PermissionStatus.unknown:
-        return false;
-        break;
       default:
         return false;
     }
   }
 
 //安卓
-  static Future<void> gotoAndroidPermissionTip(
-      PermissionGroup requestPermission,
-      {void Function(bool check) onCancel,
-      String textTip}) async {
+  static Future<void> gotoAndroidPermissionTip(Permission requestPermission,
+      {void Function(bool check) onCancel, String textTip}) async {
     _permissionSet.add(requestPermission);
 
     String permissionTipTitle = '';
-    switch (requestPermission) {
-      case PermissionGroup.calendar:
-        permissionTipTitle = '日历';
-        break;
-      case PermissionGroup.camera:
-        permissionTipTitle = '相机';
-        break;
-      case PermissionGroup.contacts:
-        permissionTipTitle = '通讯录';
-        break;
-      case PermissionGroup.location:
-      case PermissionGroup.locationAlways:
-      case PermissionGroup.locationWhenInUse:
-        permissionTipTitle = '位置信息';
-        break;
-      case PermissionGroup.microphone:
-      case PermissionGroup.speech:
-        permissionTipTitle = '麦克风';
-        break;
-      case PermissionGroup.photos:
-        permissionTipTitle = '相册';
-        break;
-      case PermissionGroup.sms:
-        permissionTipTitle = '短信';
-        break;
-      case PermissionGroup.storage:
-        permissionTipTitle = '存储';
-        break;
+    if (requestPermission == Permission.calendar) {
+      permissionTipTitle = '日历';
+    } else if (requestPermission == Permission.camera) {
+      permissionTipTitle = '相机';
+    } else if (requestPermission == Permission.contacts) {
+      permissionTipTitle = '通讯录';
+    } else if (requestPermission == Permission.microphone ||
+        requestPermission == Permission.speech) {
+      permissionTipTitle = '麦克风';
+    } else if (requestPermission == Permission.photos) {
+      permissionTipTitle = '相册';
+    } else if (requestPermission == Permission.sms) {
+      permissionTipTitle = '短信';
+    } else if (requestPermission == Permission.storage) {
+      permissionTipTitle = '存储';
+    } else if (requestPermission == Permission.location ||
+        requestPermission == Permission.locationAlways ||
+        requestPermission == Permission.locationWhenInUse) {
+      permissionTipTitle = '位置信息';
     }
 
     //不能导入tl_wight,使用不了TlTextStyle，暂时先使用fontSize: screenUtil.getAutoSp
@@ -265,7 +245,7 @@ class PermissionHelper {
                                       screenUtil.adaptive(30)),
                                   onTap: () async {
                                     cancelFunc?.call();
-                                    await PermissionHandler().openAppSettings();
+                                    await openAppSettings();
                                   },
                                   child: Container(
                                     alignment: Alignment.center,
@@ -298,7 +278,7 @@ class PermissionHelper {
   }
 
 //ios
-  static Future<void> gotoIOSPermissionTip(PermissionGroup requestPermission,
+  static Future<void> gotoIOSPermissionTip(Permission requestPermission,
       {void Function(bool check) onCancel}) async {
     _permissionSet.add(requestPermission);
 
@@ -306,52 +286,43 @@ class PermissionHelper {
     String permissionTipComment = '功能中，找到该app，将开关打开。';
     String permissionTipLocation = ''; //定位权限内容
     Function locationContainer = ({Widget child}) => Container();
-    switch (requestPermission) {
-      case PermissionGroup.calendar:
-        permissionTipTitle = '日历';
-        break;
-      case PermissionGroup.camera:
-        permissionTipTitle = '相机';
-        break;
-      case PermissionGroup.contacts:
-        permissionTipTitle = '通讯录';
-        break;
-      case PermissionGroup.location:
-      case PermissionGroup.locationAlways:
-      case PermissionGroup.locationWhenInUse:
-        permissionTipTitle = '定位';
-        permissionTipComment = '功能中打开定位服务，再找到该app，允许使用App期间访问。';
-        permissionTipLocation = '服务';
-        locationContainer = ({Widget child}) => Container(
-              margin: EdgeInsets.only(
-                left: screenUtil.adaptive(66),
-                right: screenUtil.adaptive(60),
-                bottom: screenUtil.adaptive(70),
-              ),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '开启位置服务，能更好地确定您所处的展馆',
-                style: TextStyle(
-                  color: const Color(0xff3e3e3e),
-                  fontSize: screenUtil.getAutoSp(43),
-                  height: 1.7,
-                ),
-              ),
-            );
-        break;
-      case PermissionGroup.microphone:
-      case PermissionGroup.speech:
-        permissionTipTitle = '麦克风';
-        break;
-      case PermissionGroup.photos:
-        permissionTipTitle = '照片';
-        break;
-      case PermissionGroup.sms:
-        permissionTipTitle = '短信';
-        break;
-      case PermissionGroup.storage:
-        permissionTipTitle = '存储';
-        break;
+    if (requestPermission == Permission.calendar) {
+      permissionTipTitle = '日历';
+    } else if (requestPermission == Permission.camera) {
+      permissionTipTitle = '相机';
+    } else if (requestPermission == Permission.contacts) {
+      permissionTipTitle = '通讯录';
+    } else if (requestPermission == Permission.microphone ||
+        requestPermission == Permission.speech) {
+      permissionTipTitle = '麦克风';
+    } else if (requestPermission == Permission.photos) {
+      permissionTipTitle = '相册';
+    } else if (requestPermission == Permission.sms) {
+      permissionTipTitle = '短信';
+    } else if (requestPermission == Permission.storage) {
+      permissionTipTitle = '存储';
+    } else if (requestPermission == Permission.location ||
+        requestPermission == Permission.locationAlways ||
+        requestPermission == Permission.locationWhenInUse) {
+      permissionTipTitle = '定位';
+      permissionTipComment = '功能中打开定位服务，再找到该app，允许使用App期间访问。';
+      permissionTipLocation = '服务';
+      locationContainer = ({Widget child}) => Container(
+        margin: EdgeInsets.only(
+          left: screenUtil.adaptive(66),
+          right: screenUtil.adaptive(60),
+          bottom: screenUtil.adaptive(70),
+        ),
+        alignment: Alignment.centerLeft,
+        child: Text(
+          '开启位置服务，能更好地确定您所处的展馆',
+          style: TextStyle(
+            color: const Color(0xff3e3e3e),
+            fontSize: screenUtil.getAutoSp(43),
+            height: 1.7,
+          ),
+        ),
+      );
     }
 
     BotToast.showAnimationWidget(

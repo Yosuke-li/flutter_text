@@ -1,30 +1,31 @@
 import 'package:permission_handler/permission_handler.dart';
 
-class Permission {
+class Permissions {
   //请求权限
   static Future<void> init() async {
-    Map<PermissionGroup, PermissionStatus> permissions =
-        await PermissionHandler().requestPermissions([
-      PermissionGroup.location,
-      PermissionGroup.camera,
-      PermissionGroup.storage,
-      PermissionGroup.photos,
-      PermissionGroup.speech
-    ]);
+    Map<Permission, PermissionStatus> permissions =
+        await [
+          Permission.location,
+          Permission.camera,
+          Permission.storage,
+          Permission.photos,
+          Permission.microphone,
+          Permission.speech
+    ].request();
     //校验权限
-    if (permissions[PermissionGroup.camera] != PermissionStatus.granted) {
+    if (permissions[Permission.camera] != PermissionStatus.granted) {
       print('无照相权限');
     }
 
-    if (permissions[PermissionGroup.storage] != PermissionStatus.granted) {
+    if (permissions[Permission.storage] != PermissionStatus.granted) {
       print('无存储权限');
     }
 
-    if (permissions[PermissionGroup.photos] != PermissionStatus.granted) {
+    if (permissions[Permission.photos] != PermissionStatus.granted) {
       print('无相册权限');
     }
 
-    if (permissions[PermissionGroup.speech] != PermissionStatus.granted) {
+    if (permissions[Permission.speech] != PermissionStatus.granted) {
       print('无语音权限');
     }
   }
