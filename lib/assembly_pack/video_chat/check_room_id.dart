@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/video_chat/video_chat.dart';
 
 class CheckRoomId extends StatefulWidget {
 
@@ -70,13 +71,13 @@ class _CheckRoomState extends State<CheckRoomId> {
             RaisedButton(
               onPressed: () {
                 print(_controller.text);
-                // if (_controller.text.isNotEmpty) {
-                //   Navigator.of(context).push(MaterialPageRoute(
-                //       builder: (context) => VideoChat(
-                //             channelName: _controller.text,
-                //             is_video: is_video_chat,
-                //           )));
-                // }
+                if (_controller.text.isNotEmpty) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => VideoChat(
+                            channelName: _controller.text,
+                            is_video: is_video_chat,
+                          )));
+                }
               },
               child: Text('Join'),
             )

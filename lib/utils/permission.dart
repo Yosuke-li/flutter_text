@@ -28,5 +28,9 @@ class Permissions {
     if (permissions[Permission.speech] != PermissionStatus.granted) {
       print('无语音权限');
     }
+
+    if (permissions[Permission.microphone] != PermissionStatus.granted) {
+      print('无语音权限');
+    }
   }
 }
