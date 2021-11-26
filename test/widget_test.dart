@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_text/utils/encrypt.dart';
+import 'package:flutter_text/utils/extension.dart';
 import 'package:flutter_text/utils/lock.dart';
 import 'package:flutter_text/utils/singleton.dart';
 import 'package:lpinyin/lpinyin.dart';
@@ -99,5 +100,10 @@ void main() {
     final a = getInt();
     print(a.runtimeType);
     print(a);
+  });
+
+  test('generate date time', () {
+    final String time = 1637898885.getLocalTimeStamp;
+    print(time);
   });
 }

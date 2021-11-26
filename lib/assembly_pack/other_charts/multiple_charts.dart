@@ -1,5 +1,6 @@
 import 'package:flutter_text/init.dart';
 import 'package:flutter_text/utils/datetime_utils.dart';
+import 'package:flutter_text/utils/extension.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -90,7 +91,7 @@ class _MultipleChartState extends State<MultipleCharts> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      '时间：${DateTimeHelper.datetimeFormat(trackballDetails.groupingModeInfo.points[0].xValue ~/ 1000, 'yyyy-MM-dd')}'),
+                      '时间：${((trackballDetails.groupingModeInfo.points[0].xValue ~/ 1000) as int).getLocalTimeStamp}'),
                   for (int i = 0;
                   i < trackballDetails.groupingModeInfo.points.length;
                   i++)

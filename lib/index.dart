@@ -1,4 +1,5 @@
 import 'package:flutter_text/assembly_pack/choose_seat/choose_seat.dart';
+import 'package:flutter_text/utils/extension.dart';
 
 import 'assembly_pack/InterView.dart';
 import 'assembly_pack/choose_seat/StreamText.dart';
@@ -158,6 +159,14 @@ class MainIndexState extends State<MainIndexPage>
                               builder: (context) => ChatListWidget()),
                         );
                       },
+                    ),ListTile(
+                      leading: const Icon(Icons.chat),
+                      title: Text(
+                        '${1637898885.getLocalTimeStamp}',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
                     ),
                     ListTile(
                       leading: const Icon(Icons.video_call),
