@@ -10,10 +10,16 @@ class AnimatedCrossFadePage extends StatefulWidget {
 //属性变化
 class TextState extends State<AnimatedCrossFadePage> {
   double width = 50;
+  bool _first = true;
 
   @override
   void initState() {
     super.initState();
+    Future<void>.delayed(const Duration(seconds: 1)).then(
+      (value) => setState(() {
+        _first = false;
+      }),
+    );
   }
 
   @override
@@ -23,10 +29,19 @@ class TextState extends State<AnimatedCrossFadePage> {
         title: const Text('AnimatedCrossFade'),
       ),
       body: AnimatedCrossFade(
-        firstChild: Container(),
-        secondChild: Container(),
-        crossFadeState: null,
-        duration: null,
+        firstChild: Container(
+          width: 50,
+          height: 50,
+          color: Colors.red,
+        ),
+        secondChild: Container(
+          width: 100,
+          height: 100,
+          color: Colors.blue,
+        ),
+        crossFadeState:
+            _first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+        duration: const Duration(seconds: 1),
       ),
     );
   }

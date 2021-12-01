@@ -91,7 +91,7 @@ class _MultipleChartState extends State<MultipleCharts> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      '时间：${((trackballDetails.groupingModeInfo.points[0].xValue ~/ 1000) as int).getLocalTimeStamp}'),
+                      '时间：${((trackballDetails.groupingModeInfo.points[0].xValue ~/ 1000) as num).getLocalTimeStamp}'),
                   for (int i = 0;
                   i < trackballDetails.groupingModeInfo.points.length;
                   i++)
