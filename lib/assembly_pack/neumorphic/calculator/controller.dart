@@ -71,6 +71,9 @@ class Controller extends ChangeNotifier {
           beforeText = text;
           text = '';
         }
+        if (text.contains('.') && value == '.') {
+          return;
+        }
         text += value;
         if (!text.contains('.') && text.startsWith('0')) {
           text = text.substring(1);

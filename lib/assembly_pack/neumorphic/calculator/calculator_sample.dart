@@ -128,6 +128,8 @@ class _TopScreenState extends State<_TopScreenWidget> {
   String beforeText = '';
   String operate = '';
 
+  ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
