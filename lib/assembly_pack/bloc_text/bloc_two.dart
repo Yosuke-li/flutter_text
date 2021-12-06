@@ -1,4 +1,3 @@
-import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/bloc_text/bloc_model.dart';
 import 'package:flutter_text/utils/log_utils.dart';

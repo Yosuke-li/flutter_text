@@ -44,7 +44,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
             Container(
               padding: const EdgeInsets.all(20),
               child: TextField(
-                  keyboardType: SecurityKeyboardCenter.number,
+                  keyboardType: TextInputType.number,
                   controller: state.idController,
                   decoration: const InputDecoration(helperText: '请输入id'),
                   onSubmitted: (String value) {

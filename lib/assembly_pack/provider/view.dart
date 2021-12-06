@@ -1,4 +1,3 @@
-import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/widget/provider/base_model.dart';

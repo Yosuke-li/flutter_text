@@ -32,6 +32,7 @@ class _ChatInfoState extends State<ChatInfoPage>
   final TextEditingController _textEditingController =
       TextEditingController(); //输入框
   bool isComposer = false; //输入框判断
+  final FocusNode _node = FocusNode();
 
   @override
   void initState() {
@@ -48,14 +49,22 @@ class _ChatInfoState extends State<ChatInfoPage>
         setState(() {});
       }
     });
+    _node.addListener(() {
+      if (_node.hasFocus) {
+        onScrollBottom();
+      }
+    });
   }
 
   void onScrollBottom() {
-    Future<void>.delayed(const Duration(milliseconds: 16)).then((value) =>
+    Future<void>.delayed(const Duration(milliseconds: 500)).then((value) {
+      if (_scrollController.hasClients) {
         _scrollController.animateTo(
-            _scrollController.position.maxScrollExtent,
+            _scrollController?.position?.maxScrollExtent,
             duration: const Duration(milliseconds: 200),
-            curve: Curves.easeOutQuart));
+            curve: Curves.easeOutQuart);
+      }
+    });
   }
 
   @override
@@ -111,6 +120,7 @@ class _ChatInfoState extends State<ChatInfoPage>
           Flexible(
             child: TextField(
               controller: _textEditingController,
+              focusNode: _node,
               onChanged: (String text) {
                 setState(() {
                   isComposer = text.isNotEmpty;

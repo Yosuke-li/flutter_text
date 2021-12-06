@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:common_utils/common_utils.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/utils/log_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:common_utils/common_utils.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/event_bus_helper.dart';

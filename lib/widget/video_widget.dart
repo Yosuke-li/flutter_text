@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_text/utils/datetime_utils.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:orientation/orientation.dart';
@@ -228,12 +228,12 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
                         // 播放时间
                         margin: const EdgeInsets.only(left: 10),
                         child: Text(
-                          '${DateUtil.formatDateMs(
+                          '${DateTimeHelper.datetimeFormat(
                             _position?.inMilliseconds,
-                            format: 'mm:ss',
-                          )}/${DateUtil.formatDateMs(
+                            'mm:ss',
+                          )}/${DateTimeHelper.datetimeFormat(
                             _totalDuration?.inMilliseconds,
-                            format: 'mm:ss',
+                             'mm:ss',
                           )}',
                           style: const TextStyle(color: Colors.white),
                         ),
@@ -463,9 +463,9 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
     movePan += details.delta.dx / 10;
     final double value = _setHorizontalValue();
     // 用百分比计算出当前的秒数
-    final String currentSecond = DateUtil.formatDateMs(
+    final String currentSecond = DateTimeHelper.datetimeFormat(
       (value * _controller.value.duration.inMilliseconds).toInt(),
-      format: 'mm:ss',
+       'mm:ss',
     );
     ToastUtils.showToast(msg: currentSecond);
   }

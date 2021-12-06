@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -5,16 +6,22 @@ import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/utils/api_exception.dart';
 import 'package:flutter_text/utils/date_format.dart';
 import 'package:flutter_text/utils/log_utils.dart';
+import 'package:flutter_text/widget/api_call_back.dart';
 import 'package:flutter_text/widget/chat/helper/global/event.dart';
 import 'package:flutter_text/widget/chat/helper/message/message_control.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 
 part 'chat_listener.dart';
+
 part 'chat_state.dart';
 
 class ChatHelper {
   static MqttServerClient client;
+
+  static int _reconnectTime = 0;
+
+  static Timer _timer;
 
   static MqttConnectMessage message = MqttConnectMessage()
       .withClientIdentifier('${GlobalStore.user.name.hashCode}')
@@ -30,6 +37,7 @@ class ChatHelper {
     // client.port = 8888;
     // client.useWebSocket = true;
     client.keepAlivePeriod = 20;
+    client.onAutoReconnect = ChatState.onReconnected;
     client.onConnected = ChatState.onConnected;
     client.onDisconnected = ChatState.onDisconnected;
     client.onUnsubscribed = ChatState.onUnsubscribed;
@@ -47,13 +55,20 @@ class ChatHelper {
         setSubscribe(element);
       });
 
+      _reconnectTime = 0;
+      if (_timer != null) {
+        _timer.cancel();
+        _timer = null;
+      }
+
       ChatMsgConduit.listener();
     } on SocketException catch (e) {
-      print(e);
-      client.disconnect();
+      Log.info(e);
+      client.onAutoReconnect();
     } catch (e) {
-      print(e);
+      Log.info(e);
       client.disconnect();
+      throw ApiException(401, 'mqtt disConnected');
     }
   }
 
@@ -63,6 +78,22 @@ class ChatHelper {
       return topics;
     }
     return <String>[];
+  }
+
+  //重连
+  static void reconnect() async {
+    if (_reconnectTime < 2) {
+      _reconnectTime++;
+      _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
+        init();
+      });
+    } else {
+      if (_timer != null) {
+        _timer.cancel();
+        _timer = null;
+      }
+      throw ApiException(401, 'mqtt disConnected');
+    }
   }
 
   //设置主题

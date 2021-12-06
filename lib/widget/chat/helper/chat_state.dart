@@ -10,7 +10,17 @@ class ChatState {
   static void onDisconnected() {
     print('Disconnected');
     ChatHelper.client = null;
-    throw ApiException(401, 'mqtt disConnected');
+    if (ChatHelper._reconnectTime < 2) {
+      ChatHelper.reconnect();
+    } else {
+      throw ApiException(401, 'mqtt disConnected');
+    }
+  }
+
+  //重连
+  static void onReconnected() {
+    print('onReconnected');
+    ChatHelper.reconnect();
   }
 
   // 订阅主题成功
