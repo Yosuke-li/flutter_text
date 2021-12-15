@@ -42,6 +42,7 @@ class NotificationModel {
 
 enum NotificationType {
   Message,
+  SelfChat,
 }
 
 extension NotificationTypeTxt on NotificationType {
@@ -49,6 +50,9 @@ extension NotificationTypeTxt on NotificationType {
     switch (this) {
       case NotificationType.Message:
         return 'message';
+        break;
+      case NotificationType.SelfChat:
+        return 'selfChat';
         break;
       default:
         return null;

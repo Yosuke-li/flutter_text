@@ -59,9 +59,9 @@ dependencies:
   wechat_assets_picker: ^5.5.3
   move_to_background: ^1.0.0
   lpinyin: ^1.0.9   # 汉字转拼音
-#  flutter_doraemonkit:
-#    git:
-#      url: https://github.com/NayoLx/flutter_doraemonkit_plugin.git
+  #  flutter_doraemonkit:
+  #    git:
+  #      url: https://github.com/NayoLx/flutter_doraemonkit_plugin.git
   get: ^4.1.4
   call: ^0.3.0
   flutter_intro: ^2.3.0
@@ -82,8 +82,8 @@ dependencies:
   cached_network_image: ^3.1.0
   flutter_splash_screen: ^0.3.0
   encrypt: ^5.0.1
-  syncfusion_flutter_charts : ^19.3.48
-  flutter_shortcuts : ^1.2.2
+  syncfusion_flutter_charts: ^19.3.48
+  flutter_shortcuts: ^1.2.2
   keyboard_actions: ^3.4.4
   agora_rtc_engine: ^4.0.7
   flutter_neumorphic: ^3.2.0

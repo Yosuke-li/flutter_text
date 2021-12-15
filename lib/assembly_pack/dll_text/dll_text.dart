@@ -2,13 +2,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'dart:ffi' as ffi;
+import 'package:ffi/ffi.dart'; //用于转String
 import 'package:call/call.dart';
 import 'package:flutter_text/utils/log_utils.dart';
 
 ///just use windows
+typedef FuncVersion = ffi.Float Function(ffi.Float x, ffi.Float y);
+typedef FuncDartV = double Function(double x, double y);
 
-typedef FuncVersion = ffi.Int32 Function();
-typedef FuncDartV = int Function();
+typedef FuncString = ffi.Pointer<ffi.Int8> Function();
+typedef FuncS = ffi.Pointer<ffi.Int8> Function();
+
+typedef FuncStrLength = ffi.Int32 Function(ffi.Pointer<ffi.Int8> x);
+typedef FuncStrL = int Function(ffi.Pointer<ffi.Int8> x);
 
 
 class DllTextPage extends StatefulWidget {
@@ -17,7 +23,11 @@ class DllTextPage extends StatefulWidget {
 }
 
 class _DllTextPageState extends State<DllTextPage> {
-  Function() version;
+  ffi.Pointer<ffi.Int8> helloFunc;
+  Function(double x, double y) addFunc;
+  Function(ffi.Pointer<ffi.Int8>) strLengthFunc;
+
+  static const String value = 'Hello world';
 
   @override
   void initState() {
@@ -28,11 +38,14 @@ class _DllTextPageState extends State<DllTextPage> {
   }
 
   void _setVoid() {
-    var dll = getDyLibModule('assets/dll/HsFutuSystemInfo.dll');
+    ffi.DynamicLibrary dll = getDyLibModule('assets/dll/MyDLL.dll');
     Log.info(dll);
-    var getVersion = dll.lookupFunction<FuncVersion, FuncDartV>('hundsun_getversion');
-    Log.info('version: ${getVersion()}');
-    version = getVersion;
+    var add = dll.lookupFunction<FuncVersion, FuncDartV>('Add');
+    FuncString hello = dll.lookupFunction<FuncString, FuncS>('Hello');
+    var strLength = dll.lookupFunction<FuncStrLength, FuncStrL>('StrLength');
+    addFunc = add;
+    helloFunc = hello();
+    strLengthFunc = strLength;
     setState(() {});
   }
 
@@ -40,10 +53,18 @@ class _DllTextPageState extends State<DllTextPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('dll 测试'),
+        title: const Text('dll 测试'),
       ),
       body: Center(
-        child: Text('getVersion: ${version()}'),
+        child: Platform.isWindows == true ? Column(
+          children: [
+            Text('add: ${addFunc(1,5)}'),
+            Text('hello: ${helloFunc.cast<Utf8>().toDartString()}'),
+            Text('strLengthFunc: ${strLengthFunc(value.toNativeUtf8().cast<ffi.Int8>())}')
+          ],
+        ) : Container(
+          child: const Text('android 上无法使用 dll'),
+        ),
       ),
     );
   }

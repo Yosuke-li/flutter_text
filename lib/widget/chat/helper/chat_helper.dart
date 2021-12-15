@@ -80,10 +80,11 @@ class ChatHelper {
     return <String>[];
   }
 
-  //重连
+  //todo 重连？？？
   static void reconnect() async {
     if (_reconnectTime < 2) {
       _reconnectTime++;
+      Log.info('reConnect');
       _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
         init();
       });

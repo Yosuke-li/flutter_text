@@ -22,8 +22,8 @@ class NotificationListenPageState extends State<NotificationListenPage> {
   void initState() {
     super.initState();
     if (Platform.isAndroid == true) {
-      NotificationCenterListener.init();
-      NotificationHelper.init();
+      NotificationCenterListener();
+      NotificationHelper.init(context);
       _controller = NotificationController.listen();
     }
   }

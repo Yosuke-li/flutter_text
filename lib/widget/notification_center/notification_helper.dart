@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_text/assembly_pack/chat_self/chat_room/view.dart';
+import 'package:flutter_text/init.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 
 import 'notification_model.dart';
@@ -9,13 +11,16 @@ import 'notification_model.dart';
 class NotificationHelper {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
+  static BuildContext _context;
+
   //初始化
-  static void init() {
+  static void init(BuildContext context) {
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     const AndroidInitializationSettings android =
     AndroidInitializationSettings('@mipmap/ic_launcher');
     const InitializationSettings initSettings =
     InitializationSettings(android: android);
+    _context = context;
     flutterLocalNotificationsPlugin.initialize(initSettings, onSelectNotification: _onSelectNotification);
   }
 
@@ -25,8 +30,10 @@ class NotificationHelper {
     if (event.type == NotificationType.Message.enumToString) {
       ToastUtils.showToast(msg: event.msg);
       return;
-    } else {
-
+    } else if (event.type == NotificationType.SelfChat.enumToString) {
+      NavigatorUtils.getXOfPush(_context, ChatRoomPage(),
+          arguments: {'topic': event.title});
+      return;
     }
   }
 

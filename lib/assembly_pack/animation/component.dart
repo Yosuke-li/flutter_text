@@ -12,6 +12,7 @@ import 'package:flutter_text/utils/utils.dart';
 
 import 'animated_physical_page.dart';
 import 'circle_light.dart';
+import 'cupetino.dart';
 
 class AnimaComponentPage extends StatefulWidget {
   @override
@@ -51,7 +52,10 @@ class AnimaComponentPageState extends State<AnimaComponentPage> {
         ..pageUrl = ClockAlarmPage(),
       PageModel()
         ..name = 'CalculatorSample'
-        ..pageUrl = CalculatorSample()
+        ..pageUrl = CalculatorSample(),
+      PageModel()
+        ..name = 'CupertinoContextMenuPage'
+        ..pageUrl = CupertinoContextMenuPage()
     ];
   }
 
