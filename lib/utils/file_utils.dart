@@ -4,12 +4,19 @@ import 'dart:math';
 import 'package:path_provider/path_provider.dart';
 
 class FileUtils {
-  static bool _init = false;
+  static FileUtils _fileUtils;
 
-  static Future<void> init() async {
+  ///单例
+  factory FileUtils() => _fileUtils ?? FileUtils._init();
+
+  FileUtils._init() {
+    _set(this);
+  }
+
+  static Future<void> _set(FileUtils fileUtils) async {
     Directory root = await getApplicationDocumentsDirectory();
     Directory.current = root;
-    _init = true;
+    _fileUtils = fileUtils;
   }
 
   ///返回的是绝对路径
@@ -17,7 +24,7 @@ class FileUtils {
   ///path 为额外路径
   ///格式必需为 /pathA/pathB/
   ///已斜杠开始,并且斜杠结尾
-static Future<File> generateRandomTempFile(
+  static Future<File> generateRandomTempFile(
       {String path = '/', String fileType}) async {
     String tempFilePath =
         await generateRandomTempFilePath(path: path, fileType: fileType);
@@ -73,7 +80,6 @@ static Future<File> generateRandomTempFile(
     assert(path != null);
     assert(!path.startsWith('/'));
     assert(path.endsWith('/'));
-    assert(_init);
     File file;
     for (;;) {
       if (fileType == null) {

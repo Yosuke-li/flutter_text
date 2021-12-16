@@ -1,13 +1,10 @@
-import 'package:flutter_text/assembly_pack/choose_seat/choose_seat.dart';
 import 'package:flutter_text/utils/extension.dart';
 
-import 'assembly_pack/InterView.dart';
 import 'assembly_pack/choose_seat/StreamText.dart';
 import 'assembly_pack/controller_test/test_page.dart';
 import 'assembly_pack/decode_gif.dart';
 import 'assembly_pack/keyboardPage.dart';
 import 'assembly_pack/other_charts/list_group.dart';
-import 'assembly_pack/other_charts/mp_chart.dart';
 import 'assembly_pack/pc_keyboard.dart';
 import 'assembly_pack/slide_image/slide_image.dart';
 import 'init.dart';
@@ -47,7 +44,7 @@ class MainIndexState extends State<MainIndexPage>
     super.initState();
     PostgresUser.init();
     if (Platform.isAndroid || Platform.isIOS) Permissions.init();
-    FileUtils.init();
+    FileUtils();
     Log(isDebug: true);
     listenTest();
     tabController = TabController(length: 3, vsync: this)
@@ -60,11 +57,11 @@ class MainIndexState extends State<MainIndexPage>
 
   @override
   void dispose() {
-    super.dispose();
     if (cancel != null) {
       cancel?.call(); //dispose销毁缓存
       ListenStateTest.clear();
     }
+    super.dispose();
   }
 
   //监听案例

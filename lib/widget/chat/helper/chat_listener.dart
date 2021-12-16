@@ -11,7 +11,7 @@ class ChatMsgConduit {
       final String message =
           MqttPublishPayload.bytesToStringAsString(m.payload.message);
       msgSendCenter(event[0]);
-      Log.info('${event[0].topic} ${utf8.decode(m.payload.message)}');
+      Log.info('ChatMsgConduit listener ${event[0].topic} ${utf8.decode(m.payload.message)}');
     });
   }
 

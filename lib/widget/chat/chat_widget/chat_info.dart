@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/global/global.dart';
+import 'package:flutter_text/init.dart';
 import 'package:flutter_text/utils/datetime_utils.dart';
 import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/utils/screen.dart';
@@ -27,7 +28,7 @@ class ChatInfoPage extends StatefulWidget {
 }
 
 class _ChatInfoState extends State<ChatInfoPage>
-    with MessageCenter<ChatInfoPage>, WidgetsBindingObserver {
+    with MessageCenter<ChatInfoPage> {
   List<MessageModel> msgs = [];
   final ScrollController _scrollController = ScrollController();
 
@@ -36,26 +37,15 @@ class _ChatInfoState extends State<ChatInfoPage>
   bool isComposer = false; //输入框判断
   final FocusNode _node = FocusNode();
 
-  AppLifecycleState _state;
-
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
     getTopicMsg((List<MessageModel> list) {
       msgs = list;
       onScrollBottom();
       setState(() {});
     });
     listener((MessageModel msg) {
-      /// 不在当前页面显示弹窗
-      if (_state == AppLifecycleState.paused && msg.id != GlobalStore.user.id) {
-        NotificationCenterListener.setListener(NotificationModel()
-          ..type = NotificationType.SelfChat.enumToString
-          ..id = msg.hashCode
-          ..title = msg.topic
-          ..msg = msg.msg);
-      }
       msgs.add(msg);
       onScrollBottom();
       if (mounted) {
@@ -67,15 +57,6 @@ class _ChatInfoState extends State<ChatInfoPage>
         onScrollBottom();
       }
     });
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    _state = state;
-    if (mounted) {
-      setState(() {});
-    }
   }
 
   void onScrollBottom() {

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_text/utils/lock.dart';
+import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/widget/chat/helper/message/message_control.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
@@ -24,6 +25,7 @@ mixin MessageCenter<T extends StatefulWidget> on State<T> {
 
   //监听消息
   void listener(void Function(MessageModel msg) getLastMsg) {
+    Log.info('MessageCenter: ${control.hashCode}');
     control.listenEvent(listenFunc: (MqttReceivedMessage msg) {
       final String message = utf8.decode(msg.payload.payload.message);
       final MessageModel model = MessageModel.fromJson(json.decode(message));
