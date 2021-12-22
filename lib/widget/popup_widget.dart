@@ -71,6 +71,9 @@ class PopupToastWindow extends StatefulWidget {
   /// 自动将popWindow在targetView上面弹出
   final double turnOverFromBottom;
 
+  ///宽度
+  final double width;
+
   const PopupToastWindow(this.context,
       {this.text,
       this.popKey,
@@ -87,6 +90,7 @@ class PopupToastWindow extends StatefulWidget {
       this.canWrap = false,
       this.spaceMargin,
       this.arrowOffset,
+      this.width,
       this.onDismiss,
       this.turnOverFromBottom = 50.0});
 
@@ -108,6 +112,7 @@ class PopupToastWindow extends StatefulWidget {
       bool canWrap = false,
       double spaceMargin = 0,
       double arrowOffset,
+      double width,
       VoidCallback dismissCallback,
       double turnOverFromBottom = 50.0}) {
     Navigator.push(
@@ -128,6 +133,7 @@ class PopupToastWindow extends StatefulWidget {
           borderRadius: borderRadius,
           borderColor: borderColor ?? Colors.transparent,
           canWrap: canWrap,
+          width: width,
           spaceMargin: spaceMargin,
           arrowOffset: arrowOffset,
           onDismiss: dismissCallback,
@@ -149,7 +155,7 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
   Size _screenSize;
 
   /// 箭头和左右侧边线间距
-  double _arrowSpacing = 18;
+  final double _arrowSpacing = 18;
 
   /// 是否向右侧延伸，true：向右侧延伸，false：向左侧延伸
   bool _expandedRight = true;
@@ -169,8 +175,8 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
   @override
   void initState() {
     super.initState();
-    this._showRect = _getWidgetGlobalRect(widget.popKey);
-    this._screenSize = window.physicalSize / window.devicePixelRatio;
+    _showRect = _getWidgetGlobalRect(widget.popKey);
+    _screenSize = window.physicalSize / window.devicePixelRatio;
     _borderColor = widget.borderColor.withAlpha(255);
     _backgroundColor = widget.backgroundColor.withAlpha(255);
     _popDirection = widget.popDirection;
@@ -299,6 +305,7 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
         top: _popDirection == PopupToastDirection.bottom ? _top : null,
         bottom: _popDirection == PopupToastDirection.top ? _bottom : null,
         child: Container(
+            width: widget.width,
             padding: widget.paddingInsets,
             decoration: BoxDecoration(
                 color: _backgroundColor,
@@ -328,7 +335,7 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
                                         color: Colors.white,
                                       ),
                                     ))
-                                : const TextSpan(text: "")
+                                : const TextSpan(text: '')
                           ]))
                         : Row(
                             mainAxisSize: MainAxisSize.min,
@@ -350,7 +357,7 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
                                         color: Colors.white,
                                       ),
                                     )
-                                  : const Text("")
+                                  : const Text('')
                             ],
                           ))
                 : widget.widget));
@@ -443,13 +450,3 @@ class PopupToastRoute<T> extends PopupRoute<T> {
   @override
   Duration get transitionDuration => _duration;
 }
-
-/// popup 中每个 Item 被点击时的回调，
-/// [index] Item 的索引
-/// [item] Item 内容
-typedef PopupToastListItemClick = Function(int index, String item);
-
-/// popup 用于构造自定义的 Item
-/// [index] Item 的索引
-/// [item] Item 内容
-typedef PopupToastListItemBuilder = Widget Function(int index, String item);

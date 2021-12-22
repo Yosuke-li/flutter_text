@@ -47,9 +47,11 @@ class _PopupTextState extends State<PopupTextPage> {
               onTap: () {
                 PopupToastWindow.showPopWindow(
                   context,
-                  '啊，被点了2',
+                  '啊，被点了看看有没有双行，啊，被点了看看有没有双行啊，被点了看看有没有双行啊，被点了看看有没有双行啊，被点了看看有没有双行',
                   _textKey2,
                   spaceMargin: 0,
+                  canWrap: true,
+                  width: 200,
                 );
               },
               child: const Text('点击下2'),
