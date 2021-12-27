@@ -38,8 +38,8 @@ class ShortCutsInit {
 
   //设置shortcuts
   static void _setShortcuts() {
-    _flutterShortcuts.setShortcutItems(shortcutItems: <FlutterShortcutItem>[
-      const FlutterShortcutItem(
+    _flutterShortcuts.setShortcutItems(shortcutItems: <ShortcutItem>[
+      const ShortcutItem(
         id: '1',
         action: 'charts',
         shortLabel: 'charts',

@@ -5,6 +5,7 @@ import 'assembly_pack/choose_seat/StreamText.dart';
 import 'assembly_pack/controller_test/test_page.dart';
 import 'assembly_pack/decode_gif.dart';
 import 'assembly_pack/keyboardPage.dart';
+import 'assembly_pack/mouse_text.dart';
 import 'assembly_pack/other_charts/list_group.dart';
 import 'assembly_pack/pc_keyboard.dart';
 import 'assembly_pack/slide_image/slide_image.dart';
@@ -615,6 +616,21 @@ class MainIndexState extends State<MainIndexPage>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => SlideImagePage()),
+                            );
+                          },
+                        ),ListTile(
+                          leading: const Icon(Icons.keyboard),
+                          title: Text(
+                            'MouseTextPage 使用',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => MouseTextPage()),
                             );
                           },
                         ),ListTile(

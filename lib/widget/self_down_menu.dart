@@ -971,7 +971,6 @@ class DropdownButtonFormField<T> extends FormField<T> {
         this.decoration = const InputDecoration(),
         FormFieldSetter<T> onSaved,
         FormFieldValidator<T> validator,
-        bool autovalidate = false,
         Widget disabledHint,
         int elevation = 8,
         TextStyle style,
@@ -987,7 +986,6 @@ class DropdownButtonFormField<T> extends FormField<T> {
       onSaved: onSaved,
       initialValue: value,
       validator: validator,
-      autovalidate: autovalidate,
       builder: (FormFieldState<T> field) {
         final InputDecoration effectiveDecoration = decoration
             .applyDefaults(Theme.of(field.context).inputDecorationTheme);
