@@ -13,9 +13,26 @@ class _ImageCompressState extends State<ImageCompressPage> {
   File _file;
   File _compressImage;
 
+  int width;
+  int height;
+
+  //获取图片
   Future<void> _getImage() async {
     final File image = await ImagePickerSaver.pickImage(
         source: ImageSource.gallery, maxWidth: 1024.0, maxHeight: 1024.0);
+    final Image pimage = Image.file(image);
+
+    //获取图片file格式的长宽
+    pimage.image
+        .resolve(const ImageConfiguration())
+        .addListener(ImageStreamListener((ImageInfo info, bool _) {
+      Log.info(info.image.height);
+      Log.info(info.image.width);
+      setState(() {
+        width = info.image.width;
+        height = info.image.height;
+      });
+    }));
 
     //没有选择图片或者没有拍照
     if (image != null) {
@@ -62,6 +79,8 @@ class _ImageCompressState extends State<ImageCompressPage> {
                           fit: BoxFit.cover,
                         ),
                       ),
+                    const SizedBox(height: 10),
+                    Text('图片尺寸：width ${width ?? 0} height ${height ?? 0}'),
                     Text(
                         '图片大小：${_file != null ? (_file.readAsBytesSync().lengthInBytes / 1024).toStringAsFixed(2) : 0} KB')
                   ],
@@ -105,6 +124,7 @@ class _ImageCompressState extends State<ImageCompressPage> {
                           fit: BoxFit.cover,
                         ),
                       ),
+                    const SizedBox(height: 10),
                     Text(
                         '压缩后图片大小：${_compressImage != null ? (_compressImage.readAsBytesSync().lengthInBytes / 1024).toStringAsFixed(2) : 0} KB')
                   ],
