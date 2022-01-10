@@ -4,6 +4,7 @@ import 'assembly_pack/PopupText.dart';
 import 'assembly_pack/choose_seat/StreamText.dart';
 import 'assembly_pack/controller_test/test_page.dart';
 import 'assembly_pack/decode_gif.dart';
+import 'assembly_pack/image_compress.dart';
 import 'assembly_pack/keyboardPage.dart';
 import 'assembly_pack/mouse_text.dart';
 import 'assembly_pack/other_charts/list_group.dart';
@@ -158,7 +159,8 @@ class MainIndexState extends State<MainIndexPage>
                               builder: (context) => ChatListWidget()),
                         );
                       },
-                    ),ListTile(
+                    ),
+                    ListTile(
                       leading: const Icon(Icons.chat),
                       title: Text(
                         '${1637898885.getLocalTimeStamp}',
@@ -212,6 +214,22 @@ class MainIndexState extends State<MainIndexPage>
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => VideoList()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.filter_list),
+                      title: Text(
+                        '图片压缩 --',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () {
+                        ListenStateTest.setNum(ListenTestModel()..num = 4);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => ImageCompressPage()),
                         );
                       },
                     ),
