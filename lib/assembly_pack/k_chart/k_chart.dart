@@ -92,9 +92,8 @@ class KChartState extends State<KChartPage> {
                 timeFormat: TimeFormat.YEAR_MONTH_DAY,
                 translations: kChartTranslations,
                 showNowPrice: _showNowPrice,
-                isChinese: isChinese,
                 hideGrid: _hideGrid,
-                maDayList: [1, 100, 1000],
+                maDayList: const [1, 100, 1000],
               ),
             ),
             if (showLoading)

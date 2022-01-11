@@ -1,10 +1,11 @@
+import 'package:flutter_text/assembly_pack/compress/video_compress.dart';
 import 'package:flutter_text/utils/extension.dart';
 
 import 'assembly_pack/PopupText.dart';
 import 'assembly_pack/choose_seat/StreamText.dart';
 import 'assembly_pack/controller_test/test_page.dart';
 import 'assembly_pack/decode_gif.dart';
-import 'assembly_pack/image_compress.dart';
+import 'assembly_pack/compress/image_compress.dart';
 import 'assembly_pack/keyboardPage.dart';
 import 'assembly_pack/mouse_text.dart';
 import 'assembly_pack/other_charts/list_group.dart';
@@ -230,6 +231,22 @@ class MainIndexState extends State<MainIndexPage>
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (BuildContext context) => ImageCompressPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.filter_list),
+                      title: Text(
+                        '视频压缩 --',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () {
+                        ListenStateTest.setNum(ListenTestModel()..num = 4);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => VideoCompressPage()),
                         );
                       },
                     ),

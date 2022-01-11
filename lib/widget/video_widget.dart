@@ -15,6 +15,7 @@ class VideoPlayerText extends StatefulWidget {
     this.file, //浏览本地视频的地址
     this.width, // 播放器尺寸（大于等于视频播放区域）
     this.height,
+    this.autoPlay = true,
     this.title = '', // 视频需要显示的标题
   });
 
@@ -28,6 +29,8 @@ class VideoPlayerText extends StatefulWidget {
 
   // 视频标题
   final String title;
+
+  final bool autoPlay;
 
   @override
   State<VideoPlayerText> createState() {
@@ -395,7 +398,6 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
     super.dispose();
     if (_controller != null) {
       // 惯例。组件销毁时清理下
-      _controller.removeListener(_videoListener);
       _controller.dispose();
       _controller = null;
     }
@@ -415,7 +417,7 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
     _videoInit = false;
     _position = const Duration(seconds: 0);
     // 加载network的url，也支持本地文件，自行阅览官方api
-    setUrl(true);
+    setUrl(widget.autoPlay);
     setState(() {});
   }
 

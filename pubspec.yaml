@@ -88,6 +88,7 @@ dependencies:
   agora_rtc_engine: ^4.0.7
   flutter_neumorphic: ^3.2.0
   flutter_image_compress: ^1.1.0
+  video_compress_ds: ^3.1.6
 
 #  dropdown_search:
 
