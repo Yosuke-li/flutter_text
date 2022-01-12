@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/utils/date_format.dart';
+import 'package:flutter_text/utils/datetime_utils.dart';
 import 'package:flutter_text/utils/utils.dart';
 
 final String READER_IMAGE_URL = 'http://statics.zhuishushenqi.com';
@@ -1217,7 +1217,7 @@ String getRatingDesc(int rating) {
 }
 
 String formatDateTime(String datetime) {
-  return datetime == null ? "" : formatDateByStr(datetime);
+  return datetime == null ? "" : DateTimeHelper.datetimeFormat(DateTime.parse(datetime).millisecond, 'yyyyMMdd');
 }
 
 double dynamicToDouble(dynamic variable) {

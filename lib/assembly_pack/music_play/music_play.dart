@@ -1,13 +1,22 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_text/assembly_pack/music_play/music_helper.dart';
+import 'package:flutter_text/utils/array_helper.dart';
+import 'package:flutter_text/utils/datetime_utils.dart';
+import 'package:flutter_text/utils/log_utils.dart';
+import 'package:flutter_text/widget/api_call_back.dart';
 
-class NeumorphicExamplePage extends StatefulWidget {
+class MusicPlayPage extends StatefulWidget {
   @override
-  _NeumorphicExampleState createState() => _NeumorphicExampleState();
+  _MusicPlayState createState() => _MusicPlayState();
 }
 
-class _NeumorphicExampleState extends State<NeumorphicExamplePage> {
+class _MusicPlayState extends State<MusicPlayPage> {
   @override
   void initState() {
     super.initState();
@@ -15,22 +24,81 @@ class _NeumorphicExampleState extends State<NeumorphicExamplePage> {
 
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(child: _page());
+    return NeumorphicTheme(child: _Page());
   }
 }
 
-class _page extends StatefulWidget {
+class _Page extends StatefulWidget {
   @override
-  _pageState createState() => _pageState();
+  _PageState createState() => _PageState();
 }
 
-class _pageState extends State<_page> {
-  bool _useDark = false;
+class _PageState extends State<_Page> {
   AudioPlayer _audioPlayer = AudioPlayer();
+  String name;
+  int times;
+  int currentTime;
+
+  AudioPlayerState _state;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  void select() async {
+    final FilePickerResult result = await loadingCallback(
+      () => FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        type: FileType.audio,
+      ),
+    );
+
+    if (result != null) {
+      if (result.isSinglePick == true) {
+        _audioPlayer = AudioPlayer();
+        final r = await _audioPlayer.play(ArrayHelper.get(result.files, 0).path,
+            isLocal: true);
+        Log.info(r);
+        _audioPlayer.onPlayerStateChanged.listen((event) {
+          Log.info('onPlayerStateChanged $event');
+          _state = event;
+          setState(() {});
+        });
+        _audioPlayer.onDurationChanged.listen((Duration duration) {
+          times = duration.inSeconds;
+          setState(() {});
+        });
+        _audioPlayer.onAudioPositionChanged.listen((event) {
+          currentTime = event.inSeconds;
+          setState(() {});
+        });
+        name = ArrayHelper.get(result.names, 0);
+        setState(() {});
+      }
+    }
+  }
+
+  //暂停
+  void startOrPause() async {
+    if (_state == AudioPlayerState.PAUSED) {
+      await _audioPlayer.resume();
+    } else {
+      await _audioPlayer.pause();
+    }
+  }
+
+  //拖拽进度条
+  void onSeekChange(int sec) async {
+    await _audioPlayer.seek(Duration(seconds: sec));
+  }
+
+  @override
+  void dispose() {
+    if (mounted) {
+      _audioPlayer.dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -83,7 +151,7 @@ class _pageState extends State<_page> {
           Align(
             alignment: Alignment.center,
             child: Text(
-              "Now Playing",
+              'Now Playing',
               style:
                   TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
             ),
@@ -93,18 +161,14 @@ class _pageState extends State<_page> {
             child: NeumorphicButton(
               padding: const EdgeInsets.all(18.0),
               onPressed: () {
-                setState(() {
-                  _useDark = !_useDark;
-                  NeumorphicTheme.of(context).themeMode =
-                      _useDark ? ThemeMode.dark : ThemeMode.light;
-                });
+                select();
               },
               style: const NeumorphicStyle(
                 shape: NeumorphicShape.convex,
                 boxShape: NeumorphicBoxShape.circle(),
               ),
               child: Icon(
-                Icons.list,
+                Icons.file_upload,
                 color: _iconsColor(),
               ),
             ),
@@ -133,10 +197,10 @@ class _pageState extends State<_page> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Text("Blinding Lights",
+        Text('${name ?? ' '}',
             style: TextStyle(
                 fontWeight: FontWeight.w800,
-                fontSize: 34,
+                fontSize: 16,
                 color: NeumorphicTheme.defaultTextColor(context))),
         const SizedBox(
           height: 4,
@@ -151,40 +215,44 @@ class _pageState extends State<_page> {
   }
 
   Widget _buildSeekBar(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "2.00",
-                    style: TextStyle(
-                        color: NeumorphicTheme.defaultTextColor(context)),
-                  )),
-              Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "3.14",
-                    style: TextStyle(
-                        color: NeumorphicTheme.defaultTextColor(context)),
-                  )),
-            ],
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          NeumorphicSlider(
-            height: 8,
-            min: 0,
-            max: 314,
-            value: 100,
-            onChanged: (value) {},
-          )
-        ],
+    return RepaintBoundary(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 28.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '${DateTimeHelper.secToMusicTime(currentTime) ?? 0}',
+                      style: TextStyle(
+                          color: NeumorphicTheme.defaultTextColor(context)),
+                    )),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '${DateTimeHelper.secToMusicTime(times) ?? 0}',
+                      style: TextStyle(
+                          color: NeumorphicTheme.defaultTextColor(context)),
+                    )),
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            NeumorphicSlider(
+              height: 8,
+              min: 0,
+              max: times?.toDouble() ?? 100,
+              value: currentTime?.toDouble() ?? 0,
+              onChanged: (double value) {
+                onSeekChange(value.toInt());
+              },
+            )
+          ],
+        ),
       ),
     );
   }
@@ -196,7 +264,7 @@ class _pageState extends State<_page> {
         NeumorphicButton(
           padding: const EdgeInsets.all(18.0),
           onPressed: () {},
-          style: NeumorphicStyle(
+          style: const NeumorphicStyle(
             shape: NeumorphicShape.convex,
             boxShape: NeumorphicBoxShape.circle(),
           ),
@@ -208,13 +276,15 @@ class _pageState extends State<_page> {
         const SizedBox(width: 12),
         NeumorphicButton(
           padding: const EdgeInsets.all(24.0),
-          onPressed: () {},
-          style: NeumorphicStyle(
+          onPressed: () {
+            startOrPause();
+          },
+          style: const NeumorphicStyle(
             shape: NeumorphicShape.convex,
             boxShape: NeumorphicBoxShape.circle(),
           ),
           child: Icon(
-            Icons.play_arrow,
+            _state == AudioPlayerState.PAUSED ? Icons.play_arrow : Icons.pause,
             size: 42,
             color: _iconsColor(),
           ),

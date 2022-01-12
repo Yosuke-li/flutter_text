@@ -8,6 +8,7 @@ import 'assembly_pack/decode_gif.dart';
 import 'assembly_pack/compress/image_compress.dart';
 import 'assembly_pack/keyboardPage.dart';
 import 'assembly_pack/mouse_text.dart';
+import 'assembly_pack/music_play/music_play.dart';
 import 'assembly_pack/other_charts/list_group.dart';
 import 'assembly_pack/pc_keyboard.dart';
 import 'assembly_pack/slide_image/slide_image.dart';
@@ -219,7 +220,23 @@ class MainIndexState extends State<MainIndexPage>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.filter_list),
+                      leading: const Icon(Icons.music_note),
+                      title: Text(
+                        '音乐播放器 --',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      onTap: () {
+                        ListenStateTest.setNum(ListenTestModel()..num = 4);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => MusicPlayPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.compress),
                       title: Text(
                         '图片压缩 --',
                         style: TextStyle(
@@ -235,7 +252,7 @@ class MainIndexState extends State<MainIndexPage>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.filter_list),
+                      leading: const Icon(Icons.compress),
                       title: Text(
                         '视频压缩 --',
                         style: TextStyle(

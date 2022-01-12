@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/assembly_pack/mqtt_text/real_time_list/real_list.dart';
-import 'package:flutter_text/utils/date_format.dart';
 import 'package:flutter_text/widget/chat/chat_widget/chat_info.dart';
 import 'package:get/get.dart';
 
