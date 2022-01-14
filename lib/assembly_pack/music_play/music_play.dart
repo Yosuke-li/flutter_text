@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_text/assembly_pack/music_play/music_model.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/utils/datetime_utils.dart';
 import 'package:flutter_text/utils/log_utils.dart';
+import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:flutter_text/widget/api_call_back.dart';
 import 'package:flutter_text/widget/slide_panel_left.dart';
@@ -113,14 +116,15 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
 
   // 监听
   void addAudioPlayListen() {
-    _audioPlayer.onPlayerStateChanged.listen((event) {
+    _audioPlayer.onPlayerStateChanged.listen((AudioPlayerState event) {
       Log.info('onPlayerStateChanged $event');
       _state = event;
       if (mounted) {
         setState(() {});
       }
       if (event == AudioPlayerState.COMPLETED) {
-        next();
+        next(auto: true);
+        _controller.stop();
       }
     });
     _audioPlayer.onDurationChanged.listen((Duration duration) {
@@ -158,12 +162,31 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
   }
 
   //下一首
-  void next() {
+  void next({bool auto}) {
     int index = currentIndex;
-    if (currentIndex == _list.length - 1) {
-      index = 0;
-    } else {
-      index = currentIndex + 1;
+    if (playState == PlayMode.normal) {
+      if (currentIndex == _list.length - 1) {
+        _audioPlayer.pause();
+        return;
+      } else {
+        index = currentIndex + 1;
+      }
+    } else if (playState == PlayMode.singleLoop) {
+      if (auto != true) {
+        if (currentIndex == _list.length - 1) {
+          index = 0;
+        } else {
+          index = currentIndex + 1;
+        }
+      }
+    } else if (playState == PlayMode.loop) {
+      if (currentIndex == _list.length - 1) {
+        index = 0;
+      } else {
+        index = currentIndex + 1;
+      }
+    } else if (playState == PlayMode.random) {
+      index = Random().nextInt(_list.length) - 1;
     }
     currentMusic = ArrayHelper.get(_list, index);
     currentIndex = index;
@@ -211,6 +234,13 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
         maxWidth: 200,
         minHeight: 0,
         maxHeight: 400,
+        padding: EdgeInsets.only(
+            left: screenUtil.adaptive(30), right: screenUtil.adaptive(30)),
+        margin: EdgeInsets.only(
+            left: screenUtil.adaptive(30),
+            right: screenUtil.adaptive(30),
+            bottom: screenUtil.adaptive(30)),
+        borderRadius: const BorderRadius.all(Radius.circular(24.0)),
         panel: _buildMusicList(context),
         body: SafeArea(
           child: GestureDetector(
@@ -304,9 +334,10 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
           Align(
             alignment: Alignment.center,
             child: Text(
-              'Now Playing',
-              style:
-                  TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+              'x x 音乐',
+              style: TextStyle(
+                  color: NeumorphicTheme.defaultTextColor(context),
+                  fontSize: screenUtil.getAutoSp(40)),
             ),
           ),
           Align(
