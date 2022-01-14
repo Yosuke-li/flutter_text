@@ -4,6 +4,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_text/assembly_pack/controller_test/controller.dart';
 import 'package:flutter_text/assembly_pack/music_play/music_helper.dart';
 import 'package:flutter_text/assembly_pack/music_play/music_model.dart';
 import 'package:flutter_text/utils/array_helper.dart';
@@ -234,8 +235,6 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
         maxWidth: 200,
         minHeight: 0,
         maxHeight: 400,
-        padding: EdgeInsets.only(
-            left: screenUtil.adaptive(30), right: screenUtil.adaptive(30)),
         margin: EdgeInsets.only(
             left: screenUtil.adaptive(30),
             right: screenUtil.adaptive(30),
@@ -272,37 +271,63 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
   Widget _buildMusicList(BuildContext context) {
     return RepaintBoundary(
       child: SingleChildScrollView(
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemBuilder: (BuildContext context, int index) {
-            final MusicModel model = ArrayHelper.get(_list, index);
-            return GestureDetector(
-              onTap: () {
-                panel.close();
-                play(model.path);
-              },
-              onLongPress: () async {
-                await MusicCache.deleteCache(model.id);
-                getMusicCacheList();
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: Colors.grey,
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(
+                top: screenUtil.adaptive(40),
+                left: screenUtil.adaptive(35),
+              ),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '当前播放',
+                style: TextStyle(fontSize: screenUtil.adaptive(42)),
+              ),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                final MusicModel model = ArrayHelper.get(_list, index);
+                return GestureDetector(
+                  onTap: () {
+                    panel.close();
+                    currentMusic = model;
+                    play(model.path);
+                    setState(() {});
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(
+                      left: screenUtil.adaptive(35),
+                      right: screenUtil.adaptive(20),
+                      bottom: screenUtil.adaptive(10)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '${model.name}',
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () async {
+                            await MusicCache.deleteCache(model.id);
+                            getMusicCacheList();
+                          },
+                          icon: Icon(
+                            Icons.close,
+                            size: screenUtil.adaptive(40),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ),
-                height: 50,
-                child: Row(
-                  children: [
-                    Text('${model.name}'),
-                  ],
-                ),
-              ),
-            );
-          },
-          itemCount: _list.length,
+                );
+              },
+              itemCount: _list.length,
+            )
+          ],
         ),
       ),
     );
