@@ -106,4 +106,9 @@ void main() {
     final String time = 1637898885.getLocalTimeStamp;
     print(time);
   });
+
+  test('replace', () {
+    const String time = 'xxxsxxsxs.MP3';
+    print(time.split('.'));
+  });
 }
