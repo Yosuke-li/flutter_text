@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/init.dart';
 import 'package:flutter_text/utils/log_utils.dart';
 
-
-//todo 有问题！！！
+//todo 有问题！！！ Ios组件
 class CupertinoContextMenuPage extends StatefulWidget {
   @override
   _CupertinoContextMenuState createState() {
@@ -46,6 +45,12 @@ class _CupertinoContextMenuState extends State<CupertinoContextMenuPage> {
                     height: 200,
                     width: 400,
                   ),
+                  previewBuilder: (BuildContext context,
+                      Animation<double> animation, Widget child) {
+                    return Container(
+                      child: Image.asset('assets/banner/back.png'),
+                    );
+                  },
                   actions: <Widget>[
                     CupertinoContextMenuAction(
                       child: const Text('Navigator.pop(context)'),

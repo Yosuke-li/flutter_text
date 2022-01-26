@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_test/user_db_provider.dart';
+import 'package:flutter_text/init.dart';
 import 'package:flutter_text/model/sql_user.dart';
 import 'package:flutter_text/widget/api_call_back.dart';
 import 'package:flutter_text/widget/skeleton.dart';
@@ -36,7 +37,7 @@ class SkeletonPageState extends State<SkeletonPage> {
     try {
       final SkeletonManager<SqlUser> r =
           SkeletonManager<SqlUser>((List<SqlUser> items) async {
-        await loadingCallback(() => Future<void>.delayed(const Duration(seconds: 2)));
+        await  Future<void>.delayed(const Duration(seconds: 2));
         final List<SqlUser> list = await provider.getAllUser();
         setState(() {
           user = list;
@@ -65,9 +66,25 @@ class SkeletonPageState extends State<SkeletonPage> {
                   ? SkeletonStatus.loadDone
                   : SkeletonStatus.waitLoad,
               skeleton: (BuildContext context) => Container(
-                child: Text('1'),
+                child: Container(
+                  padding: EdgeInsets.only(
+                    top: screenUtil.adaptive(20),
+                    left: screenUtil.adaptive(35),
+                    bottom: screenUtil.adaptive(20),
+                  ),
+                  child: Container(
+                    width: screenUtil.adaptive(100),
+                    height: screenUtil.adaptive(30),
+                    color: Colors.grey.withOpacity(0.3),
+                  ),
+                ),
               ),
               child: (BuildContext context) => Container(
+                padding: EdgeInsets.only(
+                  top: screenUtil.adaptive(20),
+                  left: screenUtil.adaptive(35),
+                  bottom: screenUtil.adaptive(20),
+                ),
                 child: Text(e.name),
               ),
             );

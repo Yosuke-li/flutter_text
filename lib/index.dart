@@ -12,6 +12,7 @@ import 'assembly_pack/music_play/music_play.dart';
 import 'assembly_pack/other_charts/list_group.dart';
 import 'assembly_pack/pc_keyboard.dart';
 import 'assembly_pack/slide_image/slide_image.dart';
+import 'assembly_pack/unit/unit_component.dart';
 import 'init.dart';
 
 import 'package:get/get.dart';
@@ -608,6 +609,21 @@ class MainIndexState extends State<MainIndexPage>
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (context) => SlidingUpText()),
+                            );
+                          },
+                        ),ListTile(
+                          leading: const Icon(Icons.keyboard),
+                          title: Text(
+                            'unit 组件列表使用',
+                            style: TextStyle(
+                              fontSize: screenUtil.adaptive(40),
+                            ),
+                          ),
+                          trailing: const Icon(Icons.keyboard_arrow_right),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => UnitComponentPage()),
                             );
                           },
                         ),ListTile(

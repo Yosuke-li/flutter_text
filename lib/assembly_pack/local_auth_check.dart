@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +23,7 @@ class _localAuthCheckState extends State<LocalAuthCheck> {
   List<BiometricType> _availableBiometrics;
   String _authorized = 'Not Authorized';
   bool _isAuthenticating = false;
+  
 
   @override
   void initState() {
@@ -129,6 +131,12 @@ class _localAuthCheckState extends State<LocalAuthCheck> {
     setState(() => _isAuthenticating = false);
   }
 
+  void _isAvailFaceAuth() async {
+    final List<BiometricType> _availAuth = await auth.getAvailableBiometrics();
+    print('${_availAuth.contains(BiometricType.face)}');
+    print('$_availAuth');
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -196,6 +204,17 @@ class _localAuthCheckState extends State<LocalAuthCheck> {
                         ],
                       ),
                       onPressed: _authenticateWithBiometrics,
+                    ),ElevatedButton(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(_isAuthenticating
+                              ? 'Cancel'
+                              : 'Authenticate: biometrics only'),
+                          Icon(Icons.face),
+                        ],
+                      ),
+                      onPressed: _isAvailFaceAuth,
                     ),
                   ],
                 ),
