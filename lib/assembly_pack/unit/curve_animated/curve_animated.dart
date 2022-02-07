@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/assembly_pack/animation/curve_animated/point_data.dart';
+import 'package:flutter_text/assembly_pack/animation/drop_selectable_widget.dart';
+import 'package:flutter_text/assembly_pack/unit/curve_animated/point_data.dart';
 
-import '../drop_selectable_widget.dart';
+
 import 'anim_painter.dart';
 
 class CurveAnimatedPage extends StatefulWidget {

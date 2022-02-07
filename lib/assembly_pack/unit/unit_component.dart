@@ -5,6 +5,7 @@ import 'package:flutter_text/model/AComponent.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 
 import 'Reorderable.dart';
+import 'curve_animated/curve_animated.dart';
 
 
 class UnitComponentPage extends StatefulWidget {
@@ -28,6 +29,9 @@ class UnitComponentPageState extends State<UnitComponentPage> {
       PageModel()
         ..name = 'CurpertinoViewPage'
         ..pageUrl = CurpertinoViewPage(),
+      PageModel()
+        ..name = 'CurveAnimatedPage'
+        ..pageUrl = CurveAnimatedPage(),
     ];
   }
 
