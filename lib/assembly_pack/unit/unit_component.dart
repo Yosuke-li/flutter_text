@@ -4,6 +4,7 @@ import 'package:flutter_text/assembly_pack/unit/StepView.dart';
 import 'package:flutter_text/model/AComponent.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 
+import '../sudu/sudo_game.dart';
 import 'Reorderable.dart';
 import 'curve_animated/curve_animated.dart';
 
@@ -32,6 +33,9 @@ class UnitComponentPageState extends State<UnitComponentPage> {
       PageModel()
         ..name = 'CurveAnimatedPage'
         ..pageUrl = CurveAnimatedPage(),
+      PageModel()
+        ..name = 'SudoGamePage'
+        ..pageUrl = SudoGamePage(),
     ];
   }
 
