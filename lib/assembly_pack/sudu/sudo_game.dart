@@ -459,6 +459,7 @@ class _SudoGameState extends State<SudoGamePage> {
                         widgetHeight: 150,
                         disableColor: const Color(0xff1F425F),
                         onDropSelected: (int index) async {
+                          Log.info(index);
                           currentDifficultyLevel =
                               ArrayHelper.get(gameLevel, index);
                           newGame(currentDifficultyLevel);

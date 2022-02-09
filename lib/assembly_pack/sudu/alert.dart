@@ -9,16 +9,25 @@ class AlertGameOver extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      backgroundColor: Styles.secondaryBackgroundColor,
+      backgroundColor: Styles.white,
       title: Text(
         '游戏结束',
-        style: TextStyle(color: Styles.foregroundColor),
+        style: TextStyle(color: Styles.darkGrey),
       ),
       content: Text(
         '恭喜通关该难度！',
-        style: TextStyle(color: Styles.foregroundColor),
+        style: TextStyle(color: Styles.darkGrey),
       ),
       actions: [
+        TextButton(
+          style: ButtonStyle(
+              foregroundColor:
+              MaterialStateProperty.all<Color>(Styles.primaryColor)),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('返回'),
+        ),
         TextButton(
           style: ButtonStyle(
               foregroundColor:
@@ -80,7 +89,7 @@ class AlertNumbers extends State<AlertNumbersState> {
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
-                  Styles.secondaryBackgroundColor),
+                  Styles.white),
               foregroundColor:
               MaterialStateProperty.all<Color>(Styles.primaryColor),
               shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -88,7 +97,7 @@ class AlertNumbers extends State<AlertNumbersState> {
                     borderRadius: BorderRadius.circular(5),
                   )),
               side: MaterialStateProperty.all<BorderSide>(BorderSide(
-                color: Styles.foregroundColor,
+                color: Styles.darkGrey,
                 width: 1,
                 style: BorderStyle.solid,
               )),
@@ -96,7 +105,7 @@ class AlertNumbers extends State<AlertNumbersState> {
             child: Text(
               numbers.toString(),
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
           ),
         )
@@ -123,11 +132,11 @@ class AlertNumbers extends State<AlertNumbersState> {
   Widget build(BuildContext context) {
     return AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        backgroundColor: Styles.secondaryBackgroundColor,
+        backgroundColor: Styles.white,
         title: Center(
             child: Text(
               'Choose a Number',
-              style: TextStyle(color: Styles.foregroundColor),
+              style: TextStyle(color: Styles.darkGrey),
             )),
         content: Column(
           mainAxisSize: MainAxisSize.min,
