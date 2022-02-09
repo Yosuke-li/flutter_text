@@ -27,11 +27,10 @@ class _SudoGameState extends State<SudoGamePage> {
   List<List<int>> gameCopy;
   List<List<int>> gameSolved;
   static String currentDifficultyLevel;
-  static String currentTheme;
   static String currentAccentColor;
   static String platform;
 
-  List<String> gameLevel = <String>[
+  static List<String> gameLevel = <String>[
     'test',
     'beginner',
     'easy',
@@ -46,17 +45,6 @@ class _SudoGameState extends State<SudoGamePage> {
       if (currentDifficultyLevel == null) {
         currentDifficultyLevel = 'easy';
         setPrefs('currentDifficultyLevel');
-      }
-      if (currentTheme == null) {
-        if (MediaQuery.maybeOf(context)?.platformBrightness != null) {
-          currentTheme =
-              MediaQuery.of(context).platformBrightness == Brightness.light
-                  ? 'light'
-                  : 'dark';
-        } else {
-          currentTheme = 'dark';
-        }
-        setPrefs('currentTheme');
       }
       if (currentAccentColor == null) {
         currentAccentColor = 'Blue';
@@ -83,7 +71,6 @@ class _SudoGameState extends State<SudoGamePage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       currentDifficultyLevel = prefs.getString('currentDifficultyLevel');
-      currentTheme = prefs.getString('currentTheme');
       currentAccentColor = prefs.getString('currentAccentColor');
     });
   }
@@ -92,8 +79,6 @@ class _SudoGameState extends State<SudoGamePage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (property == 'currentDifficultyLevel') {
       prefs.setString('currentDifficultyLevel', currentDifficultyLevel);
-    } else if (property == 'currentTheme') {
-      prefs.setString('currentTheme', currentTheme);
     } else if (property == 'currentAccentColor') {
       prefs.setString('currentAccentColor', currentAccentColor);
     }

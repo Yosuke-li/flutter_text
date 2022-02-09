@@ -22,7 +22,7 @@ class AlertGameOver extends StatelessWidget {
         TextButton(
           style: ButtonStyle(
               foregroundColor:
-              MaterialStateProperty.all<Color>(Styles.primaryColor)),
+                  MaterialStateProperty.all<Color>(Styles.primaryColor)),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -31,7 +31,7 @@ class AlertGameOver extends StatelessWidget {
         TextButton(
           style: ButtonStyle(
               foregroundColor:
-              MaterialStateProperty.all<Color>(Styles.primaryColor)),
+                  MaterialStateProperty.all<Color>(Styles.primaryColor)),
           onPressed: () {
             Navigator.pop(context);
             restartGame = true;
@@ -41,7 +41,7 @@ class AlertGameOver extends StatelessWidget {
         TextButton(
           style: ButtonStyle(
               foregroundColor:
-              MaterialStateProperty.all<Color>(Styles.primaryColor)),
+                  MaterialStateProperty.all<Color>(Styles.primaryColor)),
           onPressed: () {
             Navigator.pop(context);
             newGame = true;
@@ -69,9 +69,9 @@ class AlertNumbersState extends StatefulWidget {
 class AlertNumbers extends State<AlertNumbersState> {
   static int number;
   int numberSelected;
-  static final List<int> numberList1 = [1, 2, 3];
-  static final List<int> numberList2 = [4, 5, 6];
-  static final List<int> numberList3 = [7, 8, 9];
+  static final List<int> numberList1 = <int>[1, 2, 3];
+  static final List<int> numberList2 = <int>[4, 5, 6];
+  static final List<int> numberList3 = <int>[7, 8, 9];
 
   List<SizedBox> createButtons(List<int> numberList) {
     return <SizedBox>[
@@ -88,14 +88,13 @@ class AlertNumbers extends State<AlertNumbersState> {
               })
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                  Styles.white),
+              backgroundColor: MaterialStateProperty.all<Color>(Styles.white),
               foregroundColor:
-              MaterialStateProperty.all<Color>(Styles.primaryColor),
+                  MaterialStateProperty.all<Color>(Styles.primaryColor),
               shape: MaterialStateProperty.all<OutlinedBorder>(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  )),
+                borderRadius: BorderRadius.circular(5),
+              )),
               side: MaterialStateProperty.all<BorderSide>(BorderSide(
                 color: Styles.darkGrey,
                 width: 1,
@@ -112,18 +111,15 @@ class AlertNumbers extends State<AlertNumbersState> {
     ];
   }
 
-  Row oneRow(List<int> numberList) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: createButtons(numberList),
-    );
-  }
-
   List<Row> createRows() {
-    List<List> numberLists = [numberList1, numberList2, numberList3];
-    List<Row> rowList = new List<Row>.filled(3, null);
-    for (var i = 0; i <= 2; i++) {
-      rowList[i] = oneRow(numberLists[i]);
+    final List<List<int>> numberLists = [numberList1, numberList2, numberList3];
+    final List<Row> rowList = List<Row>.filled(3, null);
+    for (int i = 0; i <= 2; i++) {
+      rowList[i] = Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: createButtons(numberLists[i]),
+      );
+      ;
     }
     return rowList;
   }
@@ -131,18 +127,19 @@ class AlertNumbers extends State<AlertNumbersState> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        backgroundColor: Styles.white,
-        title: Center(
-            child: Text(
-              'Choose a Number',
-              style: TextStyle(color: Styles.darkGrey),
-            )),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: createRows(),
-        ));
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor: Styles.white,
+      title: Center(
+          child: Text(
+        'Choose a Number',
+        style: TextStyle(color: Styles.darkGrey),
+      )),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: createRows(),
+      ),
+    );
   }
 }
