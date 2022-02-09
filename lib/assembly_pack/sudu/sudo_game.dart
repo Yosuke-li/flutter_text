@@ -189,8 +189,6 @@ class _SudoGameState extends State<SudoGamePage> {
     }
   }
 
-  //todo 待修改
-  //todo 改为只提示填过的部分，错误的显示红色，正确的显示绿色
   void showSolution() {
     setState(() {
       gameSolution = true;
@@ -224,13 +222,13 @@ class _SudoGameState extends State<SudoGamePage> {
     if (([0, 1, 2].contains(k) && [3, 4, 5].contains(i)) ||
         ([3, 4, 5].contains(k) && [0, 1, 2, 6, 7, 8].contains(i)) ||
         ([6, 7, 8].contains(k) && [3, 4, 5].contains(i))) {
-      if (Styles.primaryBackgroundColor == Styles.darkGrey) {
+      if (Styles.white == Styles.darkGrey) {
         color = Styles.grey;
       } else {
         color = Colors.grey[300];
       }
     } else {
-      color = Styles.primaryBackgroundColor;
+      color = Styles.white;
     }
 
     return color;
@@ -314,7 +312,7 @@ class _SudoGameState extends State<SudoGamePage> {
               if (states.contains(MaterialState.disabled)) {
                 return gameCopy[k][i] == 0
                     ? emptyColor
-                    : Styles.foregroundColor;
+                    : Styles.darkGrey;
               }
               return game[k][i] == 0
                   ? buttonColor(k, i)
@@ -325,7 +323,7 @@ class _SudoGameState extends State<SudoGamePage> {
               borderRadius: buttonEdgeRadius(k, i),
             )),
             side: MaterialStateProperty.all<BorderSide>(BorderSide(
-              color: Styles.foregroundColor,
+              color: Styles.darkGrey,
               width: 1,
               style: BorderStyle.solid,
             )),
@@ -383,11 +381,11 @@ class _SudoGameState extends State<SudoGamePage> {
         ),
         builder: (BuildContext context) {
           final TextStyle customStyle =
-              TextStyle(inherit: false, color: Styles.foregroundColor);
+              TextStyle(inherit: false, color: Styles.darkGrey);
           return Wrap(
             children: [
               ListTile(
-                leading: Icon(Icons.refresh, color: Styles.foregroundColor),
+                leading: Icon(Icons.refresh, color: Styles.darkGrey),
                 title: Text('Restart Game', style: customStyle),
                 onTap: () {
                   Navigator.pop(context);
@@ -395,7 +393,7 @@ class _SudoGameState extends State<SudoGamePage> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.add_rounded, color: Styles.foregroundColor),
+                leading: Icon(Icons.add_rounded, color: Styles.darkGrey),
                 title: Text('New Game', style: customStyle),
                 onTap: () {
                   Navigator.pop(context);
@@ -405,7 +403,7 @@ class _SudoGameState extends State<SudoGamePage> {
               ),
               ListTile(
                 leading: Icon(Icons.lightbulb_outline_rounded,
-                    color: Styles.foregroundColor),
+                    color: Styles.darkGrey),
                 title: Text('Show Solution', style: customStyle),
                 onTap: () {
                   Navigator.pop(context);
@@ -428,7 +426,7 @@ class _SudoGameState extends State<SudoGamePage> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: Styles.primaryBackgroundColor,
+        backgroundColor: Styles.white,
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(56.0),
             child: AppBar(
@@ -484,7 +482,7 @@ class _SudoGameState extends State<SudoGamePage> {
           ));
         }),
         floatingActionButton: FloatingActionButton(
-          foregroundColor: Styles.primaryBackgroundColor,
+          foregroundColor: Styles.white,
           backgroundColor: Styles.primaryColor,
           onPressed: () => showOptionModalSheet(context),
           child: const Icon(Icons.menu_rounded),
