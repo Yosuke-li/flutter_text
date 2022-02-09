@@ -19,6 +19,7 @@ class SudoGamePage extends StatefulWidget {
 class _SudoGameState extends State<SudoGamePage> {
   bool firstRun = true;
   bool gameOver = false;
+  bool gameSolution = false;
   int timesCalled = 0;
   bool isButtonDisabled = false;
   List<List<List<int>>> gameList;
@@ -30,7 +31,13 @@ class _SudoGameState extends State<SudoGamePage> {
   static String currentAccentColor;
   static String platform;
 
-  List<String> gameLevel = <String>['test', 'beginner', 'easy', 'medium', 'hard'];
+  List<String> gameLevel = <String>[
+    'test',
+    'beginner',
+    'easy',
+    'medium',
+    'hard'
+  ];
 
   @override
   void initState() {
@@ -56,7 +63,6 @@ class _SudoGameState extends State<SudoGamePage> {
         setPrefs('currentAccentColor');
       }
       newGame(currentDifficultyLevel);
-      changeTheme('set');
       changeAccentColor(currentAccentColor, true);
     });
     if (kIsWeb) {
@@ -91,35 +97,6 @@ class _SudoGameState extends State<SudoGamePage> {
     } else if (property == 'currentAccentColor') {
       prefs.setString('currentAccentColor', currentAccentColor);
     }
-  }
-
-  void changeTheme(String mode) {
-    setState(() {
-      if (currentTheme == 'light') {
-        if (mode == 'switch') {
-          Styles.primaryBackgroundColor = Styles.darkGrey;
-          Styles.secondaryBackgroundColor = Styles.grey;
-          Styles.foregroundColor = Styles.white;
-          currentTheme = 'dark';
-        } else if (mode == 'set') {
-          Styles.primaryBackgroundColor = Styles.white;
-          Styles.secondaryBackgroundColor = Styles.white;
-          Styles.foregroundColor = Styles.darkGrey;
-        }
-      } else if (currentTheme == 'dark') {
-        if (mode == 'switch') {
-          Styles.primaryBackgroundColor = Styles.white;
-          Styles.secondaryBackgroundColor = Styles.white;
-          Styles.foregroundColor = Styles.darkGrey;
-          currentTheme = 'light';
-        } else if (mode == 'set') {
-          Styles.primaryBackgroundColor = Styles.darkGrey;
-          Styles.secondaryBackgroundColor = Styles.grey;
-          Styles.foregroundColor = Styles.white;
-        }
-      }
-      setPrefs('currentTheme');
-    });
   }
 
   void changeAccentColor(String color, [bool firstRun = false]) {
@@ -193,13 +170,15 @@ class _SudoGameState extends State<SudoGamePage> {
         }
         break;
     }
-    final SudokuGenerator generator = SudokuGenerator(emptySquares: emptySquares);
+    final SudokuGenerator generator =
+        SudokuGenerator(emptySquares: emptySquares);
     return [generator.newSudoku, generator.newSudokuSolved];
   }
 
   void setGame(int mode, [String difficulty = 'easy']) {
     if (mode == 1) {
-      game = List<List<int>>.generate(9, (int i) => [0, 0, 0, 0, 0, 0, 0, 0, 0]);
+      game =
+          List<List<int>>.generate(9, (int i) => [0, 0, 0, 0, 0, 0, 0, 0, 0]);
       gameCopy = SudokuUtilities.copySudoku(game);
       gameSolved = SudokuUtilities.copySudoku(game);
     } else {
@@ -210,12 +189,15 @@ class _SudoGameState extends State<SudoGamePage> {
     }
   }
 
+  //todo 待修改
+  //todo 改为只提示填过的部分，错误的显示红色，正确的显示绿色
   void showSolution() {
     setState(() {
-      game = SudokuUtilities.copySudoku(gameSolved);
-      isButtonDisabled =
-          !isButtonDisabled ? !isButtonDisabled : isButtonDisabled;
-      gameOver = true;
+      gameSolution = true;
+      Timer(const Duration(seconds: 5), () {
+        gameSolution = false;
+        setState(() {});
+      });
     });
   }
 
@@ -318,8 +300,15 @@ class _SudoGameState extends State<SudoGamePage> {
               ? null
               : () => callback([k, i], 0),
           style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all<Color>(buttonColor(k, i)),
+            backgroundColor: isButtonDisabled || gameCopy[k][i] != 0 ||
+                    game[k][i] == 0 ||
+                    gameSolution == false
+                ? MaterialStateProperty.all<Color>(buttonColor(k, i))
+                : game[k][i] == gameSolved[k][i]
+                    ? MaterialStateColor.resolveWith(
+                        (_) => Styles.aospExtendedGreen.shade50)
+                    : MaterialStateColor.resolveWith(
+                        (_) => Styles.lightRed.shade50),
             foregroundColor: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
               if (states.contains(MaterialState.disabled)) {
@@ -329,7 +318,7 @@ class _SudoGameState extends State<SudoGamePage> {
               }
               return game[k][i] == 0
                   ? buttonColor(k, i)
-                  : Styles.secondaryColor;
+                  : Styles.textColor;
             }),
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
@@ -424,17 +413,6 @@ class _SudoGameState extends State<SudoGamePage> {
                       const Duration(milliseconds: 200), () => showSolution());
                 },
               ),
-              ListTile(
-                leading: Icon(Icons.invert_colors_on_rounded,
-                    color: Styles.foregroundColor),
-                title: Text('Switch Theme', style: customStyle),
-                onTap: () {
-                  Navigator.pop(context);
-                  Timer(const Duration(milliseconds: 200), () {
-                    changeTheme('switch');
-                  });
-                },
-              ),
             ],
           );
         });
@@ -460,46 +438,50 @@ class _SudoGameState extends State<SudoGamePage> {
             )),
         body: Builder(builder: (BuildContext builder) {
           return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: screenUtil.adaptive(75), right: screenUtil.adaptive(75)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('当前难度：$currentDifficultyLevel'),
-                      RepaintBoundary(
-                        child: DropSelectableWidget(
-                          fontSize: 12,
-                          data: gameLevel,
-                          value: currentDifficultyLevel,
-                          iconSize: 20,
-                          height: 30,
-                          width: 100,
-                          widgetHeight: 150,
-                          disableColor: const Color(0xff1F425F),
-                          onDropSelected: (int index) async {
-                            currentDifficultyLevel = ArrayHelper.get(gameLevel, index);
-                            newGame(currentDifficultyLevel);
-                            setState(() {});
-                          },
-                        ),
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(
+                    left: screenUtil.adaptive(75),
+                    right: screenUtil.adaptive(75)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('当前难度：$currentDifficultyLevel'),
+                    RepaintBoundary(
+                      child: DropSelectableWidget(
+                        fontSize: 12,
+                        data: gameLevel,
+                        value: currentDifficultyLevel,
+                        iconSize: 20,
+                        height: 30,
+                        width: 100,
+                        widgetHeight: 150,
+                        disableColor: const Color(0xff1F425F),
+                        onDropSelected: (int index) async {
+                          currentDifficultyLevel =
+                              ArrayHelper.get(gameLevel, index);
+                          newGame(currentDifficultyLevel);
+                          setState(() {});
+                        },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 25,),
-                RepaintBoundary(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: createRows(),
-                  ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              RepaintBoundary(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: createRows(),
                 ),
-              ],
-            )
-          );
+              ),
+            ],
+          ));
         }),
         floatingActionButton: FloatingActionButton(
           foregroundColor: Styles.primaryBackgroundColor,

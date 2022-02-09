@@ -188,6 +188,7 @@ class Styles {
   static MaterialColor foregroundColor = white;
   static MaterialColor primaryColor = ionicBlue;
   static MaterialColor secondaryColor = lightRed;
+  static MaterialColor textColor = violet;
 
   static final Map<String, MaterialColor> accentColors = {
     'Cyan': ionicCyan,

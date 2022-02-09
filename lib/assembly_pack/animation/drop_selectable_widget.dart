@@ -38,7 +38,6 @@ class _DropSelectableWidgetState extends State<DropSelectableWidget>
   FocusNode _node;
   bool _focused = false;
   FocusAttachment _nodeAttachment;
-  Color _color = Colors.white;
   OverlayEntry _overlayEntry;
   AnimationController _ctrl;
   Animation<double> animation;
@@ -49,7 +48,6 @@ class _DropSelectableWidgetState extends State<DropSelectableWidget>
   @override
   void initState() {
     super.initState();
-
     _ctrl = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
