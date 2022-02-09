@@ -7,20 +7,24 @@ typedef OnDropSelected = void Function(int index);
 
 class DropSelectableWidget extends StatefulWidget {
   final List<String> data;
+  final String value;
   final OnDropSelected onDropSelected;
   final Color disableColor;
   final double iconSize;
   final double height;
   final double width;
+  final double widgetHeight;
   final double fontSize;
 
   const DropSelectableWidget({
     Key key,
     this.data = const [],
     this.onDropSelected,
+    this.value,
     this.disableColor = Colors.black,
     this.iconSize = 24,
     this.height = 30,
+    this.widgetHeight = 200,
     this.width = 200,
     this.fontSize = 14,
   }) : super(key: key);
@@ -119,7 +123,7 @@ class _DropSelectableWidgetState extends State<DropSelectableWidget>
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '${widget.data.isNotEmpty ? widget.data[_selectedIndex] : "暂无数据"}',
+            '${widget.data.isNotEmpty ? widget.value != null ? widget.value : widget.data[_selectedIndex] : "暂无数据"}',
             style: TextStyle(height: 1, fontSize: widget.fontSize),
           ),
           AnimatedBuilder(
@@ -154,7 +158,7 @@ class _DropSelectableWidgetState extends State<DropSelectableWidget>
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Container(
-                    height: 200,
+                    height: widget.widgetHeight,
                     // alignment: Alignment.center,
                     decoration: const BoxDecoration(
                       color: Color(0xffDAE3FF),

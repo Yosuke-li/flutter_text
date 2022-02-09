@@ -11,11 +11,11 @@ class AlertGameOver extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Styles.secondaryBackgroundColor,
       title: Text(
-        'Game Over',
+        '游戏结束',
         style: TextStyle(color: Styles.foregroundColor),
       ),
       content: Text(
-        'You successfully solved the Sudoku',
+        '恭喜通关该难度！',
         style: TextStyle(color: Styles.foregroundColor),
       ),
       actions: [
@@ -27,7 +27,7 @@ class AlertGameOver extends StatelessWidget {
             Navigator.pop(context);
             restartGame = true;
           },
-          child: const Text('Restart Game'),
+          child: const Text('重新开始'),
         ),
         TextButton(
           style: ButtonStyle(
@@ -37,7 +37,7 @@ class AlertGameOver extends StatelessWidget {
             Navigator.pop(context);
             newGame = true;
           },
-          child: const Text('New Game'),
+          child: const Text('新游戏'),
         ),
       ],
     );

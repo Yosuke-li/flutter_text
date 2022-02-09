@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/animation/drop_selectable_widget.dart';
+import 'package:flutter_text/init.dart';
+import 'package:flutter_text/utils/array_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sudoku_solver_generator/sudoku_solver_generator.dart';
 
@@ -26,7 +29,8 @@ class _SudoGameState extends State<SudoGamePage> {
   static String currentTheme;
   static String currentAccentColor;
   static String platform;
-  static bool isDesktop;
+
+  List<String> gameLevel = <String>['test', 'beginner', 'easy', 'medium', 'hard'];
 
   @override
   void initState() {
@@ -61,13 +65,11 @@ class _SudoGameState extends State<SudoGamePage> {
               .toString()
               .replaceFirst('TargetPlatform.', '')
               .toLowerCase();
-      isDesktop = false;
     } else {
       platform = defaultTargetPlatform
           .toString()
           .replaceFirst('TargetPlatform.', '')
           .toLowerCase();
-      isDesktop = ['windows', 'linux', 'macos'].contains(platform);
     }
   }
 
@@ -148,7 +150,7 @@ class _SudoGameState extends State<SudoGamePage> {
           showDialog(context: context, builder: (_) => AlertGameOver())
               .whenComplete(() {
             if (AlertGameOver.newGame) {
-              newGame();
+              newGame(currentDifficultyLevel);
               AlertGameOver.newGame = false;
             } else if (AlertGameOver.restartGame) {
               restartGame();
@@ -191,13 +193,13 @@ class _SudoGameState extends State<SudoGamePage> {
         }
         break;
     }
-    SudokuGenerator generator = new SudokuGenerator(emptySquares: emptySquares);
+    final SudokuGenerator generator = SudokuGenerator(emptySquares: emptySquares);
     return [generator.newSudoku, generator.newSudokuSolved];
   }
 
   void setGame(int mode, [String difficulty = 'easy']) {
     if (mode == 1) {
-      game = new List.generate(9, (int i) => [0, 0, 0, 0, 0, 0, 0, 0, 0]);
+      game = List<List<int>>.generate(9, (int i) => [0, 0, 0, 0, 0, 0, 0, 0, 0]);
       gameCopy = SudokuUtilities.copySudoku(game);
       gameSolved = SudokuUtilities.copySudoku(game);
     } else {
@@ -294,7 +296,7 @@ class _SudoGameState extends State<SudoGamePage> {
     } else {
       emptyColor = Styles.secondaryColor;
     }
-    List<SizedBox> buttonList = new List<SizedBox>.filled(9, null);
+    final List<SizedBox> buttonList = List<SizedBox>.filled(9, null);
     for (int i = 0; i <= 8; i++) {
       int k = timesCalled;
       buttonList[i] = SizedBox(
@@ -383,7 +385,6 @@ class _SudoGameState extends State<SudoGamePage> {
   }
 
   void showOptionModalSheet(BuildContext context) {
-    BuildContext outerContext = context;
     showModalBottomSheet(
         context: context,
         shape: const RoundedRectangleBorder(
@@ -454,15 +455,50 @@ class _SudoGameState extends State<SudoGamePage> {
             preferredSize: const Size.fromHeight(56.0),
             child: AppBar(
               centerTitle: true,
-              title: const Text('Sudoku'),
+              title: const Text('数 独'),
               backgroundColor: Styles.primaryColor,
             )),
         body: Builder(builder: (BuildContext builder) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: createRows(),
-            ),
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: screenUtil.adaptive(75), right: screenUtil.adaptive(75)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('当前难度：$currentDifficultyLevel'),
+                      RepaintBoundary(
+                        child: DropSelectableWidget(
+                          fontSize: 12,
+                          data: gameLevel,
+                          value: currentDifficultyLevel,
+                          iconSize: 20,
+                          height: 30,
+                          width: 100,
+                          widgetHeight: 150,
+                          disableColor: const Color(0xff1F425F),
+                          onDropSelected: (int index) async {
+                            currentDifficultyLevel = ArrayHelper.get(gameLevel, index);
+                            newGame(currentDifficultyLevel);
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 25,),
+                RepaintBoundary(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: createRows(),
+                  ),
+                ),
+              ],
+            )
           );
         }),
         floatingActionButton: FloatingActionButton(
