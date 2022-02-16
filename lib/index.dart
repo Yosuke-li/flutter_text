@@ -444,22 +444,6 @@ class MainIndexState extends State<MainIndexPage>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.link),
-                      title: Text(
-                        '${GlobalStore.isShowOverlay == false ? '显示' : '关闭'}性能监听 --',
-                        style: TextStyle(
-                          fontSize: screenUtil.adaptive(40),
-                        ),
-                      ),
-                      onTap: () {
-                        ListenStateTest.setNum(ListenTestModel()..num = 15);
-                        setState(() {
-                          GlobalStore.isShowOverlay =
-                              !GlobalStore.isShowOverlay;
-                        });
-                      },
-                    ),
-                    ListTile(
                       leading: const Icon(Icons.messenger_outline_sharp),
                       title: Text(
                         '本地消息推送',

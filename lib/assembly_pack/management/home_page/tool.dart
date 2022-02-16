@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/management/function_page/manage/manage_list.dart';
-import 'package:flutter_text/index.dart';
 import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/widget/management/common/view_key.dart';

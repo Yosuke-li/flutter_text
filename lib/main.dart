@@ -76,7 +76,10 @@ class AssemblyState extends State<Assembly> {
                 ],
                 home: GestureDetector(
                   onLongPress: () {
-                    // FlutterDoraemonkit.toggle();
+                    setState(() {
+                      GlobalStore.isShowOverlay =
+                      !GlobalStore.isShowOverlay;
+                    });
                   },
                   child: KeyboardRootWidget(
                     child: todayShowAd != null

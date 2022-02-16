@@ -92,3 +92,17 @@ export 'assembly_pack/layout_demo.dart';
 export 'assembly_pack/bottom_bar.dart';
 export 'assembly_pack/popup_menu.dart';
 export 'assembly_pack/form_text.dart';
+
+export 'assembly_pack/PopupText.dart';
+export 'assembly_pack/api_exception_page.dart';
+export 'assembly_pack/choose_seat/StreamText.dart';
+export 'assembly_pack/controller_test/test_page.dart';
+export 'assembly_pack/decode_gif.dart';
+export 'assembly_pack/compress/image_compress.dart';
+export 'assembly_pack/keyboardPage.dart';
+export 'assembly_pack/mouse_text.dart';
+export 'assembly_pack/music_play/music_play.dart';
+export 'assembly_pack/other_charts/list_group.dart';
+export 'assembly_pack/pc_keyboard.dart';
+export 'assembly_pack/slide_image/slide_image.dart';
+export 'assembly_pack/unit/unit_component.dart';
