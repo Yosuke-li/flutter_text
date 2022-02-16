@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../init.dart';
+
 class NavigatorHelper {
   static NavigatorState _navigatorState;
 

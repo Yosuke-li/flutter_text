@@ -2,6 +2,7 @@ import 'package:flutter_text/assembly_pack/compress/video_compress.dart';
 import 'package:flutter_text/utils/extension.dart';
 
 import 'assembly_pack/PopupText.dart';
+import 'assembly_pack/api_exception_page.dart';
 import 'assembly_pack/choose_seat/StreamText.dart';
 import 'assembly_pack/controller_test/test_page.dart';
 import 'assembly_pack/decode_gif.dart';
@@ -29,6 +30,7 @@ import 'assembly_pack/raised_button.dart';
 import 'assembly_pack/flexible_space_bar.dart';
 
 class MainIndexPage extends StatefulWidget {
+
   @override
   MainIndexState createState() => MainIndexState();
 }
@@ -63,6 +65,9 @@ class MainIndexState extends State<MainIndexPage>
 
   @override
   void dispose() {
+    if (mounted) {
+      return;
+    }
     if (cancel != null) {
       cancel?.call(); //dispose销毁缓存
       ListenStateTest.clear();
@@ -97,11 +102,9 @@ class MainIndexState extends State<MainIndexPage>
 
   @override
   Widget build(BuildContext viewContext) {
-    return GetMaterialApp(
-      showPerformanceOverlay: GlobalStore.isShowOverlay ?? false,
-      title: 'Flutter Study',
-      navigatorObservers: <NavigatorObserver>[BotToastNavigatorObserver()],
-      home: Scaffold(
+    /// todo [GetMaterialApp] 影响了401回到首页的功能
+    ///
+    return Scaffold(
         appBar: AppBar(
           title: const Text('组件列表'),
         ),
@@ -199,8 +202,7 @@ class MainIndexState extends State<MainIndexPage>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 3);
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => videoIndex()),
+                          MaterialPageRoute(builder: (context) => videoIndex()),
                         );
                       },
                     ),
@@ -215,8 +217,7 @@ class MainIndexState extends State<MainIndexPage>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 4);
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => VideoList()),
+                          MaterialPageRoute(builder: (context) => VideoList()),
                         );
                       },
                     ),
@@ -248,7 +249,8 @@ class MainIndexState extends State<MainIndexPage>
                         ListenStateTest.setNum(ListenTestModel()..num = 4);
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (BuildContext context) => ImageCompressPage()),
+                              builder: (BuildContext context) =>
+                                  ImageCompressPage()),
                         );
                       },
                     ),
@@ -264,7 +266,8 @@ class MainIndexState extends State<MainIndexPage>
                         ListenStateTest.setNum(ListenTestModel()..num = 4);
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (BuildContext context) => VideoCompressPage()),
+                              builder: (BuildContext context) =>
+                                  VideoCompressPage()),
                         );
                       },
                     ),
@@ -295,8 +298,7 @@ class MainIndexState extends State<MainIndexPage>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 6);
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => PdfRead()),
+                          MaterialPageRoute(builder: (context) => PdfRead()),
                         );
                       },
                     ),
@@ -311,8 +313,7 @@ class MainIndexState extends State<MainIndexPage>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 7);
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => pdfView()),
+                          MaterialPageRoute(builder: (context) => pdfView()),
                         );
                       },
                     ),
@@ -438,8 +439,7 @@ class MainIndexState extends State<MainIndexPage>
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 14);
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => SchemeText()),
+                          MaterialPageRoute(builder: (context) => SchemeText()),
                         );
                       },
                     ),
@@ -455,7 +455,7 @@ class MainIndexState extends State<MainIndexPage>
                         ListenStateTest.setNum(ListenTestModel()..num = 15);
                         setState(() {
                           GlobalStore.isShowOverlay =
-                          !GlobalStore.isShowOverlay;
+                              !GlobalStore.isShowOverlay;
                         });
                       },
                     ),
@@ -469,8 +469,7 @@ class MainIndexState extends State<MainIndexPage>
                       ),
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 16);
-                        NavigatorUtils.pushWidget(
-                            context, LocalNotification());
+                        NavigatorUtils.pushWidget(context, LocalNotification());
                       },
                     ),
                     ListTile(
@@ -489,7 +488,7 @@ class MainIndexState extends State<MainIndexPage>
                     ),
                     ListTile(
                       leading:
-                      const Icon(Icons.precision_manufacturing_rounded),
+                          const Icon(Icons.precision_manufacturing_rounded),
                       title: Text(
                         'provider text',
                         style: TextStyle(
@@ -498,13 +497,12 @@ class MainIndexState extends State<MainIndexPage>
                       ),
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 18);
-                        NavigatorUtils.pushWidget(
-                            context, ProviderTextPage());
+                        NavigatorUtils.pushWidget(context, ProviderTextPage());
                       },
                     ),
                     ListTile(
                       leading:
-                      const Icon(Icons.precision_manufacturing_rounded),
+                          const Icon(Icons.precision_manufacturing_rounded),
                       title: Text(
                         'management 管理后台',
                         style: TextStyle(
@@ -526,8 +524,7 @@ class MainIndexState extends State<MainIndexPage>
                       ),
                       onTap: () {
                         ListenStateTest.setNum(ListenTestModel()..num = 20);
-                        NavigatorUtils.pushWidget(
-                            context, BlocTextWidget());
+                        NavigatorUtils.pushWidget(context, BlocTextWidget());
                       },
                     ),
                     ListTile(
@@ -540,8 +537,7 @@ class MainIndexState extends State<MainIndexPage>
                       ),
                       onTap: () async {
                         //todo market://需要后面对应的app才能打开,只有details也不行
-                        launch(
-                            'market://details?id=com.example.exhibition');
+                        launch('market://details?id=com.example.exhibition');
                       },
                     ),
                     ListTile(
@@ -555,9 +551,9 @@ class MainIndexState extends State<MainIndexPage>
                       onTap: () async {
                         ListenStateTest.setNum(ListenTestModel()..num = 21);
                         final String result =
-                        await NavigatorUtils.getXOfPush<String>(
-                            context, GetxTextPage(),
-                            arguments: <String, dynamic>{'count': 10});
+                            await NavigatorUtils.getXOfPush<String>(
+                                context, GetxTextPage(),
+                                arguments: <String, dynamic>{'count': 10});
                         Log.info('result: $result');
                       },
                     ),
@@ -594,932 +590,941 @@ class MainIndexState extends State<MainIndexPage>
               RepaintBoundary(
                 child: Container(
                   child: ListView(
-                      children:
-                      ListTile.divideTiles(context: context, tiles: [
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'SlidingUpPanel使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => SlidingUpText()),
-                            );
-                          },
-                        ),ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'unit 组件列表使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => UnitComponentPage()),
-                            );
-                          },
-                        ),ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'PopupTextPage 使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => PopupTextPage()),
-                            );
-                          },
-                        ),ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'Controller 使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => TestControlPage()),
-                            );
-                          },
-                        ),ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            '解析gif',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => DecodeGifPage()),
-                            );
-                          },
-                        ),ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'Sliding Image使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => SlideImagePage()),
-                            );
-                          },
-                        ),ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'MouseTextPage 使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => MouseTextPage()),
-                            );
-                          },
-                        ),ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            '普通charts的使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => ListGroupPage()),
-                            );
-                          },
-                        ),ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'KeyboardPage',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => KeyboardPage()),
-                            );
-                          },
-                        ),ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'PCKeyboardPage使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => PCKeyboardPage()),
-                            );
-                          },
-                        ),ListTile(
-                          leading: const Icon(Icons.image_search),
-                          title: Text(
-                            'Cache Image Page',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => CacheImagePage()),
-                            );
-                          },
-                        ),ListTile(
-                          leading: const Icon(Icons.image_search),
-                          title: Text(
-                            'inheried 测试',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => InheritedShowPage()),
-                            );
-                          },
+                      children: ListTile.divideTiles(context: context, tiles: [
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'SlidingUpPanel使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'kchart',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => KChartPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => SlidingUpText()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'unit 组件列表使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'text',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => OtaUpdateWidget()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => UnitComponentPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'PopupTextPage 使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            '搜索',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => SearchDemoPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => PopupTextPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'Controller 使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            '金融list',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      DemoPage(MediaQuery.of(context).size)),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => TestControlPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        '解析gif',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.group_add),
-                          title: Text(
-                            '分组列表',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => GroupListPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => DecodeGifPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'Sliding Image使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.group_add),
-                          title: Text(
-                            '懒加载列表',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => NotifiedScrollPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => SlideImagePage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.api),
+                      title: Text(
+                        'api 测试',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.line_style_rounded),
-                          title: Text(
-                            'ReFresh使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => RefreshPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        NavigatorUtils.pushWidget(context, ApiTextPage());
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'MouseTextPage 使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.line_style_rounded),
-                          title: Text(
-                            'intro 引导教程页',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => IntroPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => MouseTextPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        '普通charts的使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'modal Utils使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            ModalText.model(context);
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => ListGroupPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'KeyboardPage',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'SlidingUpPanelText使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => SlidingUpPanelText()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => KeyboardPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'PCKeyboardPage使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.stream),
-                          title: Text(
-                            'StreamText',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => StreamTextPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => PCKeyboardPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.image_search),
+                      title: Text(
+                        'Cache Image Page',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.view_list),
-                          title: Text(
-                            'A to Z list view',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => CarModelsPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => CacheImagePage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.image_search),
+                      title: Text(
+                        'inheried 测试',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.settings),
-                          title: Text(
-                            '测试',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => TextT()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => InheritedShowPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'kchart',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.backpack),
-                          title: Text(
-                            '获取package info',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => GetPackageWidget()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => KChartPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'text',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.account_box),
-                          title: Text(
-                            'Box合集',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => BoxPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => OtaUpdateWidget()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        '搜索',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.scanner),
-                          title: Text(
-                            '扫图片条形码',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => ScanBook()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => SearchDemoPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        '金融list',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.tablet_android),
-                          title: Text(
-                            '动画常用组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => AnimaComponentPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DemoPage(MediaQuery.of(context).size)),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.group_add),
+                      title: Text(
+                        '分组列表',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.fastfood),
-                          title: Text(
-                            '美食列表',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => MyApp()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => GroupListPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.group_add),
+                      title: Text(
+                        '懒加载列表',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.swap_horizontal_circle),
-                          title: Text(
-                            '滑块组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => slider()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => NotifiedScrollPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.line_style_rounded),
+                      title: Text(
+                        'ReFresh使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.slideshow),
-                          title: Text(
-                            '两端滑块组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      RangeSliderPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => RefreshPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.line_style_rounded),
+                      title: Text(
+                        'intro 引导教程页',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.format_line_spacing),
-                          title: Text(
-                            '水平布局',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => layoutRow()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => IntroPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'modal Utils使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.inbox),
-                          title: Text(
-                            '装饰容器',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => DecoratedBoxPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        ModalText.model(context);
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'SlidingUpPanelText使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.input),
-                          title: Text(
-                            '文本输入框',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      TextFieldPage()),
-                            ).then((onValue) {
-                              print('返回回来的手机号是：' + onValue);
-                            });
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => SlidingUpPanelText()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.stream),
+                      title: Text(
+                        'StreamText',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.check_box),
-                          title: Text(
-                            'checkBox组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => CheckBoxListTitle()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => StreamTextPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.view_list),
+                      title: Text(
+                        'A to Z list view',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.grid_on),
-                          title: Text(
-                            'GridView组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => GridViewPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => CarModelsPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.settings),
+                      title: Text(
+                        '测试',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.bug_report),
-                          title: Text(
-                            'RaisedButton组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => RaisedButtonPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => TextT()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.backpack),
+                      title: Text(
+                        '获取package info',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.space_bar),
-                          title: Text(
-                            'FlexibleSpaceBar组件(折叠)',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => FlexibleSpaceBarPage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => GetPackageWidget()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.account_box),
+                      title: Text(
+                        'Box合集',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.text_fields),
-                          title: Text(
-                            'eventData的值为：${eventData}',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            eventBus = EventBusUtil.getInstance()
-                                .on<PageEvent>()
-                                .listen((data) {
-                              setState(() {
-                                eventData = data.test;
-                              });
-                              print('onTap打印eventData：$eventData');
-                              eventBus.cancel();
-                            });
-                            Navigator.of(context).push(PageRouteBuilder(
-                                opaque: false,
-                                pageBuilder: (BuildContext context, _, __) {
-                                  return Center(
-                                    child: Container(
-                                      width: 350,
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(4.0)),
-                                        border: new Border.all(
-                                            width: 1, color: Colors.grey),
-                                      ),
-                                      child: EventBusDemo(),
-                                    ),
-                                  );
-                                }));
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => BoxPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.scanner),
+                      title: Text(
+                        '扫图片条形码',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.receipt),
-                          title: Text(
-                            'Layout抽屉组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => LayoutDemo()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => ScanBook()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.tablet_android),
+                      title: Text(
+                        '动画常用组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.local_bar),
-                          title: Text(
-                            '底部导航栏组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => BottomBar()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => AnimaComponentPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.fastfood),
+                      title: Text(
+                        '美食列表',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.more_vert),
-                          title: Text(
-                            'PopupMenu组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => PopupMenu()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => MyApp()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.swap_horizontal_circle),
+                      title: Text(
+                        '滑块组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.format_align_center),
-                          title: Text(
-                            'Form组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => FormText()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => slider()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.slideshow),
+                      title: Text(
+                        '两端滑块组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.format_align_justify),
-                          title: Text(
-                            'Drag_list组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => DragText()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  RangeSliderPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.format_line_spacing),
+                      title: Text(
+                        '水平布局',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.input),
-                          title: Text(
-                            'Slidable组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => SlidableText()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => layoutRow()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.inbox),
+                      title: Text(
+                        '装饰容器',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'liquid使用',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => LiquidText()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => DecoratedBoxPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.input),
+                      title: Text(
+                        '文本输入框',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'canvas',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => PainterSketchDome()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  TextFieldPage()),
+                        ).then((onValue) {
+                          print('返回回来的手机号是：' + onValue);
+                        });
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.check_box),
+                      title: Text(
+                        'checkBox组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'stepper',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => StepperDemo()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => CheckBoxListTitle()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.grid_on),
+                      title: Text(
+                        'GridView组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'photo',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => PickImage()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => GridViewPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.bug_report),
+                      title: Text(
+                        'RaisedButton组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.keyboard),
-                          title: Text(
-                            'curvedBar',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => curvedBar()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => RaisedButtonPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.space_bar),
+                      title: Text(
+                        'FlexibleSpaceBar组件(折叠)',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.filter_b_and_w),
-                          title: Text(
-                            'banner组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => bannerDemo()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => FlexibleSpaceBarPage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.text_fields),
+                      title: Text(
+                        'eventData的值为：${eventData}',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.fingerprint),
-                          title: Text(
-                            'localAuth组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => LocalAuthCheck()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        eventBus = EventBusUtil.getInstance()
+                            .on<PageEvent>()
+                            .listen((data) {
+                          setState(() {
+                            eventData = data.test;
+                          });
+                          print('onTap打印eventData：$eventData');
+                          eventBus.cancel();
+                        });
+                        Navigator.of(context).push(PageRouteBuilder(
+                            opaque: false,
+                            pageBuilder: (BuildContext context, _, __) {
+                              return Center(
+                                child: Container(
+                                  width: 350,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(4.0)),
+                                    border: new Border.all(
+                                        width: 1, color: Colors.grey),
+                                  ),
+                                  child: EventBusDemo(),
+                                ),
+                              );
+                            }));
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.receipt),
+                      title: Text(
+                        'Layout抽屉组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.list),
-                          title: Text(
-                            'SpeedDial组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => SpeedDialDemo()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => LayoutDemo()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.local_bar),
+                      title: Text(
+                        '底部导航栏组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.pie_chart),
-                          title: Text(
-                            'flutter_picker组件',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => FlutterPickerDemo()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => BottomBar()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.more_vert),
+                      title: Text(
+                        'PopupMenu组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.help),
-                          title: Text(
-                            'simple_animations组件 -- 小飞机',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => Hello()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => PopupMenu()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.format_align_center),
+                      title: Text(
+                        'Form组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                        ListTile(
-                          leading: const Icon(Icons.settings),
-                          title: Text(
-                            '设置',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          trailing: const Icon(Icons.keyboard_arrow_right),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => overlayDemo()),
-                            );
-                          },
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => FormText()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.format_align_justify),
+                      title: Text(
+                        'Drag_list组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
                         ),
-                      ]).toList()),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => DragText()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.input),
+                      title: Text(
+                        'Slidable组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => SlidableText()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'liquid使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => LiquidText()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'canvas',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => PainterSketchDome()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'stepper',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => StepperDemo()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'photo',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => PickImage()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.keyboard),
+                      title: Text(
+                        'curvedBar',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => curvedBar()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.filter_b_and_w),
+                      title: Text(
+                        'banner组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => bannerDemo()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.fingerprint),
+                      title: Text(
+                        'localAuth组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => LocalAuthCheck()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.list),
+                      title: Text(
+                        'SpeedDial组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => SpeedDialDemo()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.pie_chart),
+                      title: Text(
+                        'flutter_picker组件',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => FlutterPickerDemo()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.help),
+                      title: Text(
+                        'simple_animations组件 -- 小飞机',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Hello()),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.settings),
+                      title: Text(
+                        '设置',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => overlayDemo()),
+                        );
+                      },
+                    ),
+                  ]).toList()),
                 ),
               ),
               RepaintBoundary(
@@ -1568,8 +1573,7 @@ class MainIndexState extends State<MainIndexPage>
                       trailing: const Icon(Icons.keyboard_arrow_right),
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => SearchBook()),
+                          MaterialPageRoute(builder: (context) => SearchBook()),
                         );
                       },
                     ),
@@ -1584,8 +1588,7 @@ class MainIndexState extends State<MainIndexPage>
                       trailing: const Icon(Icons.keyboard_arrow_right),
                       onTap: () {
                         Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => BookShelf()),
+                          MaterialPageRoute(builder: (context) => BookShelf()),
                         );
                       },
                     ),
@@ -1613,8 +1616,7 @@ class MainIndexState extends State<MainIndexPage>
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(Icons.contacts), label: '聊天室'),
+            BottomNavigationBarItem(icon: Icon(Icons.contacts), label: '聊天室'),
             BottomNavigationBarItem(icon: Icon(Icons.apps), label: '组件'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle), label: 'Api'),
@@ -1625,11 +1627,9 @@ class MainIndexState extends State<MainIndexPage>
               currentIndex = index;
             });
             tabController.animateTo(index,
-                duration: Duration(milliseconds: 300),
-                curve: Curves.linear);
+                duration: Duration(milliseconds: 300), curve: Curves.linear);
           },
         ),
-      ),
-    );
+      );
   }
 }

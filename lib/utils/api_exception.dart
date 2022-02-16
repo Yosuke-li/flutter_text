@@ -16,6 +16,7 @@ class ApiException implements Exception {
   ApiException.withInner(
       this.code, this.message, this.innerException, this.stackTrace);
 
+  @override
   String toString() {
     if (message.isNotEmpty != true) {
       return '服务器异常';

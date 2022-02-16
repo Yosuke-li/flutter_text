@@ -2,6 +2,7 @@
 import 'package:flutter_text/splash.dart';
 import 'package:flutter_text/utils/shortcuts.dart';
 import 'package:flutter_text/widget/api_call_back.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'init.dart';
 
@@ -66,11 +67,10 @@ class AssemblyState extends State<Assembly> {
         child: NotificationListenPage(
           child: AppLifecycleWidget(
             child: ModalStyleWidget(
-              child: MaterialApp(
+              child: GetMaterialApp(
                 builder: BotToastInit(),
-                theme: ThemeData(
-                  scaffoldBackgroundColor: Colors.white,
-                ),
+                showPerformanceOverlay: GlobalStore.isShowOverlay ?? false,
+                title: 'Flutter Study',
                 navigatorObservers: <NavigatorObserver>[
                   BotToastNavigatorObserver()
                 ],
@@ -82,11 +82,11 @@ class AssemblyState extends State<Assembly> {
                     child: todayShowAd != null
                         ? (todayShowAd ? MainIndexPage() : SplashPage())
                         : Container(
-                      color: Colors.white,
-                    ),
+                            color: Colors.white,
+                          ),
                     // child: MainIndexPage(),
                   ),
-                )
+                ),
               ),
             ),
           ),
