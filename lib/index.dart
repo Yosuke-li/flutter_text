@@ -8,6 +8,8 @@ import 'assembly_pack/controller_test/test_page.dart';
 import 'assembly_pack/decode_gif.dart';
 import 'assembly_pack/compress/image_compress.dart';
 import 'assembly_pack/keyboardPage.dart';
+import 'assembly_pack/lazy_list/lazy_list_page.dart';
+import 'assembly_pack/lazy_list/normal_list_page.dart';
 import 'assembly_pack/mouse_text.dart';
 import 'assembly_pack/music_play/music_play.dart';
 import 'assembly_pack/other_charts/list_group.dart';
@@ -588,6 +590,36 @@ class MainIndexState extends State<MainIndexPage>
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => SlidingUpText()),
+                        );
+                      },
+                    ),ListTile(
+                      leading: const Icon(Icons.list_sharp),
+                      title: Text(
+                        'lazy list 使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => LazyListPage()),
+                        );
+                      },
+                    ),ListTile(
+                      leading: const Icon(Icons.list_sharp),
+                      title: Text(
+                        'normal list 使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => NormalListPage()),
                         );
                       },
                     ),
