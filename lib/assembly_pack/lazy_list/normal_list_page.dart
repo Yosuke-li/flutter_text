@@ -28,14 +28,16 @@ class _NormalListState extends State<NormalListPage> {
               alignment: Alignment.center,
               child: const Text('this is start'),
             ),
-            ListView.builder(
-              itemBuilder: (context, index) {
-                print('this is index = $index');
-                return _buildItem(index);
-              },
-              itemCount: 1000,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+            RepaintBoundary(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  print('this is index = $index');
+                  return _buildItem(index);
+                },
+                itemCount: 1000,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+              ),
             ),
             Container(
               height: 50,

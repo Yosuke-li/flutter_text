@@ -20,6 +20,7 @@ class _ApiTextState extends State<ApiTextPage> {
   Future<void> _getRoute() async {
     final NavigatorState navigatorHelper = await NavigatorHelper.navigatorState;
     navigatorHelper.popUntil((Route route) {
+      Log.info(route);
       return route.isFirst;
     });
   }

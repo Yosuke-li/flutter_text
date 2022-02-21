@@ -29,7 +29,8 @@ class ArrayHelper {
           ?.map((List<T> e) => e.isNotEmpty == true ? e.first : null)
           ?.toList();
       return list..removeWhere((T element) => element == null);
-    } else
+    } else {
       return <T>[];
+    }
   }
 }
