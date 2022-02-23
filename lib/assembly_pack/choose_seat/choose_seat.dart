@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/choose_seat/interactive.dart';
 
 import '../../init.dart';
 import 'helper/room_seat.dart';
@@ -13,12 +13,20 @@ class _ChooseSeatState extends State<ChooseSeat> {
     ..row = 10
     ..column = 6
     ..seats = [];
-  GlobalKey controller;
+  GlobalKey<SInteractiveViewerState> controller =
+      GlobalKey<SInteractiveViewerState>();
+  SInteractiveViewerState state;
 
   @override
   void initState() {
     super.initState();
   }
+
+  GestureScaleEndCallback onScaleEnd;
+
+  GestureScaleUpdateCallback onScaleUpdate;
+
+  GestureScaleStartCallback onScaleStart;
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +62,14 @@ class _ChooseSeatState extends State<ChooseSeat> {
   }
 
   Widget _buildTab() {
-    return GestureDetector(
-
-      child: Container(
-        child: Column(
-          children: [
-            for (int row = 0; row < data.row; row++)
-              Text('$row'),
-          ],
+    return InteractiveViewer(
+      child: GestureDetector(
+        child: Container(
+          child: Column(
+            children: [
+              for (int row = 0; row < data.row; row++) Text('$row'),
+            ],
+          ),
         ),
       ),
     );
@@ -95,22 +103,4 @@ class _ChooseSeatState extends State<ChooseSeat> {
       ),
     );
   }
-
-  // void _onInteractionUpdate(ScaleUpdateDetails details) {
-  //   if (controller.fromInteractiveViewKey.currentState != null) {
-  //     controller.fromInteractiveViewKey.currentState.onScaleUpdate(details);
-  //   }
-  // }
-  //
-  // void _onInteractionStart(ScaleStartDetails details) {
-  //   if (controller.fromInteractiveViewKey.currentState != null) {
-  //     controller.fromInteractiveViewKey.currentState.onScaleStart(details);
-  //   }
-  // }
-  //
-  // void _onInteractionEnd(ScaleEndDetails details) {
-  //   if (controller.fromInteractiveViewKey.currentState != null) {
-  //     controller.fromInteractiveViewKey.currentState.onScaleEnd(details);
-  //   }
-  // }
 }

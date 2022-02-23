@@ -36,11 +36,13 @@ class _LazyListState extends State<LazyListPage> {
   }
 
   Widget _buildItem(int index) {
-    return Container(
-      height: 100,
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.purple, width: 1)),
-      child: Center(child: Text('$index')),
+    return RepaintBoundary(
+      child: Container(
+        height: 100,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.purple, width: 1)),
+        child: Center(child: Text('$index')),
+      ),
     );
   }
 }
