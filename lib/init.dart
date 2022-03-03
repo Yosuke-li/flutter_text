@@ -82,7 +82,6 @@ export 'assembly_pack/event_bus/event_util.dart';
 export 'assembly_pack/getx_text/getx_text/view.dart';
 export 'assembly_pack/local_notification/list_view.dart';
 export 'assembly_pack/management/home_page/home_page.dart';
-export 'assembly_pack/notified_scroll.dart';
 export 'assembly_pack/ota_update_text.dart';
 export 'assembly_pack/provider/view.dart';
 export 'assembly_pack/range_slider.dart';

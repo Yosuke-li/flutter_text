@@ -625,7 +625,7 @@ class MainIndexState extends State<MainIndexPage>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.keyboard),
+                      leading: const Icon(Icons.ad_units),
                       title: Text(
                         'unit 组件列表使用',
                         style: TextStyle(
@@ -641,7 +641,7 @@ class MainIndexState extends State<MainIndexPage>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.keyboard),
+                      leading: const Icon(Icons.pool_outlined),
                       title: Text(
                         'PopupTextPage 使用',
                         style: TextStyle(
@@ -657,7 +657,7 @@ class MainIndexState extends State<MainIndexPage>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.keyboard),
+                      leading: const Icon(Icons.control_camera),
                       title: Text(
                         'Controller 使用',
                         style: TextStyle(
@@ -673,7 +673,7 @@ class MainIndexState extends State<MainIndexPage>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.keyboard),
+                      leading: const Icon(Icons.gif),
                       title: Text(
                         '解析gif',
                         style: TextStyle(
@@ -689,7 +689,7 @@ class MainIndexState extends State<MainIndexPage>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.keyboard),
+                      leading: const Icon(Icons.image),
                       title: Text(
                         'Sliding Image使用',
                         style: TextStyle(
@@ -718,7 +718,7 @@ class MainIndexState extends State<MainIndexPage>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.keyboard),
+                      leading: const Icon(Icons.mouse),
                       title: Text(
                         'MouseTextPage 使用',
                         style: TextStyle(
@@ -734,7 +734,7 @@ class MainIndexState extends State<MainIndexPage>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.keyboard),
+                      leading: const Icon(Icons.show_chart),
                       title: Text(
                         '普通charts的使用',
                         style: TextStyle(
@@ -798,7 +798,7 @@ class MainIndexState extends State<MainIndexPage>
                       },
                     ),
                     ListTile(
-                      leading: const Icon(Icons.image_search),
+                      leading: const Icon(Icons.texture_sharp),
                       title: Text(
                         'inheried 测试',
                         style: TextStyle(
@@ -906,22 +906,6 @@ class MainIndexState extends State<MainIndexPage>
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => GroupListPage()),
-                        );
-                      },
-                    ),
-                    ListTile(
-                      leading: const Icon(Icons.group_add),
-                      title: Text(
-                        '懒加载列表',
-                        style: TextStyle(
-                          fontSize: screenUtil.adaptive(40),
-                        ),
-                      ),
-                      trailing: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => NotifiedScrollPage()),
                         );
                       },
                     ),
