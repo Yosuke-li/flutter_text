@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:epub_view/epub_view.dart';
+import 'package:epub_view/src/data/models/chapter_view_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/j_book/book_cache.dart';
 import 'package:flutter_text/utils/navigator.dart';
@@ -56,7 +57,7 @@ class _BookViewState extends State<BookView> {
           child: Scaffold(
             appBar: AppBar(
               // Show actual chapter name
-              title: EpubActualChapter(
+              title: EpubViewActualChapter(
                 controller: _epubController,
                 builder: (EpubChapterViewValue chapterValue) =>
                     Text(
@@ -66,7 +67,7 @@ class _BookViewState extends State<BookView> {
               ),
             ),
             drawer: Drawer(
-              child: EpubReaderTableOfContents(
+              child: EpubViewTableOfContents(
                 controller: _epubController,
               ),
             ),
@@ -117,9 +118,9 @@ class _IndexState extends State<IndexPage> {
 
   void listenerPage() {
     if (widget.epubController != null) {
-      widget.epubController.currentValueStream.listen((
-          EpubChapterViewValue event) {
-        index = event.position.index;
+      widget.epubController.currentValueListenable.addListener(() {
+        index =
+            widget.epubController.currentValue.position.index;
         setState(() {});
       });
     }

@@ -72,12 +72,12 @@ dependencies:
   package_info: ^2.0.2 #包信息
   postgres: ^2.3.2 #数据库
   epubx: ^3.0.0-dev.3 #电子书
-  epub_view: ^2.3.0 #电子书
-  file_picker: ^3.0.3 #文件选择器
+  epub_view: ^3.0.0 #电子书
+  file_picker: ^4.5.1 #文件选择器
   tabbed_view: ^1.1.0+1 #tab组件
   multi_split_view: ^1.5.0 #doking
   back_button_interceptor: ^5.0.1 #键盘管理
-  nayuta_sensors: ^1.0.0
+  sensors_plus: ^1.3.0 #陀螺仪
   k_chart: ^0.4.0 #折线图
   cached_network_image: ^3.1.0 #图片缓存
   encrypt: ^5.0.1 #加密解锁
@@ -89,6 +89,11 @@ dependencies:
   flutter_image_compress: ^1.1.0 #图片压缩
   video_compress_ds: ^3.1.6 #视频压缩
   sudoku_solver_generator: ^2.1.0+1 #数独api
+  desktop_drop: ^0.3.3 #桌面拖动
+  cross_file: ^0.3.2 #解析xfile
+  local_notifier: ^0.1.1 #桌面消息推送
+  win_toast: ^0.0.2 #桌面端的toast弹窗
+
 
 #  dropdown_search:
 

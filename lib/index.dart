@@ -8,6 +8,7 @@ import 'assembly_pack/choose_seat/choose_seat.dart';
 import 'assembly_pack/controller_test/test_page.dart';
 import 'assembly_pack/decode_gif.dart';
 import 'assembly_pack/compress/image_compress.dart';
+import 'assembly_pack/desktop_list/desktop_component.dart';
 import 'assembly_pack/keyboardPage.dart';
 import 'assembly_pack/lazy_list/lazy_list_page.dart';
 import 'assembly_pack/lazy_list/normal_list_page.dart';
@@ -637,6 +638,23 @@ class MainIndexState extends State<MainIndexPage>
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => UnitComponentPage()),
+                        );
+                      },
+                    ),
+                    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS)
+                      ListTile(
+                      leading: const Icon(Icons.ad_units),
+                      title: Text(
+                        'desktop 组件列表使用',
+                        style: TextStyle(
+                          fontSize: screenUtil.adaptive(40),
+                        ),
+                      ),
+                      trailing: const Icon(Icons.keyboard_arrow_right),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => DesktopComponentPage()),
                         );
                       },
                     ),
