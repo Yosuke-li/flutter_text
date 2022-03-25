@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -44,7 +45,8 @@ class Utils {
   /// [len] 字符串长度
   ///
   static String randomString(int len) {
-    final String character = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+    final String character =
+        'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
     String left = '';
     for (var i = 0; i < len; i++) {
       left = left + character[Random().nextInt(character.length)];
@@ -206,7 +208,8 @@ class Utils {
         // a..f
         val += (hexDigit - 87) * (1 << (4 * (len - 1 - i)));
       } else {
-        throw const FormatException('An error occurred when converting a color');
+        throw const FormatException(
+            'An error occurred when converting a color');
       }
     }
     return val;
@@ -247,5 +250,18 @@ class Utils {
     return false;
   }
 
-
+  //函数防抖
+  static Function() debounce(Function() func, {Duration delay}) {
+    delay ??= const Duration(milliseconds: 3000);
+    Timer timer;
+    final Function target = () {
+      if (timer?.isActive ?? false) {
+        timer?.cancel();
+      }
+      timer = Timer(delay, () {
+        func?.call();
+      });
+    };
+    return target;
+  }
 }

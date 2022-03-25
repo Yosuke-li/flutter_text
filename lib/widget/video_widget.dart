@@ -7,6 +7,7 @@ import 'package:flutter_text/utils/datetime_utils.dart';
 import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
+import 'package:flutter_text/utils/utils.dart';
 import 'package:orientation/orientation.dart';
 import 'package:video_player/video_player.dart'; // 引入官方插件
 
@@ -56,6 +57,8 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
   bool get _isFullScreen =>
       MediaQuery.of(context).orientation == Orientation.landscape;
   double speed = 1.0; //默认
+
+  Completer<void> _completer;
 
   //内容区
   @override
@@ -237,7 +240,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                             'mm:ss',
                           )}/${DateTimeHelper.datetimeFormat(
                             _totalDuration?.inMilliseconds,
-                             'mm:ss',
+                            'mm:ss',
                           )}',
                           style: const TextStyle(color: Colors.white),
                         ),
@@ -423,30 +426,18 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     setState(() {});
   }
 
-  void setUrl(bool isPlay) {
+  void setUrl(bool isPlay) async {
     if (widget.url == null) {
-      _controller = VideoPlayerController.file(widget.file)
-        ..initialize().then((_) {
-          // 加载资源完成时，监听播放进度，并且标记_videoInit=true加载完成
-          _controller.addListener(_videoListener);
-          setState(() {
-            _videoInit = true;
-          });
-          //加载资源完成后 自动播放
-          if (isPlay == true) _controller.play();
-        });
+      _controller = VideoPlayerController.file(widget.file);
     } else {
-      _controller = VideoPlayerController.network(widget.url)
-        ..initialize().then((_) {
-          // 加载资源完成时，监听播放进度，并且标记_videoInit=true加载完成
-          _controller.addListener(_videoListener);
-          setState(() {
-            _videoInit = true;
-          });
-          //加载资源完成后 自动播放
-          if (isPlay == true) _controller.play();
-        });
+      _controller = VideoPlayerController.network(widget.url);
     }
+    _controller.addListener(Utils.debounce(_videoListener));
+    await _controller.initialize();
+    _videoInit = true;
+    //加载资源完成后 自动播放
+    if (isPlay == true) _controller.play();
+    setState(() {});
   }
 
   //水平滑动开始
@@ -469,7 +460,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     // 用百分比计算出当前的秒数
     final String currentSecond = DateTimeHelper.datetimeFormat(
       (value * _controller.value.duration.inMilliseconds).toInt(),
-       'mm:ss',
+      'mm:ss',
     );
     ToastUtils.showToast(msg: currentSecond);
   }
@@ -505,14 +496,13 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
 
   //视频监听（进度条）
   void _videoListener() async {
-    if (_controller == null) {
+    if (_controller == null || _controller.value.hasError) {
       return;
     }
-    final Duration res =
-        (await _controller?.position) ?? const Duration(seconds: 0);
-    if (res >= _controller?.value?.duration ?? const Duration(seconds: 0)) {
-      _controller.pause();
-      _controller.seekTo(const Duration(seconds: 0));
+    final Duration res = await _controller.position;
+    if (res >= _controller.value.duration) {
+      await _controller.pause();
+      await _controller.seekTo(const Duration(seconds: 0));
     }
     _position = res;
     _totalDuration = _controller.value.duration;
