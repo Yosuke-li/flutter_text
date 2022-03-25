@@ -155,7 +155,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
           return ArrayHelper.get(hot, index).videos != null
               ? Stack(
                   children: <Widget>[
-                    VideoPlayerText(
+                    VideoPlayerPage(
                       url: ArrayHelper.get(hot, index)
                           .videos
                           .url

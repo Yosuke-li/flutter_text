@@ -39,7 +39,7 @@ class _WindowsWidgetState extends State<WindowsWidget> {
 
         if (canPop == true) {
           entry = OverlayEntry(builder: (context) {
-            return FloatBox();
+            return  FloatBox();
           });
           Overlay.of(widget.outSideContext).insert(entry);
         } else {

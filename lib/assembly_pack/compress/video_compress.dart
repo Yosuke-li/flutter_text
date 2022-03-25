@@ -84,7 +84,7 @@ class _VideoCompressState extends State<VideoCompressPage> {
                   children: [
                     if (_file != null)
                       Container(
-                        child: VideoPlayerText(
+                        child: VideoPlayerPage(
                           file: _file,
                           autoPlay: false,
                         ),
@@ -137,7 +137,7 @@ class _VideoCompressState extends State<VideoCompressPage> {
                   children: [
                     if (_videoFile != null)
                       Container(
-                        child: VideoPlayerText(
+                        child: VideoPlayerPage(
                           file: _videoFile,
                           autoPlay: false,
                         ),

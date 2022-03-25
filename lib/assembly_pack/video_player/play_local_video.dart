@@ -35,7 +35,7 @@ class contextPageState extends State<contextPage> {
         body: Container(
           // 该组件宽高默认填充父控件，你也可以自己设置宽高
             child: _video == null || _video == ''
-                ? VideoPlayerText(
+                ? VideoPlayerPage(
               //network视频
               url:
               'https://video.pearvideo.com/mp4/adshort/20200520/cont-1675664-15155134_adpkg-ad_hd.mp4',
@@ -44,7 +44,7 @@ class contextPageState extends State<contextPage> {
               height:
               _isFullScreen ? _window.height : _window.width / 16 * 9,
             )
-                : VideoPlayerText(
+                : VideoPlayerPage(
               //本地file视频
               file: _video,
               title: '示例视频',

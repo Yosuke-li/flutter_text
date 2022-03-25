@@ -4,13 +4,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_text/utils/datetime_utils.dart';
+import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/utils/screen.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 import 'package:orientation/orientation.dart';
 import 'package:video_player/video_player.dart'; // 引入官方插件
 
-class VideoPlayerText extends StatefulWidget {
-  const VideoPlayerText({
+class VideoPlayerPage extends StatefulWidget {
+  const VideoPlayerPage({
     this.url, // 当前需要播放的地址
     this.file, //浏览本地视频的地址
     this.width, // 播放器尺寸（大于等于视频播放区域）
@@ -33,13 +34,13 @@ class VideoPlayerText extends StatefulWidget {
   final bool autoPlay;
 
   @override
-  State<VideoPlayerText> createState() {
-    return _VideoPlayerTextState();
+  State<VideoPlayerPage> createState() {
+    return _VideoPlayerPageState();
   }
 }
 
 // 指示video资源是否加载完成，加载完成后会获得总时长和视频长宽比等信息
-class _VideoPlayerTextState extends State<VideoPlayerText> {
+class _VideoPlayerPageState extends State<VideoPlayerPage> {
   GlobalKey anchorKey = GlobalKey();
 
   bool _videoInit = false; // video控件管理器
@@ -379,13 +380,13 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
   //初始化
   @override
   void initState() {
-    _urlChange(); // 初始进行一次url加载
     super.initState();
+    _urlChange(); // 初始进行一次url加载
   }
 
   //数据变化的时候
   @override
-  void didUpdateWidget(VideoPlayerText oldWidget) {
+  void didUpdateWidget(VideoPlayerPage oldWidget) {
     if (oldWidget.url != widget.url || oldWidget.file != widget.file) {
       _urlChange(); // url变化时重新执行一次url加载
     }
@@ -395,12 +396,13 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
   //销毁的时候
   @override
   void dispose() {
-    super.dispose();
     if (_controller != null) {
       // 惯例。组件销毁时清理下
+      _controller.removeListener(_videoListener);
       _controller.dispose();
       _controller = null;
     }
+    super.dispose();
   }
 
   //改变视频url和file
@@ -503,8 +505,11 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
 
   //视频监听（进度条）
   void _videoListener() async {
+    if (_controller == null) {
+      return;
+    }
     final Duration res =
-        await _controller?.position ?? const Duration(seconds: 0);
+        (await _controller?.position) ?? const Duration(seconds: 0);
     if (res >= _controller?.value?.duration ?? const Duration(seconds: 0)) {
       _controller.pause();
       _controller.seekTo(const Duration(seconds: 0));
@@ -525,7 +530,7 @@ class _VideoPlayerTextState extends State<VideoPlayerText> {
       // 如果显示就隐藏
       if (_timer != null) _timer.cancel(); // 有计时器先移除计时器
       _playControlOpacity = 0;
-      Future.delayed(Duration(milliseconds: 300)).whenComplete(() {
+      Future.delayed(const Duration(milliseconds: 300)).whenComplete(() {
         _hidePlayControl = true; // 延迟300ms(透明度动画结束)后，隐藏
       });
     }

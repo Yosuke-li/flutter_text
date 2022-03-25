@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FloatBox extends StatefulWidget {
+  Widget icon;
+  void Function() onTap;
+
+  FloatBox({Key key, this.onTap, this.icon});
+
   @override
   _FloatBoxState createState() => _FloatBoxState();
 }
@@ -53,7 +58,9 @@ class _FloatBoxState extends State<FloatBox> {
             print(offset);
             print(MediaQuery.of(context).size.width);
           },
-          onTap: () {},
+          onTap: () {
+            widget.onTap?.call();
+          },
           onPanEnd: (detail) {},
           child: Container(
             width: 40,
@@ -63,12 +70,11 @@ class _FloatBoxState extends State<FloatBox> {
               border: Border.all(width: 1, color: Colors.lightBlue),
               borderRadius: const BorderRadius.all(Radius.circular(33.0)),
             ),
-            child: const Icon(Icons.add,
-                color: Colors.white, size: 30),
+            child: widget.icon ??
+                const Icon(Icons.add, color: Colors.white, size: 30),
           ),
         ),
       ),
     );
   }
 }
-

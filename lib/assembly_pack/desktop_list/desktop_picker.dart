@@ -1,7 +1,5 @@
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_text/init.dart';
-import 'package:flutter_text/utils/log_utils.dart';
 
 class DesktopPickerPage extends StatefulWidget {
   const DesktopPickerPage({Key key}) : super(key: key);
@@ -10,7 +8,7 @@ class DesktopPickerPage extends StatefulWidget {
   _DesktopPickerState createState() => _DesktopPickerState();
 }
 
-class _DesktopPickerState extends State<DesktopPickerPage> {
+class _DesktopPickerState extends State<DesktopPickerPage>  {
 
   
   @override
@@ -106,7 +104,7 @@ class _DesktopPickerState extends State<DesktopPickerPage> {
                       onPressed: () {
                         _pickerCustom();
                       },
-                      child: const Text('选择'),
+                      child: const Text('选择图书'),
                     ),
                   ],
                 ),

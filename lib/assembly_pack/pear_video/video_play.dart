@@ -43,7 +43,7 @@ class PearVideoPlayState extends State<PearVideoPlay> {
                   controller: swperController,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (BuildContext context, int index) {
-                    return VideoPlayerText(
+                    return VideoPlayerPage(
                       url: _videoList[index].coverVideo,
                       title: '示例视频',
                       width: MediaQuery.of(context).size.width,
