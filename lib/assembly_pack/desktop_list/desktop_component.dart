@@ -5,6 +5,8 @@ import 'package:flutter_text/assembly_pack/desktop_list/desktop_picker.dart';
 import 'package:flutter_text/model/AComponent.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 
+import 'desktop_sys_manager.dart';
+
 class DesktopComponentPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => DesktopComponentPageState();

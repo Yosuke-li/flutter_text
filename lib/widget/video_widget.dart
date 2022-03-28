@@ -426,6 +426,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     setState(() {});
   }
 
+  /// [Utils.debounce]防抖加入能优化dispose后再进入listener的情况
   void setUrl(bool isPlay) async {
     if (widget.url == null) {
       _controller = VideoPlayerController.file(widget.file);

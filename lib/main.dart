@@ -1,7 +1,9 @@
 // import 'package:flutter_doraemonkit/flutter_doraemonkit.dart';
+import 'package:flutter_text/assembly_pack/desktop_list/desktop_sys_manager.dart';
 import 'package:flutter_text/splash.dart';
 import 'package:flutter_text/utils/shortcuts.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'init.dart';
 
@@ -14,6 +16,10 @@ import 'index.dart';
 import 'utils/init.dart';
 
 Future<void> main() async {
+  if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+    WidgetsFlutterBinding.ensureInitialized();
+    await windowManager.ensureInitialized();
+  }
   SecurityKeyboardCenter.register();
   runZonedGuarded<Future<void>>(() async {
     FlutterError.onError = _errorHandler;
@@ -66,28 +72,30 @@ class AssemblyState extends State<Assembly> {
         child: NotificationListenPage(
           child: AppLifecycleWidget(
             child: ModalStyleWidget(
-              child: GetMaterialApp(
-                builder: BotToastInit(),
-                showPerformanceOverlay: GlobalStore.isShowOverlay ?? false,
-                title: 'Flutter Study',
-                navigatorObservers: <NavigatorObserver>[
-                  BotToastNavigatorObserver()
-                ],
-                home: GestureDetector(
-                  onLongPress: () {
-                    setState(() {
-                      GlobalStore.isShowOverlay =
-                      !GlobalStore.isShowOverlay;
-                    });
-                    // FlutterDoraemonkit.toggle();
-                  },
-                  child: KeyboardRootWidget(
-                    child: todayShowAd != null
-                        ? (todayShowAd ? MainIndexPage() : SplashPage())
-                        : Container(
-                            color: Colors.white,
-                          ),
-                    // child: MainIndexPage(),
+              child: DesktopSysManager(
+                child: GetMaterialApp(
+                  builder: BotToastInit(),
+                  showPerformanceOverlay: GlobalStore.isShowOverlay ?? false,
+                  title: 'Flutter Study',
+                  navigatorObservers: <NavigatorObserver>[
+                    BotToastNavigatorObserver()
+                  ],
+                  home: GestureDetector(
+                    onLongPress: () {
+                      setState(() {
+                        GlobalStore.isShowOverlay =
+                        !GlobalStore.isShowOverlay;
+                      });
+                      // FlutterDoraemonkit.toggle();
+                    },
+                    child: KeyboardRootWidget(
+                      child: todayShowAd != null
+                          ? (todayShowAd ? MainIndexPage() : SplashPage())
+                          : Container(
+                        color: Colors.white,
+                      ),
+                      // child: MainIndexPage(),
+                    ),
                   ),
                 ),
               ),

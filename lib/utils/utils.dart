@@ -250,7 +250,7 @@ class Utils {
     return false;
   }
 
-  //函数防抖
+  /// 函数防抖
   static Function() debounce(Function() func, {Duration delay}) {
     delay ??= const Duration(milliseconds: 3000);
     Timer timer;

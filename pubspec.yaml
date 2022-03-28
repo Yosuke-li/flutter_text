@@ -93,6 +93,8 @@ dependencies:
   cross_file: ^0.3.2 #解析xfile
   local_notifier: ^0.1.1 #桌面消息推送
   win_toast: ^0.0.2 #桌面端的toast弹窗
+  tray_manager: ^0.1.4 #系统托盘
+  window_manager: ^0.2.0
 
 
 #  dropdown_search:
@@ -120,6 +122,7 @@ flutter:
     - images/test.gif
     - images/weather/
     - images/voice/
+    - images/
     - images/_cat_sky.jpg
     - assets/index.pdf
     - assets/depth.json
