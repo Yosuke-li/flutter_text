@@ -39,7 +39,7 @@ dependencies:
   intl: ^0.17.0 #本地化和国际化
   audioplayers: ^0.18.3 #音频播放
   image_picker_saver: ^0.3.0 #图片选择器
-  permission_handler: ^8.3.0 #key-value缓存
+  permission_handler: ^8.3.0 #权限
   flutter_full_pdf_viewer: ^1.0.6  #pdf浏览器
   flutter_staggered_animations: ^0.1.2 #动画
   qrscan: ^0.2.17 #二维码
