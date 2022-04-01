@@ -49,8 +49,14 @@ class CommonForm<T> extends StatefulWidget {
   final List<FormColumn<T>> columns;
   final List<T> values;
   final bool canDrag;
+  final double height;
 
-  const CommonForm({Key key, @required this.columns, @required this.values, this.canDrag})
+  const CommonForm(
+      {Key key,
+        @required this.columns,
+        @required this.values,
+        this.canDrag,
+        this.height})
       : super(key: key);
 
   @override
@@ -58,12 +64,14 @@ class CommonForm<T> extends StatefulWidget {
 }
 
 class _CommonFormState<T> extends State<CommonForm<T>> {
+  ScrollController hController = ScrollController();
+  ScrollController vController = ScrollController();
+
   Widget buildTitleRow() {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: widget.columns
-          .map(
-              (e) => warpWidget(child: e.title, width: e.width))
+          .map((e) => warpWidget(child: e.title, width: e.width))
           .toList(growable: false),
     );
   }
@@ -83,7 +91,10 @@ class _CommonFormState<T> extends State<CommonForm<T>> {
         builder: (context, data, rejects) {
           return Row(
             children: widget.columns
-                .map((e) => warpWidget(child: e.builder(context, ArrayHelper.get(widget.values, index))))
+                .map((e) => warpWidget(
+                child: e.builder(
+                    context, ArrayHelper.get(widget.values, index)),
+                width: e.width))
                 .toList(growable: false),
           );
         },
@@ -111,7 +122,10 @@ class _CommonFormState<T> extends State<CommonForm<T>> {
         ),
         child: Row(
           children: widget.columns
-              .map((e) => warpWidget(child: e.builder(context, ArrayHelper.get(widget.values, index))))
+              .map((e) => warpWidget(
+              child:
+              e.builder(context, ArrayHelper.get(widget.values, index)),
+              width: e.width))
               .toList(growable: false),
         ),
       ),
@@ -121,7 +135,8 @@ class _CommonFormState<T> extends State<CommonForm<T>> {
   Widget buildRow(T value) {
     return Row(
       children: widget.columns
-          .map((e) => warpWidget(child: e.builder(context, value)))
+          .map((e) =>
+          warpWidget(child: e.builder(context, value), width: e.width))
           .toList(growable: false),
     );
   }
@@ -144,7 +159,6 @@ class _CommonFormState<T> extends State<CommonForm<T>> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> children = <Widget>[];
-    children.add(buildTitleRow());
     if (widget.canDrag == true) {
       for (int x = 0; x < widget.values.length; x++) {
         children.add(buildDragTitleRow(x));
@@ -153,11 +167,29 @@ class _CommonFormState<T> extends State<CommonForm<T>> {
       children.addAll(widget.values.map((e) => buildRow(e)));
     }
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Container(
-        child: Column(
-          children: children,
+    return Scrollbar(
+      controller: hController,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        controller: hController,
+        child: Container(
+          height: widget.height,
+          child: Column(
+            children: [
+              buildTitleRow(),
+              Expanded(
+                child: Scrollbar(
+                  controller: vController,
+                  child: SingleChildScrollView(
+                    controller: vController,
+                    child: Column(
+                      children: children,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

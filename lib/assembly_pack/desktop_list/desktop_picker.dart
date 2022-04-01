@@ -50,13 +50,12 @@ class _DesktopPickerState extends State<DesktopPickerPage> {
       PopupMenuItem(child: Text('set to 0'), value: 3),
     ];
 
-
     if (event.kind == PointerDeviceKind.mouse &&
         event.buttons == kSecondaryMouseButton) {
       Log.info(event);
-      final overlay =
-      Overlay.of(context).context.findRenderObject() as RenderBox;
-      final menuItem = await showMenu<int>(
+      final RenderBox overlay =
+          Overlay.of(context).context.findRenderObject() as RenderBox;
+      final int menuItem = await showMenu<int>(
           context: context,
           items: menuItems,
           position: RelativeRect.fromSize(
@@ -74,76 +73,77 @@ class _DesktopPickerState extends State<DesktopPickerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('文件选择'),
+      appBar: AppBar(
+        title: const Text('文件选择'),
+      ),
+      body: Container(
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(),
+            ),
+            Container(
+              margin: EdgeInsets.only(right: screenUtil.adaptive(30)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Listener(
+                    onPointerDown: (PointerDownEvent event) {
+                      _onPointerDown(event);
+                    },
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Log.info('111');
+                      },
+                      child: const Text('右键测试'),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      _singlePicker();
+                    },
+                    child: const Text('单选'),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      _multiPicker();
+                    },
+                    child: const Text('多选'),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      _pickerVideo();
+                    },
+                    child: const Text('选择视频'),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      _pickerCustom();
+                    },
+                    child: const Text('选择图书'),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        body: Container(
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(),
-              ),
-              Container(
-                margin: EdgeInsets.only(right: screenUtil.adaptive(30)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Listener(
-                      onPointerDown: (PointerDownEvent event) {
-                        _onPointerDown(event);
-                      },
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Log.info('111');
-                        },
-                        child: const Text('text'),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _singlePicker();
-                      },
-                      child: const Text('单选'),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _multiPicker();
-                      },
-                      child: const Text('多选'),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _pickerVideo();
-                      },
-                      child: const Text('选择视频'),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        _pickerCustom();
-                      },
-                      child: const Text('选择图书'),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }
