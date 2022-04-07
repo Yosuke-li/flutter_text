@@ -3,7 +3,7 @@ description: A new Flutter application.
 version: 2.0.0
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -56,7 +56,7 @@ dependencies:
   bot_toast: 4.0.0 #弹窗
   flutter_local_notifications: ^5.0.0+1 #本地消息推送
   scrollable_positioned_list: ^0.2.0-nullsafety.0 #滚动
-  wechat_assets_picker: ^6.3.1 #微信的文件选择器
+  wechat_assets_picker: ^7.0.5 #微信的文件选择器
   move_to_background: ^1.0.0 #退出app到后台
   lpinyin: ^1.0.9   # 汉字转拼音
 #  flutter_doraemonkit:
@@ -84,7 +84,7 @@ dependencies:
   syncfusion_flutter_charts: ^19.3.48 #折线图
   flutter_shortcuts: ^1.2.2 #app图标长按按钮
   keyboard_actions: ^3.4.4 #键盘
-  agora_rtc_engine: ^4.0.7 #声网api
+#  agora_rtc_engine: ^4.0.7 #声网api
   flutter_neumorphic: ^3.2.0 #动画组件
   flutter_image_compress: ^1.1.0 #图片压缩
   video_compress_ds: ^3.1.6 #视频压缩

@@ -72,11 +72,11 @@ class _CheckRoomState extends State<CheckRoomId> {
               onPressed: () {
                 print(_controller.text);
                 if (_controller.text.isNotEmpty) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => VideoChat(
-                            channelName: _controller.text,
-                            is_video: is_video_chat,
-                          )));
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //     builder: (context) => VideoChat(
+                  //           channelName: _controller.text,
+                  //           is_video: is_video_chat,
+                  //         )));
                 }
               },
               child: Text('Join'),

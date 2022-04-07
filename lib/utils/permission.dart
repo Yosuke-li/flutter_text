@@ -10,6 +10,7 @@ class Permissions {
           Permission.storage,
           Permission.photos,
           Permission.microphone,
+          Permission.mediaLibrary,
           Permission.speech
     ].request();
     //校验权限
@@ -23,6 +24,10 @@ class Permissions {
 
     if (permissions[Permission.photos] != PermissionStatus.granted) {
       print('无相册权限');
+    }
+
+    if (permissions[Permission.mediaLibrary] != PermissionStatus.granted) {
+      print('无媒体权限');
     }
 
     if (permissions[Permission.speech] != PermissionStatus.granted) {

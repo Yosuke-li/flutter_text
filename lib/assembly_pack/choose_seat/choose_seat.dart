@@ -1,4 +1,4 @@
-import 'package:flutter_text/assembly_pack/choose_seat/interactive.dart';
+// import 'package:flutter_text/assembly_pack/choose_seat/interactive.dart';
 
 import '../../init.dart';
 import 'helper/room_seat.dart';
@@ -13,9 +13,9 @@ class _ChooseSeatState extends State<ChooseSeat> {
     ..row = 10
     ..column = 6
     ..seats = [];
-  GlobalKey<SInteractiveViewerState> controller =
-      GlobalKey<SInteractiveViewerState>();
-  SInteractiveViewerState state;
+  // GlobalKey<SInteractiveViewerState> controller =
+  //     GlobalKey<SInteractiveViewerState>();
+  // SInteractiveViewerState state;
 
   @override
   void initState() {
