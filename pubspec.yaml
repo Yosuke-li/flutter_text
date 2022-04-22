@@ -70,7 +70,7 @@ dependencies:
       url: https://github.com/NayoLx/ios_share.git
   ota_update: ^3.0.2 #下载更新
   package_info: ^2.0.2 #包信息
-  postgres: ^2.3.2 #数据库
+  postgres: ^2.4.3 #数据库
   epubx: ^3.0.0-dev.3 #电子书
   epub_view: ^3.0.0 #电子书
   file_picker: ^4.5.1 #文件选择器

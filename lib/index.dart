@@ -1,4 +1,5 @@
 import 'package:flutter_text/assembly_pack/compress/video_compress.dart';
+import 'package:flutter_text/assembly_pack/menu_item.dart';
 import 'package:flutter_text/utils/extension.dart';
 import 'package:flutter_text/widget/float_box.dart';
 
@@ -33,6 +34,7 @@ import 'assembly_pack/check_box_list_title.dart';
 import 'assembly_pack/gridview.dart';
 import 'assembly_pack/raised_button.dart';
 import 'assembly_pack/flexible_space_bar.dart';
+import 'widget/drag_overlay.dart';
 
 class MainIndexPage extends StatefulWidget {
   @override
@@ -70,7 +72,7 @@ class MainIndexState extends State<MainIndexPage>
 
     //组件完成之后的回调方法
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (Platform.isWindows) _showEntry();
+      if (Platform.isWindows || Platform.isMacOS) _showEntry();
     });
   }
 
@@ -79,11 +81,16 @@ class MainIndexState extends State<MainIndexPage>
     entry = null;
     entry = OverlayEntry(builder: (context) {
       return FloatBox(
-        icon: const Icon(Icons.arrow_back, color: Colors.white,),
+        icon: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+        ),
         onTap: () async {
           final NavigatorState navigatorHelper =
               await NavigatorHelper.navigatorState;
-          navigatorHelper.pop();
+          if (navigatorHelper.canPop() == true) {
+            navigatorHelper.pop();
+          }
         },
       );
     });
@@ -943,6 +950,19 @@ class MainIndexState extends State<MainIndexPage>
                         MaterialPageRoute(
                             builder: (context) => GroupListPage()),
                       );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.group_add),
+                    title: Text(
+                      '悬浮弹窗',
+                      style: TextStyle(
+                        fontSize: screenUtil.adaptive(40),
+                      ),
+                    ),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
+                    onTap: () {
+                      DragOverlay.show(context: context, view: GroupListPage());
                     },
                   ),
                   ListTile(

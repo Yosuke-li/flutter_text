@@ -15,7 +15,7 @@ class DragOverlay {
   static void show({@required BuildContext context, @required Widget view}) {
     DragOverlay.view = view;
     remove();
-    OverlayEntry overlayEntry = OverlayEntry(builder: (context) {
+    final OverlayEntry overlayEntry = OverlayEntry(builder: (BuildContext context) {
       return Positioned(
         top: MediaQuery.of(context).size.height * 0.7,
         child: _buildDraggable(context),
@@ -30,7 +30,7 @@ class DragOverlay {
       child: view,
       feedback: view,
       onDragStarted: () {},
-      onDragEnd: (detail) {
+      onDragEnd: (DraggableDetails detail) {
         print("onDraEnd:${detail.offset}");
         createDragTarget(offset: detail.offset, context: context);
       },
@@ -43,7 +43,7 @@ class DragOverlay {
     if (_holder != null) {
       _holder.remove();
     }
-    _holder = new OverlayEntry(builder: (context) {
+    _holder = OverlayEntry(builder: (BuildContext context) {
       double maxY = MediaQuery.of(context).size.height - 100;
       double maxX = MediaQuery.of(context).size.width - 100;
 
@@ -69,7 +69,7 @@ class DragOverlay {
             print('onAccept : $data');
           },
           onLeave: (data) {
-            print("onLeave");
+            print('onLeave');
           },
           builder: (BuildContext context, List incoming, List rejected) {
             return _buildDraggable(context);
@@ -85,7 +85,7 @@ class OverlayWidget extends StatelessWidget {
   final String title;
   final Widget child;
 
-  OverlayWidget({@required this.child, @required this.title});
+  const OverlayWidget({@required this.child, @required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class OverlayWidget extends StatelessWidget {
                   onTap: () {
                     DragOverlay.remove();
                   },
-                  child: Icon(Icons.close),
+                  child: const Icon(Icons.close),
                 )
               ],
             ),

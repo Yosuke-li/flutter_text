@@ -80,6 +80,9 @@ class AssemblyState extends State<Assembly> {
                   navigatorObservers: <NavigatorObserver>[
                     BotToastNavigatorObserver()
                   ],
+                  routes: {
+                    'home': (BuildContext context) => MainIndexPage(),
+                  },
                   home: GestureDetector(
                     onLongPress: () {
                       setState(() {

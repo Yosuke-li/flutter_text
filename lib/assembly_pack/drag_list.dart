@@ -25,7 +25,7 @@ class DragDemoState extends State<DragDemo> {
 
   Widget build(BuildContext context) {
     return Container(
-      child: DragList(
+      child: DragList.handleless(
         // handleless取消拖动点，是整个widget都可以拖动
         items: data,
         //数据
@@ -33,12 +33,12 @@ class DragDemoState extends State<DragDemo> {
         //height
         scrollDirection: Axis.vertical,
         //数据方向
-        itemBuilder: (context, DragItem item, Widget handle) {
+        itemBuilder: (context, DragItem item) {
           //or builder: (context, item, handle) handle是拖动点
           return Container(
             height: 72,
             child: Row(
-              children: <Widget>[Spacer(), Text('${item}'), Spacer(), handle],
+              children: <Widget>[Spacer(), Text('${item}'), Spacer()],
             ),
           );
         },
