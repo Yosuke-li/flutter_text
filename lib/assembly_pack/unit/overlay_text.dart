@@ -9,6 +9,8 @@ class OverlayText extends StatefulWidget {
 }
 
 class _OverlayTextState extends State<OverlayText> {
+  String v = '12';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +22,16 @@ class _OverlayTextState extends State<OverlayText> {
               child: Column(
                 children: [
                   Container(
-                    child: OverlayField(
+                    child: OverlayField<String>(
+                      initValue: v,
                       lists: const ['zxc', 'scsc'],
+                      child: (String value) {
+                        return Text(value);
+                      },
+                      onChange: (String value) {
+                        v = value;
+                        setState(() {});
+                      },
                     ),
                   ),
                   Container(
