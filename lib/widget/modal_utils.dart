@@ -237,6 +237,7 @@ class _ModalWidget extends StatefulWidget {
 
 class _Modal extends State<_ModalWidget> {
   Offset offset = Offset.zero;
+  GlobalKey _key = GlobalKey();
 
   @override
   void initState() {
@@ -246,6 +247,38 @@ class _Modal extends State<_ModalWidget> {
         Navigator.pop(widget.context);
       });
     }
+
+    //组件完成之后的回调方法
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      _position();
+    });
+  }
+
+  void _position() {
+    final RenderBox renderBoxRed =
+    _key.currentContext?.findRenderObject() as RenderBox;
+    offset = renderBoxRed.localToGlobal(Offset.zero);
+    setState(() {});
+  }
+
+  Offset _calOffset(Size size, Offset offset, Offset nextOffset) {
+    double dx = 0;
+    if (offset.dx + nextOffset.dx <= 0) {
+      dx = 0;
+    } else if (offset.dx + nextOffset.dx >= (size.width - 50)) {
+      dx = size.width - 50;
+    } else {
+      dx = offset.dx + nextOffset.dx;
+    }
+    double dy = 0;
+    if (offset.dy + nextOffset.dy >= (size.height - 100)) {
+      dy = size.height - 50;
+    } else if (offset.dy + nextOffset.dy <= kToolbarHeight) {
+      dy = kToolbarHeight;
+    } else {
+      dy = offset.dy + nextOffset.dy;
+    }
+    return Offset(dx, dy);
   }
 
   @override
@@ -296,21 +329,17 @@ class _Modal extends State<_ModalWidget> {
               onTap: () {},
               child: Center(
                 child: Container(
+                  key: _key,
                   margin: EdgeInsets.only(
                       bottom: widget.marginBottom ?? screenUtil.adaptive(200)),
-                  child: widget.isDrag == true ?Draggable(
-                    child: DragTarget<bool>(
-                      builder: (BuildContext context, _, __) {
-                        return _buildView(_style);
-                      },
-                    ),
-                    feedback: _buildView(_style),
-                    childWhenDragging: Container(),
-                    onDragEnd: (DraggableDetails detail) {
-                      offset = detail.offset;
-                      setState(() {});
+                  child: widget.isDrag == true ? GestureDetector(
+                    onPanUpdate: (detail) {
+                      setState(() {
+                        offset = _calOffset(MediaQuery.of(context).size,
+                            offset, detail.delta);
+                      });
                     },
-                    ignoringFeedbackSemantics: false,
+                    child: _buildView(_style),
                   ) : _buildView(_style),
                 ),
               ),
