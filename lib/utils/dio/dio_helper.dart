@@ -64,8 +64,9 @@ class Request {
 
   //设置抓包
   static void setProxy() {
-    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client){
-      client.findProxy = (Uri url){
+    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.findProxy = (Uri url) {
         return 'PROXY ${GlobalStore.companyIp}:8888';
       };
       //抓Https包设置
@@ -151,5 +152,13 @@ class Request {
       {Map<String, dynamic> params, data, String token}) {
     return _request(path,
         method: 'post', params: params, data: data, token: token);
+  }
+
+  static Future<Response> downloadFile(String resUrl, String savePath,
+      void Function(int loaded, int total) callBack) async {
+    return await _dio.download(resUrl, savePath,
+        onReceiveProgress: (int loaded, int total) {
+      callBack.call(loaded, total);
+    });
   }
 }

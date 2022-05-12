@@ -95,6 +95,8 @@ dependencies:
   win_toast: ^0.0.2 #桌面端的toast弹窗
   tray_manager: ^0.1.4 #系统托盘
   window_manager: ^0.2.0 #有关窗口设置的包
+  dynamic_widget: ^4.0.4
+  shell: ^2.0.0 #调用命令行
 
 
 #  dropdown_search:

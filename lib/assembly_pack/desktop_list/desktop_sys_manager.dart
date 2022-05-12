@@ -16,7 +16,8 @@ class DesktopSysManager extends StatefulWidget {
   _DesktopSysManagerState createState() => _DesktopSysManagerState();
 }
 
-class _DesktopSysManagerState extends State<DesktopSysManager> with TrayListener {
+class _DesktopSysManagerState extends State<DesktopSysManager>
+    with TrayListener {
   final TrayManager _trayManager = TrayManager.instance;
 
   @override
@@ -38,31 +39,33 @@ class _DesktopSysManagerState extends State<DesktopSysManager> with TrayListener
   /// 设置菜单项
   void _generateContextMenu() async {
     List<MenuItem> items = [
-      MenuItem(title: '语文'),
-      MenuItem(title: '数学', toolTip: '躲不掉的'),
-      MenuItem(title: '英语', isEnabled: false),
-      MenuItem.separator,
+      MenuItem(label: '语文'),
+      MenuItem(label: '数学', toolTip: '躲不掉的'),
+      MenuItem(label: '英语', disabled: false),
+      MenuItem.separator(),
       MenuItem(
         key: 'science',
-        title: '理科',
-        items: [
-          MenuItem(title: '物理'),
-          MenuItem(title: '化学'),
-          MenuItem(title: '生物'),
-        ],
+        label: '理科',
+        type: 'submenu',
+        submenu: Menu(items: <MenuItem>[
+          MenuItem(label: '物理'),
+          MenuItem(label: '化学'),
+          MenuItem(label: '生物'),
+        ]),
       ),
-      MenuItem.separator,
+      MenuItem.separator(),
       MenuItem(
         key: 'arts',
-        title: '文科',
-        items: [
-          MenuItem(title: '政治'),
-          MenuItem(title: '历史'),
-          MenuItem(title: '地理'),
-        ],
+        label: '文科',
+        type: 'submenu',
+        submenu: Menu(items: <MenuItem>[
+          MenuItem(label: '物理'),
+          MenuItem(label: '化学'),
+          MenuItem(label: '生物'),
+        ]),
       ),
     ];
-    await _trayManager.setContextMenu(items);
+    await _trayManager.setContextMenu(Menu(items: items));
   }
 
   @override
@@ -79,7 +82,7 @@ class _DesktopSysManagerState extends State<DesktopSysManager> with TrayListener
 
   @override
   void onTrayMenuItemClick(MenuItem menuItem) {
-    ToastUtils.showToast(msg: '你选择了${menuItem.title}');
+    ToastUtils.showToast(msg: '你选择了${menuItem.label}');
   }
 
   @override

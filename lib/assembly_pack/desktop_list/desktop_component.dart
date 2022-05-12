@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/desktop_list/desktop_drop_text.dart';
 import 'package:flutter_text/assembly_pack/desktop_list/desktop_notifier.dart';
 import 'package:flutter_text/assembly_pack/desktop_list/desktop_picker.dart';
+import 'package:flutter_text/assembly_pack/desktop_list/download.dart';
 import 'package:flutter_text/model/AComponent.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 
@@ -28,6 +29,9 @@ class DesktopComponentPageState extends State<DesktopComponentPage> {
       PageModel()
         ..name = 'desktop_picker_text'
         ..pageUrl = const DesktopPickerPage(),
+      PageModel()
+        ..name = 'download'
+        ..pageUrl = const DownLoadPage(),
     ];
   }
 
