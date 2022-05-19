@@ -1,5 +1,6 @@
 import 'package:flutter_text/assembly_pack/compress/video_compress.dart';
 import 'package:flutter_text/assembly_pack/menu_item.dart';
+import 'package:flutter_text/assembly_pack/redis_test.dart';
 import 'package:flutter_text/utils/extension.dart';
 import 'package:flutter_text/widget/float_box.dart';
 
@@ -616,6 +617,22 @@ class MainIndexState extends State<MainIndexPage>
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => SlidingUpText()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.keyboard),
+                    title: Text(
+                      'redis 使用',
+                      style: TextStyle(
+                        fontSize: screenUtil.adaptive(40),
+                      ),
+                    ),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => RedisTest()),
                       );
                     },
                   ),

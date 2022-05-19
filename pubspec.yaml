@@ -97,6 +97,7 @@ dependencies:
   window_manager: ^0.2.0 #有关窗口设置的包
   dynamic_widget: ^4.0.4
   shell: ^2.0.0 #调用命令行
+  redis: ^3.1.0
 
 
 #  dropdown_search:
