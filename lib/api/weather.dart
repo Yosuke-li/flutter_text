@@ -52,7 +52,7 @@ class WeatherApi {
 
       _threeDaysForecast.basic = Basic.fromJson(_threeDaysForecast.mBasic as Map<String, dynamic>);
       _threeDaysForecast.update = Update.fromJson(_threeDaysForecast.mUpdate as Map<String, dynamic>);
-      for (Map<String, dynamic> d in (_threeDaysForecast.mDailyForecasts as List<Map<String, dynamic>>)) {
+      for (Map<String, dynamic> d in (_threeDaysForecast.mDailyForecasts as List<dynamic>)) {
         _threeDaysForecast.dailyForecasts?.add(DailyForecast.fromJson(d));
       }
       return _threeDaysForecast;
