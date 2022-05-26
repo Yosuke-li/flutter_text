@@ -6,7 +6,7 @@ import 'package:flutter_text/utils/utils.dart';
 import 'notification_listener.dart';
 
 class NotificationController extends ChangeNotifier {
-  CancelCallBack cancelCallBack;
+  CancelCallBack? cancelCallBack;
 
   NotificationController.listen() {
     cancelCallBack = NotificationCenterListener.listenModel();

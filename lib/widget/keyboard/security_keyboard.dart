@@ -19,21 +19,15 @@ extension SecurityKeyboardTypeTxt on SecurityKeyboardType {
       case SecurityKeyboardType.text:
         return 'SecurityKeyboardTypeText';
         break;
-      default:
-        return null;
     }
   }
 }
 
 class SecurityKeyboardCenter {
 
-  static SecurityTextInputType number = Platform.isWindows || Platform.isMacOS
-      ? TextInputType.number
-      : SecurityTextInputType(name: SecurityKeyboardType.number.enumToString);
+  static SecurityTextInputType number = SecurityTextInputType(name: SecurityKeyboardType.number.enumToString);
 
-  static SecurityTextInputType text = Platform.isWindows || Platform.isMacOS
-      ? TextInputType.text
-      : SecurityTextInputType(name: SecurityKeyboardType.text.enumToString);
+  static SecurityTextInputType text = SecurityTextInputType(name: SecurityKeyboardType.text.enumToString);
 
   static void register() {
     if (Platform.isWindows || Platform.isMacOS) {
@@ -75,7 +69,7 @@ class SecurityKeyboard extends StatelessWidget {
 
   final SecurityKeyboardType type;
 
-  const SecurityKeyboard({@required this.controller, this.type});
+  const SecurityKeyboard({required this.controller, required this.type});
 
   @override
   Widget build(BuildContext context) {

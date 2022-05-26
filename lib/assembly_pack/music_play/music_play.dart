@@ -39,16 +39,16 @@ class _Page extends StatefulWidget {
 
 class _PageState extends State<_Page> with TickerProviderStateMixin {
   AudioPlayer _audioPlayer = AudioPlayer();
-  int times;
-  int currentTime;
+  late int times;
+  late int currentTime;
 
-  AudioPlayerState _state; //播放状态
+  late AudioPlayerState _state; //播放状态
   PanelController panel = PanelController();
   List<MusicModel> _list = <MusicModel>[];
-  MusicModel currentMusic;
+  late MusicModel currentMusic;
   int currentIndex = 0;
 
-  AnimationController _controller;
+  late AnimationController _controller;
   PlayMode playState = PlayMode.normal;
 
   @override
@@ -75,7 +75,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
   void getMusicCacheList({bool init = false}) async {
     _list = await MusicCache.getAllCache();
     if (_list.isNotEmpty == true && init == true) {
-      currentMusic = ArrayHelper.get(_list, 0);
+      currentMusic = ArrayHelper.get(_list, 0)!;
       currentIndex = 0;
       setState(() {});
     }
@@ -83,7 +83,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
 
   // 上传
   void select() async {
-    final FilePickerResult result = await loadingCallback(
+    final FilePickerResult? result = await loadingCallback(
       () => FilePicker.platform.pickFiles(
         allowMultiple: false, //单选
         type: FileType.audio,
@@ -93,7 +93,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
     if (result != null) {
       if (result.isSinglePick == true) {
         currentMusic = await MusicHelper.setAppLocateFile(result);
-        play(currentMusic.path);
+        play(currentMusic.path!);
         setState(() {});
       }
     }
@@ -145,7 +145,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
   //暂停
   void startOrPause() async {
     if (_state == null) {
-      play(currentMusic?.path);
+      play(currentMusic.path!);
       return;
     }
     if (_state == AudioPlayerState.PAUSED) {
@@ -163,7 +163,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
   }
 
   //下一首
-  void next({bool auto}) {
+  void next({bool? auto}) {
     int index = currentIndex;
     if (playState == PlayMode.normal) {
       if (currentIndex == _list.length - 1) {
@@ -189,9 +189,9 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
     } else if (playState == PlayMode.random) {
       index = Random().nextInt(_list.length) - 1;
     }
-    currentMusic = ArrayHelper.get(_list, index);
+    currentMusic = ArrayHelper.get(_list, index)!;
     currentIndex = index;
-    play(currentMusic.path);
+    play(currentMusic.path!);
     setState(() {});
   }
 
@@ -203,9 +203,9 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
     } else {
       index = currentIndex - 1;
     }
-    currentMusic = ArrayHelper.get(_list, index);
+    currentMusic = ArrayHelper.get(_list, index)!;
     currentIndex = index;
-    play(currentMusic.path);
+    play(currentMusic.path!);
     setState(() {});
   }
 
@@ -288,12 +288,12 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                final MusicModel model = ArrayHelper.get(_list, index);
+                final MusicModel model = ArrayHelper.get(_list, index)!;
                 return GestureDetector(
                   onTap: () {
                     panel.close();
                     currentMusic = model;
-                    play(model.path);
+                    play(model.path!);
                     setState(() {});
                   },
                   child: Container(
@@ -312,7 +312,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
                         ),
                         IconButton(
                           onPressed: () async {
-                            await MusicCache.deleteCache(model.id);
+                            await MusicCache.deleteCache(model.id!);
                             getMusicCacheList();
                           },
                           icon: Icon(
@@ -410,7 +410,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Text('${currentMusic?.name ?? ' '}',
+        Text('${currentMusic.name ?? ' '}',
             style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
@@ -434,14 +434,14 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
                 Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      '${DateTimeHelper.secToMusicTime(currentTime) ?? 0}',
+                      '${DateTimeHelper.secToMusicTime(currentTime)}',
                       style: TextStyle(
                           color: NeumorphicTheme.defaultTextColor(context)),
                     )),
                 Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      '${DateTimeHelper.secToMusicTime(times) ?? 0}',
+                      '${DateTimeHelper.secToMusicTime(times)}',
                       style: TextStyle(
                           color: NeumorphicTheme.defaultTextColor(context)),
                     )),
@@ -453,8 +453,8 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
             NeumorphicSlider(
               height: 8,
               min: 0,
-              max: times?.toDouble() ?? 100,
-              value: currentTime?.toDouble() ?? 0,
+              max: times.toDouble(),
+              value: currentTime.toDouble(),
               onChanged: (double value) {
                 onSeekChange(value.toInt());
               },
@@ -544,10 +544,10 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
     );
   }
 
-  Color _iconsColor() {
-    final theme = NeumorphicTheme.of(context);
-    if (theme.isUsingDark) {
-      return theme.current.accentColor;
+  Color? _iconsColor() {
+    final NeumorphicThemeInherited? theme = NeumorphicTheme.of(context);
+    if (theme?.isUsingDark == true) {
+      return theme?.current?.accentColor;
     } else {
       return null;
     }

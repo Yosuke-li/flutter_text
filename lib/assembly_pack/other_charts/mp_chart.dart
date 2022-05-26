@@ -12,9 +12,9 @@ class MpChartsPage extends StatefulWidget {
 class _MpChartsState extends State<MpChartsPage> {
   final List<String> _splineList =
       <String>['natural', 'monotonic', 'cardinal', 'clamped'].toList();
-  String _selectedSplineType;
-  SplineType _spline;
-  TooltipBehavior _tooltipBehavior;
+  late String _selectedSplineType;
+  late SplineType _spline;
+  late TooltipBehavior _tooltipBehavior;
 
   @override
   void initState() {

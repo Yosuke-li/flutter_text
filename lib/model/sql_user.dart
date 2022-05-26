@@ -1,25 +1,25 @@
 class SqlUser {
   SqlUser();
 
-  int _id;
-  String _name;
-  String _desc;
+  int? _id;
+  String? _name;
+  String? _desc;
 
-  int get id => _id;
+  int? get id => _id;
 
-  String get name => _name;
+  String? get name => _name;
 
-  String get desc => _desc;
+  String? get desc => _desc;
 
-  set desc(String value) {
+  set desc(String? value) {
     _desc = value;
   }
 
-  set name(String value) {
+  set name(String? value) {
     _name = value;
   }
 
-  set id(int value) {
+  set id(int? value) {
     _id = value;
   }
 
@@ -44,7 +44,7 @@ class SqlUser {
   }
 
   SqlUser.fromJson(Map<String, dynamic> json) {
-    if (json == null || json?.keys.isNotEmpty != true) return;
+    if (json == null || json.keys.isNotEmpty != true) return;
     final Map<String, dynamic> keyToLowerCaseJson = {};
     keyToLowerCaseJson.addEntries(json.keys.map((element) {
       final String key = element;

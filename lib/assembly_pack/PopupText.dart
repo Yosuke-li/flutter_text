@@ -7,8 +7,8 @@ class PopupTextPage extends StatefulWidget {
 }
 
 class _PopupTextState extends State<PopupTextPage> {
-  final Key _textKey = GlobalKey<_PopupTextState>();
-  final Key _textKey2 = GlobalKey<_PopupTextState>();
+  final GlobalKey _textKey = GlobalKey<_PopupTextState>();
+  final GlobalKey _textKey2 = GlobalKey<_PopupTextState>();
 
   @override
   void initState() {

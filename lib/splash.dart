@@ -9,7 +9,7 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashState extends State<SplashPage> {
-  Timer _timer;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _SplashState extends State<SplashPage> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 

@@ -6,16 +6,17 @@ import 'package:flutter_text/model/db_register.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
 
 class RegisterPage extends StatefulWidget {
-  DbRegister register;
+  DbRegister? register;
 
   RegisterPage({this.register});
 
+  @override
   RegisterPageState createState() => RegisterPageState();
 }
 
 class RegisterPageState extends State<RegisterPage> {
-  String account;
-  String password;
+  String? account;
+  String? password;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   int count = 0;
@@ -34,9 +35,9 @@ class RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> onSave() async {
-    final FormState from = _formKey.currentState;
+    final FormState? from = _formKey.currentState;
     final DbRegister register = DbRegister();
-    if (from.validate()) {
+    if (from!=null && from.validate()) {
       from.save();
       final check = checkString();
       if (!check) {
@@ -44,8 +45,8 @@ class RegisterPageState extends State<RegisterPage> {
       }
 
       register.id = count + 1;
-      register.account = account;
-      register.password = password;
+      register.account = account ?? '';
+      register.password = password ?? '';
       register.updateTime = DateTime.now().millisecondsSinceEpoch;
       register.createTime = DateTime.now().millisecondsSinceEpoch;
 
@@ -62,12 +63,12 @@ class RegisterPageState extends State<RegisterPage> {
 
   bool checkString() {
     bool isCheck = false;
-    if (account == null || account.isEmpty == true) {
+    if (account == null || account?.isEmpty == true) {
       ToastUtils.showToast(msg: '账号不能为空');
       return isCheck;
     }
 
-    if (password == null || password.isEmpty == true) {
+    if (password == null || password?.isEmpty == true) {
       ToastUtils.showToast(msg: '密码不能为空');
       return isCheck;
     }
@@ -103,7 +104,7 @@ class RegisterPageState extends State<RegisterPage> {
               padding: const EdgeInsets.all(20),
               child: TextFormField(
                 decoration: const InputDecoration(helperText: "请输入账号"),
-                onSaved: (String val) {
+                onSaved: (String? val) {
                   setState(() {
                     account = val;
                   });
@@ -115,7 +116,7 @@ class RegisterPageState extends State<RegisterPage> {
               child: TextFormField(
                 keyboardType: TextInputType.visiblePassword,
                 decoration: const InputDecoration(helperText: "请输入密码"),
-                onSaved: (String val) {
+                onSaved: (String? val) {
                   setState(() {
                     password = val;
                   });

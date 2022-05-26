@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter_text/init.dart';
 
 class DesktopPickerPage extends StatefulWidget {
-  const DesktopPickerPage({Key key}) : super(key: key);
+  const DesktopPickerPage({Key? key}) : super(key: key);
 
   @override
   _DesktopPickerState createState() => _DesktopPickerState();
@@ -16,30 +16,29 @@ class _DesktopPickerState extends State<DesktopPickerPage> {
   }
 
   void _singlePicker() async {
-    final FilePickerResult result = await FilePicker.platform.pickFiles();
-    Log.info(result);
+    final FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
+      Log.info(result);
       final PlatformFile _file = result.files.single;
       Log.info(_file);
     }
   }
 
   void _multiPicker() async {
-    final FilePickerResult result =
+    final FilePickerResult? result =
         await FilePicker.platform.pickFiles(allowMultiple: true);
-    Log.info(result);
 
     if (result != null) {
+      Log.info(result);
       final PlatformFile _file = result.files.single;
       Log.info(_file);
     }
   }
 
   void _pickerVideo() async {
-    final FilePickerResult result = await FilePicker.platform.pickFiles(
+    final FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.video,
     );
-    Log.info(result);
   }
 
   // 鼠标右键
@@ -54,20 +53,19 @@ class _DesktopPickerState extends State<DesktopPickerPage> {
         event.buttons == kSecondaryMouseButton) {
       Log.info(event);
       final RenderBox overlay =
-          Overlay.of(context).context.findRenderObject() as RenderBox;
-      final int menuItem = await showMenu<int>(
+          Overlay.of(context)?.context.findRenderObject() as RenderBox;
+      final int? menuItem = await showMenu<int>(
           context: context,
           items: menuItems,
           position: RelativeRect.fromSize(
-              event.position & Size(48.0, 48.0), overlay.size));
+              event.position & const Size(48.0, 48.0), overlay.size));
     }
   }
 
   //选择custom类型需要带上相应的后缀
   void _pickerCustom() async {
-    final FilePickerResult result = await FilePicker.platform
+    final FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.custom, allowedExtensions: ['epub']);
-    Log.info(result);
   }
 
   @override

@@ -3,7 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../init.dart';
 
 class ExampleTwoPage extends StatefulWidget {
-  ExampleTwoPage({Key key}) : super(key: key);
+  ExampleTwoPage({Key? key}) : super(key: key);
 
   @override
   _WidgetPageState createState() => _WidgetPageState();
@@ -63,7 +63,7 @@ class _DefaultWidget extends StatefulWidget {
 }
 
 class _DefaultWidgetState extends State<_DefaultWidget> {
-  int groupValue;
+  int? groupValue;
 
   Widget _buildCode(BuildContext context) {
     return Container();
@@ -79,7 +79,7 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
           const SizedBox(width: 12),
-          NeumorphicRadio(
+          NeumorphicRadio<int>(
             //uncomment to test colors
             //style: NeumorphicRadioStyle(
             //  selectedColor: Colors.black,
@@ -96,7 +96,7 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
             child: Text("1991"),
           ),
           SizedBox(width: 12),
-          NeumorphicRadio(
+          NeumorphicRadio<int>(
             value: 2000,
             groupValue: groupValue,
             onChanged: (value) {
@@ -108,7 +108,7 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
             child: Text("2000"),
           ),
           SizedBox(width: 12),
-          NeumorphicRadio(
+          NeumorphicRadio<int>(
             groupValue: groupValue,
             value: 2012,
             onChanged: (value) {
@@ -141,7 +141,7 @@ class CircleRadios extends StatefulWidget {
 }
 
 class _CircleRadiosState extends State<CircleRadios> {
-  String groupValue;
+  String? groupValue;
 
   Widget _buildCode(BuildContext context) {
     return Container();
@@ -157,7 +157,7 @@ class _CircleRadiosState extends State<CircleRadios> {
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
           const SizedBox(width: 12),
-          NeumorphicRadio(
+          NeumorphicRadio<String>(
             style: const NeumorphicRadioStyle(
               boxShape: NeumorphicBoxShape.circle(),
             ),
@@ -172,7 +172,7 @@ class _CircleRadiosState extends State<CircleRadios> {
             child: const Text("A"),
           ),
           const SizedBox(width: 12),
-          NeumorphicRadio(
+          NeumorphicRadio<String>(
             value: "B",
             style: const NeumorphicRadioStyle(
               boxShape: NeumorphicBoxShape.circle(),
@@ -187,7 +187,7 @@ class _CircleRadiosState extends State<CircleRadios> {
             child: const Text("B"),
           ),
           const SizedBox(width: 12),
-          NeumorphicRadio(
+          NeumorphicRadio<String>(
             style: const NeumorphicRadioStyle(
               boxShape: NeumorphicBoxShape.circle(),
             ),
@@ -224,7 +224,7 @@ class _EnabledDisabledWidget extends StatefulWidget {
 }
 
 class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
-  int groupValue;
+  int? groupValue;
 
   Widget _buildWidget(BuildContext context) {
     return Padding(
@@ -236,7 +236,7 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
           const SizedBox(width: 12),
-          NeumorphicRadio(
+          NeumorphicRadio<int>(
             groupValue: groupValue,
             value: 1,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
@@ -253,7 +253,7 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
           const SizedBox(width: 12),
-          NeumorphicRadio(
+          NeumorphicRadio<int>(
             isEnabled: false,
             groupValue: groupValue,
             value: 2,

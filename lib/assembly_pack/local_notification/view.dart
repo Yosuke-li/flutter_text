@@ -20,7 +20,7 @@ class LocalNotificationState extends State<LocalNotification> {
     fNotification.initialize(initSettings, onSelectNotification: onSelectNotification);
   }
 
-  Future<void> onSelectNotification(String payload) async {
+  Future<void> onSelectNotification(String? payload) async {
     debugPrint('payload : $payload');
     showDialog(
       context: context,

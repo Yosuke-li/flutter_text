@@ -5,7 +5,7 @@ import 'package:win_toast/win_toast.dart';
 import 'package:path/path.dart' as path;
 
 class DesktopNotifierPage extends StatefulWidget {
-  const DesktopNotifierPage({Key key}) : super(key: key);
+  const DesktopNotifierPage({Key? key}) : super(key: key);
 
   @override
   _DesktopNotifierPageState createState() => _DesktopNotifierPageState();
@@ -13,7 +13,7 @@ class DesktopNotifierPage extends StatefulWidget {
 
 class _DesktopNotifierPageState extends State<DesktopNotifierPage> {
   final LocalNotifier _notifier = LocalNotifier.instance;
-  Toast _toast;
+  Toast? _toast;
 
   @override
   void initState() {
@@ -37,7 +37,7 @@ class _DesktopNotifierPageState extends State<DesktopNotifierPage> {
         imagePath: image,
         actions: ['确定', '取消']);
 
-    _toast.eventStream.listen((Event event) {
+    _toast?.eventStream.listen((Event event) {
       Log.info('点击index: ${(event as ActivatedEvent).actionIndex}');
       WinToast.instance().bringWindowToFront(); //点击之后关闭弹窗通知
     });
@@ -50,7 +50,7 @@ class _DesktopNotifierPageState extends State<DesktopNotifierPage> {
         title: '桌面弹窗测试02',
         actions: ['确定', '取消']);
 
-    _toast.eventStream.listen((Event event) {
+    _toast?.eventStream.listen((Event event) {
       Log.info('点击index: ${(event as ActivatedEvent).actionIndex}');
       WinToast.instance().bringWindowToFront(); //点击之后关闭弹窗通知
     });

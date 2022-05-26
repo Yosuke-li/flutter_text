@@ -8,7 +8,7 @@ import 'bloc_two_model.dart';
 class BlocTwo extends StatefulWidget {
   BlocModel blocModel;
 
-  BlocTwo({this.blocModel});
+  BlocTwo({required this.blocModel});
 
   @override
   _BlocTwoState createState() => _BlocTwoState();
@@ -35,12 +35,12 @@ class _BlocTwoState extends State<BlocTwo> {
 
 class _BlocTwoPage extends StatelessWidget {
   int i = 0;
-  BlocModel blocModel;
+  BlocModel? blocModel;
 
   @override
   Widget build(BuildContext context) {
-    final BlocTwoModel bloc = BlocWidget.of<BlocTwoModel>(context);
-    final BlocModel firstBloc = blocModel;
+    final BlocTwoModel bloc = BlocWidget.of<BlocTwoModel>(context)!;
+    final BlocModel firstBloc = blocModel!;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bloc Text'),

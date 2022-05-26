@@ -8,16 +8,16 @@ class ReorderablePage extends StatefulWidget {
 
 class _ReorderableState extends State<ReorderablePage> {
   final List<Color> data = [
-    Colors.yellow[50],
-    Colors.yellow[100],
-    Colors.yellow[200],
-    Colors.yellow[300],
-    Colors.yellow[400],
-    Colors.yellow[500],
-    Colors.yellow[600],
-    Colors.yellow[700],
-    Colors.yellow[800],
-    Colors.yellow[900],
+    Colors.yellow[50]!,
+    Colors.yellow[100]!,
+    Colors.yellow[200]!,
+    Colors.yellow[300]!,
+    Colors.yellow[400]!,
+    Colors.yellow[500]!,
+    Colors.yellow[600]!,
+    Colors.yellow[700]!,
+    Colors.yellow[800]!,
+    Colors.yellow[900]!,
   ];
 
   @override

@@ -147,7 +147,7 @@ class Utils {
   ///
   static bool isEmail(String email) {
     if (email == null) return false;
-    Pattern pattern =
+    String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = RegExp(
       pattern,
@@ -179,7 +179,7 @@ class Utils {
   /// 时间转字符串
   ///
   static String duration2String(Duration duration) {
-    return duration?.toString()?.split('.')?.first ?? '0:00:00';
+    return duration.toString().split('.').first;
   }
 
   /// 16进制颜色值转换为10进制值
@@ -251,15 +251,15 @@ class Utils {
   }
 
   /// 函数防抖
-  static Function() debounce(Function() func, {Duration delay}) {
+  static Function() debounce(Function() func, {Duration? delay}) {
     delay ??= const Duration(milliseconds: 3000);
-    Timer timer;
-    final Function target = () {
+    Timer? timer;
+    final Function() target = () {
       if (timer?.isActive ?? false) {
         timer?.cancel();
       }
-      timer = Timer(delay, () {
-        func?.call();
+      timer = Timer(delay!, () {
+        func.call();
       });
     };
     return target;

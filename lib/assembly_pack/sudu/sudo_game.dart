@@ -22,13 +22,13 @@ class _SudoGameState extends State<SudoGamePage> {
   bool gameSolution = false;
   int timesCalled = 0;
   bool isButtonDisabled = false;
-  List<List<List<int>>> gameList;
-  List<List<int>> game;
-  List<List<int>> gameCopy;
-  List<List<int>> gameSolved;
-  static String currentDifficultyLevel;
-  static String currentAccentColor;
-  static String platform;
+  late List<List<List<int>>> gameList;
+  late List<List<int>> game;
+  late List<List<int>> gameCopy;
+  late List<List<int>> gameSolved;
+  static String currentDifficultyLevel = 'easy';
+  static late String currentAccentColor;
+  static late String platform;
 
   static List<String> gameLevel = <String>[
     'test',
@@ -70,8 +70,8 @@ class _SudoGameState extends State<SudoGamePage> {
   Future<void> getPrefs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      currentDifficultyLevel = prefs.getString('currentDifficultyLevel');
-      currentAccentColor = prefs.getString('currentAccentColor');
+      currentDifficultyLevel = prefs.getString('currentDifficultyLevel')!;
+      currentAccentColor = prefs.getString('currentAccentColor')!;
     });
   }
 
@@ -87,10 +87,10 @@ class _SudoGameState extends State<SudoGamePage> {
   void changeAccentColor(String color, [bool firstRun = false]) {
     setState(() {
       if (Styles.accentColors.keys.contains(color)) {
-        Styles.primaryColor = Styles.accentColors[color];
+        Styles.primaryColor = Styles.accentColors[color]!;
       } else {
         currentAccentColor = 'Blue';
-        Styles.primaryColor = Styles.accentColors[color];
+        Styles.primaryColor = Styles.accentColors[color]!;
       }
       if (color == 'Red') {
         Styles.secondaryColor = Styles.orange;
@@ -127,7 +127,7 @@ class _SudoGameState extends State<SudoGamePage> {
   }
 
   static List<List<List<int>>> getNewGame([String difficulty = 'easy']) {
-    int emptySquares;
+    late int emptySquares;
     switch (difficulty) {
       case 'test':
         {
@@ -210,7 +210,7 @@ class _SudoGameState extends State<SudoGamePage> {
       if (Styles.white == Styles.darkGrey) {
         color = Styles.grey;
       } else {
-        color = Colors.grey[300];
+        color = Colors.grey[300]!;
       }
     } else {
       color = Styles.white;
@@ -261,7 +261,7 @@ class _SudoGameState extends State<SudoGamePage> {
     } else {
       emptyColor = Styles.secondaryColor;
     }
-    final List<SizedBox> buttonList = List<SizedBox>.filled(9, null);
+    final List<SizedBox> buttonList = List<SizedBox>.filled(9, const SizedBox());
     for (int i = 0; i <= 8; i++) {
       int k = timesCalled;
       buttonList[i] = SizedBox(
@@ -276,7 +276,7 @@ class _SudoGameState extends State<SudoGamePage> {
                       context: context,
                       builder: (_) => AlertNumbersState()).whenComplete(() {
                     callback([k, i], AlertNumbersState.number);
-                    AlertNumbersState.number = null;
+                    AlertNumbersState.number = 0;
                   });
                 },
           onLongPress: isButtonDisabled || gameCopy[k][i] != 0
@@ -336,7 +336,7 @@ class _SudoGameState extends State<SudoGamePage> {
   }
 
   List<Row> createRows() {
-    final List<Row> rowList = List<Row>.filled(9, null);
+    final List<Row> rowList = List<Row>.filled(9, Row());
     for (int i = 0; i <= 8; i++) {
       rowList[i] = oneRow();
     }
@@ -446,7 +446,7 @@ class _SudoGameState extends State<SudoGamePage> {
                         onDropSelected: (int index) async {
                           Log.info(index);
                           currentDifficultyLevel =
-                              ArrayHelper.get(gameLevel, index);
+                              ArrayHelper.get(gameLevel, index)!;
                           newGame(currentDifficultyLevel);
                           setState(() {});
                         },

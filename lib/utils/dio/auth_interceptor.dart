@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AuthorizationInterceptor extends Interceptor {
   bool beAuth;
 
-  AuthorizationInterceptor({@required this.beAuth});
+  AuthorizationInterceptor({required this.beAuth});
 
   /*@override
   void onResponse(Response response, ResponseInterceptorHandler handler) {

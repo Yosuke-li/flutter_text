@@ -22,13 +22,13 @@ class RealTimeListLogic extends GetxController {
     final builder = MqttClientPayloadBuilder();
     builder.addString(msg);
     MqttHelper.client
-        .publishMessage('topic/test2', MqttQos.exactlyOnce, builder.payload);
+        ?.publishMessage('topic/test2', MqttQos.exactlyOnce, builder.payload!);
   }
 
   void _setEventBus() {
     state.voidCallback = EventBusHelper.listen<EventCache>((EventCache event) {
-      if (event.realTimeData != null && event.realTimeData.isNotEmpty == true) {
-        state.realDatas.value.insert(0, event.realTimeData);
+      if (event.realTimeData != null && event.realTimeData?.isNotEmpty == true) {
+        state.realDatas.value.insert(0, event.realTimeData!);
         state.realDatas.refresh();
       }
     }).cancel;

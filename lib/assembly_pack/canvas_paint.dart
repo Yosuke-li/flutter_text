@@ -3,9 +3,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_text/utils/screen.dart';
 
 class PainterSketchDome extends StatefulWidget {
-  PainterSketchDome({Key key, this.title}) : super(key: key);
+  PainterSketchDome({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _PainterSketchDomeState createState() => new _PainterSketchDomeState();
@@ -17,7 +17,7 @@ class _PainterSketchDomeState extends State<PainterSketchDome> {
   Color nowColor = Colors.redAccent;
 
   void moveGestureDetector(DragUpdateDetails detail) {
-    RenderBox box = context.findRenderObject();
+    RenderBox box = context.findRenderObject() as RenderBox;
     final Offset xy = box.globalToLocal(detail.globalPosition); // 重要需要转换以下坐标位置
     Offset p = Offset(xy.dx, xy.dy - 60);
     //Offset p = Offset(detail.globalPosition.dx, detail.globalPosition.dy - 60);
@@ -34,7 +34,7 @@ class _PainterSketchDomeState extends State<PainterSketchDome> {
       lines.add(l);
       nowPoints.clear();
     }
-    RenderBox box = context.findRenderObject();
+    RenderBox box = context.findRenderObject() as RenderBox;
     final Offset xy = box.globalToLocal(detail.globalPosition); // 重要需要转换以下坐标位置
     Offset p = Offset(xy.dx, xy.dy - 60);
     if (mounted) {
@@ -203,15 +203,15 @@ class LinePoints {
 }
 
 class ColorPallet extends StatelessWidget {
-  final Color color;
-  final Function changeColor;
+  final Color? color;
+  final Function? changeColor;
 
-  const ColorPallet({Key key, this.color, this.changeColor, this.isSelect})
+  const ColorPallet({Key? key, this.color, this.changeColor, this.isSelect = false})
       : super(key: key);
   final bool isSelect;
 
   void onPressed() {
-    changeColor(color);
+    changeColor?.call(color);
   }
 
   @override

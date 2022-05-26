@@ -12,19 +12,19 @@ import 'package:flutter_text/widget/api_call_back.dart';
 class BookView extends StatefulWidget {
   final BookModel book;
 
-  const BookView({@required this.book}) : assert(book != null);
+  const BookView({required this.book});
 
   @override
   _BookViewState createState() => _BookViewState();
 }
 
 class _BookViewState extends State<BookView> {
-  EpubController _epubController;
+  late EpubController _epubController;
   int index = 0;
 
   @override
   void initState() {
-    final Uint8List bytes = File(widget.book.bookPath).readAsBytesSync();
+    final Uint8List bytes = File(widget.book.bookPath!).readAsBytesSync();
     _epubController = EpubController(
       // Load document
       document: EpubReader.readBook(bytes),
@@ -37,13 +37,13 @@ class _BookViewState extends State<BookView> {
   }
 
   void setIndex() async {
-    if (widget.book.index > 0) {
+    if ((widget.book.index ?? 0) > 0) {
       await loadingCallback(
             () =>
             Future<void>.delayed(const Duration(milliseconds: 16)).then(
                   (_) =>
                   _epubController.scrollTo(
-                      index: widget.book.index,
+                      index: widget.book.index ?? 0,
                       duration: const Duration(milliseconds: 200),
                       curve: Curves.easeOutQuart),
             ),
@@ -59,9 +59,9 @@ class _BookViewState extends State<BookView> {
               // Show actual chapter name
               title: EpubViewActualChapter(
                 controller: _epubController,
-                builder: (EpubChapterViewValue chapterValue) =>
+                builder: (EpubChapterViewValue? chapterValue) =>
                     Text(
-                      '${chapterValue.chapter.Title ?? ''}',
+                      '${chapterValue?.chapter?.Title ?? ''}',
                       textAlign: TextAlign.start,
                     ),
               ),
@@ -91,9 +91,9 @@ class _BookViewState extends State<BookView> {
           onWillPop: () async {
             BookCache.updateIndex(
                 id: widget.book.id,
-                index: _epubController.currentValue.position.index);
+                index: _epubController.currentValue?.position.index);
             NavigatorUtils.pop(context,
-                results: _epubController.currentValue.position.index);
+                results: _epubController.currentValue?.position.index);
             return true;
           });
 }
@@ -101,7 +101,7 @@ class _BookViewState extends State<BookView> {
 class IndexPage extends StatefulWidget {
   final EpubController epubController;
 
-  const IndexPage({this.epubController});
+  const IndexPage({required this.epubController});
 
   @override
   _IndexState createState() => _IndexState();
@@ -120,7 +120,7 @@ class _IndexState extends State<IndexPage> {
     if (widget.epubController != null) {
       widget.epubController.currentValueListenable.addListener(() {
         index =
-            widget.epubController.currentValue.position.index;
+            widget.epubController.currentValue?.position.index ?? 0;
         setState(() {});
       });
     }

@@ -3,60 +3,29 @@ import 'package:flutter_text/utils/navigator.dart';
 import 'package:flutter_text/utils/screen.dart';
 
 class ModalUtils {
-  static Future<bool> showModal(BuildContext context,
-      {Color modalBackgroundColor,
-        Text title,
-        Widget icon,
-        String message,
-        Widget body,
-        Border border,
-        bool isDrag,
-        Text button1,
-        ModalSize modalSize,
+  static Future<bool?>? showModal(BuildContext context,
+      {Color? modalBackgroundColor,
+        Text? title,
+        Widget? icon,
+        String? message,
+        Widget? body,
+        Widget? header,
+        Border? border,
+        bool? isDrag,
+        Text? button1,
+        ModalSize? modalSize,
         bool outsideDismiss = true,
         bool cleanFocus = true,
         bool autoClose = false,
-        double marginBottom, //距离底部的高，使model偏上
-        void Function(BuildContext context) onFun1,
-        Text button2,
-        void Function(BuildContext context) onFun2,
-        Text button3,
-        void Function(BuildContext context) onFun3,
-        Widget dynamicBottom}) {
+        double? marginBottom, //距离底部的高，使model偏上
+        void Function(BuildContext context)? onFun1,
+        Text? button2,
+        void Function(BuildContext context)? onFun2,
+        Text? button3,
+        void Function(BuildContext context)? onFun3,
+        Widget? dynamicBottom}) {
     modalBackgroundColor ??= const Color(0xffffffff);
-    Widget Function(ModalStyle style) header;
-    if (title != null) {
-      header = (ModalStyle style) {
-        return Stack(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                color: style.titleBackgroundColor,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.elliptical(
-                      screenUtil.adaptive(20), screenUtil.adaptive(20)),
-                ),
-              ),
-              alignment: Alignment.center,
-              height: screenUtil.adaptive(150),
-              child: title,
-            ),
-            if (icon != null)
-              Positioned(
-                left: screenUtil.adaptive(20),
-                top: 0,
-                right: 0,
-                bottom: 0,
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: icon,
-                ),
-              )
-          ],
-        );
-      };
-    }
-    Widget Function(ModalStyle style) bottom;
+    Widget Function(ModalStyle style)? bottom;
     if (button1 == null && button2 == null && button3 == null) {
       if (dynamicBottom != null) {
         bottom = (ModalStyle style) {
@@ -147,7 +116,7 @@ class ModalUtils {
         );
       };
     }
-    Widget Function(ModalStyle style) messageBody;
+    Widget Function(ModalStyle style)? messageBody;
     if (message != null) {
       messageBody = (ModalStyle style) {
         return Container(
@@ -192,30 +161,30 @@ class ModalUtils {
 }
 
 class ModalSize {
-  double width;
-  double height;
+  double? width;
+  double? height;
 
   ModalSize({this.width, this.height});
 }
 
 class _ModalWidget extends StatefulWidget {
   @required
-  BuildContext context;
-  Widget Function(ModalStyle style) header;
-  Widget Function(ModalStyle style) messageBody;
-  Widget body;
-  Widget Function(ModalStyle style) bottom;
-  bool outsideDismiss;
-  bool autoClose;
-  Color modalColor;
-  double marginBottom; //距离底部的高，使model偏上
+  BuildContext? context;
+  Widget? header;
+  Widget Function(ModalStyle style)? messageBody;
+  Widget? body;
+  Widget Function(ModalStyle style)? bottom;
+  bool? outsideDismiss;
+  bool? autoClose;
+  Color? modalColor;
+  double? marginBottom; //距离底部的高，使model偏上
 
-  Border border;
-  ModalSize modalSize;
-  bool isDrag;
+  Border? border;
+  ModalSize? modalSize;
+  bool? isDrag;
 
   _ModalWidget({
-    Key key,
+    Key? key,
     this.context,
     this.header,
     this.messageBody,
@@ -244,7 +213,7 @@ class _Modal extends State<_ModalWidget> {
     super.initState();
     if (widget.autoClose == true) {
       Future.delayed(const Duration(seconds: 2)).then((_) {
-        Navigator.pop(widget.context);
+        Navigator.pop(widget.context!);
       });
     }
 
@@ -283,14 +252,15 @@ class _Modal extends State<_ModalWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final ModalStyle _style = ModalStyleWidget.of(context)?.modalStyle;
+    final ModalStyle? _style = ModalStyleWidget.of(context)?.modalStyle;
     double maxY = MediaQuery.of(context).size.height - 100;
+
     return Stack(children: <Widget>[
       Opacity(
         opacity: 0.4,
         child: GestureDetector(
           onTap: () {
-            if (widget.outsideDismiss) {
+            if (widget.outsideDismiss!) {
               NavigatorUtils.pop(context);
             }
           },
@@ -311,15 +281,11 @@ class _Modal extends State<_ModalWidget> {
             ? maxY
             : offset.dy,
         left: offset.dx,
-        bottom: offset == Offset.zero
-            ? 0
-            : null,
-        right: offset == Offset.zero
-            ? 0
-            : null,
+        bottom: offset == Offset.zero ? 0 : null,
+        right: offset == Offset.zero ? 0 : null,
         child: GestureDetector(
           onTap: () {
-            if (widget.outsideDismiss) {
+            if (widget.outsideDismiss!) {
               NavigatorUtils.pop(context);
             }
           },
@@ -332,15 +298,17 @@ class _Modal extends State<_ModalWidget> {
                   key: _key,
                   margin: EdgeInsets.only(
                       bottom: widget.marginBottom ?? screenUtil.adaptive(200)),
-                  child: widget.isDrag == true ? GestureDetector(
+                  child: widget.isDrag == true
+                      ? GestureDetector(
                     onPanUpdate: (detail) {
                       setState(() {
                         offset = _calOffset(MediaQuery.of(context).size,
                             offset, detail.delta);
                       });
                     },
-                    child: _buildView(_style),
-                  ) : _buildView(_style),
+                    child: _buildView(_style!),
+                  )
+                      : _buildView(_style!),
                 ),
               ),
             ),
@@ -350,7 +318,7 @@ class _Modal extends State<_ModalWidget> {
     ]);
   }
 
-  Widget _buildView(ModalStyle style) {
+  Widget _buildView(ModalStyle? style) {
     return Material(
       child: Container(
         padding: EdgeInsets.only(
@@ -358,17 +326,6 @@ class _Modal extends State<_ModalWidget> {
         ),
         decoration: BoxDecoration(
           color: widget.modalColor,
-          border: widget.border,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.elliptical(
-              screenUtil.adaptive(20),
-              screenUtil.adaptive(20),
-            ),
-            bottom: Radius.elliptical(
-              screenUtil.adaptive(20),
-              screenUtil.adaptive(20),
-            ),
-          ),
         ),
         width: widget.modalSize?.width ?? screenUtil.adaptive(858),
         height: widget.modalSize?.height,
@@ -377,10 +334,10 @@ class _Modal extends State<_ModalWidget> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
-            if (widget.header != null) widget.header(style),
-            if (widget.messageBody != null) widget.messageBody(style),
-            if (widget.body != null) widget.body,
-            if (widget.bottom != null) widget.bottom(style),
+            if (widget.header != null) widget.header!,
+            if (widget.messageBody != null) widget.messageBody!(style!),
+            if (widget.body != null) widget.body!,
+            if (widget.bottom != null) widget.bottom!(style!),
           ],
         ),
       ),
@@ -389,10 +346,10 @@ class _Modal extends State<_ModalWidget> {
 }
 
 class ModalStyle {
-  final Color titleBackgroundColor;
-  final Color messageBackgroundColor;
-  final TextStyle messageStyle;
-  final Color bottomBackgroundColor;
+  final Color? titleBackgroundColor;
+  final Color? messageBackgroundColor;
+  final TextStyle? messageStyle;
+  final Color? bottomBackgroundColor;
 
   ModalStyle(
       {this.titleBackgroundColor,
@@ -421,9 +378,9 @@ class ModalStyle {
 
 class _InheritedModalStyle extends InheritedWidget {
   const _InheritedModalStyle({
-    Key key,
-    @required this.data,
-    @required Widget child,
+    Key? key,
+    required this.data,
+    required Widget child,
   })  : assert(data != null),
         super(key: key, child: child);
 
@@ -437,8 +394,8 @@ class _InheritedModalStyle extends InheritedWidget {
 
 class ModalStyleWidget extends StatefulWidget {
   const ModalStyleWidget({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
   })  : assert(child != null),
         super(key: key);
 
@@ -447,7 +404,7 @@ class ModalStyleWidget extends StatefulWidget {
   @override
   _ModalStyleWidgetState createState() => new _ModalStyleWidgetState();
 
-  static _ModalStyleWidgetState of(BuildContext context) {
+  static _ModalStyleWidgetState? of(BuildContext context) {
     return context
         .dependOnInheritedWidgetOfExactType<_InheritedModalStyle>()
         ?.data;

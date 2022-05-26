@@ -8,37 +8,37 @@ import 'package:sensors_plus/sensors_plus.dart';
 // ignore: must_be_immutable
 class InteractionalWidget extends StatefulWidget {
   // 控件宽度
-  double width;
+  double? width;
 
   // 控件高
-  double height;
+  double? height;
 
   // 水平方向最大的旋转角度
-  double maxAngleX;
+  double? maxAngleX;
 
   // 竖直方向最大的旋转角度
-  double maxAngleY;
+  double? maxAngleY;
 
   // 背景层缩放比
-  double backgroundScale;
+  double? backgroundScale;
 
   // 中景层缩放比
-  double middleScale;
+  double? middleScale;
 
   // 前景层的缩放比
-  double foregroundScale;
+  double? foregroundScale;
 
   // 背景层
-  Widget backgroundWidget;
+  Widget? backgroundWidget;
 
   // 中景层
-  Widget middleWidget;
+  Widget? middleWidget;
 
   // 前景层
-  Widget foregroundWidget;
+  Widget? foregroundWidget;
 
   InteractionalWidget(
-      {Key key,
+      {Key? key,
         this.backgroundWidget,
         this.middleWidget,
         this.foregroundWidget,
@@ -87,13 +87,17 @@ class _InteractionalWidgetState extends State<InteractionalWidget> {
   var lastLocalFocalPoint = Offset(0.1, 0.1);
 
   Offset gyroscopeToOffset(double x, double y) {
-    double angleX = x * time * 180 / pi;
-    double angleY = y * time * 180 / pi;
-    angleX = angleX >= widget.maxAngleX ? widget.maxAngleX : angleX;
-    angleY = angleY >= widget.maxAngleY ? widget.maxAngleY : angleY;
+    num? angleX = x * time * 180 / pi;
+    num? angleY = y * time * 180 / pi;
+    angleX = angleX >= (widget.maxAngleX ?? 0) ? widget.maxAngleX : angleX;
+    angleY = angleY >= (widget.maxAngleY ?? 0)? widget.maxAngleY : angleY;
 
-    return Offset((angleX / widget.maxAngleX) * maxBackgroundOffset.dx,
-        (angleY / widget.maxAngleY) * maxBackgroundOffset.dy);
+    if ((widget.maxAngleX == null && widget.maxAngleX == 0) || (widget.maxAngleY == null && widget.maxAngleY == 0)) {
+      return Offset.zero;
+    } else {
+      return Offset((angleX! / widget.maxAngleX!) * maxBackgroundOffset.dx,
+          (angleY! / widget.maxAngleY!) * maxBackgroundOffset.dy);
+    }
   }
 
   // 通过最大偏移约束计算偏移量
@@ -150,8 +154,8 @@ class _InteractionalWidgetState extends State<InteractionalWidget> {
 
   // 背景层的最大偏移
   Offset get maxBackgroundOffset {
-    return Offset(((widget.backgroundScale ?? 1) - 1.0) * widget.width / 2,
-        ((widget.backgroundScale ?? 1) - 1.0) * widget.height / 2);
+    return Offset(((widget.backgroundScale ?? 1) - 1.0) * widget.width! / 2,
+        ((widget.backgroundScale ?? 1) - 1.0) * widget.height! / 2);
   }
 
   // 通过背景偏移计算前景偏移

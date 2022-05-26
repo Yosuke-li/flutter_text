@@ -1,13 +1,13 @@
 // 基础信息
 class Basic {
-  String cid; // 地区/城市ID
-  String location; // 地区/城市名称
-  String parentCity; // 该地区/城市的上级城市
-  String adminArea; // 该地区/城市所属行政区域
-  String cnty; // 该地区/城市所属国家名称
-  String lat; // 地区/城市纬度
-  String lon; // 地区/城市经度
-  String tz; // 该地区/城市所在时区
+  String? cid; // 地区/城市ID
+  String? location; // 地区/城市名称
+  String? parentCity; // 该地区/城市的上级城市
+  String? adminArea; // 该地区/城市所属行政区域
+  String? cnty; // 该地区/城市所属国家名称
+  String? lat; // 地区/城市纬度
+  String? lon; // 地区/城市经度
+  String? tz; // 该地区/城市所在时区
 
   Basic({
     this.cid,
@@ -33,8 +33,8 @@ class Basic {
 
 // 接口更新时间
 class Update {
-  String loc; // 当地时间，24小时制，格式yyyy-MM-dd HH:mm
-  String utc; // UTC时间，24小时制，格式yyyy-MM-dd HH:mm
+  String? loc; // 当地时间，24小时制，格式yyyy-MM-dd HH:mm
+  String? utc; // UTC时间，24小时制，格式yyyy-MM-dd HH:mm
 
   Update({this.loc, this.utc});
 
@@ -45,19 +45,19 @@ class Update {
 
 // 实况天气
 class Now {
-  String cloud; // 云量
-  String condCode; // 实况天气状况代码
-  String condTxt; // 实况天气状况描述
-  String fl; // 体感温度，默认单位：摄氏度
-  String hum; // 相对湿度
-  String pcpn; // 降水量
-  String pres; // 大气压强
-  String tmp; // 温度，默认单位：摄氏度
-  String vis; // 能见度，默认单位：公里
-  String windDeg; // 风向360角度
-  String windDir; // 风向
-  String windSc; // 风力
-  String windSpd; // 风速，公里/小时
+  String? cloud; // 云量
+  String? condCode; // 实况天气状况代码
+  String? condTxt; // 实况天气状况描述
+  String? fl; // 体感温度，默认单位：摄氏度
+  String? hum; // 相对湿度
+  String? pcpn; // 降水量
+  String? pres; // 大气压强
+  String? tmp; // 温度，默认单位：摄氏度
+  String? vis; // 能见度，默认单位：公里
+  String? windDeg; // 风向360角度
+  String? windDir; // 风向
+  String? windSc; // 风力
+  String? windSpd; // 风速，公里/小时
 
   Now({
     this.cloud,
@@ -93,27 +93,27 @@ class Now {
 
 // 每日预测
 class DailyForecast {
-  String condCodeD; //白天天气状况代码
-  String condCodeN; //夜间天气代码
-  String condTxtD; //白天天气描述
-  String condTxtN; //夜晚天气描述
-  String date; //日期
-  String hum; //湿度
-  String mr;
-  String ms;
-  String pcpn; //降水量
-  String pop; //降水概率
-  String pres; //大气压强
-  String sr;
-  String ss;
-  String tmpMax; // 最高温度
-  String tmpMin; // 最低温度
-  String uvIndex;
-  String vis;
-  String windDeg; //风向度数
-  String windDir; //风向
-  String windSc; //风力
-  String windSpd; //风速
+  String? condCodeD; //白天天气状况代码
+  String? condCodeN; //夜间天气代码
+  String? condTxtD; //白天天气描述
+  String? condTxtN; //夜晚天气描述
+  String? date; //日期
+  String? hum; //湿度
+  String? mr;
+  String? ms;
+  String? pcpn; //降水量
+  String? pop; //降水概率
+  String? pres; //大气压强
+  String? sr;
+  String? ss;
+  String? tmpMax; // 最高温度
+  String? tmpMin; // 最低温度
+  String? uvIndex;
+  String? vis;
+  String? windDeg; //风向度数
+  String? windDir; //风向
+  String? windSc; //风力
+  String? windSpd; //风速
 
   DailyForecast({
     this.condCodeD,
@@ -165,9 +165,9 @@ class DailyForecast {
 
 //生活指数类型 comf：舒适度指数、cw：洗车指数、drsg：穿衣指数、flu：感冒指数、sport：运动指数、trav：旅游指数、uv：紫外线指数、air：空气污染扩散条件指数、ac：空调开启指数、ag：过敏指数、gl：太阳镜指数、mu：化妆指数、airc：晾晒指数、ptfc：交通指数、fsh：钓鱼指数、spi：防晒指数
 class LifeStyle {
-  String type; // 生活指数类型
-  String brf; // 生活指数简介
-  String txt; // 生活指数详细描述
+  String? type; // 生活指数类型
+  String? brf; // 生活指数简介
+  String? txt; // 生活指数详细描述
 
   LifeStyle({
     this.type,
@@ -185,14 +185,14 @@ class LifeStyle {
 
 // 实况天气
 class RealTimeWeather {
-  Map mBasic;
-  Map mUpdate;
-  Map mNow;
-  String status; // 接口状态
+  Map? mBasic;
+  Map? mUpdate;
+  Map? mNow;
+  String? status; // 接口状态
 
-  Basic basic;
-  Update update;
-  Now now;
+  Basic? basic;
+  Update? update;
+  Now? now;
 
   RealTimeWeather({
     this.mBasic,
@@ -213,14 +213,14 @@ class RealTimeWeather {
 
 // 3天预报
 class ThreeDaysForecast {
-  Map mBasic;
-  Map mUpdate;
-  List<dynamic> mDailyForecasts;
+  Map? mBasic;
+  Map? mUpdate;
+  List<dynamic>? mDailyForecasts;
 
-  String status;
-  Basic basic;
-  Update update;
-  List<DailyForecast> dailyForecasts = [];
+  String? status;
+  Basic? basic;
+  Update? update;
+  List<DailyForecast>? dailyForecasts = [];
 
   ThreeDaysForecast({
     this.mBasic,
@@ -241,14 +241,14 @@ class ThreeDaysForecast {
 
 // 生活指数
 class TodayLifeStyle {
-  Map mBasic;
-  Map mUpdate;
-  List mLifeStyles;
+  Map? mBasic;
+  Map? mUpdate;
+  List? mLifeStyles;
 
-  String status;
-  Basic basic;
-  Update update;
-  List<LifeStyle> lifeStyles = [];
+  String? status;
+  Basic? basic;
+  Update? update;
+  List<LifeStyle>? lifeStyles = [];
 
   TodayLifeStyle({
     this.mBasic,
@@ -260,7 +260,7 @@ class TodayLifeStyle {
     this.lifeStyles,
   });
 
-  TodayLifeStyle.fromJson(Map<String, dynamic> json)
+  TodayLifeStyle.fromJson(Map<String?, dynamic> json)
       : mBasic = json['basic'],
         mUpdate = json['update'],
         status = json['status'],

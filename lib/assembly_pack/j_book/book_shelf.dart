@@ -22,8 +22,8 @@ class BookShelf extends StatefulWidget {
 }
 
 class BookShelfWithId {
-  int id;
-  epub.EpubBook epubBook;
+  int? id;
+  epub.EpubBook? epubBook;
 }
 
 class _BookShelfState extends State<BookShelf> {
@@ -40,34 +40,35 @@ class _BookShelfState extends State<BookShelf> {
   Future<void> onRead() async {
     List<BookModel> getCache = [];
     getCache = await loadingCallback(() => BookCache.getAllCache());
-    getCache.sort((BookModel a, BookModel b) => b.updateTime - a.updateTime);
+    getCache.sort((BookModel a, BookModel b) => (b.updateTime ?? 0) - (a.updateTime ?? 0));
     _book.addAll(getCache);
     setState(() {});
   }
 
   void onSelectBook() async {
-    final FilePickerResult result = await loadingCallback(() =>
+    final FilePickerResult? result = await loadingCallback(() =>
         FilePicker.platform.pickFiles(
             allowMultiple: true,
             type: FileType.custom,
             allowedExtensions: ['epub']));
 
     if (result != null) {
-      final List<File> files = result.paths.map((String e) => File(e)).toList();
+      final List<File> files = [];
+      result.paths.map((String? e) => files.add(File(e!))).toList();
       final List<File> locateFile = await BookHelper.setAppLocateFile(files);
       final List<BookModel> books = <BookModel>[];
       for (int i = 0; i < locateFile.length; i++) {
-        final Uint8List unit8 =
-            ArrayHelper.get(locateFile, i).readAsBytesSync();
-        final epub.EpubBook epubBook = await epub.EpubReader.readBook(unit8);
+        final Uint8List? unit8 =
+            ArrayHelper.get(locateFile, i)?.readAsBytesSync();
+        final epub.EpubBook epubBook = await epub.EpubReader.readBook(unit8!);
         final String image = await BookHelper.getCoverImageWithFile(
-            epubBook.Content.Images.values.first.Content);
+            epubBook.Content?.Images?.values.first.Content);
         final BookModel model = BookModel()
           ..id = epubBook.hashCode
           ..coverImage = image
           ..title = epubBook.Title
           ..updateTime = DateTimeHelper.getLocalTimeStamp()
-          ..bookPath = ArrayHelper.get(locateFile, i).path
+          ..bookPath = ArrayHelper.get(locateFile, i)?.path
           ..index = 0;
         BookCache.setCache(model);
         books.add(model);
@@ -113,11 +114,11 @@ class _BookShelfState extends State<BookShelf> {
               ),
               childrenDelegate:
                   SliverChildBuilderDelegate((BuildContext context, int index) {
-                final BookModel book = ArrayHelper.get(_book, index);
+                final BookModel book = ArrayHelper.get(_book, index)!;
                 return InkWell(
                   onLongPress: () {
                     BookTip.showModel(context, onFunc: () {
-                      BookCache.deleteCache(book.id);
+                      BookCache.deleteCache(book.id!);
                       _book.removeWhere(
                           (BookModel element) => element.id == book.id);
                       setState(() {});
@@ -128,12 +129,12 @@ class _BookShelfState extends State<BookShelf> {
                         context,
                         BookView(
                           book: book,
-                        )).then((int val) {
+                        )).then((int? val) {
                       if (val != null) {
                         book.index = val;
                         book.updateTime = DateTimeHelper.getLocalTimeStamp();
                         _book.sort((BookModel a, BookModel b) =>
-                            b.updateTime - a.updateTime);
+                        (b.updateTime ?? 0) - (a.updateTime ?? 0));
                         setState(() {});
                       }
                     });
@@ -144,7 +145,7 @@ class _BookShelfState extends State<BookShelf> {
                         Expanded(
                           child: book.coverImage != null
                               ? Image.file(
-                                  File(book.coverImage),
+                                  File(book.coverImage!),
                                   fit: BoxFit.fitWidth,
                                 )
                               : Container(),
@@ -156,7 +157,7 @@ class _BookShelfState extends State<BookShelf> {
                     ),
                   ),
                 );
-              }, childCount: _book.length ?? 0),
+              }, childCount: _book.length),
             ),
           ),
         ),
@@ -166,7 +167,7 @@ class _BookShelfState extends State<BookShelf> {
 }
 
 class BookTip {
-  static Future<void> showModel(BuildContext context, {void onFunc()}) async {
+  static Future<void> showModel(BuildContext context, {void onFunc()?}) async {
     await ModalUtils.showModal(
       context,
       modalBackgroundColor: const Color(0x00999999),

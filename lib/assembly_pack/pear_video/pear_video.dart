@@ -16,7 +16,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
     with SingleTickerProviderStateMixin {
   SwiperController swperController = SwiperController(); //swiper组件
   ScrollController scroController = ScrollController(); //自动滑动title控制器
-  Timer timer; //自动滑动title
+  Timer? timer; //自动滑动title
   int currentIndex = 0; //当前index
   int page = 1; //数据页数
   bool isShow = false; //是否显示页面
@@ -61,8 +61,8 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
 
   //获取视频信息
   void getVideoList({bool isLoadMore = false}) async {
-    String id = ArrayHelper.get(tabs, currentIndex).categoryId;
-    final result = await PearVideoApi().getCategoryDataList(page, id);
+    String? id = ArrayHelper.get(tabs, currentIndex)?.categoryId;
+    final result = await PearVideoApi().getCategoryDataList(page, id!);
     if(result != null) {
       setState(() {
         page += 1;
@@ -86,8 +86,8 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
   //页面销毁
   @override
   void dispose() {
-    scroController?.dispose();
-    swperController?.dispose();
+    scroController.dispose();
+    swperController.dispose();
     timer?.cancel();
 
     super.dispose();
@@ -109,7 +109,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
               color: Colors.black,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: tabs?.length ?? 0,
+                itemCount: tabs.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
@@ -122,7 +122,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
                       alignment: Alignment.center,
                       padding: const EdgeInsets.only(left: 20, right: 20),
                       child: Text(
-                        '${ArrayHelper.get(tabs, index).name ?? ''}',
+                        '${ArrayHelper.get(tabs, index)?.name ?? ''}',
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),
@@ -143,7 +143,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
       height: MediaQuery.of(context).size.height,
       child: Swiper(
         loop: false,
-        itemCount: hot?.length ?? 0,
+        itemCount: hot.length,
         onIndexChanged: (int val) {
           if (val == hot.length - 1) {
             getVideoList(isLoadMore: true);
@@ -152,15 +152,15 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
         controller: swperController,
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, int index) {
-          return ArrayHelper.get(hot, index).videos != null
+          return ArrayHelper.get(hot, index)?.videos != null
               ? Stack(
                   children: <Widget>[
                     VideoPlayerPage(
                       url: ArrayHelper.get(hot, index)
-                          .videos
-                          .url
-                          .replaceAll('http:', 'https:'),
-                      title: '${ArrayHelper.get(hot, index).name ?? '示例视频'}',
+                          ?.videos
+                          ?.url
+                          ?.replaceAll('http:', 'https:'),
+                      title: '${ArrayHelper.get(hot, index)?.name ?? '示例视频'}',
                       width: MediaQuery.of(context).size.width,
                     ),
                     Positioned(
@@ -175,13 +175,13 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
                                 radius: 20,
                                 backgroundImage: NetworkImage(
                                     ArrayHelper.get(hot, index)
-                                        .nodeInfo
-                                        ?.logoImg),
+                                        ?.nodeInfo
+                                        ?.logoImg ?? ''),
                               ),
                               Container(
                                 padding: const EdgeInsets.only(left: 13),
                                 child: Text(
-                                  '${ArrayHelper.get(hot, index).nodeInfo?.name ?? ''}',
+                                  '${ArrayHelper.get(hot, index)?.nodeInfo?.name ?? ''}',
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 16),
                                 ),
@@ -198,7 +198,7 @@ class PearVideoFirstPageState extends State<PearVideoFirstPage>
                               scrollDirection: Axis.horizontal,
                               children: <Widget>[
                                 Text(
-                                  '${ArrayHelper.get(hot, index).name ?? ''}',
+                                  '${ArrayHelper.get(hot, index)?.name ?? ''}',
                                   maxLines: 1,
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 16),

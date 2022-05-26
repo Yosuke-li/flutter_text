@@ -18,7 +18,7 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${state.topic.value ?? ''}'),
+        title: Text('${state.topic.value}'),
       ),
       body: Obx(
         () => ChatInfoPage(

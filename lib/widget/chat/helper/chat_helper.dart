@@ -15,14 +15,14 @@ part 'chat_listener.dart';
 part 'chat_state.dart';
 
 class ChatHelper {
-  static MqttServerClient client;
+  static MqttServerClient? client;
 
   static int _reconnectTime = 0;
 
-  static Timer _timer;
+  static Timer? _timer;
 
   static MqttConnectMessage message = MqttConnectMessage()
-      .withClientIdentifier('${GlobalStore.user.name.hashCode}')
+      .withClientIdentifier('${GlobalStore.user?.name.hashCode}')
       .withWillTopic('willtopic')
       .withWillMessage('Will message')
       .startClean()
@@ -31,21 +31,21 @@ class ChatHelper {
   static void init() async {
     // client = MqttServerClient('ws://172.31.41.83/mqtt', '');
     client ??= MqttServerClient.withPort('broker.emqx.io', '', 1883);
-    client.logging(on: false);
+    client?.logging(on: false);
     // client.port = 8888;
     // client.useWebSocket = true;
-    client.keepAlivePeriod = 20;
-    client.onAutoReconnect = ChatState.onReconnected;
-    client.onConnected = ChatState.onConnected;
-    client.onDisconnected = ChatState.onDisconnected;
-    client.onUnsubscribed = ChatState.onUnsubscribed;
-    client.onSubscribed = ChatState.onSubscribed;
-    client.onSubscribeFail = ChatState.onSubscribeFail;
-    client.pongCallback = ChatState.pong;
-    client.connectionMessage = message;
+    client?.keepAlivePeriod = 20;
+    client?.onAutoReconnect = ChatState.onReconnected;
+    client?.onConnected = ChatState.onConnected;
+    client?.onDisconnected = ChatState.onDisconnected;
+    client?.onUnsubscribed = ChatState.onUnsubscribed as UnsubscribeCallback?;
+    client?.onSubscribed = ChatState.onSubscribed;
+    client?.onSubscribeFail = ChatState.onSubscribeFail;
+    client?.pongCallback = ChatState.pong;
+    client?.connectionMessage = message;
 
     try {
-      await client.connect();
+      await client?.connect();
 
       final List<String> topics = getSubscribe();
 
@@ -55,23 +55,23 @@ class ChatHelper {
 
       _reconnectTime = 0;
       if (_timer != null) {
-        _timer.cancel();
+        _timer!.cancel();
         _timer = null;
       }
 
       ChatMsgConduit.listener();
     } on SocketException catch (e) {
       Log.info(e);
-      client.onAutoReconnect();
+      client?.onAutoReconnect!();
     } catch (e) {
       Log.info(e);
-      client.disconnect();
+      client?.disconnect();
       throw ApiException(401, 'mqtt disConnected');
     }
   }
 
   static List<String> getSubscribe() {
-    if (GlobalStore.user != null && GlobalStore.user.name.isNotEmpty == true) {
+    if (GlobalStore.user != null && GlobalStore.user?.name?.isNotEmpty == true) {
       final List<String> topics = <String>['topic/test2', 'topic/test3'];
       return topics;
     }
@@ -88,7 +88,7 @@ class ChatHelper {
       });
     } else {
       if (_timer != null) {
-        _timer.cancel();
+        _timer!.cancel();
         _timer = null;
       }
       throw ApiException(401, 'mqtt disConnected');
@@ -97,6 +97,6 @@ class ChatHelper {
 
   //设置主题
   static void setSubscribe(String topic) {
-    client.subscribe(topic, MqttQos.exactlyOnce);
+    client?.subscribe(topic, MqttQos.exactlyOnce);
   }
 }

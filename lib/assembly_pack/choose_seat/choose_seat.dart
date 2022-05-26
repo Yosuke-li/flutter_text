@@ -9,10 +9,10 @@ class ChooseSeat extends StatefulWidget {
 }
 
 class _ChooseSeatState extends State<ChooseSeat> {
-  final RoomSeatModel data = RoomSeatModel()
-    ..row = 10
-    ..column = 6
-    ..seats = [];
+  // final RoomSeatModel data = RoomSeatModel()
+  //   ..row = 10
+  //   ..column = 6
+  //   ..seats = [];
   // GlobalKey<SInteractiveViewerState> controller =
   //     GlobalKey<SInteractiveViewerState>();
   // SInteractiveViewerState state;
@@ -22,11 +22,11 @@ class _ChooseSeatState extends State<ChooseSeat> {
     super.initState();
   }
 
-  GestureScaleEndCallback onScaleEnd;
-
-  GestureScaleUpdateCallback onScaleUpdate;
-
-  GestureScaleStartCallback onScaleStart;
+  // GestureScaleEndCallback onScaleEnd;
+  //
+  // GestureScaleUpdateCallback onScaleUpdate;
+  //
+  // GestureScaleStartCallback onScaleStart;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
         child: Container(
           child: Column(
             children: [
-              for (int row = 0; row < data.row; row++) Text('$row'),
+              // for (int row = 0; row < data.row; row++) Text('$row'),
             ],
           ),
         ),
@@ -89,16 +89,16 @@ class _ChooseSeatState extends State<ChooseSeat> {
       },
       child: Column(
         children: [
-          for (int row = 0; row < data.row; row++)
-            Row(
-              children: [
-                for (int column = 0; column < data.column; column++)
-                  Container(
-                    width: MediaQuery.of(context).size.width / data.column,
-                    child: Text('($row, $column)'),
-                  )
-              ],
-            )
+          // for (int row = 0; row < data.row; row++)
+          //   Row(
+          //     children: [
+          //       for (int column = 0; column < data.column; column++)
+          //         Container(
+          //           width: MediaQuery.of(context).size.width / data.column,
+          //           child: Text('($row, $column)'),
+          //         )
+          //     ],
+          //   )
         ],
       ),
     );

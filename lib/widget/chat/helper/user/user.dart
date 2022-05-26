@@ -5,11 +5,11 @@
 /// updateTime : 1203551322
 
 class User {
-  int id;
-  String name;
-  String image;
-  int createTime;
-  int updateTime;
+  int? id;
+  String? name;
+  String? image;
+  int? createTime;
+  int? updateTime;
 
   User({this.id, this.name, this.image, this.createTime, this.updateTime});
 

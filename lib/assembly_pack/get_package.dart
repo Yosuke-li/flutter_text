@@ -7,7 +7,7 @@ class GetPackageWidget extends StatefulWidget {
 }
 
 class _GetPackageState extends State<GetPackageWidget> {
-  PackageInfo packageInfo;
+  late PackageInfo packageInfo;
 
   @override
   void initState() {
@@ -26,7 +26,7 @@ class _GetPackageState extends State<GetPackageWidget> {
     return Scaffold(
       body: Center(
         child: Text(
-            'appName: ${packageInfo?.appName ?? ''}  packageName: ${packageInfo?.packageName ?? ''}  version: ${packageInfo?.version ?? ''}  buildNumber: ${packageInfo?.buildNumber ?? ''}  '),
+            'appName: ${packageInfo.appName}  packageName: ${packageInfo.packageName}  version: ${packageInfo.version}  buildNumber: ${packageInfo.buildNumber}  '),
       ),
     );
   }

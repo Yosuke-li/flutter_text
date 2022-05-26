@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Model {
-  int id;
-  String img;
-  String title;
-  int price;
-  String protuct_img;
-  String show;
-  String peisong;
-  bool is_collection;
+  int? id;
+  String? img;
+  String? title;
+  int? price;
+  String? protuct_img;
+  String? show;
+  String? peisong;
+  bool? is_collection;
 
 }
 
@@ -62,10 +62,10 @@ class RandomWords extends StatefulWidget {
 //list区
 class RandomWordsState extends State<RandomWords> {
   @override
-  List<Model> _shopList;
+  late List<Model> _shopList;
   int _page = 1;
   bool isLoading = false; //是否正在加载数据
-  ScrollController _scrollController = new ScrollController();
+  ScrollController _scrollController =  ScrollController();
 
   //初始化数据
   @override
@@ -153,7 +153,7 @@ class RandomWordsState extends State<RandomWords> {
 
   Widget _buildSuggestions() {
     return ListView.builder(
-      itemCount: _shopList?.length,
+      itemCount: _shopList.length,
       controller: _scrollController,
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
@@ -238,16 +238,16 @@ class RandomWordsState extends State<RandomWords> {
           Row(
               children: <Widget>[
                 Container(
-                  child: new Image(
-                    image: AssetImage('${_shopList[i]?.img}'),
+                  child:  Image(
+                    image: AssetImage('${_shopList[i].img}'),
                     width: 150,
                     height: 150,
                     fit: BoxFit.cover,
                   ),
                   width: 150,
                   height: 150,
-                  padding: new EdgeInsets.only(top: 10, bottom: 10),
-                  margin: new EdgeInsets.only(right: 10, left: 10),
+                  padding:  EdgeInsets.only(top: 10, bottom: 10),
+                  margin:  EdgeInsets.only(right: 10, left: 10),
                 ),
                 Column(
                     children: <Widget>[
@@ -255,14 +255,14 @@ class RandomWordsState extends State<RandomWords> {
                         children: <Widget>[
                           Container(
                             padding: EdgeInsets.only(right: 10),
-                            child: new Text(
-                              '${_shopList[i]?.title}',
+                            child:  Text(
+                              '${_shopList[i].title}',
                               style: TextStyle(
                                   fontSize: 18
                               ),
                             ),
                           ),
-                          Text('￥${_shopList[i]?.price}'),
+                          Text('￥${_shopList[i].price}'),
                         ],
                       ),
                       Row(
@@ -297,13 +297,13 @@ class RandomWordsState extends State<RandomWords> {
                         padding: EdgeInsets.only(bottom: 10),
                         child: GestureDetector(
                           child: Text(
-                              '${_shopList[i]?.is_collection}' == 'false' ? '收藏': '已收藏'
+                              '${_shopList[i].is_collection}' == 'false' ? '收藏': '已收藏'
                           ),
                           onTap: () {
                             Navigator.push(
                                 context,
-                                new MaterialPageRoute(
-                                    builder: (BuildContext context) => new SecondScreen(view: _shopList[i])
+                                 MaterialPageRoute(
+                                    builder: (BuildContext context) =>  SecondScreen(view: _shopList[i])
                                 )
                             ).then((onValue) {
                               setState(() {
@@ -317,14 +317,14 @@ class RandomWordsState extends State<RandomWords> {
                           },
                         ),
                       ),
-                      new Row(
+                       Row(
                         children: <Widget>[
-                          new Container(
-                            padding: new EdgeInsets.only(right: 20),
-                            child: new Text('用礼金兑换', style: new TextStyle(color: Colors.redAccent),),
+                           Container(
+                            padding:  EdgeInsets.only(right: 20),
+                            child:  Text('用礼金兑换', style:  TextStyle(color: Colors.redAccent),),
                           ),
-                          new Container(
-                            child: new Text('送给TA', style: new TextStyle(color: Colors.white),),
+                           Container(
+                            child:  Text('送给TA', style:  TextStyle(color: Colors.white),),
                             alignment: Alignment(0, 0),
                             color: Colors.pink,
                             width: 50,
@@ -430,9 +430,10 @@ class RandomWordsState extends State<RandomWords> {
 class SecondScreen extends StatefulWidget {
   @override
   final Model view; // 用来储存传递过来的值
-  SecondScreen({this.view}); // 本页面的构造器，接收传递过来的参数
+  SecondScreen({required this.view}); // 本页面的构造器，接收传递过来的参数
 
-  _SecondContent createState() => new _SecondContent();
+  @override
+  _SecondContent createState() =>  _SecondContent();
 
 }
 
@@ -443,57 +444,57 @@ class _SecondContent extends State<SecondScreen> {
   @override
   void initState() {
     super.initState();
-    alreadySaved = widget.view?.is_collection;
+    alreadySaved = widget.view.is_collection??false;
   }
 
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(widget.view?.title),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.view.title??''),
         backgroundColor: Colors.brown,
       ),
-      body: new Center(
-        child: new Container(
-            padding: new EdgeInsets.all(20.0),
-            child: new Column(
+      body:  Center(
+        child:  Container(
+            padding:  EdgeInsets.all(20.0),
+            child:  Column(
               children: <Widget>[
-                new Row(
+                 Row(
                     children: <Widget>[
-                      new Container(
-                        padding: new EdgeInsets.only(right: 20),
-                        child: new Image(
-                          image: AssetImage(widget.view?.img),
+                       Container(
+                        padding: const EdgeInsets.only(right: 20),
+                        child:  Image(
+                          image: AssetImage(widget.view.img??''),
                           width: 150,
                           height: 150,
                           fit: BoxFit.contain,
                         ),
                       ),
-                      new Column(
+                       Column(
                           children: <Widget>[
-                            new Row(
+                             Row(
                               children: <Widget>[
-                                new Container(
-                                  padding: new EdgeInsets.only(right: 15),
-                                  child: new Text(
+                                 Container(
+                                  padding:  EdgeInsets.only(right: 15),
+                                  child:  Text(
                                     '单价',
-                                    style: new TextStyle(
+                                    style:  TextStyle(
                                         fontSize: 20,
                                         color: Color.fromRGBO(255, 0, 0, 1)
                                     ),
                                   ),
                                 ),
-                                new Container(
-                                  child: new Text(
-                                    '￥${widget.view?.price}',
-                                    style: new TextStyle(
+                                 Container(
+                                  child:  Text(
+                                    '￥${widget.view.price}',
+                                    style:  TextStyle(
                                         fontSize: 20,
                                         color: Color.fromRGBO(255, 0, 0, 1)
                                     ),),
-                                  padding: new EdgeInsets.only(right: 20),
+                                  padding:  EdgeInsets.only(right: 20),
                                 ),
-                                new GestureDetector(
-                                  child: new Container(
-                                    child: new Icon(
+                                 GestureDetector(
+                                  child:  Container(
+                                    child:  Icon(
                                       alreadySaved ? Icons.favorite : Icons.favorite_border,
                                       color: alreadySaved ? Colors.red : null,
                                     ),
@@ -510,32 +511,32 @@ class _SecondContent extends State<SecondScreen> {
                                 ),
                               ],
                             ),
-                            new Container(
-                              child: new Text('配送范围：${widget.view?.peisong}米', style: new TextStyle(fontSize: 15),),
-                              padding: new EdgeInsets.only(top: 15, bottom: 20),
+                             Container(
+                              child:  Text('配送范围：${widget.view.peisong}米', style:  TextStyle(fontSize: 15),),
+                              padding:  EdgeInsets.only(top: 15, bottom: 20),
                             ),
-                            new Row(
+                             Row(
                               children: <Widget>[
-                                new Container(
-                                  padding: new EdgeInsets.only(bottom: 10, right: 5, left: 5),
-                                  child:  new Text('当日午餐',
-                                    style: new TextStyle(
+                                 Container(
+                                  padding:  EdgeInsets.only(bottom: 10, right: 5, left: 5),
+                                  child:   Text('当日午餐',
+                                    style:  TextStyle(
                                         color: Color.fromARGB(100, 0, 0, 128)
                                     ),
                                   ),
                                 ),
-                                new Container(
-                                  padding: new EdgeInsets.only(bottom: 10, right: 5, left: 5),
-                                  child: new Text('当日晚餐',
-                                      style: new TextStyle(
+                                 Container(
+                                  padding:  EdgeInsets.only(bottom: 10, right: 5, left: 5),
+                                  child:  Text('当日晚餐',
+                                      style:  TextStyle(
                                           color: Color.fromRGBO(96, 96, 96, 0.5)
                                       )
                                   ),
                                 ),
-                                new Container(
-                                  padding: new EdgeInsets.only( bottom: 10, right: 5, left: 5),
-                                  child: new Text('当日夜宵',
-                                      style: new TextStyle(
+                                 Container(
+                                  padding:  EdgeInsets.only( bottom: 10, right: 5, left: 5),
+                                  child:  Text('当日夜宵',
+                                      style:  TextStyle(
                                           color: Color.fromRGBO(96, 96, 96, 0.5)
                                       )
                                   ),
@@ -546,24 +547,24 @@ class _SecondContent extends State<SecondScreen> {
                       )
                     ]
                 ),
-                new Container(
-                  padding: new EdgeInsets.only(top: 10, bottom: 10),
+                 Container(
+                  padding:  EdgeInsets.only(top: 10, bottom: 10),
                   alignment: Alignment.centerLeft,
-                  child:  new Text(
+                  child:   Text(
                     '美食介绍:',
-                    style: new TextStyle(
+                    style:  TextStyle(
                       fontSize: 20,
                       color: Color.fromRGBO(0, 0, 255, 1),
                     ),
                   ),
                 ),
-                new Text(widget.view?.show),
-                new Container(
-                  padding: new EdgeInsets.only(top: 10, bottom: 10),
+                 Text(widget.view.show??''),
+                 Container(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
                   alignment: Alignment.centerLeft,
-                  child:  new Text(
+                  child: const  Text(
                       '产品图片:',
-                      style: new TextStyle(
+                      style:  TextStyle(
                         fontSize: 20,
                         color: Color.fromRGBO(0, 0, 255, 1),
                       ),
@@ -571,40 +572,40 @@ class _SecondContent extends State<SecondScreen> {
                   ),
                 ),
 
-                new Row(
+                 Row(
                   children: <Widget>[
-                    new Image(
-                      image: AssetImage(widget.view?.protuct_img),
+                     Image(
+                      image: AssetImage(widget.view.protuct_img??''),
                       width: 150,
                       height: 150,
                       fit: BoxFit.contain,
                     ),
-                    new Image(
-                      image: AssetImage(widget.view?.protuct_img),
+                     Image(
+                      image: AssetImage(widget.view.protuct_img??''),
                       width: 150,
                       height: 150,
                       fit: BoxFit.contain,
                     ),
                   ],
                 ),
-                new Row(
+                 Row(
                   children: <Widget>[
-                    new Container(
-                      padding: new EdgeInsets.only(top: 10, right: 30),
-                      child: new RaisedButton(
+                     Container(
+                      padding:  EdgeInsets.only(top: 10, right: 30),
+                      child:  RaisedButton(
                         onPressed: () {
                           Navigator.pop(context, alreadySaved);
                         },
-                        child: new Text('退出'),
+                        child:  Text('退出'),
                       ),
                     ),
-                    new Container(
-                      padding: new EdgeInsets.only(top: 10, left: 30),
-                      child: new RaisedButton(
+                     Container(
+                      padding:  EdgeInsets.only(top: 10, left: 30),
+                      child:  RaisedButton(
                         onPressed: () {
                           Navigator.pop(context, alreadySaved);
                         },
-                        child: new Text('查看商家'),
+                        child:  Text('查看商家'),
                       ),
                     ),
                   ],

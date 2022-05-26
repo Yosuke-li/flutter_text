@@ -25,7 +25,7 @@ class _GetxTextPageState extends State<GetxTextPage> {
       body: Center(
         child: Obx(() => Column(
           children: [
-            Text('点击了：${state.count.value ?? 0}'),
+            Text('点击了：${state.count.value}'),
             DownMenuWidget(
               select: state.select.value,
               menus: state.servers,
@@ -44,7 +44,7 @@ class _GetxTextPageState extends State<GetxTextPage> {
             heroTag: 'back',
             child: const Icon(Icons.arrow_back),
             onPressed: () {
-              NavigatorUtils.pop(context, results: '${state.count.value ?? 0}');
+              NavigatorUtils.pop(context, results: '${state.count.value}');
             },
           ),
           Container(

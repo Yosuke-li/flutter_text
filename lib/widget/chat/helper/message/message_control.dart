@@ -12,21 +12,21 @@ class MessageControl {
       StreamController<MqttReceivedMessage>.broadcast();
 
   static void sendMsg(EventChat event) {
-    _controller.add(event.msg);
+    _controller.add(event.msg!);
   }
 
-  String _key;
+  late String _key;
 
   void init(String value) => _key = value;
 
   CancelCallBack listenEvent(
-      {@required Function(MqttReceivedMessage test) listenFunc}) {
+      {required Function(MqttReceivedMessage test) listenFunc}) {
     final CancelCallBack callBack =
-        _controller?.stream?.listen((MqttReceivedMessage event) {
+        _controller.stream.listen((MqttReceivedMessage event) {
           if (event.topic == _key) {
             listenFunc(event);
           }
-    })?.cancel;
+    }).cancel;
     return callBack;
   }
 
@@ -36,7 +36,6 @@ class MessageControl {
 
   static void dispose() {
     _controller.close();
-    _controller = null;
     _controller = StreamController<MqttReceivedMessage>.broadcast();
   }
 }

@@ -3,7 +3,7 @@ description: A new Flutter application.
 version: 2.0.0
 
 environment:
-  sdk: ">=2.10.0 <3.0.0"
+  sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -62,7 +62,7 @@ dependencies:
 #  flutter_doraemonkit:
 #    git:
 #      url: https://github.com/NayoLx/flutter_doraemonkit_plugin.git
-  get: ^4.1.4 #getx状态管理
+  get: ^4.6.5 #getx状态管理
   call: ^0.3.0 #用于windows dll
   flutter_intro: ^2.3.0 #页面指引
   ios_share:

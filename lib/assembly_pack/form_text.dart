@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 class FormText extends StatefulWidget {
   @override
-  _FormTextState createState() => new _FormTextState();
+  _FormTextState createState() =>  _FormTextState();
 }
 
 class _FormTextState extends State<FormText> {
-  GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  GlobalKey<FormState> _formKey =  GlobalKey<FormState>();
 
-  String _name;
+  String? _name;
 
-  String _password;
+  String? _password;
 
   void _forSubmitted() {
-    var _form = _formKey.currentState;
+    final FormState? _form = _formKey.currentState;
 
-    if (_form.validate()) {
+    if (_form != null && _form.validate()) {
       _form.save();
       print(_name);
       print(_password);
@@ -25,37 +25,37 @@ class _FormTextState extends State<FormText> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Flutter data',
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Flutter Form'),
+      home: Scaffold(
+        appBar:  AppBar(
+          title: const Text('Flutter Form'),
         ),
-        floatingActionButton: new FloatingActionButton(
+        floatingActionButton:  FloatingActionButton(
           onPressed: _forSubmitted,
-          child: new Text('提交'),
+          child:  Text('提交'),
         ),
-        body: new Container(
+        body:  Container(
           padding: const EdgeInsets.all(16.0),
-          child: new Form(
+          child:  Form(
             key: _formKey,
-            child: new Column(
+            child:  Column(
               children: <Widget>[
-                new TextFormField(
-                  decoration: new InputDecoration(
+                 TextFormField(
+                  decoration:  InputDecoration(
                     labelText: 'Your Name',
                   ),
-                  onSaved: (val) {
+                  onSaved: (String? val) {
                     _name = val;
                   },
                 ),
-                new TextFormField(
-                  decoration: new InputDecoration(
+                 TextFormField(
+                  decoration:  InputDecoration(
                     labelText: 'Password',
                   ),
                   obscureText: true,
-                  validator: (val) {
-                    return val.length < 4 ? "密码长度错误" : null;
+                  validator: (String? val) {
+                    return (val?.length??0) < 4 ? "密码长度错误" : null;
                   },
                   onSaved: (val) {
                     _password = val;

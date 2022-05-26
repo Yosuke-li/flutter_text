@@ -6,13 +6,14 @@ import 'package:flutter_text/model/weather.dart';
 void main() => runApp(SearchCity());
 
 class SearchCity extends StatefulWidget {
+  @override
   SearchCityState createState() => SearchCityState();
 }
 
 class SearchCityState extends State<SearchCity> {
   TextEditingController _controller = new TextEditingController();
   bool hasData = false;
-  List<Basic> cityList;
+  List<Basic>? cityList;
 
   void setCity(String val) {
     Navigator.of(context).pop(val);
@@ -36,10 +37,10 @@ class SearchCityState extends State<SearchCity> {
         },
         child: cityList != null
             ? ListView(
-                children: cityList.map((item) {
+                children: cityList?.map((item) {
                   return InkWell(
                     onTap: () {
-                      setCity(item.cid);
+                      setCity(item.cid??'');
                     },
                     child: Container(
                       padding:
@@ -48,7 +49,7 @@ class SearchCityState extends State<SearchCity> {
                           '${item.adminArea} -- ${item.parentCity} -- ${item.location}'),
                     ),
                   );
-                }).toList(),
+                }).toList() ?? [],
               )
             : const Center(
                 child: Text('暂无数据'),

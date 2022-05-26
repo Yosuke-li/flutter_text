@@ -20,7 +20,7 @@ class TestAdd extends StatefulWidget {
 class TestAddState extends State<TestAdd> {
   UserDbProvider provider = UserDbProvider();
   SqlUser user;
-  int count;
+  late int count;
 
   LoginApi iCacheApi = LoginApi(); //todo interfaces 接口测试
 
@@ -44,8 +44,8 @@ class TestAddState extends State<TestAdd> {
 
   @override
   Widget build(BuildContext context) {
-    nameController.text = user.name;
-    descriptionController.text = user.desc;
+    nameController.text = user.name??'';
+    descriptionController.text = user.desc??'';
 
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +58,7 @@ class TestAddState extends State<TestAdd> {
             padding: const EdgeInsets.all(20),
             child: TextField(
                 controller: nameController,
-                decoration: InputDecoration(helperText: "请输入名字"),
+                decoration: const InputDecoration(helperText: "请输入名字"),
                 onChanged: (value) {
                   user.name = nameController.text;
                 }),
@@ -116,9 +116,9 @@ class TestAddState extends State<TestAdd> {
       return;
     }
 
-    int result = await provider.deleteUser(user.id);
+    int result = await provider.deleteUser(user.id??0);
     if (result != 0) {
-      iCacheApi.deleteCache(user.id);
+      iCacheApi.deleteCache(user.id??0);
       Navigator.pop(context, true);
       ToastUtils.showToast(msg: '删除成功');
     } else {
@@ -136,9 +136,9 @@ class TestAddState extends State<TestAdd> {
       result = await provider.update(user);
     }
 
-    int t = user.id;
-    String n = user.name;
-    String d = user.desc;
+    int? t = user.id;
+    String? n = user.name;
+    String? d = user.desc;
     if (result != 0) {
       iCacheApi.setCache(user);
       Navigator.pop(context, true);

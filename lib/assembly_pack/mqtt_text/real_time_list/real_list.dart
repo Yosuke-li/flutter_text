@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RealListWidget extends StatefulWidget {
-  List<String> realDatas;
+  List<String>? realDatas;
 
   RealListWidget({this.realDatas});
 

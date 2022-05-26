@@ -9,10 +9,14 @@ class LoginApi implements TestCache<SqlUser> {
   static const String _key = '_user_cache';
 
   @override
-  Future<SqlUser> getCache(int id) async {
+  Future<SqlUser?> getCache(int id) async {
     final List<SqlUser> allCache = await getAllCache();
-    return allCache.firstWhere((SqlUser element) => element.id == id,
-        orElse: () => null);
+    for (var e in allCache) {
+      if (e.id == id) {
+        return e;
+      }
+    }
+    return null;
   }
 
   @override
@@ -35,7 +39,7 @@ class LoginApi implements TestCache<SqlUser> {
   @override
   Future<List<SqlUser>> getAllCache() async {
     List<SqlUser> result = <SqlUser>[];
-    final String json = LocateStorage.getString(_key);
+    final String? json = LocateStorage.getString(_key);
     if (json != null && json.isNotEmpty == true) {
       result = SqlUser.listFromJson(jsonDecode(json));
     }

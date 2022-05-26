@@ -34,8 +34,8 @@ class ChatScene extends StatefulWidget {
 }
 
 //google登录
-DatabaseReference reference;
-GoogleSignIn googleSignIn = new GoogleSignIn(
+late DatabaseReference reference;
+GoogleSignIn googleSignIn = GoogleSignIn(
   scopes: [
     'email',
     'https://www.googleapis.com/auth/contacts.readonly',
@@ -48,7 +48,7 @@ class ChatSceneState extends State<ChatScene> {
   final TextEditingController _textEditingController =
       TextEditingController(); //输入框
   bool isComposer = false; //输入框判断
-  GoogleSignInAccount _currentUser; //谷歌信息
+  late GoogleSignInAccount _currentUser; //谷歌信息
   bool isLoading = true; //加载中
 
   Lock lock = Lock();
@@ -116,7 +116,7 @@ class ChatSceneState extends State<ChatScene> {
   }
 
   //发送消息
-  void _sendMessage({String text, String imageUrl}) {
+  void _sendMessage({String? text, String? imageUrl}) {
     loadingCallback(
       () async => await lock.mutex(
         () => reference.push().set({
@@ -266,10 +266,10 @@ class ChatSceneState extends State<ChatScene> {
 
 //消息
 class ChatMessage extends StatelessWidget {
-  const ChatMessage({this.snapshot, this.animation});
+  const ChatMessage({required this.snapshot, required this.animation});
 
   final DataSnapshot snapshot;
-  final Animation animation;
+  final Animation<double> animation;
 
   @override
   Widget build(BuildContext context) {

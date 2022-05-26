@@ -1,9 +1,9 @@
 class ApiException implements Exception {
   int code = 0;
-  String message;
-  Object innerException;
-  StackTrace stackTrace;
-  String level;
+  String? message;
+  Object? innerException;
+  StackTrace? stackTrace;
+  String? level;
 
   bool get enableErrorLog =>
       level != null &&
@@ -16,9 +16,8 @@ class ApiException implements Exception {
   ApiException.withInner(
       this.code, this.message, this.innerException, this.stackTrace);
 
-  @override
   String toString() {
-    if (message.isNotEmpty != true) {
+    if (message?.isNotEmpty != true) {
       return '服务器异常';
     }
 

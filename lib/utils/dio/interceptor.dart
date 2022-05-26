@@ -41,7 +41,7 @@ class PrettyLogInterceptor extends Interceptor {
       print('uri: ${err.requestOptions.uri}');
       print('$err');
       if (err.response != null) {
-        _printResponse(err.response);
+        _printResponse(err.response!);
       }
       print('');
     }

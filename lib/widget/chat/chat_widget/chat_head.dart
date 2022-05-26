@@ -7,11 +7,11 @@ import 'package:flutter_text/widget/chat/helper/message/message_center.dart';
 import 'package:flutter_text/widget/chat/helper/message/message_model.dart';
 
 class ChatHeadPage extends StatefulWidget {
-  int userId;
+  int? userId;
   String topic;
-  Widget child;
+  Widget? child;
 
-  ChatHeadPage({Key key, @required this.topic, this.child, this.userId});
+  ChatHeadPage({Key? key, required this.topic, this.child, this.userId});
 
   @override
   _ChatHeadState createState() => _ChatHeadState();
@@ -19,7 +19,7 @@ class ChatHeadPage extends StatefulWidget {
 
 class _ChatHeadState extends State<ChatHeadPage>
     with MessageCenter<ChatHeadPage> {
-  MessageModel lastMsg;
+  MessageModel? lastMsg;
   bool unRead = false;
 
   @override

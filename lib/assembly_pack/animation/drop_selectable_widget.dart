@@ -7,8 +7,8 @@ typedef OnDropSelected = void Function(int index);
 
 class DropSelectableWidget extends StatefulWidget {
   final List<String> data;
-  final String value;
-  final OnDropSelected onDropSelected;
+  final String? value;
+  final OnDropSelected? onDropSelected;
   final Color disableColor;
   final double iconSize;
   final double height;
@@ -17,7 +17,7 @@ class DropSelectableWidget extends StatefulWidget {
   final double fontSize;
 
   const DropSelectableWidget({
-    Key key,
+    Key? key,
     this.data = const [],
     this.onDropSelected,
     this.value,
@@ -35,12 +35,12 @@ class DropSelectableWidget extends StatefulWidget {
 
 class _DropSelectableWidgetState extends State<DropSelectableWidget>
     with SingleTickerProviderStateMixin {
-  FocusNode _node;
+  late FocusNode _node;
   bool _focused = false;
-  FocusAttachment _nodeAttachment;
-  OverlayEntry _overlayEntry;
-  AnimationController _ctrl;
-  Animation<double> animation;
+  late FocusAttachment _nodeAttachment;
+  OverlayEntry? _overlayEntry;
+  late AnimationController _ctrl;
+  late Animation<double> animation;
   final LayerLink layerLink = LayerLink();
 
   int _selectedIndex = 0;
@@ -100,7 +100,7 @@ class _DropSelectableWidgetState extends State<DropSelectableWidget>
 
   void _showOverlay() {
     _overlayEntry = _createOverlayEntry();
-    Overlay.of(context)?.insert(_overlayEntry);
+    Overlay.of(context)?.insert(_overlayEntry!);
   }
 
   void _hideOverlay() {
@@ -182,7 +182,7 @@ class _DropSelectableWidgetState extends State<DropSelectableWidget>
     return Material(
       child: InkWell(
         onTap: () {
-          if (widget.data.indexOf(widget.value) != index) widget.onDropSelected?.call(index);
+          if (widget.data.indexOf(widget.value??'') != index) widget.onDropSelected?.call(index);
           _selectedIndex = index;
           _overlayEntry?.markNeedsBuild();
           _node.unfocus();

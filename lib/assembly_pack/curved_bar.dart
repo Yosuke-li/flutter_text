@@ -19,10 +19,11 @@ class curvedBarDemo extends StatefulWidget {
 //在TabBar组件中指定controller为我们实例化的TabController
 //在TabBarView组件中指定controller为我们实例化的TabController
 class curvedBarDemoState extends State<curvedBarDemo> with SingleTickerProviderStateMixin {
-  TabController tabController;
+  late TabController tabController;
   List colors = [Colors.blue, Colors.pink, Colors.orange];
   int currentIndex = 0;
 
+  @override
   void initState() {
     super.initState();
     tabController = TabController(length: 3, vsync: this)
@@ -33,10 +34,11 @@ class curvedBarDemoState extends State<curvedBarDemo> with SingleTickerProviderS
       });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: TabBarView(
-        physics: NeverScrollableScrollPhysics(),        //禁止滑动
+        physics: const NeverScrollableScrollPhysics(),        //禁止滑动
         controller: tabController,
         children: <Widget>[
           Container(

@@ -4,7 +4,7 @@ import 'package:flutter_text/utils/screen.dart';
 class TextInputLock extends StatefulWidget {
   final FormFieldSetter<String> onSave;
 
-  TextInputLock({this.onSave});
+  TextInputLock({required this.onSave});
 
   @override
   _TextInputLockState createState() => _TextInputLockState();
@@ -24,12 +24,12 @@ class _TextInputLockState extends State<TextInputLock> {
       child: Stack(
         children: [
           ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
                 maxHeight: 25,
                 maxWidth: 200
             ),
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
                 border: InputBorder.none,
               ),
@@ -47,7 +47,7 @@ class _TextInputLockState extends State<TextInputLock> {
               },
               child: Icon(
                 onLock ? Icons.lock : Icons.lock_open,
-                color: Color(0xBF000000),
+                color: const Color(0xBF000000),
                 size: 15,
               ),
             ),

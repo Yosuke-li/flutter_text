@@ -19,7 +19,7 @@ class _SpeedDialDemo extends StatefulWidget {
 }
 
 class _SpeedDialDemoState extends State<_SpeedDialDemo> {
-  IconData _icon;
+  IconData? _icon;
 
   @override
   Widget build (BuildContext context) {

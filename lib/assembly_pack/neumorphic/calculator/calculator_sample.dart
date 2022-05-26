@@ -51,7 +51,7 @@ class CalcButton {
 
 class WidgetCalcButton extends StatefulWidget {
   final CalcButton button;
-  final Controller controller;
+  final Controller? controller;
 
   WidgetCalcButton(this.button, {this.controller});
 
@@ -60,7 +60,7 @@ class WidgetCalcButton extends StatefulWidget {
 }
 
 class _WidgetCalcState extends State<WidgetCalcButton> {
-  CalcButton button;
+  late CalcButton button;
 
   @override
   void initState() {
@@ -82,7 +82,7 @@ class _WidgetCalcState extends State<WidgetCalcButton> {
     }
   }
 
-  Color _backgroundColor(BuildContext context) {
+  Color? _backgroundColor(BuildContext context) {
     return button.backgroundAccent
         ? NeumorphicTheme.accentColor(context)
         : null;
@@ -94,7 +94,7 @@ class _WidgetCalcState extends State<WidgetCalcButton> {
       padding: const EdgeInsets.only(top: 14),
       child: NeumorphicButton(
         onPressed: () {
-          widget.controller.calcButtonAction(button.label);
+          widget.controller?.calcButtonAction(button.label);
         },
         style: NeumorphicStyle(
           surfaceIntensity: 0.15,
@@ -114,7 +114,7 @@ class _WidgetCalcState extends State<WidgetCalcButton> {
 }
 
 class _TopScreenWidget extends StatefulWidget {
-  Controller controller;
+  Controller? controller;
 
   _TopScreenWidget({this.controller});
 
@@ -134,10 +134,10 @@ class _TopScreenState extends State<_TopScreenWidget> {
   void initState() {
     super.initState();
     setState(() {
-      widget.controller.addListener(() {
-        beforeText = widget.controller.beforeText;
-        text = widget.controller.text;
-        operate = widget.controller.operateText;
+      widget.controller?.addListener(() {
+        beforeText = widget.controller?.beforeText ?? '';
+        text = widget.controller?.text ?? '';
+        operate = widget.controller?.operateText ?? '';
         setState(() {});
       });
     });
@@ -148,7 +148,7 @@ class _TopScreenState extends State<_TopScreenWidget> {
     return Neumorphic(
       style: NeumorphicStyle(
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-        depth: -1 * NeumorphicTheme.of(context).current.depth,
+        depth: -1 * (NeumorphicTheme.of(context)?.current?.depth ?? 0),
       ),
       child: FractionallySizedBox(
         widthFactor: 1,
@@ -160,7 +160,7 @@ class _TopScreenState extends State<_TopScreenWidget> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Text(
-                '${beforeText ?? ''} ${operate ?? ''} ${text ?? 0}',
+                '${beforeText} ${operate} ${text}',
                 style: const TextStyle(fontSize: 30, color: _calcTextColor),
               ),
               // Text('21', style: TextStyle(fontSize: 56, color: _calcTextColor)),

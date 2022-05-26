@@ -13,8 +13,8 @@ class UserRegisterLogic extends GetxController {
   final state = UserRegisterState();
 
   void onRegister() async {
-    final FormState from = state.formKey.currentState;
-    if (from.validate()) {
+    final FormState? from = state.formKey.currentState;
+    if (from !=null && from.validate()) {
       from.save();
       final int id = await PostgresUser.getMapList();
       final User user = User()
@@ -28,7 +28,7 @@ class UserRegisterLogic extends GetxController {
         await PostgresUser.addUser(user);
         ToastUtils.showToast(msg: '注册成功，正在跳转中');
         int i = 2;
-        Navigator.popUntil(Get.context, (_) => i-- == 0);
+        Navigator.popUntil(Get.context!, (_) => i-- == 0);
       } catch (error, stack) {
         Log.error(error, stackTrace: stack);
         rethrow;

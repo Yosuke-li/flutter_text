@@ -4,14 +4,14 @@ class ShareDataWidget extends InheritedWidget {
   final int data; // 需要共享的数据
 
   // 定义一个便捷方法，方便子树中widget获取共享数据
-  static ShareDataWidget of(BuildContext context) {
+  static ShareDataWidget? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<ShareDataWidget>();
   }
 
   const ShareDataWidget({
-    Key key,
-    @required this.data,
-    @required Widget child,
+    Key? key,
+    required this.data,
+    required Widget child,
   }) : super(key: key, child: child);
 
   @override
@@ -28,7 +28,7 @@ class _TextInheritedWidget extends StatefulWidget {
 class _TextInheritedState extends State<_TextInheritedWidget> {
   @override
   Widget build(BuildContext context) {
-    return Text(ShareDataWidget.of(context).data.toString());
+    return Text(ShareDataWidget.of(context)!.data.toString());
   }
 
   @override

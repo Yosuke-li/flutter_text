@@ -5,7 +5,7 @@ import '../keyboard_controller.dart';
 class SecurityKeyboardNumber extends StatefulWidget {
   final KeyboardController controller;
 
-  SecurityKeyboardNumber({@required this.controller});
+  SecurityKeyboardNumber({required this.controller});
 
   @override
   _SecurityKeyboardNumberState createState() => _SecurityKeyboardNumberState();
@@ -72,7 +72,7 @@ class _SecurityKeyboardNumberState extends State<SecurityKeyboardNumber> {
   }
 
 
-  Widget buildButton(String title, {String value}) {
+  Widget buildButton(String title, {String? value}) {
     return Container(
       color: Colors.white,
       child: GestureDetector(

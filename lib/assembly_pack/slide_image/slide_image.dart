@@ -10,7 +10,7 @@ class SlideImagePage extends StatefulWidget {
 }
 
 class _SlideImageState extends State<SlideImagePage> {
-  PageController controller;
+  late PageController controller;
   double pageOffset = 0;
 
   List<Movie> movies = <Movie>[
@@ -46,7 +46,7 @@ class _SlideImageState extends State<SlideImagePage> {
     controller = PageController(viewportFraction: 0.8);
     controller.addListener(() {
       setState(() {
-        pageOffset = controller.page;
+        pageOffset = controller.page ?? 0;
       });
       Log.info(pageOffset);
     });
@@ -76,7 +76,7 @@ class _SlideImageState extends State<SlideImagePage> {
                       movies.length,
                       (int index) => SlidingCard(
                         offset: pageOffset - index,
-                        movie: ArrayHelper.get(movies, index),
+                        movie: ArrayHelper.get(movies, index)!,
                       ),
                     ),
                   ),

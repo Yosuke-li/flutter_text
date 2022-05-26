@@ -18,7 +18,7 @@ import 'package:async/async.dart';
 ///
 ///
 
-Future<String> load() async {
+Future<String?> load() async {
   final ReceivePort receivePort = ReceivePort(); //创建管道
   await Isolate.spawn(messageIso, receivePort.sendPort);
   await for (dynamic msg in receivePort) {

@@ -1,7 +1,7 @@
 import '../init.dart';
 
 class DragOverLayPage extends StatefulWidget {
-  const DragOverLayPage({Key key}) : super(key: key);
+  const DragOverLayPage({Key? key}) : super(key: key);
 
   @override
   State<DragOverLayPage> createState() => _DragOverLayPageState();

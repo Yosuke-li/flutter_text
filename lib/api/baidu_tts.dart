@@ -7,8 +7,8 @@ class BaiduTtsApi {
   final String TTs_text = '&lan=zh&cuid=mytextapp&per=0&ctp=1&tok=';
   final apiKey = 'evzV0Wh5trnqcuQGFP0lTONq';
   final appSecret = 'fNw9TvO7ZoiRm9Lyy1aszAyYjVIRHV68';
-  BaseOptions baseOptions;
-  Token _token;
+  late BaseOptions baseOptions;
+  late Token _token;
 
   Future<Token> getBaiduToken() async {
     try {

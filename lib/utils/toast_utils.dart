@@ -24,32 +24,32 @@ typedef Cancel = void Function();
 
 class ToastUtils {
   static Cancel showToast(
-      {@required String msg,
-      Duration duration = const Duration(seconds: 2),
-      bool clickClose = false,
-      Color backgroundColor = Colors.transparent,
-      Color contentBackgroundColor = Colors.black54,
-      Alignment align = const Alignment(0, 0.75),
-      Widget preIcon,
-      Widget suffixIcon,
-      TextStyle textStyle,
-      BorderRadiusGeometry borderRadius =
-          const BorderRadius.all(Radius.circular(8)),
-      EdgeInsetsGeometry contentPadding =
-          const EdgeInsets.only(left: 14, right: 14, top: 5, bottom: 7)}) {
+      {required String msg,
+        Duration duration = const Duration(seconds: 2),
+        bool clickClose = false,
+        Color backgroundColor = Colors.transparent,
+        Color contentBackgroundColor = Colors.black54,
+        Alignment align = const Alignment(0, 0.75),
+        Widget? preIcon,
+        Widget? suffixIcon,
+        TextStyle? textStyle,
+        BorderRadiusGeometry borderRadius =
+        const BorderRadius.all(Radius.circular(8)),
+        EdgeInsetsGeometry contentPadding =
+        const EdgeInsets.only(left: 14, right: 14, top: 5, bottom: 7)}) {
     textStyle ??= TextStyle(fontSize: (20), color: Colors.white);
 
     return BotToast.showCustomText(
         toastBuilder: (_) => _TextToast(
-              contentBackgroundColor: contentBackgroundColor,
-              align: align,
-              preIcon: preIcon,
-              suffixIcon: suffixIcon,
-              textStyle: textStyle,
-              borderRadius: borderRadius,
-              contentPadding: contentPadding,
-              text: msg,
-            ),
+          contentBackgroundColor: contentBackgroundColor,
+          align: align,
+          preIcon: preIcon,
+          suffixIcon: suffixIcon,
+          textStyle: textStyle,
+          borderRadius: borderRadius,
+          contentPadding: contentPadding,
+          text: msg,
+        ),
         duration: duration,
         clickClose: clickClose,
         backgroundColor: backgroundColor,
@@ -58,13 +58,13 @@ class ToastUtils {
 
   static Cancel showLoading(
       {bool clickClose = false,
-      bool allowClick = false,
-      Widget customLoading}) {
+        bool allowClick = false,
+        Widget? customLoading}) {
     if (customLoading != null) {
       return BotToast.showCustomLoading(
           toastBuilder: (_) => Center(
-                child: customLoading,
-              ),
+            child: customLoading,
+          ),
           allowClick: allowClick,
           clickClose: clickClose,
           crossPage: false);

@@ -49,17 +49,19 @@ class _ListGroupState extends State<ListGroupPage> {
           itemBuilder: (BuildContext ctx, int index) {
             return InkWell(
               onTap: () {
-                NavigatorUtils.pushWidget(
-                    context, ArrayHelper.get(groups, index).route);
+                if (ArrayHelper.get(groups, index)?.route != null) {
+                  NavigatorUtils.pushWidget(
+                      context, ArrayHelper.get(groups, index)!.route!);
+                }
               },
               child: Container(
                 height: screenUtil.adaptive(120),
                 alignment: Alignment.center,
-                child: Text('${ArrayHelper.get(groups, index).name}'),
+                child: Text('${ArrayHelper.get(groups, index)?.name}'),
               ),
             );
           },
-          itemCount: groups.length ?? 0,
+          itemCount: groups.length,
         ),
       ),
     );
@@ -67,6 +69,6 @@ class _ListGroupState extends State<ListGroupPage> {
 }
 
 class ChartsList {
-  String name;
-  Widget route;
+  String? name;
+  Widget? route;
 }

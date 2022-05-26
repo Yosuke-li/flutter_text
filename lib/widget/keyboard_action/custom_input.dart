@@ -9,7 +9,7 @@ class ColorPickerKeyboard extends StatelessWidget
   final ValueNotifier<Color> notifier;
   static const double _kKeyboardHeight = 200;
 
-  ColorPickerKeyboard({Key key, this.notifier}) : super(key: key);
+  ColorPickerKeyboard({Key? key, required this.notifier}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +51,10 @@ class CounterKeyboard extends StatelessWidget
   @override
   final ValueNotifier<String> notifier;
 
-  CounterKeyboard({Key key, this.notifier}) : super(key: key);
+  CounterKeyboard({Key? key, required this.notifier}) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(200);
+  Size get preferredSize => const Size.fromHeight(200);
 
   @override
   Widget build(BuildContext context) {
@@ -107,16 +107,16 @@ class NumericKeyboard extends StatelessWidget
     with KeyboardCustomPanelMixin<String>
     implements PreferredSizeWidget {
   final ValueNotifier<String> notifier;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
 
   NumericKeyboard({
-    Key key,
-    this.notifier,
+    Key? key,
+    required this.notifier,
     this.focusNode,
   }) : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight(310);
+  Size get preferredSize => const Size.fromHeight(310);
 
   final NumberFormat format = NumberFormat('');
 
@@ -127,12 +127,12 @@ class NumericKeyboard extends StatelessWidget
     return finalValue;
   }
 
-  void _onTapNumber(String value) {
+  void _onTapNumber(String? value) {
     if (value == 'Done') {
-      focusNode.unfocus();
+      focusNode?.unfocus();
       return;
     }
-    final String temp = notifier.value + value;
+    final String temp = notifier.value + (value??'');
     updateValue(temp);
   }
 
@@ -147,12 +147,12 @@ class NumericKeyboard extends StatelessWidget
   Widget build(BuildContext context) {
     return Container(
       height: preferredSize.height,
-      color: Color(0xFF313131),
+      color: const Color(0xFF313131),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView(
           shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             childAspectRatio: 2.2,
             crossAxisSpacing: 10,
@@ -178,9 +178,9 @@ class NumericKeyboard extends StatelessWidget
   }
 
   Widget _buildButton({
-    String text,
-    IconData icon,
-    Color color,
+    String? text,
+    IconData? icon,
+    Color? color,
   }) =>
       NumericButton(
         text: text,
@@ -191,13 +191,13 @@ class NumericKeyboard extends StatelessWidget
 }
 
 class NumericButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onTap;
-  final IconData icon;
-  final Color color;
+  final String? text;
+  final VoidCallback? onTap;
+  final IconData? icon;
+  final Color? color;
 
   const NumericButton({
-    Key key,
+    Key? key,
     this.text,
     this.onTap,
     this.icon,
@@ -221,8 +221,8 @@ class NumericButton extends StatelessWidget {
               color: Colors.white,
             )
                 : Text(
-              text,
-              style: TextStyle(
+              text ?? '',
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w300,
               ),

@@ -22,17 +22,17 @@ class VideoPlayerPage extends StatefulWidget {
   });
 
   // 视频地址
-  final String url;
-  final File file;
+  final String? url;
+  final File? file;
 
   // 视频尺寸比例
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
 
   // 视频标题
-  final String title;
+  final String? title;
 
-  final bool autoPlay;
+  final bool? autoPlay;
 
   @override
   State<VideoPlayerPage> createState() {
@@ -45,12 +45,12 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
   GlobalKey anchorKey = GlobalKey();
 
   bool _videoInit = false; // video控件管理器
-  VideoPlayerController _controller; // 记录video播放进度
+  VideoPlayerController? _controller; // 记录video播放进度
   Duration _position = const Duration(seconds: 0); //播放时长
   Duration _totalDuration = const Duration(seconds: 0); //总时长
   double movePan = 0.0; // 偏移量累计总和
   // 记录播放控件ui是否显示(进度条，播放按钮，全屏按钮等等)
-  Timer _timer; // 计时器，用于延迟隐藏控件ui
+  Timer? _timer; // 计时器，用于延迟隐藏控件ui
   bool _hidePlayControl = true; // 控制是否隐藏控件ui
   double _playControlOpacity = 0; // 通过透明度动画显示/隐藏控件ui
   // 记录是否全屏
@@ -58,7 +58,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
       MediaQuery.of(context).orientation == Orientation.landscape;
   double speed = 1.0; //默认
 
-  Completer<void> _completer;
+  Completer<void>? _completer;
 
   //内容区
   @override
@@ -79,9 +79,9 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                   },
                   //双击暂停/播放
                   onDoubleTap: () {
-                    _controller.value.isPlaying
-                        ? _controller.pause()
-                        : _controller.play();
+                    _controller?.value.isPlaying == true
+                        ? _controller?.pause()
+                        : _controller?.play();
                   },
                   onHorizontalDragStart: _onHorizontalDragStart,
                   onHorizontalDragUpdate: _onHorizontalDragUpdate,
@@ -90,8 +90,8 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                       ? Center(
                           child: AspectRatio(
                             // 加载url或者file成功时，根据视频比例渲染播放器
-                            aspectRatio: _controller.value.aspectRatio,
-                            child: VideoPlayer(_controller),
+                            aspectRatio: _controller?.value.aspectRatio ?? 0,
+                            child: VideoPlayer(_controller!),
                           ),
                         )
                       : const Center(
@@ -141,7 +141,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               //在最上层或者不是横屏则隐藏按钮
-              ModalRoute.of(context).isFirst && !_isFullScreen
+              ModalRoute.of(context)?.isFirst == true && !_isFullScreen
                   ? Container()
                   : IconButton(
                       icon: const Icon(
@@ -150,7 +150,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                       ),
                       onPressed: backPress),
               Text(
-                widget.title,
+                widget.title ?? '',
                 style: const TextStyle(color: Colors.white),
               ),
             ],
@@ -198,7 +198,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                         iconSize: 26,
                         icon: Icon(
                           // 根据控制器动态变化播放图标还是暂停
-                          _controller.value.isPlaying
+                          _controller?.value.isPlaying == true
                               ? Icons.pause
                               : Icons.play_arrow,
                           color: Colors.white,
@@ -206,9 +206,9 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                         onPressed: () {
                           setState(() {
                             // 同样的，点击动态播放或者暂停
-                            _controller.value.isPlaying
-                                ? _controller.pause()
-                                : _controller.play();
+                            _controller?.value.isPlaying == true
+                                ? _controller?.pause()
+                                : _controller?.play();
                             _startPlayControlTimer(); // 操作控件后，重置延迟隐藏控件的timer
                           });
                         },
@@ -216,7 +216,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                       Flexible(
                         // 相当于前端的flex: 1
                         child: VideoProgressIndicator(
-                          _controller,
+                          _controller!,
                           allowScrubbing: true, // 允许手势操作进度条
                           padding: const EdgeInsets.all(0),
                           colors: VideoProgressColors(
@@ -236,10 +236,10 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
                         margin: const EdgeInsets.only(left: 10),
                         child: Text(
                           '${DateTimeHelper.datetimeFormat(
-                            _position?.inMilliseconds,
+                            _position.inMilliseconds,
                             'mm:ss',
                           )}/${DateTimeHelper.datetimeFormat(
-                            _totalDuration?.inMilliseconds,
+                            _totalDuration.inMilliseconds,
                             'mm:ss',
                           )}',
                           style: const TextStyle(color: Colors.white),
@@ -294,7 +294,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
   }
 
   void _showMenu(BuildContext context, TapDownDetails detail) {
-    final RenderBox renderBox = anchorKey.currentContext.findRenderObject();
+    final RenderBox renderBox = anchorKey.currentContext?.findRenderObject() as RenderBox;
     final Offset offset =
         renderBox.localToGlobal(Offset(0.0, renderBox.size.height));
     final RelativeRect position = RelativeRect.fromLTRB(
@@ -308,13 +308,13 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
       color: const Color(0xD90000000),
       items: pop.itemBuilder(context),
       position: position, //弹出框位置
-    ).then((double newValue) {
+    ).then((double? newValue) {
       if (!mounted) return null;
       if (newValue == null) {
-        if (pop.onCanceled != null) pop.onCanceled();
+        if (pop.onCanceled != null) pop.onCanceled!();
         return null;
       }
-      if (pop.onSelected != null) pop.onSelected(newValue);
+      if (pop.onSelected != null) pop.onSelected!(newValue);
     });
   }
 
@@ -361,7 +361,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
 
   //设置倍速
   void setSpeed(double s) {
-    _controller.setPlaybackSpeed(s);
+    _controller?.setPlaybackSpeed(s);
     setState(() {
       speed = s;
     });
@@ -373,7 +373,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     // 如果是全屏，点击返回键则关闭全屏，如果不是，则系统返回键
     if (_isFullScreen) {
       _toggleFullScreen();
-    } else if (ModalRoute.of(context).isFirst) {
+    } else if (ModalRoute.of(context)?.isFirst == true) {
       SystemNavigator.pop();
     } else {
       Navigator.pop(context);
@@ -401,8 +401,8 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
   void dispose() {
     if (_controller != null) {
       // 惯例。组件销毁时清理下
-      _controller.removeListener(_videoListener);
-      _controller.dispose();
+      _controller?.removeListener(_videoListener);
+      _controller?.dispose();
       _controller = null;
     }
     super.dispose();
@@ -414,30 +414,30 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
         (widget.file == null || widget.file == '')) return;
     if (_controller != null) {
       // 如果控制器存在，清理掉重新创建
-      _controller.removeListener(_videoListener);
-      _controller.dispose();
+      _controller?.removeListener(_videoListener);
+      _controller?.dispose();
     }
     // 重置组件参数
     _hidePlayControl = true;
     _videoInit = false;
     _position = const Duration(seconds: 0);
     // 加载network的url，也支持本地文件，自行阅览官方api
-    setUrl(widget.autoPlay);
+    setUrl(widget.autoPlay ?? false);
     setState(() {});
   }
 
   /// [Utils.debounce]防抖加入能优化dispose后再进入listener的情况
   void setUrl(bool isPlay) async {
     if (widget.url == null) {
-      _controller = VideoPlayerController.file(widget.file);
+      _controller = VideoPlayerController.file(widget.file!);
     } else {
-      _controller = VideoPlayerController.network(widget.url);
+      _controller = VideoPlayerController.network(widget.url!);
     }
-    _controller.addListener(Utils.debounce(_videoListener));
-    await _controller.initialize();
+    _controller?.addListener(Utils.debounce(_videoListener));
+    await _controller?.initialize();
     _videoInit = true;
     //加载资源完成后 自动播放
-    if (isPlay == true) _controller.play();
+    if (isPlay == true) _controller?.play();
     setState(() {});
   }
 
@@ -447,7 +447,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
       return;
     }
     // 获取当前时间
-    _position = _controller.value.position;
+    _position = _controller?.value.position ?? const Duration(seconds: 0);
   }
 
   //滑动更新/快进/快退
@@ -459,11 +459,11 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     movePan += details.delta.dx / 10;
     final double value = _setHorizontalValue();
     // 用百分比计算出当前的秒数
-    final String currentSecond = DateTimeHelper.datetimeFormat(
-      (value * _controller.value.duration.inMilliseconds).toInt(),
+    final String? currentSecond = DateTimeHelper.datetimeFormat(
+      (value * (_controller?.value.duration.inMilliseconds ?? 0)).toInt(),
       'mm:ss',
     );
-    ToastUtils.showToast(msg: currentSecond);
+    ToastUtils.showToast(msg: currentSecond ?? '');
   }
 
   //滑动结束
@@ -473,18 +473,18 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     }
     final double value = _setHorizontalValue();
     final int current =
-        (value * _controller.value.duration.inMilliseconds).toInt();
-    await _controller.seekTo(Duration(milliseconds: current)); //进度跳转
+        (value * (_controller?.value.duration.inMilliseconds ?? 0)).toInt();
+    await _controller?.seekTo(Duration(milliseconds: current)); //进度跳转
   }
 
   //进度条变化
   double _setHorizontalValue() {
     // 进度条百分控制
     final double valueHorizontal =
-        double.parse((movePan / context.size.width).toStringAsFixed(2));
+        double.parse((movePan / (context.size?.width ?? 1)).toStringAsFixed(2));
     // 当前进度条百分比
     final double currentValue =
-        _position.inMilliseconds / _controller.value.duration.inMilliseconds;
+        _position.inMilliseconds / (_controller?.value.duration.inMilliseconds ?? 1);
     double value =
         double.parse((currentValue + valueHorizontal).toStringAsFixed(2));
     if (value >= 1.00) {
@@ -497,16 +497,16 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
 
   //视频监听（进度条）
   void _videoListener() async {
-    if (_controller == null || _controller.value.hasError) {
+    if (_controller == null || _controller?.value.hasError == true) {
       return;
     }
-    final Duration res = await _controller.position;
-    if (res >= _controller.value.duration) {
-      await _controller.pause();
-      await _controller.seekTo(const Duration(seconds: 0));
+    final Duration? res = await _controller?.position;
+    if (res != null && res >= (_controller?.value.duration ?? const Duration(seconds: 0))) {
+      await _controller?.pause();
+      await _controller?.seekTo(const Duration(seconds: 0));
     }
-    _position = res;
-    _totalDuration = _controller.value.duration;
+    _position = res!;
+    _totalDuration = _controller?.value.duration ?? const Duration(seconds: 0);
     setState(() {});
   }
 
@@ -519,7 +519,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
       _startPlayControlTimer(); // 开始计时器，计时后隐藏
     } else {
       // 如果显示就隐藏
-      if (_timer != null) _timer.cancel(); // 有计时器先移除计时器
+      if (_timer != null) _timer?.cancel(); // 有计时器先移除计时器
       _playControlOpacity = 0;
       Future.delayed(const Duration(milliseconds: 300)).whenComplete(() {
         _hidePlayControl = true; // 延迟300ms(透明度动画结束)后，隐藏
@@ -530,7 +530,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
   //控件隐藏计时器
   void _startPlayControlTimer() {
     // 计时器，用法和前端js的大同小异
-    if (_timer != null) _timer.cancel();
+    if (_timer != null) _timer?.cancel();
     _timer = Timer(const Duration(seconds: 3), () {
       // 延迟3s后隐藏
       setState(() {

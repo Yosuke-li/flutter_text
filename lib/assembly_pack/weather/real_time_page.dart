@@ -17,10 +17,10 @@ class RealTimePage extends StatefulWidget {
 
 class RealTimeWeatherState extends State<RealTimePage> {
   String cid = '深圳'; //地区 --可拓展选择查看其他地区的天气
-  Timer _timer; //真·实时天气
+  Timer? _timer; //真·实时天气
   int time = 5;
-  RealTimeWeather _realTimeWeather;
-  ThreeDaysForecast _threeDaysForecast;
+  late RealTimeWeather _realTimeWeather;
+  late ThreeDaysForecast _threeDaysForecast;
   bool isLoading = true;
 
   //获取实时天气
@@ -75,7 +75,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
   //清除轮询
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -107,7 +107,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Text(
-                              '${_realTimeWeather.basic.location}',
+                              '${_realTimeWeather.basic?.location}',
                               style: TextStyle(
                                 fontSize: screenUtil.setSp(80),
                                 color: Colors.white,
@@ -123,7 +123,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                 Container(
                                   padding: const EdgeInsets.only(right: 10.0),
                                   child: Text(
-                                    '${_realTimeWeather.now.fl} ℃',
+                                    '${_realTimeWeather.now?.fl} ℃',
                                     style: TextStyle(
                                         fontSize: screenUtil.setSp(100),
                                         color: Colors.white),
@@ -133,13 +133,13 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                   child: Column(
                                     children: <Widget>[
                                       Image.asset(
-                                        'images/weather/${_realTimeWeather.now.condCode}.png',
+                                        'images/weather/${_realTimeWeather.now?.condCode}.png',
                                         width: 40,
                                         height: 40,
                                         color: Colors.white,
                                       ),
                                       Text(
-                                        '${_realTimeWeather.now.condTxt}',
+                                        '${_realTimeWeather.now?.condTxt}',
                                         style: const TextStyle(color: Colors.white),
                                       )
                                     ],
@@ -166,7 +166,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                         const Text('风向',
                                             style:
                                                 TextStyle(color: Colors.white)),
-                                        Text('${_realTimeWeather.now.windDir}',
+                                        Text('${_realTimeWeather.now?.windDir}',
                                             style:
                                                 TextStyle(color: Colors.white)),
                                       ],
@@ -186,7 +186,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                         const Text('湿度',
                                             style:
                                                 TextStyle(color: Colors.white)),
-                                        Text('${_realTimeWeather.now.hum}%',
+                                        Text('${_realTimeWeather.now?.hum}%',
                                             style:
                                                 TextStyle(color: Colors.white)),
                                       ],
@@ -206,7 +206,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                         const Text('气压',
                                             style:
                                                 TextStyle(color: Colors.white)),
-                                        Text('${_realTimeWeather.now.pres}hpa',
+                                        Text('${_realTimeWeather.now?.pres}hpa',
                                             style:
                                                 const TextStyle(color: Colors.white)),
                                       ],
@@ -224,9 +224,9 @@ class RealTimeWeatherState extends State<RealTimePage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: _threeDaysForecast.dailyForecasts
-                                    .map((DailyForecast item) {
+                                    ?.map((DailyForecast item) {
                                   return _threeDayWeather(item);
-                                })?.toList() ?? [],
+                                }).toList() ?? [],
                               ),
                             ),
                           ),
@@ -278,7 +278,7 @@ class RealTimeWeatherState extends State<RealTimePage> {
 
   //3天天气预测
   Widget _threeDayWeather(DailyForecast dailyForecast) {
-    String date = DateFormat('EE').format(DateTime.parse(dailyForecast.date));
+    String date = DateFormat('EE').format(DateTime.parse(dailyForecast.date??''));
     return Column(
       children: <Widget>[
         Text(date, style: const TextStyle(color: Color(0xff8a8a8a))),
@@ -287,11 +287,11 @@ class RealTimeWeatherState extends State<RealTimePage> {
           child: Image.asset('images/weather/${dailyForecast.condCodeD}.png',
               width: 50, height: 50, color: Colors.blue),
         ),
-        Text(dailyForecast.condTxtD,
+        Text(dailyForecast.condTxtD??'',
             style: const TextStyle(color: Color(0xff8a8a8a))),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
-          child: Text(dailyForecast.tmpMin + '℃~' + dailyForecast.tmpMax + '℃',
+          child: Text((dailyForecast.tmpMin??'') + '℃~' + (dailyForecast.tmpMax??'') + '℃',
               style: const TextStyle(color: Color(0xff8a8a8a))),
         ),
       ],

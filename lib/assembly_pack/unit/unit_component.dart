@@ -64,17 +64,17 @@ class UnitComponentPageState extends State<UnitComponentPage> {
             return GestureDetector(
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ArrayHelper.get(_page, index).pageUrl),
+                  MaterialPageRoute(builder: (context) => ArrayHelper.get(_page, index)?.pageUrl),
                 );
               },
               child: Container(
                 decoration: BoxDecoration(border: Border.all(width: 1)),
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Text('${ArrayHelper.get(_page, index).name}'),
+                child: Text('${ArrayHelper.get(_page, index)?.name}'),
               ),
             );
-          }, childCount: _page.length ?? 0),
+          }, childCount: _page.length),
         ),
       ),
     );

@@ -9,9 +9,9 @@ class SlidingCard extends StatelessWidget {
   final Movie movie;
 
   const SlidingCard({
-    Key key,
-    @required this.offset,
-    @required this.movie,
+    Key? key,
+    required this.offset,
+    required this.movie,
   }) : super(key: key);
 
   @override

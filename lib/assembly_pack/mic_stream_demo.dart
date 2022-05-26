@@ -18,7 +18,7 @@ class MicStreamDemoState extends State<MicStreamDemo> {
     recordPlugin.init();
 
     recordPlugin.responseFromAmplitude.listen((data) {
-      var voiceData = double.parse(data.msg);
+      double voiceData = double.parse(data.msg??'0');
       setState(() {
         if (voiceData > 0 && voiceData < 0.1) {
           tempVoice = 'images/voice/voice_volume_2.png';

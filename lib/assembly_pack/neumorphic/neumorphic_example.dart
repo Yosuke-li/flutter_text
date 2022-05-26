@@ -95,7 +95,7 @@ class _pageState extends State<_page> {
               onPressed: () {
                 setState(() {
                   _useDark = !_useDark;
-                  NeumorphicTheme.of(context).themeMode =
+                  NeumorphicTheme.of(context)?.themeMode =
                       _useDark ? ThemeMode.dark : ThemeMode.light;
                 });
               },
@@ -236,10 +236,10 @@ class _pageState extends State<_page> {
     );
   }
 
-  Color _iconsColor() {
+  Color? _iconsColor() {
     final theme = NeumorphicTheme.of(context);
-    if (theme.isUsingDark) {
-      return theme.current.accentColor;
+    if (theme?.isUsingDark == true) {
+      return theme?.current?.accentColor;
     } else {
       return null;
     }

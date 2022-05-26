@@ -2,7 +2,7 @@ import '../init.dart';
 import 'package:redis/redis.dart';
 
 class RedisTest extends StatefulWidget {
-  const RedisTest({Key key}) : super(key: key);
+  const RedisTest({Key? key}) : super(key: key);
 
   @override
   State<RedisTest> createState() => _RedisTestState();

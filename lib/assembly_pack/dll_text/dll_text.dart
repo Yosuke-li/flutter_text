@@ -23,9 +23,9 @@ class DllTextPage extends StatefulWidget {
 }
 
 class _DllTextPageState extends State<DllTextPage> {
-  ffi.Pointer<ffi.Int8> helloFunc;
-  Function(double x, double y) addFunc;
-  Function(ffi.Pointer<ffi.Int8>) strLengthFunc;
+  ffi.Pointer<ffi.Int8>? helloFunc;
+  Function(double x, double y)? addFunc;
+  Function(ffi.Pointer<ffi.Int8>)? strLengthFunc;
 
   static const String value = 'Hello world';
 
@@ -58,9 +58,9 @@ class _DllTextPageState extends State<DllTextPage> {
       body: Center(
         child: Platform.isWindows == true ? Column(
           children: [
-            Text('add: ${addFunc(1,5)}'),
-            Text('hello: ${helloFunc.cast<Utf8>().toDartString()}'),
-            Text('strLengthFunc: ${strLengthFunc(value.toNativeUtf8().cast<ffi.Int8>())}')
+            Text('add: ${addFunc!(1,5)}'),
+            Text('hello: ${helloFunc?.cast<Utf8>().toDartString()}'),
+            Text('strLengthFunc: ${strLengthFunc!(value.toNativeUtf8().cast<ffi.Int8>())}')
           ],
         ) : Container(
           child: const Text('android 上无法使用 dll'),

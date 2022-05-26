@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 
 class GroupListModel {
-  String title;
-  List<String> children;
+  String? title;
+  List<String>? children;
 }
 
 class GroupListWidget extends StatefulWidget {
-  final List<GroupListModel> list;
+  final List<GroupListModel>? list;
 
-  const GroupListWidget({Key key, this.list});
+  const GroupListWidget({Key? key, this.list});
 
   @override
   State<StatefulWidget> createState() {
@@ -22,9 +22,9 @@ class _GroupListState extends State<GroupListWidget> {
   Widget build(BuildContext context) {
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: widget.list.length,
+        itemCount: widget.list?.length ?? 0,
         itemBuilder: (BuildContext context, int index) {
-          final GroupListModel groupListModel =
+          final GroupListModel? groupListModel =
               ArrayHelper.get(widget.list, index);
           return _LevelOneListWidget(
             item: groupListModel,
@@ -34,7 +34,7 @@ class _GroupListState extends State<GroupListWidget> {
 }
 
 class _LevelOneListWidget extends StatefulWidget {
-  final GroupListModel item;
+  final GroupListModel? item;
 
   const _LevelOneListWidget({this.item});
 
@@ -48,7 +48,7 @@ class _LevelOneListState extends State<_LevelOneListWidget>
     with SingleTickerProviderStateMixin {
   bool _isExpand = false;
 
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   void initState() {
@@ -82,11 +82,11 @@ class _LevelOneListState extends State<_LevelOneListWidget>
             child: Row(
               children: [
                 Container(
-                  child: Text('${widget.item.title ?? ''}'),
+                  child: Text('${widget.item?.title ?? ''}'),
                 ),
                 RotationTransition(
                   turns: _animationController,
-                  child: Icon(Icons.arrow_right),
+                  child: const Icon(Icons.arrow_right),
                 )
               ],
             ),
@@ -103,9 +103,9 @@ class _LevelOneListState extends State<_LevelOneListWidget>
     }
     return ListView.builder(
         shrinkWrap: true,
-        itemCount: widget.item.children?.length ?? 0,
+        itemCount: widget.item?.children?.length ?? 0,
         itemBuilder: (BuildContext context, int index) {
-          final String text = ArrayHelper.get(widget.item.children, index);
+          final String? text = ArrayHelper.get(widget.item?.children, index);
           return Container(
             child: Text('$text'),
           );

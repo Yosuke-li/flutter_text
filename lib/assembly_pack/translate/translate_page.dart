@@ -16,9 +16,9 @@ class translatePageState extends State<translatePage> {
   AudioPlayer audioPlayer = new AudioPlayer();
   String f_lang = 'zh';
   String t_lang = 'ja';
-  Content content;
-  ContentE contentE;
-  Token _token;
+  late Content content;
+  late ContentE contentE;
+  late Token _token;
   int status = 1;
 
   //调用翻译接口
@@ -82,7 +82,7 @@ class translatePageState extends State<translatePage> {
                   Container(
                       padding: EdgeInsets.only(right: 10.0),
                       child: DropdownButtonHideUnderline(
-                          child: new DropdownButton(
+                          child: DropdownButton<String>(
                         items: [
                           DropdownMenuItem(
                             child: Text('中文'),
@@ -113,7 +113,7 @@ class translatePageState extends State<translatePage> {
                         onChanged: (value) {
                           print(value);
                           setState(() {
-                            f_lang = value;
+                            f_lang = value!;
                           });
                           translateIt(f_lang, t_lang, _controller.text);
                         },
@@ -123,7 +123,7 @@ class translatePageState extends State<translatePage> {
                   Container(
                     padding: EdgeInsets.only(left: 10.0),
                     child: DropdownButtonHideUnderline(
-                        child: new DropdownButton(
+                        child: DropdownButton<String>(
                       items: [
                         DropdownMenuItem(
                           child: Text('中文'),
@@ -153,7 +153,7 @@ class translatePageState extends State<translatePage> {
                       hint: Text(t_lang),
                       onChanged: (value) {
                         setState(() {
-                          t_lang = value;
+                          t_lang = value!;
                         });
                         translateIt(f_lang, t_lang, _controller.text);
                       },
@@ -168,14 +168,14 @@ class translatePageState extends State<translatePage> {
                   ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(content?.out ?? ''),
+                  Text(content.out ?? ''),
                   IconButton(
                     icon: Icon(Icons.volume_up),
                     onPressed: () {
                       play(BaiduTtsApi().TtsUrl +
-                          Uri.encodeComponent(content.out) +
+                          Uri.encodeComponent(content.out??'') +
                           BaiduTtsApi().TTs_text +
-                          _token.access_token);
+                          _token.access_token!);
                     },
                   )
                 ],
@@ -186,7 +186,7 @@ class translatePageState extends State<translatePage> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Text(
-                        '${contentE?.word_mean.toString() ?? ''}',
+                        '${contentE.word_mean.toString()}',
                         softWrap: false,
                       ),
                     ),
@@ -194,7 +194,7 @@ class translatePageState extends State<translatePage> {
                   IconButton(
                     icon: Icon(Icons.volume_up),
                     onPressed: () {
-                      play(contentE?.ph_am_mp3);
+                      play(contentE.ph_am_mp3);
                     },
                   )
                 ],

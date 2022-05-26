@@ -1,10 +1,10 @@
 class Token {
-  String access_token;
-  String session_key;
-  String scope;
-  String refresh_token;
-  String session_secret;
-  int exprires_in;
+  String? access_token;
+  String? session_key;
+  String? scope;
+  String? refresh_token;
+  String? session_secret;
+  int? exprires_in;
 
   Token(
       {this.access_token,

@@ -1,32 +1,32 @@
 class User {
   User();
 
-  int _id;
-  String _name;
-  String _desc;
-  String _image;
+  int? _id;
+  String? _name;
+  String? _desc;
+  String? _image;
 
-  int get id => _id;
+  int? get id => _id;
 
-  String get name => _name;
+  String? get name => _name;
 
-  String get desc => _desc;
+  String? get desc => _desc;
 
-  String get image => _image;
+  String? get image => _image;
 
-  set desc(String value) {
+  set desc(String? value) {
     _desc = value;
   }
 
-  set name(String value) {
+  set name(String? value) {
     _name = value;
   }
 
-  set id(int value) {
+  set id(int? value) {
     _id = value;
   }
 
-  set image(String value) {
+  set image(String? value) {
     _image = value;
   }
 
@@ -53,7 +53,7 @@ class User {
   }
 
   User.fromJson(Map<String, dynamic> json) {
-    if (json == null || json?.keys.isNotEmpty != true) return;
+    if (json == null || json.keys.isNotEmpty != true) return;
     final Map<String, dynamic> keyToLowerCaseJson = {};
     keyToLowerCaseJson.addEntries(json.keys.map((element) {
       final String key = element;
@@ -64,7 +64,7 @@ class User {
 
   static List<User> listFromJson(List<dynamic> json) {
     return json == null
-        ? List<User>()
+        ? <User>[]
         : json.map((e) => User.fromJson(e)).toList();
   }
 }

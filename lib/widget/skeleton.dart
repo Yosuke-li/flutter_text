@@ -23,7 +23,7 @@ class SkeletonManager<T> {
 
   int _version = 0;
 
-  Future<void> doing;
+  Future<void>? doing;
 
   void release() {
     _isRelease = true;
@@ -34,10 +34,10 @@ class SkeletonManager<T> {
     _version++;
     int oldVersion = _version;
     if(_isFirst){
-      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
         _tryLoad();
       });
-      SchedulerBinding.instance.ensureVisualUpdate();
+      SchedulerBinding.instance?.ensureVisualUpdate();
       _isFirst=false;
       return;
     }
@@ -79,7 +79,7 @@ class SkeletonManager<T> {
       return;
     }
     _handle = true;
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
+    SchedulerBinding.instance?.addPostFrameCallback((_) async {
       try {
         if (_sourceList.isEmpty) {
           return;
@@ -100,13 +100,13 @@ class SkeletonManager<T> {
         _handle = false;
       }
     });
-    SchedulerBinding.instance.ensureVisualUpdate();
+    SchedulerBinding.instance?.ensureVisualUpdate();
   }
 
   Future<void> _doLoad() async {
     assert(_sourceList.isNotEmpty);
     await load(_sourceList.toList());
-    await SchedulerBinding.instance.endOfFrame;
+    await SchedulerBinding.instance?.endOfFrame;
   }
 }
 
@@ -123,12 +123,12 @@ class SkeletonItem<T> extends StatefulWidget {
   final SkeletonManager<T> skeletonManager;
 
   const SkeletonItem({
-    @required this.child,
-    @required this.skeleton,
-    @required this.source,
-    @required this.status,
-    @required this.skeletonManager,
-    Key key,
+    required this.child,
+    required this.skeleton,
+    required this.source,
+    required this.status,
+    required this.skeletonManager,
+    Key? key,
   }) : super(key: key);
 
   @override

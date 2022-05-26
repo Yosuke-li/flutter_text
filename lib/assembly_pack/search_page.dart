@@ -119,11 +119,11 @@ class _SearchDemoPageState extends State<SearchDemoPage> {
                     fontSize: 16,
                     color: Colors.black.withOpacity(0.8),
                   ),
-                  validator: (x) {
-                    if (!_statesOfIndia.contains(x) || x.isEmpty) {
+                  validator: (String? x) {
+                    if (!_statesOfIndia.contains(x) || x?.isEmpty == true) {
                       return 'Please Enter a valid State';
                     }
-                    return null;
+                    return '';
                   },
                   searchInputDecoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
@@ -284,10 +284,10 @@ class _SearchDemoPageState extends State<SearchDemoPage> {
                 vertical: 10),
             child: ElevatedButton(
                 onPressed: () {
-                  _formKey.currentState.validate();
+                  _formKey.currentState?.validate();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text('Validate Field 2'),
                 )),
           )

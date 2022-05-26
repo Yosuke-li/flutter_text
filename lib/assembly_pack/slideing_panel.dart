@@ -31,6 +31,7 @@ class SlidingDemoState extends State<SlidingDemo> {
   void _open() {
   }
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: SlidingUpPanel(
@@ -40,7 +41,7 @@ class SlidingDemoState extends State<SlidingDemo> {
         maxWidth: 250,
         minHeight: 0,
         panel: Container(
-          child: Center(
+          child: const Center(
             child: Text("评论区",
                 style: TextStyle(
                     color: Colors.grey,

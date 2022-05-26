@@ -4,9 +4,9 @@ import 'keyboard_manager.dart';
 
 class KeyboardController extends ValueNotifier<TextEditingValue> {
   ///输入框数据解析类
-  final InputClient client;
+  final InputClient? client;
 
-  KeyboardController({TextEditingValue value, this.client})
+  KeyboardController({TextEditingValue? value, this.client})
       : super(value == null ? TextEditingValue.empty : value);
 
   /// The current string the user is editing.

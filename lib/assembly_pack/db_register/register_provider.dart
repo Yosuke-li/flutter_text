@@ -82,7 +82,7 @@ class RegisterProvider extends BaseDbProvider {
   //获取数据数量
   Future<int> getTableCountsV2() async {
     final userMapList = await selectMapList();
-    final count = userMapList?.length ?? 0;
+    final count = userMapList.length;
     return count;
   }
 }

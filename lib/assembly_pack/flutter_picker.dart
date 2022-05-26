@@ -22,7 +22,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final double listSpec = 4.0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  String stateText;
+  String? stateText;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
         alignment: Alignment.topCenter,
         child: ListView(
           children: <Widget>[
-            (stateText != null) ? Text(stateText) : Container(),
+            (stateText != null) ? Text(stateText!) : Container(),
             SizedBox(height: listSpec),
             RaisedButton(
               child: Text('Picker Show Icons'),
@@ -144,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
         print(value.toString());
         print(picker.getSelectedValues());
       },
-    ).show(_scaffoldKey.currentState);
+    ).show(_scaffoldKey.currentState!);
   }
 
 
@@ -263,7 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
             stateText = picker.adapter.toString();
           });
         }
-    ).show(_scaffoldKey.currentState);
+    ).show(_scaffoldKey.currentState!);
   }
 
   void showPickerDateRange(BuildContext context) {
@@ -290,28 +290,28 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: new Text(PickerLocalizations.of(context).cancelText)),
+          child: Text(PickerLocalizations.of(context).cancelText??'')),
       FlatButton(
           onPressed: () {
             Navigator.pop(context);
-            ps.onConfirm(ps, ps.selecteds);
-            pe.onConfirm(pe, pe.selecteds);
+            ps.onConfirm!(ps, ps.selecteds);
+            pe.onConfirm!(pe, pe.selecteds);
           },
-          child: new Text(PickerLocalizations.of(context).confirmText))
+          child: Text(PickerLocalizations.of(context).confirmText??''))
     ];
 
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return  AlertDialog(
-            title: Text("Select Date Range"),
+            title: const Text("Select Date Range"),
             actions: actions,
             content: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text("Begin:"),
+                  const Text("Begin:"),
                   ps.makePicker(),
                   Text("End:"),
                   pe.makePicker()
@@ -340,7 +340,7 @@ class _MyHomePageState extends State<MyHomePage> {
             stateText = picker.adapter.toString();
           });
         }
-    ).show(_scaffoldKey.currentState);
+    ).show(_scaffoldKey.currentState!);
   }
 
   /// 圆角背景

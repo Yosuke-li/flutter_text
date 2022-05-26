@@ -5,6 +5,7 @@ import 'package:flutter_text/assembly_pack/db_register/register_provider.dart';
 import 'package:flutter_text/model/db_register.dart';
 
 class RegisterTable extends StatefulWidget {
+  @override
   _RegisterTableState createState() => _RegisterTableState();
 }
 
@@ -37,7 +38,7 @@ class _RegisterTableState extends State<RegisterTable> {
         child: RepaintBoundary(
           child: ListView(
             children: userList
-                ?.map(
+                .map(
                   (e) => GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -54,13 +55,13 @@ class _RegisterTableState extends State<RegisterTable> {
                       height: 50,
                       alignment: Alignment.center,
                       child: Text(
-                        'id: ${e.id} 账号: ${e.account} 密码: ${e.password} 创建时间: ${DateTime.fromMillisecondsSinceEpoch(e.createTime)} 更新时间: ${DateTime.fromMillisecondsSinceEpoch(e.updateTime)}',
+                        'id: ${e.id} 账号: ${e.account} 密码: ${e.password} 创建时间: ${DateTime.fromMillisecondsSinceEpoch(e.createTime??0)} 更新时间: ${DateTime.fromMillisecondsSinceEpoch(e.updateTime??0)}',
                         textAlign: TextAlign.center,
                       ),
                     ),
                   ),
                 )
-                ?.toList(),
+                .toList(),
           ),
         ),
       ),

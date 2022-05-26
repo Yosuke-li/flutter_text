@@ -14,7 +14,7 @@ class DioHttpClient {
   factory DioHttpClient.getInstance() => _instance;
 
   Dio getClient(String baseUrl,
-      {BaseOptions newOptions, List<Interceptor> interceptors}) {
+      {BaseOptions? newOptions, List<Interceptor>? interceptors}) {
     final Dio client =
         _mClientMap[baseUrl] ?? _createDioClient(baseUrl, options: newOptions);
     if (interceptors != null) {
@@ -24,13 +24,13 @@ class DioHttpClient {
 
   }
 
-  Dio _createDioClient(String baseUrl, {BaseOptions options}) {
+  Dio _createDioClient(String baseUrl, {BaseOptions? options}) {
     options ??= createOptions(baseUrl);
     return Dio(options);
   }
 
   static BaseOptions createOptions(String baseUrl,
-      {Map<String, dynamic> headers, Map<String, dynamic> queryParameters}) {
+      {Map<String, dynamic>? headers, Map<String, dynamic>? queryParameters}) {
     return BaseOptions(
       connectTimeout: _DEFAULT_CONNECT_TIMEOUT,
       sendTimeout: _DEFAULT_SEND_TIMEOUT,

@@ -18,7 +18,7 @@ class PostgresUser {
   static String columnCreateTime = 'createTime';
   static String columnUpdateTime = 'updateTime';
 
-  static PostgreSQLConnection connection;
+  static late PostgreSQLConnection connection;
 
   static Future<void> init() async {
     connection = PostgreSQLConnection(
@@ -54,7 +54,7 @@ class PostgresUser {
     }
     final List<Map<String, Map<String, dynamic>>> result = await connection
         .mappedResultsQuery('SELECT * FROM $name order by $columnId ASC');
-    return result?.length ?? 0;
+    return result.length;
   }
 
   //添加数据
@@ -68,7 +68,7 @@ class PostgresUser {
     return res;
   }
 
-  static Future<User> checkUser(User user) async {
+  static Future<User?> checkUser(User user) async {
     if (connection.isClosed) {
       await init();
     }
@@ -89,7 +89,7 @@ class PostgresUser {
   }
 
   //通过id查找user
-  static Future<User> getOneWithId(int id) async {
+  static Future<User?> getOneWithId(int id) async {
     if (connection.isClosed) {
       await init();
     }

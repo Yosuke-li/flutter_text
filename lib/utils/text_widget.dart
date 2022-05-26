@@ -3,24 +3,24 @@ part of 'toast_utils.dart';
 class _TextToast extends StatefulWidget {
   final String text;
 
-  final Color contentBackgroundColor;
-  final Alignment align;
-  final Widget preIcon;
-  final Widget suffixIcon;
-  final TextStyle textStyle;
-  final EdgeInsetsGeometry contentPadding;
-  final BorderRadiusGeometry borderRadius;
+  final Color? contentBackgroundColor;
+  final Alignment? align;
+  final Widget? preIcon;
+  final Widget? suffixIcon;
+  final TextStyle? textStyle;
+  final EdgeInsetsGeometry? contentPadding;
+  final BorderRadiusGeometry? borderRadius;
 
   const _TextToast(
-      {Key key,
-      @required this.text,
-      this.contentBackgroundColor,
-      this.align,
-      this.preIcon,
-      this.suffixIcon,
-      this.textStyle,
-      this.contentPadding,
-      this.borderRadius})
+      {Key? key,
+        required this.text,
+        this.contentBackgroundColor,
+        this.align,
+        this.preIcon,
+        this.suffixIcon,
+        this.textStyle,
+        this.contentPadding,
+        this.borderRadius})
       : super(key: key);
 
   @override
@@ -31,7 +31,7 @@ class _TextToastState extends State<_TextToast> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: widget.align,
+      alignment: widget.align ?? Alignment.center,
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return Container(

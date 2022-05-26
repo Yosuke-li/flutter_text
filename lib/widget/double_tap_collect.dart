@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 /// 双击：点赞，双击后再次单击也是增加点赞爱心
 class TikTokVideoGesture extends StatefulWidget {
   const TikTokVideoGesture({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.onAddFavorite,
     this.onSingleTap,
   }) : super(key: key);
 
-  final Function onAddFavorite;
-  final Function onSingleTap;
+  final Function? onAddFavorite;
+  final Function? onSingleTap;
   final Widget child;
 
   @override
@@ -27,7 +27,7 @@ class _TikTokVideoGestureState extends State<TikTokVideoGesture> {
 
   // 内部转换坐标点
   Offset _p(Offset p) {
-    RenderBox getBox = _key.currentContext.findRenderObject();
+    RenderBox getBox = _key.currentContext?.findRenderObject() as RenderBox;
     return getBox.globalToLocal(p);
   }
 
@@ -35,7 +35,7 @@ class _TikTokVideoGestureState extends State<TikTokVideoGesture> {
 
   bool canAddFavorite = false;
   bool justAddFavorite = false;
-  Timer timer;
+  Timer? timer;
 
   @override
   Widget build(BuildContext context) {
@@ -92,12 +92,12 @@ class _TikTokVideoGestureState extends State<TikTokVideoGesture> {
 }
 
 class TikTokFavoriteAnimationIcon extends StatefulWidget {
-  final Offset position;
+  final Offset? position;
   final double size;
-  final Function onAnimationComplete;
+  final Function? onAnimationComplete;
 
   const TikTokFavoriteAnimationIcon({
-    Key key,
+    Key? key,
     this.onAnimationComplete,
     this.position,
     this.size: 50,
@@ -110,7 +110,7 @@ class TikTokFavoriteAnimationIcon extends StatefulWidget {
 
 class _TikTokFavoriteAnimationIconState
     extends State<TikTokFavoriteAnimationIcon> with TickerProviderStateMixin {
-  AnimationController _animationController;
+  AnimationController? _animationController;
   @override
   void dispose() {
     _animationController?.dispose();
@@ -132,7 +132,7 @@ class _TikTokFavoriteAnimationIconState
       vsync: this,
     );
 
-    _animationController.addListener(() {
+    _animationController?.addListener(() {
       setState(() {});
     });
     startAnimation();
@@ -140,36 +140,36 @@ class _TikTokFavoriteAnimationIconState
   }
 
   void startAnimation() async {
-    await _animationController.forward();
+    await _animationController?.forward();
     widget.onAnimationComplete?.call();
   }
 
   double rotate = pi / 10.0 * (2 * Random().nextDouble() - 1);
 
-  double get value => _animationController?.value;
+  double? get value => _animationController?.value;
 
   double appearDuration = 0.1;
   double dismissDuration = 0.8;
 
   double get opa {
-    if (value < appearDuration) {
-      return 0.99 / appearDuration * value;
+    if (value! < appearDuration) {
+      return 0.99 / appearDuration * value!;
     }
-    if (value < dismissDuration) {
+    if (value! < dismissDuration) {
       return 0.99;
     }
-    var res = 0.99 - (value - dismissDuration) / (1 - dismissDuration);
+    var res = 0.99 - (value! - dismissDuration) / (1 - dismissDuration);
     return res < 0 ? 0 : res;
   }
 
   double get scale {
-    if (value < appearDuration) {
-      return 1 + appearDuration - value;
+    if (value! < appearDuration) {
+      return 1 + appearDuration - value!;
     }
-    if (value < dismissDuration) {
+    if (value! < dismissDuration) {
       return 1;
     }
-    return (value - dismissDuration) / (1 - dismissDuration) + 1;
+    return (value! - dismissDuration) / (1 - dismissDuration) + 1;
   }
 
   @override
@@ -204,8 +204,8 @@ class _TikTokFavoriteAnimationIconState
     return widget.position == null
         ? Container()
         : Positioned(
-      left: widget.position.dx - widget.size / 2,
-      top: widget.position.dy - widget.size / 2,
+      left: widget.position?.dx??0 - widget.size / 2,
+      top: widget.position?.dy??0 - widget.size / 2,
       child: body,
     );
   }

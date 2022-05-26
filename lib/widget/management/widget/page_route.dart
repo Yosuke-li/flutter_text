@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class OpaqueMaterialPageRoute<T> extends PageRoute<T>
     with MaterialRouteTransitionMixin<T> {
   OpaqueMaterialPageRoute({
-    @required this.builder,
+    required this.builder,
     this.maintainState = true,
   }) : super();
 

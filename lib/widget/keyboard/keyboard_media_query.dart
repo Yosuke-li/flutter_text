@@ -5,7 +5,7 @@ import 'keyboard_manager.dart';
 class KeyboardMediaQuery extends StatefulWidget {
   final Widget child;
 
-  KeyboardMediaQuery({this.child}) : assert(child != null);
+  KeyboardMediaQuery({required this.child}) : assert(child != null);
 
   @override
   State<StatefulWidget> createState() => KeyboardMediaQueryState();
@@ -22,7 +22,7 @@ class KeyboardMediaQueryState extends State<KeyboardMediaQuery> {
   }
 
   void onUpdateHeight(){
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance?.addPostFrameCallback((_){
       setState(()=>{});
     });
   }

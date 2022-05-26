@@ -6,9 +6,9 @@ import 'notification_model.dart';
 
 //单例
 class NotificationCenterListener {
-  static NotificationCenterListener _notificationCenterListener;
+  static NotificationCenterListener? _notificationCenterListener;
 
-  static StreamController<NotificationModel> _controller;
+  static late StreamController<NotificationModel> _controller;
 
   factory NotificationCenterListener() =>
       _notificationCenterListener ?? NotificationCenterListener._init();
@@ -22,15 +22,15 @@ class NotificationCenterListener {
     final CancelCallBack callBack =
         _controller.stream.listen((NotificationModel event) {
       NotificationHelper.initEvent(event);
-    })?.cancel;
+    }).cancel;
     return callBack;
   }
 
   static void setListener(NotificationModel model) {
-    _controller?.add(model);
+    _controller.add(model);
   }
 
   static void dispose() {
-    _controller?.close();
+    _controller.close();
   }
 }

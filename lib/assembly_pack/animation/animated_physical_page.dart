@@ -32,7 +32,7 @@ class _AnimatedPhysicalState extends State<AnimatedPhysicalPage> {
           animateShadowColor: true,
           elevation: _elevation,
           shape: BoxShape.circle,
-          shadowColor: Colors.blue[300],
+          shadowColor: Colors.blue.shade300,
           curve: Curves.easeInOutCubic,
           color: Colors.blue,
         ),

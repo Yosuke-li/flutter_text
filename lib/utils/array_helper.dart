@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 //数组有关的方法
 class ArrayHelper {
-  static T get<T>(List<T> list, int index) {
-    assert(index != null);
+  static T? get<T>(List<T>? list, int index) {
     if (list != null && list.isNotEmpty == true) {
       return list[index];
     } else {
@@ -17,8 +16,8 @@ class ArrayHelper {
 
   //去重_泛型
   static List<T> unique<T>(
-      {@required List<T> listData, @required dynamic Function(T value) getKey}) {
-    if (listData?.isNotEmpty == true) {
+      {required List<T> listData, required dynamic Function(T value) getKey}) {
+    if (listData.isNotEmpty == true) {
       final Map<dynamic, List<T>> maps = Map<dynamic, List<T>>.fromIterable(
           listData,
           key: (dynamic key) => getKey(key as T),
@@ -26,11 +25,10 @@ class ArrayHelper {
               .where((T element) => getKey(element) == getKey(item))
               .toList());
       final List<T> list = maps.values
-          ?.map((List<T> e) => e.isNotEmpty == true ? e.first : null)
-          ?.toList();
-      return list..removeWhere((T element) => element == null);
-    } else {
+          .map((List<T> e) => e.first)
+          .toList();
+      return list..removeWhere((T? element) => element == null);
+    } else
       return <T>[];
-    }
   }
 }

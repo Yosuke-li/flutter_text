@@ -7,22 +7,15 @@
 /// type : 'room'
 
 class MessageModel {
-  int id;
-  int toId;
-  String msg;
-  String sendImage;
-  String topic;
-  String type;
-  int time;
+  int? id;
+  int? toId;
+  String? msg;
+  String? sendImage;
+  String? topic;
+  String? type;
+  int? time;
 
-  MessageModel({
-      int id,
-      int toId, 
-      String msg, 
-      String sendImage,
-      String topic,
-      int time,
-      String type}){
+  MessageModel(){
     id = id;
     toId = toId;
     msg = msg;

@@ -25,15 +25,15 @@ class ListenStateTest {
   }
 
   static CancelCallBack listenNum(
-      {@required Function(ListenTestModel test) listenFunc}) {
+      {required Function(ListenTestModel test) listenFunc}) {
     final CancelCallBack callBack =
         _controller.stream.listen((ListenTestModel event) {
       listenFunc(event);
-    })?.cancel;
+    }).cancel;
     return callBack;
   }
 }
 
 class ListenTestModel {
-  int num;
+  late int num;
 }

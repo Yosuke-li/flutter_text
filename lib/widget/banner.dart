@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 class WidgetBanner extends StatefulWidget {
   final List<ImageModel> _images;
   final double height;
-  final ValueChanged<int> onTap;
+  final ValueChanged<int>? onTap;
   final Curve curve;
   final bool isShowIndicator;
 
@@ -26,9 +26,9 @@ class WidgetBanner extends StatefulWidget {
 }
 
 class _WidgetBannerState extends State<WidgetBanner> {
-  PageController _pageController;
-  int _currentIndex;
-  Timer _timer;
+  late PageController _pageController;
+  late int _currentIndex;
+  Timer? _timer;
 
   //初始化
   @override
@@ -109,7 +109,7 @@ class _WidgetBannerState extends State<WidgetBanner> {
                 }
               },
               child: CustomNetWorkImage(
-                widget._images[index % length].image,
+                widget._images[index % length].image??'',
                 fit: BoxFit.cover,
               ),
             );

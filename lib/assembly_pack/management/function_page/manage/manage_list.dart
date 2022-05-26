@@ -34,6 +34,7 @@ class _ManageListPageState extends State<ManageListPage> {
       child: Column(
         children: [
           CommonForm<SqlUser>(
+            height: 300,
             columns: [
               FormColumn<SqlUser>(
                   title: const Text('id'),

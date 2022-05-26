@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 
 class IntroHelper {
   static Map smartGetPosition({
-    @required Size size,
-    @required Size screenSize,
-    @required Offset offset,
+    required Size size,
+    required Size screenSize,
+    required Offset offset,
   }) =>
       _smartGetPosition(size: size, screenSize: screenSize, offset: offset);
 
   static Map _smartGetPosition({
-    @required Size size,
-    @required Size screenSize,
-    @required Offset offset,
+    required Size size,
+    required Size screenSize,
+    required Offset offset,
   }) {
     double height = size.height;
     double width = size.width;

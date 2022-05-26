@@ -11,7 +11,7 @@ import 'editor.dart';
 class Tool extends StatefulWidget {
   final EditorController controller;
 
-  const Tool({Key key, this.controller}) : super(key: key);
+  const Tool({Key? key, required this.controller}) : super(key: key);
 
   @override
   _ToolState createState() => _ToolState();
@@ -31,7 +31,7 @@ class _ToolState extends State<Tool> {
     widget.controller.open(
         key: ConstViewKey.promotionalInfo,
         tab: '推广信息',
-        contentIfAbsent: (_) => null);
+        contentIfAbsent: (_) => Container());
   }
 
   void _manageListPage() {
@@ -49,129 +49,92 @@ class _ToolState extends State<Tool> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Material(
-            type: MaterialType.transparency,
-            child: buildToolGroup(
-              groupName: '首页',
-              callback: () {
-                NavigatorUtils.pop(context);
-              },
-              icon: Container(
-                width: screenUtil.adaptive(10),
-              ),
-            ),
-          ),
-          Material(
-            type: MaterialType.transparency,
-            child: buildToolGroup(groupName: '管理员管理', groupItems: [
-              _GroupItem('管理员列表', _manageListPage),
-              _GroupItem('管理员部门管理', _handlePromotionalInfoTap)
-            ]),
-          ),
-          Material(
-            type: MaterialType.transparency,
-            child: buildToolGroup(groupName: '审核管理', groupItems: [
-              _GroupItem('审核记录', _handlePromotionalInfoTap),
-              _GroupItem('审核', _handlePromotionalInfoTap),
-              _GroupItem('我的审核记录', _handlePromotionalInfoTap),
-              _GroupItem('复核', _handlePromotionalInfoTap),
-              _GroupItem('我的复核记录', _handlePromotionalInfoTap),
-              _GroupItem('授权管理', _handlePromotionalInfoTap)
-            ]),
-          ),
-          Material(
-            type: MaterialType.transparency,
-            child: buildToolGroup(
-                groupName: '产品规则',
-                groupItems: [_GroupItem('产品规则', _handlePromotionalInfoTap)]),
-          ),
-          Material(
-            type: MaterialType.transparency,
-            child: buildToolGroup(
-                groupName: '系统管理',
-                groupItems: [_GroupItem('用户日志上传', _handlePromotionalInfoTap)]),
-          ),
-          Material(
-            type: MaterialType.transparency,
-            child: buildToolGroup(
-                groupName: '推广信息',
-                groupItems: [_GroupItem('推广信息', _handlePromotionalInfoTap)]),
-          ),
-          Material(
-            type: MaterialType.transparency,
-            child: buildToolGroup(
-                groupName: '订单信息',
-                groupItems: [_GroupItem('订单信息', _handlePromotionalInfoTap)]),
-          ),
-          Material(
-            type: MaterialType.transparency,
-            child: buildToolGroup(
-                groupName: '发票信息',
-                groupItems: [_GroupItem('发票信息', _handlePromotionalInfoTap)]),
-          ),
+
         ],
       ),
     );
   }
 
+
   Widget buildToolGroup(
-      {String groupName,
-      List<_GroupItem> groupItems,
-      VoidCallback callback,
-      Widget icon}) {
-    assert(groupItems?.isNotEmpty == true || callback != null);
+      {required ViewKey key,
+        required String groupName,
+        List<_GroupItem>? groupItems,
+        VoidCallback? callback,
+        VoidCallback? longPressCallBack,
+        Widget? icon}) {
     return CustomExpansionTile(
       value: expanded[groupName] == true,
       customHead: (_, animation) => InkWell(
-        child: Padding(
-          padding: const EdgeInsets.all(4),
+        child: SizedBox(
+          width: 60,
+          height: 55,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
             children: [
-              icon ??
-                  Transform.rotate(
-                    angle: math.pi * (1.5 + animation.value / 2),
-                    child: const Icon(
-                      Icons.expand_more,
-                      size: 16,
-                    ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 4, left: 4, bottom: 4),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      icon ??
+                          Transform.rotate(
+                            angle: math.pi * (1.5 + animation.value / 2),
+                            child: const Icon(
+                              Icons.expand_more,
+                              size: 16,
+                            ),
+                          ),
+                      if (groupName.isNotEmpty)
+                        Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.only(left: 4),
+                          child: Text(
+                            groupName,
+                            style: const TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                        )
+                    ],
                   ),
-              Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.only(left: 4),
-                child: Text(
-                  groupName,
-                  style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
-              )
+              ),
+              Container(
+                width: 4,
+                color: widget.controller.current?.key == key
+                    ? const Color(0xff50A250)
+                    : const Color(0xff333333),
+              ),
             ],
           ),
         ),
+        onLongPress: () {
+          longPressCallBack?.call();
+        },
         onTap: () {
           if (callback != null) {
-            callback?.call();
+            callback.call();
           } else {
             if (expanded[groupName] == null) {
               expanded[groupName] = true;
             } else {
-              expanded[groupName] = !expanded[groupName];
+              expanded[groupName] = !expanded[groupName]!;
             }
           }
           setState(() {});
         },
       ),
       children: groupItems
-              ?.map((e) => InkWell(
-                    onTap: e.callback,
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0).copyWith(left: 32),
-                      alignment: Alignment.centerLeft,
-                      child: Text(e.title),
-                    ),
-                  ))
-              ?.toList(growable: false) ??
+          ?.map((e) => InkWell(
+        onTap: e.callback,
+        child: Container(
+          padding: const EdgeInsets.all(8.0).copyWith(left: 32),
+          alignment: Alignment.centerLeft,
+          child: Text(e.title),
+        ),
+      ))
+          .toList(growable: false) ??
           [],
     );
   }

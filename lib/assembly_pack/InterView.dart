@@ -7,10 +7,10 @@ class InterViewPage extends StatefulWidget {
 }
 
 Rect axisAlignedBoundingBox(Quad quad) {
-  double xMin;
-  double xMax;
-  double yMin;
-  double yMax;
+  double? xMin;
+  double? xMax;
+  double? yMin;
+  double? yMax;
   for (final Vector3 point in <Vector3>[
     quad.point0,
     quad.point1,
@@ -30,7 +30,7 @@ Rect axisAlignedBoundingBox(Quad quad) {
       yMax = point.y;
     }
   }
-  return Rect.fromLTRB(xMin, yMin, xMax, yMax);
+  return Rect.fromLTRB(xMin??0, yMin??0, xMax??0, yMax??0);
 }
 
 class _InterViewState extends State<InterViewPage> {
@@ -39,11 +39,11 @@ class _InterViewState extends State<InterViewPage> {
   static const double _cellWidth = 200.0;
   static const double _cellHeight = 200.0;
 
-  Quad _cachedViewport;
-  int _firstVisibleColumn;
-  int _firstVisibleRow;
-  int _lastVisibleColumn;
-  int _lastVisibleRow;
+  Quad? _cachedViewport;
+  int? _firstVisibleColumn;
+  int? _firstVisibleRow;
+  int? _lastVisibleColumn;
+  int? _lastVisibleRow;
 
   @override
   void initState() {
@@ -60,10 +60,10 @@ class _InterViewState extends State<InterViewPage> {
       _lastVisibleRow = (aabb.bottom / _cellHeight).floor();
       _lastVisibleColumn = (aabb.right / _cellWidth).floor();
     }
-    return row >= _firstVisibleRow &&
-        row <= _lastVisibleRow &&
-        column >= _firstVisibleColumn &&
-        column <= _lastVisibleColumn;
+    return row >= _firstVisibleRow! &&
+        row <= _lastVisibleRow! &&
+        column >= _firstVisibleColumn! &&
+        column <= _lastVisibleColumn!;
   }
 
   @override

@@ -5,9 +5,9 @@ class ChatMsgConduit {
   static List<MqttReceivedMessage> msgList = <MqttReceivedMessage>[];
 
   static void listener() {
-    ChatHelper.client.updates
-        .listen((List<MqttReceivedMessage<MqttMessage>> event) {
-      final MqttPublishMessage m = event[0].payload;
+    ChatHelper.client?.updates
+        ?.listen((List<MqttReceivedMessage<MqttMessage>> event) {
+      final MqttPublishMessage m = event[0].payload as MqttPublishMessage;
       final String message =
           MqttPublishPayload.bytesToStringAsString(m.payload.message);
       msgSendCenter(event[0]);
@@ -31,6 +31,6 @@ class ChatMsgConduit {
     final MqttClientPayloadBuilder builder = MqttClientPayloadBuilder();
     builder.addUTF8String(msg);
     ChatHelper.client
-        .publishMessage(topic, MqttQos.exactlyOnce, builder.payload);
+        ?.publishMessage(topic, MqttQos.exactlyOnce, builder.payload!);
   }
 }

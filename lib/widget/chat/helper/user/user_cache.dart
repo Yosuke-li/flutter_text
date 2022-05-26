@@ -14,15 +14,15 @@ class UserCache implements TestCache<User> {
   Future<void> deleteCache(int id) async {
     final List<User> allCache = await getAllCache();
     allCache.removeWhere((User element) => element.id == id);
-    LocateStorage.setStringWithExpire(_key + '${GlobalStore.user.id}',
+    LocateStorage.setStringWithExpire(_key + '${GlobalStore.user?.id}',
         jsonEncode(allCache), const Duration(days: 1));
   }
 
   @override
   Future<List<User>> getAllCache() async {
     List<User> result = <User>[];
-    final String json =
-        LocateStorage.getStringWithExpire(_key + '${GlobalStore.user.id}');
+    final String? json =
+        LocateStorage.getStringWithExpire(_key + '${GlobalStore.user?.id}');
     if (json != null && json.isNotEmpty == true) {
       result = User.listFromJson(jsonDecode(json));
     }
@@ -30,14 +30,17 @@ class UserCache implements TestCache<User> {
   }
 
   @override
-  Future<User> getCache(int id) async {
+  Future<User?> getCache(int id) async {
     final List<User> allCache = await getAllCache();
-    User result;
-    result = allCache.firstWhere((User element) => element.id == id,
-        orElse: () => null);
+    User? result;
+    allCache.forEach((element) {
+      if (element.id == id) {
+        result = element;
+      }
+    });
     if (result == null) {
       result = await PostgresUser.getOneWithId(id);
-      setCache(result);
+      setCache(result!);
     }
     return result;
   }
@@ -47,9 +50,9 @@ class UserCache implements TestCache<User> {
     List<User> newList = <User>[];
     final List<User> allCache = await getAllCache();
     allCache.add(data);
-    newList =
-        ArrayHelper.unique<User>(listData: allCache, getKey: (User item) => item.id);
-    LocateStorage.setStringWithExpire(_key + '${GlobalStore.user.id}',
+    newList = ArrayHelper.unique<User>(
+        listData: allCache, getKey: (User item) => item.id);
+    LocateStorage.setStringWithExpire(_key + '${GlobalStore.user?.id}',
         jsonEncode(newList), const Duration(days: 1));
   }
 }

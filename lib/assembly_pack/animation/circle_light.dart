@@ -10,7 +10,7 @@ class CircleLightPage extends StatefulWidget {
 
 class _CircleLightState extends State<CircleLightPage>
     with SingleTickerProviderStateMixin {
-  AnimationController animation;
+  late AnimationController animation;
 
   @override
   void initState() {

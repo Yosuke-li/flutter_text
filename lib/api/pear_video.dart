@@ -10,7 +10,7 @@ class PearVideoApi {
   final getListData =
       'https://app.pearvideo.com/clt/jsp/v2/getCategoryConts.jsp'; //获取该类别下的数据
   final getContentUrl = 'https://app.pearvideo.com/clt/jsp/v2/content.jsp';//获取详情
-  BaseOptions baseOptions;
+  late BaseOptions baseOptions;
 
   Future getPearVideoList() async {
     final headers = await getHeaders();
@@ -22,7 +22,7 @@ class PearVideoApi {
       List list = response.data['dataList'][0]['contList'];
       _contList = list.map((e) {
         cont = ContList.fromJson(e);
-        cont.nodeInfo = NodeInfo.fromJson(cont.mNodeInfo);
+        cont.nodeInfo = NodeInfo.fromJson(cont.mNodeInfo as Map<String, dynamic>);
         return cont;
       }).toList();
       return _contList;
@@ -62,15 +62,15 @@ class PearVideoApi {
       final List list = response.data['hotList'];
       _hotList = list.map((e) {
         hot = HotList.fromJson(e);
-        hot.nodeInfo = NodeInfo.fromJson(hot.mNodeInfo);
+        hot.nodeInfo = NodeInfo.fromJson(hot.mNodeInfo as Map<String, dynamic>);
         return hot;
       }).toList();
 
-      List<Future<Function>> updateList = []; //强制等待
-      _hotList.map((e) async =>
+      List<Future<Function?>> updateList = []; //强制等待
+      _hotList.map((el) async =>
         updateList.add((e) async {
-          e.videos = await getContentDataList(e.contId);
-        }(e)
+           e.videos = await getContentDataList(el.contId!);
+        }(el)
       )).toList();
       await Future.wait(updateList);
 

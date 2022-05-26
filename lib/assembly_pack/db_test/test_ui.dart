@@ -46,13 +46,13 @@ class _TestDbState extends State<TestDb> {
         child: RepaintBoundary(
           child: ListView(
             children: userList
-                ?.map(
+                .map(
                   (e) => GestureDetector(
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute<bool>(
-                              builder: (BuildContext context) => TestAdd(e))).then((bool value) {
+                              builder: (BuildContext context) => TestAdd(e))).then((bool? value) {
                         if (value == true) {
                           getUserList();
                         }
@@ -65,7 +65,7 @@ class _TestDbState extends State<TestDb> {
                     ),
                   ),
                 )
-                ?.toList(),
+                .toList(),
           ),
         ),
       ),
@@ -73,13 +73,13 @@ class _TestDbState extends State<TestDb> {
         onPressed: () {
           Navigator.push(context,
                   MaterialPageRoute<bool>(builder: (BuildContext context) => TestAdd(SqlUser())))
-              .then((bool value) {
+              .then((bool? value) {
             if (value == true) {
               getUserList();
             }
           });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

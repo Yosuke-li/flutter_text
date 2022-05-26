@@ -9,9 +9,9 @@ import 'notification_model.dart';
 
 
 class NotificationHelper {
-  static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  static late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-  static BuildContext _context;
+  static late BuildContext _context;
 
   //初始化
   static void init(BuildContext context) {
@@ -25,15 +25,17 @@ class NotificationHelper {
   }
 
   //触发相应的事件
-  static Future<void> _onSelectNotification(String payload) async {
-    final NotificationModel event = NotificationModel.fromJson(jsonDecode(payload));
-    if (event.type == NotificationType.Message.enumToString) {
-      ToastUtils.showToast(msg: event.msg);
-      return;
-    } else if (event.type == NotificationType.SelfChat.enumToString) {
-      NavigatorUtils.getXOfPush(_context, ChatRoomPage(),
-          arguments: {'topic': event.title});
-      return;
+  static Future<void> _onSelectNotification(String? payload) async {
+    if (payload != null) {
+      final NotificationModel event = NotificationModel.fromJson(jsonDecode(payload));
+      if (event.type == NotificationType.Message.enumToString) {
+        ToastUtils.showToast(msg: event.msg??'');
+        return;
+      } else if (event.type == NotificationType.SelfChat.enumToString) {
+        NavigatorUtils.getXOfPush(_context, ChatRoomPage(),
+            arguments: {'topic': event.title});
+        return;
+      }
     }
   }
 
@@ -45,7 +47,7 @@ class NotificationHelper {
     const IOSNotificationDetails iOS =  IOSNotificationDetails();
     const NotificationDetails platform = NotificationDetails(android: android, iOS: iOS);
     await flutterLocalNotificationsPlugin.show(
-        event.id, event.title, event.msg, platform,
+        event.id??0, event.title, event.msg, platform,
         payload: jsonEncode(event));
   }
 }

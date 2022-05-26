@@ -13,9 +13,9 @@ class CandleChartsPage extends StatefulWidget {
 
 class _CandleChartsState extends State<CandleChartsPage> {
 
-  bool _enableSolidCandle;
-  bool _toggleVisibility;
-  TrackballBehavior _trackballBehavior;
+  bool? _enableSolidCandle;
+  bool? _toggleVisibility;
+  TrackballBehavior? _trackballBehavior;
 
   @override
   Widget build(BuildContext context) {

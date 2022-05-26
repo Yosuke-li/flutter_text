@@ -1,33 +1,33 @@
 //私人
 class ScanBookPModel {
-  String code;
-  String isbn;
-  String splitIsbn;
-  String name;
-  String englishName;
-  String title;
-  String seriesName;
-  int copiesCount;
-  String cip;
-  String clc;
-  String author;
-  String introduction;
-  String content;
-  String publisher;
-  String publishingTime;
-  String publishingAddress;
-  String edition;
-  String print;
-  String score;
-  String translate;
-  String editor;
-  String illustrator;
-  String pageCount;
-  String folio;
-  String size;
-  String weight;
-  String price;
-  String image;
+  String? code;
+  String? isbn;
+  String? splitIsbn;
+  String? name;
+  String? englishName;
+  String? title;
+  String? seriesName;
+  int? copiesCount;
+  String? cip;
+  String? clc;
+  String? author;
+  String? introduction;
+  String? content;
+  String? publisher;
+  String? publishingTime;
+  String? publishingAddress;
+  String? edition;
+  String? print;
+  String? score;
+  String? translate;
+  String? editor;
+  String? illustrator;
+  String? pageCount;
+  String? folio;
+  String? size;
+  String? weight;
+  String? price;
+  String? image;
 
   ScanBookPModel({
     this.print,
@@ -93,25 +93,25 @@ class ScanBookPModel {
 
 //阿里
 class ScanBookAModel {
-  String title;
-  String subtitle;
-  String pic;
-  String author;
-  String summary;
-  String publisher;
-  String pubplace;
-  String pubdate;
-  int page;
-  String price;
-  String binding;
-  String isbn;
-  String isbn10;
-  String keyword;
-  String edition;
-  String impression;
-  String language;
-  String format;
-  String classA;
+  String? title;
+  String? subtitle;
+  String? pic;
+  String? author;
+  String? summary;
+  String? publisher;
+  String? pubplace;
+  String? pubdate;
+  int? page;
+  String? price;
+  String? binding;
+  String? isbn;
+  String? isbn10;
+  String? keyword;
+  String? edition;
+  String? impression;
+  String? language;
+  String? format;
+  String? classA;
 
   ScanBookAModel({
     this.title,

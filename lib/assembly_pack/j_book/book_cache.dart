@@ -5,12 +5,12 @@ import 'package:flutter_text/utils/array_helper.dart';
 import 'package:flutter_text/utils/datetime_utils.dart';
 
 class BookModel {
-  int id;
-  String bookPath;
-  int index;
-  int updateTime;
-  String title;
-  String coverImage;
+  int? id;
+  String? bookPath;
+  int? index;
+  int? updateTime;
+  String? title;
+  String? coverImage;
 
   BookModel({this.bookPath, this.index, this.id, this.title, this.coverImage, this.updateTime});
 
@@ -53,7 +53,7 @@ class BookCache {
   static const String _key = 'book_cache';
 
   static Future<void> clear() async {
-    final String hasKey = LocateStorage.getOneKey(_key);
+    final String? hasKey = LocateStorage.getOneKey(_key);
     LocateStorage.clean(key: hasKey);
   }
 
@@ -66,7 +66,7 @@ class BookCache {
 
   static Future<List<BookModel>> getAllCache() async {
     List<BookModel> result = <BookModel>[];
-    final String json =
+    final String? json =
     LocateStorage.getString(_key);
     print(json);
     if (json != null && json.isNotEmpty == true) {
@@ -75,11 +75,11 @@ class BookCache {
     return result;
   }
 
-  static Future<BookModel> getCache(String title) async {
+  static Future<BookModel?> getCache(String title) async {
     final List<BookModel> allCache = await getAllCache();
-    BookModel result;
+    BookModel? result;
     for (int i = 0; i<allCache.length; i++) {
-      if (ArrayHelper.get(allCache, i).title == title) {
+      if (ArrayHelper.get(allCache, i)?.title == title) {
         result = ArrayHelper.get(allCache, i);
         break;
       }
@@ -96,15 +96,17 @@ class BookCache {
         jsonEncode(newList));
   }
 
-  static Future<void> updateIndex({int id, int index}) async {
+  static Future<void> updateIndex({int? id, int? index}) async {
     List<BookModel> newList = <BookModel>[];
     final List<BookModel> allCache = await getAllCache();
-    final BookModel book = allCache.firstWhere((BookModel element) => element.id == id, orElse: () => null);
-    book.index = index;
-    book.updateTime = DateTimeHelper.getLocalTimeStamp();
-    allCache.add(book);
-    newList = ArrayHelper.unique(listData: allCache, getKey: (BookModel model) => model.id);
-    LocateStorage.setString(_key ,
-        jsonEncode(newList));
+    final BookModel? book = allCache.firstWhere((BookModel element) => element.id == id);
+    if (book != null) {
+      book.index = index;
+      book.updateTime = DateTimeHelper.getLocalTimeStamp();
+      allCache.add(book);
+      newList = ArrayHelper.unique(listData: allCache, getKey: (BookModel model) => model.id);
+      LocateStorage.setString(_key ,
+          jsonEncode(newList));
+    }
   }
 }

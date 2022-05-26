@@ -8,7 +8,7 @@ class LoginVideoPage extends StatefulWidget {
 }
 
 class LoginVideoPageState extends State<LoginVideoPage> {
-  VideoPlayerController _controller;
+  late VideoPlayerController _controller;
 
 //  url  https://storage.googleapis.com/coverr-main/mp4%2FBlue%20Joy.mp4
 //  https://storage.googleapis.com/coverr-main/mp4%2Fcoverr-cat-near-girl-1578597074865.mp4

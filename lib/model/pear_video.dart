@@ -1,7 +1,7 @@
 class Category {
-  String categoryId;
-  String name;
-  String color;
+  String? categoryId;
+  String? name;
+  String? color;
 
   Category({
     this.name,
@@ -17,12 +17,12 @@ class Category {
 }
 
 class CategoryList {
-  String resultCode;
-  String resultMsg;
-  String reqId;
-  String systemTime;
-  List mcategoryList;
-  List<Category> categoryList;
+  String? resultCode;
+  String? resultMsg;
+  String? reqId;
+  String? systemTime;
+  List? mcategoryList;
+  List<Category>? categoryList;
 
   CategoryList({
     this.categoryList,
@@ -43,24 +43,24 @@ class CategoryList {
 }
 
 class ContList {
-  String contId;
-  String name;
-  String pic;
-  String link;
-  String linkType;
-  String cornerLabel;
-  String cornerLabelDesc;
-  String forwordType;
-  String videoType;
-  String duration;
-  String liveStatus;
-  String liveStartTime;
-  String praiseTimes;
-  String adExpMonitorUrl;
-  String coverVideo;
-  Map mNodeInfo;
+  String? contId;
+  String? name;
+  String? pic;
+  String? link;
+  String? linkType;
+  String? cornerLabel;
+  String? cornerLabelDesc;
+  String? forwordType;
+  String? videoType;
+  String? duration;
+  String? liveStatus;
+  String? liveStartTime;
+  String? praiseTimes;
+  String? adExpMonitorUrl;
+  String? coverVideo;
+  Map? mNodeInfo;
 
-  NodeInfo nodeInfo;
+  NodeInfo? nodeInfo;
 
   ContList({
     this.contId,
@@ -102,9 +102,9 @@ class ContList {
 }
 
 class NodeInfo{
-  String nodeId;
-  String name;
-  String logoImg;
+  String? nodeId;
+  String? name;
+  String? logoImg;
 
   NodeInfo({
     this.nodeId,
@@ -120,24 +120,24 @@ class NodeInfo{
 }
 
 class HotList {
-  String contId;
-  String name;
-  String pic;
-  String link;
-  String linkType;
-  String cornerLabel;
-  String cornerLabelDesc;
-  String forwordType;
-  String videoType;
-  String duration;
-  String liveStatus;
-  String liveStartTime;
-  String praiseTimes;
-  Map mNodeInfo;
-  Map mVideos;
+  String? contId;
+  String? name;
+  String? pic;
+  String? link;
+  String? linkType;
+  String? cornerLabel;
+  String? cornerLabelDesc;
+  String? forwordType;
+  String? videoType;
+  String? duration;
+  String? liveStatus;
+  String? liveStartTime;
+  String? praiseTimes;
+  Map? mNodeInfo;
+  Map? mVideos;
 
-  NodeInfo nodeInfo;
-  Videos videos;
+  NodeInfo? nodeInfo;
+  Videos? videos;
 
   HotList({
     this.contId,
@@ -181,12 +181,12 @@ class HotList {
 //"fileSize": "5913937",
 //"duration": "117"
 class Videos {
-  String videoId;
-  String url;
-  String tag;
-  String format;
-  String fileSize;
-  String duration;
+  String? videoId;
+  String? url;
+  String? tag;
+  String? format;
+  String? fileSize;
+  String? duration;
 
   Videos({
     this.videoId,

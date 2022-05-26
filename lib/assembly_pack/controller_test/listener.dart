@@ -4,14 +4,14 @@ import 'package:flutter_text/init.dart';
 class ListenerPage extends StatefulWidget {
   Controller controller;
 
-  ListenerPage({this.controller});
+  ListenerPage({required this.controller});
 
   @override
   _ListenerState createState() => _ListenerState();
 }
 
 class _ListenerState extends State<ListenerPage> {
-  DateTime time;
+  late DateTime time;
 
   @override
   void initState() {

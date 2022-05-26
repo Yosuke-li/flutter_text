@@ -8,16 +8,16 @@ class OverlayField<T> extends StatefulWidget {
   List<T> lists;
   OverlayItem<T> child;
   String initValue;
-  OnChange<T> onChange;
+  OnChange<T>? onChange;
   double maxHeight;
-  Decoration decoration;
-  TextStyle textStyle;
+  Decoration? decoration;
+  TextStyle? textStyle;
 
   OverlayField({
-    @required this.lists,
-    @required this.child,
-    @required this.initValue,
-    Key key,
+    required this.lists,
+    required this.child,
+    required this.initValue,
+    Key? key,
     this.maxHeight = 60,
     this.decoration,
     this.textStyle,
@@ -31,11 +31,11 @@ class OverlayField<T> extends StatefulWidget {
 class _OverlayFieldState<T> extends State<OverlayField<T>> {
   final FocusNode _focusNode = FocusNode();
 
-  OverlayEntry _overlayEntry;
+  OverlayEntry? _overlayEntry;
 
   final LayerLink _layerLink = LayerLink();
   bool _hasOverlay = false;
-  TextEditingController _controller;
+  TextEditingController? _controller;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _OverlayFieldState<T> extends State<OverlayField<T>> {
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
         _overlayEntry = _createOverlay();
-        Overlay.of(context)?.insert(_overlayEntry);
+        Overlay.of(context)?.insert(_overlayEntry!);
         _hasOverlay = true;
       } else {
         closeOverlay();
@@ -110,7 +110,7 @@ class _OverlayFieldState<T> extends State<OverlayField<T>> {
 
   void closeOverlay() {
     if (_hasOverlay) {
-      _overlayEntry.remove();
+      _overlayEntry?.remove();
       _focusNode.unfocus();
       setState(() {
         _hasOverlay = false;
@@ -167,7 +167,7 @@ class _OverlayFieldState<T> extends State<OverlayField<T>> {
   @override
   void dispose() {
     if (_overlayEntry != null) {
-      _overlayEntry.dispose();
+      _overlayEntry?.dispose();
     }
 
     _focusNode.removeListener(() {
@@ -177,7 +177,7 @@ class _OverlayFieldState<T> extends State<OverlayField<T>> {
         closeOverlay();
     });
     _focusNode.dispose();
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 }

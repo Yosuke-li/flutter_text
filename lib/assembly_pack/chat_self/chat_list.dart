@@ -38,7 +38,7 @@ class _ChatListState extends State<ChatListWidget> {
           title: const Text('聊天'),
           actions: [
             if (GlobalStore.user == null ||
-                GlobalStore.user.name.isEmpty == true)
+                GlobalStore.user?.name?.isEmpty == true)
               Center(
                 child: Container(
                   margin: const EdgeInsets.only(right: 20),
@@ -46,7 +46,7 @@ class _ChatListState extends State<ChatListWidget> {
                     child: const Text('登陆'),
                     onTap: () {
                       NavigatorUtils.getXOfPush<bool>(context, UserLoginPage())
-                          .then((bool value) {
+                          .then((bool? value) {
                         if (value == true) {
                           getRoom();
                         }
@@ -63,7 +63,7 @@ class _ChatListState extends State<ChatListWidget> {
                     child: const Text('修改'),
                     onTap: () {
                       NavigatorUtils.getXOfPush<bool>(context, UserChangePage())
-                          .then((bool value) {
+                          .then((bool? value) {
                         if (value == true) {
                           getRoom();
                         }
@@ -76,13 +76,12 @@ class _ChatListState extends State<ChatListWidget> {
         ),
         body: SingleChildScrollView(
           child: Column(
-            children: rooms?.map((e) {
+            children: rooms.map((e) {
                   return ChatHeadPage(
                     key: Key(e.hashCode.toString()),
                     topic: e,
                   );
-                })?.toList() ??
-                [],
+                }).toList(),
           ),
         ),
       ),

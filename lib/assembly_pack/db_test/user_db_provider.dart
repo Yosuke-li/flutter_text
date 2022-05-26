@@ -90,7 +90,7 @@ class UserDbProvider extends BaseDbProvider {
     final Database database = await getDataBase();
     final List<Map<String, dynamic>> result =
         await database.rawQuery('select count(*) as counts from $name');
-    return ArrayHelper.get(result, 0)['counts'];
+    return ArrayHelper.get(result, 0)!['counts'];
   }
 
   //获取数据数量

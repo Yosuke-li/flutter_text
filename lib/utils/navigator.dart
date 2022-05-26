@@ -5,19 +5,19 @@ import 'package:flutter_text/widget/animate_router.dart';
 import 'package:get/get.dart';
 
 class NavigatorUtils {
-  static Future<T> pushWidget<T>(
+  static Future<T?> pushWidget<T>(
     BuildContext context,
     Widget widget, {
     bool replaceRoot = false,
-    Duration duration,
+    Duration? duration,
     bool opaque = false,
     bool replaceCurrent = false,
     bool cleanFocus = false,
     bool isAddRoute = true,
-    AnimateType type,
+    AnimateType? type,
   }) {
     if (isAddRoute == true)
-      EventBusHelper.asyncStreamController.add(EventCache()..isRoute = true);
+      EventBusHelper.asyncStreamController?.add(EventCache()..isRoute = true);
     if (cleanFocus == true)
       FocusScope.of(context).unfocus(disposition: UnfocusDisposition.scope);
     if (type != null) {
@@ -36,7 +36,7 @@ class NavigatorUtils {
     );
   }
 
-  static Future<T> pushRoute<T>(
+  static Future<T?> pushRoute<T>(
     BuildContext context,
     PageRoute<T> route, {
     bool replaceRoot = false,
@@ -62,7 +62,7 @@ class NavigatorUtils {
 
   static bool pop(BuildContext context, {dynamic results}) {
     if (Navigator.of(context).canPop()) {
-      EventBusHelper.asyncStreamController.add(EventCache().isRoute = false);
+      EventBusHelper.asyncStreamController?.add(EventCache().isRoute = false);
       Navigator.of(context).pop(results);
       return true;
     } else
@@ -76,7 +76,7 @@ class NavigatorUtils {
   //     settings: const RouteSettings(arguments: {'count': 10}),
   //     ),
   // );
-  static Future<T> getXOfPush<T>(
+  static Future<T?> getXOfPush<T>(
     BuildContext context,
     Widget widget, {
     dynamic arguments,

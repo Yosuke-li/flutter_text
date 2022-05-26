@@ -25,7 +25,7 @@ class SkeletonPage extends StatefulWidget {
 class SkeletonPageState extends State<SkeletonPage> {
   UserDbProvider provider = UserDbProvider();
   List<SqlUser> user = <SqlUser>[];
-  SkeletonManager<SqlUser> skeletonManager;
+  late SkeletonManager<SqlUser> skeletonManager;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class SkeletonPageState extends State<SkeletonPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: user?.map((SqlUser e) {
+      children: user.map((SqlUser e) {
             return SkeletonItem<SqlUser>(
               source: e,
               skeletonManager: skeletonManager,
@@ -85,11 +85,10 @@ class SkeletonPageState extends State<SkeletonPage> {
                   left: screenUtil.adaptive(35),
                   bottom: screenUtil.adaptive(20),
                 ),
-                child: Text(e.name),
+                child: Text(e.name??''),
               ),
             );
-          })?.toList() ??
-          [],
+          }).toList(),
     );
   }
 }

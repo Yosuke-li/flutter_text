@@ -9,7 +9,7 @@ class TestControlPage extends StatefulWidget {
 }
 
 class _TestControlState extends State<TestControlPage> {
-  Controller _controller;
+  late Controller _controller;
 
   @override
   void initState() {

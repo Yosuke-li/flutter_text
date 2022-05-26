@@ -9,7 +9,7 @@ import 'docking_layout.dart';
 
 /// The docking widget.
 class Docking extends StatefulWidget {
-  const Docking({Key key, @required this.layout, this.theme}) : super(key: key);
+  const Docking({Key? key, required this.layout, required this.theme}) : super(key: key);
 
   final DockingLayout layout;
 
@@ -38,12 +38,12 @@ class DockingState extends State<Docking> {
   Widget build(BuildContext context) {
     if (widget.layout.root != null) {
       return _DockingInheritedWidget(
-          state: this, child: _DockingAreaWidget(widget.layout.root, theme: widget.theme));
+          state: this, child: _DockingAreaWidget(widget.layout.root!, theme: widget.theme));
     }
     return Container();
   }
 
-  static DockingState of(BuildContext context) {
+  static DockingState? of(BuildContext context) {
     return context
         .dependOnInheritedWidgetOfExactType<_DockingInheritedWidget>()
         ?.state;
@@ -53,7 +53,7 @@ class DockingState extends State<Docking> {
 /// The [InheritedWidget] for [Docking].
 class _DockingInheritedWidget extends InheritedWidget {
   /// Builds a [_DockingInheritedWidget].
-  _DockingInheritedWidget({@required this.state, @required Widget child})
+  _DockingInheritedWidget({required this.state, required Widget child})
       : super(child: child);
 
   final DockingState state;
@@ -65,7 +65,7 @@ class _DockingInheritedWidget extends InheritedWidget {
 /// Represents a widget for [DockingArea].
 class _DockingAreaWidget extends StatelessWidget {
   ///Builds a [_DockingAreaWidget].
-  const _DockingAreaWidget(this.area, {this.theme});
+  const _DockingAreaWidget(this.area, {required this.theme});
 
   final DockingArea area;
 
@@ -117,18 +117,18 @@ class _DockingItemWidget extends StatefulWidget {
 abstract class _DraggableBuilderState<T extends StatefulWidget>
     extends State<T> {
   Draggable buildDraggable(DockingItem item, Widget child) {
-    String name = item.name != null ? item.name : '';
+    String? name = item.name != null ? item.name : '';
     return Draggable<DockingItem>(
         data: item,
         onDragStarted: () {
           print('onDragStarted');
-          DockingState state = DockingState.of(context);
-          state.dragging = true;
+          DockingState? state = DockingState.of(context);
+          state?.dragging = true;
         },
         onDragCompleted: () {
           print('onDragCompleted');
-          DockingState state = DockingState.of(context);
-          state.dragging = false;
+          DockingState? state = DockingState.of(context);
+          state?.dragging = false;
         },
         onDragEnd: (details) {
           print('onDragEnd');
@@ -137,7 +137,7 @@ abstract class _DraggableBuilderState<T extends StatefulWidget>
           print('onDraggableCanceled');
         },
         child: child,
-        feedback: buildFeedback(name),
+        feedback: buildFeedback(name!),
         dragAnchorStrategy: (Draggable<Object> draggable, BuildContext context,
                 Offset position) =>
             Offset(20, 20));
@@ -166,9 +166,9 @@ class _DockingItemWidgetState
     extends _DraggableBuilderState<_DockingItemWidget> {
   @override
   Widget build(BuildContext context) {
-    String name = widget.item.name != null ? widget.item.name : '';
+    String? name = widget.item.name != null ? widget.item.name : '';
     Widget titleBar = Container(
-        child: Text(name), padding: EdgeInsets.all(4), color: Colors.grey[200]);
+        child: Text(name??''), padding: EdgeInsets.all(4), color: Colors.grey[200]);
 
     Widget content = Container(
         child: Column(children: [
@@ -177,8 +177,8 @@ class _DockingItemWidgetState
         ], crossAxisAlignment: CrossAxisAlignment.stretch),
         decoration: BoxDecoration(border: Border.all()));
 
-    DockingState state = DockingState.of(context);
-    if (state.dragging) {
+    DockingState? state = DockingState.of(context);
+    if (state?.dragging == true) {
       return _DropWidget.item(widget.item, content);
     }
     return content;
@@ -200,8 +200,8 @@ class _DockingTabsWidget extends StatefulWidget {
 /// The [_DockingTabsWidget] state.
 class _DockingTabsWidgetState
     extends _DraggableBuilderState<_DockingTabsWidget> {
-  int lastSelectedTabIndex;
-  TabbedViewController controller;
+  int? lastSelectedTabIndex;
+  TabbedViewController? controller;
 
   @override
   void initState() {
@@ -217,13 +217,13 @@ class _DockingTabsWidgetState
     widget.dockingTabs.forEach((child) {
       tabs.add(TabData(
           value: child,
-          text: child.name != null ? child.name : '',
+          text: child.name??'',
           content: child.widget));
     });
     TabbedViewController controller = TabbedViewController(tabs);
 
     if (lastSelectedTabIndex != null &&
-        lastSelectedTabIndex >= widget.dockingTabs.childrenCount &&
+        (lastSelectedTabIndex ?? 0) >= widget.dockingTabs.childrenCount &&
         widget.dockingTabs.childrenCount > 0) {
       controller.selectedIndex = widget.dockingTabs.childrenCount - 1;
     } else {
@@ -234,12 +234,12 @@ class _DockingTabsWidgetState
         controller: controller,
         draggableTabBuilder: (int tabIndex, TabData tab, Widget tabWidget) =>
             buildDraggable(tab.value as DockingItem, tabWidget),
-        onTabSelection: (int index) {
+        onTabSelection: (int? index) {
           lastSelectedTabIndex = index;
         });
 
-    DockingState state = DockingState.of(context);
-    if (state.dragging) {
+    DockingState? state = DockingState.of(context);
+    if (state?.dragging == true) {
       return _DropWidget.tabs(widget.dockingTabs, content);
     }
     return content;
@@ -261,8 +261,8 @@ class _DropWidget extends StatelessWidget {
 
   static const double _minimalSize = 30;
 
-  final DockingItem item;
-  final DockingTabs tabs;
+  final DockingItem? item;
+  final DockingTabs? tabs;
   final Widget areaContent;
 
   @override
@@ -322,23 +322,23 @@ class _DropWidget extends StatelessWidget {
 }
 
 class _DropAnchorWidget extends StatelessWidget {
-  const _DropAnchorWidget({this.item, this.tabs, @required this.position});
+  const _DropAnchorWidget({this.item, this.tabs, required this.position});
 
-  final DockingItem item;
-  final DockingTabs tabs;
+  final DockingItem? item;
+  final DockingTabs? tabs;
   final DropPosition position;
 
   @override
   Widget build(BuildContext context) {
     return DragTarget<DockingItem>(
         builder: _buildDropWidget,
-        onWillAccept: (DockingItem data) {
+        onWillAccept: (DockingItem? data) {
           if (data != null) {
             if (item != null) {
               return item != data;
             }
             if (tabs != null) {
-              if (tabs.contains(data)) {
+              if (tabs!.contains(data)) {
                 return position != DropPosition.center;
               }
               return true;
@@ -347,21 +347,21 @@ class _DropAnchorWidget extends StatelessWidget {
           return false;
         },
         onAccept: (DockingItem data) {
-          DockingState state = DockingState.of(context);
+          DockingState? state = DockingState.of(context);
           if (item != null) {
-            state.layout.move(
-                draggedItem: data, targetArea: item, dropPosition: position);
+            state?.layout.move(
+                draggedItem: data, targetArea: item as DropArea, dropPosition: position);
           } else if (tabs != null) {
-            state.layout.move(
-                draggedItem: data, targetArea: tabs, dropPosition: position);
+            state?.layout.move(
+                draggedItem: data, targetArea: tabs as DropArea, dropPosition: position);
           }
         });
   }
 
   Widget _buildDropWidget(BuildContext context,
-      List<DockingItem> candidateData, List<dynamic> rejectedData) {
-    Color color;
-    if (candidateData.isNotEmpty) {
+      List<DockingItem?> candidateData, List<dynamic> rejectedData) {
+    Color? color;
+    if (candidateData.isNotEmpty == true) {
       color = Colors.black.withOpacity(.5);
     }
     return Container(color: color);

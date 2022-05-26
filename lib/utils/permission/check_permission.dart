@@ -12,7 +12,7 @@ class PermissionHelper {
 
   //检查位置授权
   static Future<bool> checkLocationPermission(
-      {String textTip, void Function(bool check) onCancel}) async {
+      {String? textTip, void Function(bool check)? onCancel}) async {
     return await checkPermission(
         checkPermission: Permission.locationWhenInUse,
         textTip: textTip,
@@ -21,7 +21,7 @@ class PermissionHelper {
 
   //检查文件or存储授权 IOS没有Storage权限用photos
   static Future<bool> checkStorageOrPhotosPermission(
-      {String textTip, void Function(bool check) onCancel}) async {
+      {String? textTip, void Function(bool check)? onCancel}) async {
     return await checkPermission(
         checkPermission:
             Platform.isIOS ? Permission.photos : Permission.storage,
@@ -30,30 +30,30 @@ class PermissionHelper {
 
   //只检查存储权限 -- 用于Android
   static Future<bool> checkStoragePermission(
-      {String textTip, void Function(bool check) onCancel}) async {
+      {String? textTip, void Function(bool check)? onCancel}) async {
     return await checkPermission(
         checkPermission: Permission.storage, textTip: textTip);
   }
 
   //检查麦克风授权
   static Future<bool> checkMicrophonePermission(
-      {String textTip, void Function(bool check) onCancel}) async {
+      {String? textTip, void Function(bool check)? onCancel}) async {
     return await checkPermission(
         checkPermission: Permission.microphone, textTip: textTip);
   }
 
   //检查照相机授权
   static Future<bool> checkCameraPermission(
-      {String textTip, void Function(bool check) onCancel}) async {
+      {String? textTip, void Function(bool check)? onCancel}) async {
     return await checkPermission(
         checkPermission: Permission.camera, textTip: textTip);
   }
 
   ///通用检查权限函数,使用权限枚举之前需要自行审查平台差异
   static Future<bool> checkPermission(
-      {@required Permission checkPermission,
-      String textTip,
-      void Function(bool check) onCancel}) async {
+      {required Permission checkPermission,
+      String? textTip,
+      void Function(bool check)? onCancel}) async {
     final PermissionStatus status = await checkPermission.request();
     switch (status) {
       case PermissionStatus.granted:
@@ -79,10 +79,10 @@ class PermissionHelper {
   }
 
   static Future<bool> requestPermission(Permission requestPermission,
-      {void Function(bool check) onCancel, String textTip}) async {
+      {void Function(bool check)? onCancel, String? textTip}) async {
     final Map<Permission, PermissionStatus> future =
         await [requestPermission].request();
-    final PermissionStatus status = future[requestPermission];
+    final PermissionStatus status = future[requestPermission]!;
     switch (status) {
       case PermissionStatus.restricted:
         if (!_permissionSet.contains(requestPermission))
@@ -102,7 +102,7 @@ class PermissionHelper {
 
 //安卓
   static Future<void> gotoAndroidPermissionTip(Permission requestPermission,
-      {void Function(bool check) onCancel, String textTip}) async {
+      {void Function(bool check)? onCancel, String? textTip}) async {
     _permissionSet.add(requestPermission);
 
     String permissionTipTitle = '';
@@ -221,7 +221,7 @@ class PermissionHelper {
                                   if (permissionTipTitle == '位置信息') {
                                     onCancel?.call(true);
                                   }
-                                  cancelFunc?.call();
+                                  cancelFunc.call();
                                 },
                                 child: Container(
                                   alignment: Alignment.center,
@@ -244,7 +244,7 @@ class PermissionHelper {
                                   borderRadius: BorderRadius.circular(
                                       screenUtil.adaptive(30)),
                                   onTap: () async {
-                                    cancelFunc?.call();
+                                    cancelFunc.call();
                                     await openAppSettings();
                                   },
                                   child: Container(
@@ -279,13 +279,13 @@ class PermissionHelper {
 
 //ios
   static Future<void> gotoIOSPermissionTip(Permission requestPermission,
-      {void Function(bool check) onCancel}) async {
+      {void Function(bool check)? onCancel}) async {
     _permissionSet.add(requestPermission);
 
     String permissionTipTitle = '';
     String permissionTipComment = '功能中，找到该app，将开关打开。';
     String permissionTipLocation = ''; //定位权限内容
-    Function locationContainer = ({Widget child}) => Container();
+    Function locationContainer = ({Widget? child}) => Container();
     if (requestPermission == Permission.calendar) {
       permissionTipTitle = '日历';
     } else if (requestPermission == Permission.camera) {
@@ -307,7 +307,7 @@ class PermissionHelper {
       permissionTipTitle = '定位';
       permissionTipComment = '功能中打开定位服务，再找到该app，允许使用App期间访问。';
       permissionTipLocation = '服务';
-      locationContainer = ({Widget child}) => Container(
+      locationContainer = ({Widget? child}) => Container(
         margin: EdgeInsets.only(
           left: screenUtil.adaptive(66),
           right: screenUtil.adaptive(60),
@@ -414,7 +414,7 @@ class PermissionHelper {
                                 if (permissionTipTitle == '定位') {
                                   onCancel?.call(true);
                                 }
-                                cancelFunc?.call();
+                                cancelFunc.call();
                               },
                               child: Container(
                                 height: screenUtil.adaptive(135),

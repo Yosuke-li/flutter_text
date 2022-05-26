@@ -11,9 +11,9 @@ class IntroPage extends StatefulWidget {
 }
 
 class _IntroState extends State<IntroPage> {
-  Intro intro;
+  late Intro intro;
 
-  _IntroState() {
+   _IntroState() {
     intro = Intro(
       stepCount: 4,
       maskClosable: true,
@@ -26,7 +26,7 @@ class _IntroState extends State<IntroPage> {
         final Map position = IntroHelper.smartGetPosition(
           screenSize: params.screenSize,
           size: params.size,
-          offset: params.offset,
+          offset: params.offset ?? Offset.zero,
         );
 
         final List<String> texts = [
@@ -79,7 +79,7 @@ class _IntroState extends State<IntroPage> {
                               ),
                             ),
                             onPressed: () {
-                              params.onNext();
+                              params.onNext!();
                             },
                             child: const Text(
                               '下一步',

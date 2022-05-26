@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 
 class CommentText extends StatefulWidget {
-  final String text;
-  final int maxLines;
-  final TextStyle style;
-  final bool expand;
+  final String? text;
+  final int? maxLines;
+  final TextStyle? style;
+  final bool? expand;
 
-  const CommentText({Key key, this.text, this.maxLines, this.style, this.expand}) : super(key: key);
+  const CommentText({Key? key, this.text, this.maxLines, this.style, this.expand}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _CommentTextState(text, maxLines, style, expand);
+    return _CommentTextState(text, maxLines, style, expand ?? false);
   }
 
 }
 
 class _CommentTextState extends State<CommentText> {
-  final String text;
-  final int maxLines;
-  final TextStyle style;
+  final String? text;
+  final int? maxLines;
+  final TextStyle? style;
   bool expand;
 
-  _CommentTextState(this.text, this.maxLines, this.style, this.expand) {
-    expand ??= false;
-  }
+  _CommentTextState(this.text, this.maxLines, this.style, this.expand);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +51,7 @@ class _CommentTextState extends State<CommentText> {
               child: Container(
                 padding: const EdgeInsets.only(top: 2),
                 child: Text(expand ? '收起' : '全文', style: TextStyle(
-                    fontSize: style != null ? style.fontSize : null,
+                    fontSize: style != null ? style?.fontSize : null,
                     color: Colors.blue)),
               ),
             ),

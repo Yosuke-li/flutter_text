@@ -9,8 +9,8 @@ class ScanBook extends StatefulWidget {
 
 class TextState extends State<ScanBook> {
   String barcode = '';
-  ScanBookPModel _scanPBook;        //私人Api
-  ScanBookAModel _scanABook;        //阿里Api
+  late ScanBookPModel _scanPBook;        //私人Api
+  late ScanBookAModel _scanABook;        //阿里Api
 
   @override
   void initState() {

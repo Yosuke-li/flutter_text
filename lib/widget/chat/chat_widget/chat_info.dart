@@ -21,7 +21,7 @@ import '../../image_zoomable.dart';
 class ChatInfoPage extends StatefulWidget {
   String topic;
 
-  ChatInfoPage({@required this.topic});
+  ChatInfoPage({required this.topic});
 
   @override
   _ChatInfoState createState() => _ChatInfoState();
@@ -63,7 +63,7 @@ class _ChatInfoState extends State<ChatInfoPage>
     Future<void>.delayed(const Duration(milliseconds: 500)).then((value) {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
-            _scrollController?.position?.maxScrollExtent,
+            _scrollController.position.maxScrollExtent,
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeOutQuart);
       }
@@ -86,12 +86,11 @@ class _ChatInfoState extends State<ChatInfoPage>
                 child: ListView(
                   controller: _scrollController,
                   shrinkWrap: true,
-                  children: msgs?.map((MessageModel e) {
+                  children: msgs.map((MessageModel e) {
                         return ChatMessage(
                           msg: e,
                         );
-                      })?.toList() ??
-                      [],
+                      }).toList(),
                 ),
               ),
             ),
@@ -158,7 +157,7 @@ class _ChatInfoState extends State<ChatInfoPage>
       isComposer = false;
     });
     final MessageModel model = MessageModel()
-      ..id = GlobalStore.user.id
+      ..id = GlobalStore.user?.id??0
       ..topic = widget.topic
       ..msg = text
       ..type = 'text'
@@ -173,7 +172,7 @@ class _ChatInfoState extends State<ChatInfoPage>
 
 //消息
 class ChatMessage extends StatefulWidget {
-  const ChatMessage({this.msg});
+  const ChatMessage({required this.msg});
 
   final MessageModel msg;
 
@@ -182,7 +181,7 @@ class ChatMessage extends StatefulWidget {
 }
 
 class _ChatMessageState extends State<ChatMessage> {
-  User user = User();
+  User? user = User();
 
   @override
   void initState() {
@@ -197,7 +196,7 @@ class _ChatMessageState extends State<ChatMessage> {
   }
 
   void getUser() async {
-    user = await UserCache().getCache(widget.msg.id);
+    user = await UserCache().getCache(widget.msg.id??0);
     if (mounted) {
       setState(() {});
     }
@@ -229,14 +228,14 @@ class _ChatMessageState extends State<ChatMessage> {
                 Container(
                   margin: const EdgeInsets.only(top: 5.0),
                   child: widget.msg.sendImage != null &&
-                          widget.msg.sendImage.isNotEmpty == true
+                          widget.msg.sendImage?.isNotEmpty == true
                       ? GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => ImageZoomable(
                                   photoList: [
-                                    NetworkImage(widget.msg.sendImage)
+                                    NetworkImage(widget.msg.sendImage??'')
                                   ],
                                   index: 0,
                                 ),
@@ -244,7 +243,7 @@ class _ChatMessageState extends State<ChatMessage> {
                             );
                           },
                           child: Image.network(
-                            widget.msg.sendImage,
+                            widget.msg.sendImage??'',
                             width: 150.0,
                             height: 150.0,
                             fit: BoxFit.fitWidth,
@@ -269,7 +268,7 @@ class _ChatMessageState extends State<ChatMessage> {
               ],
             ),
           ),
-          if (user != null && user.image?.isNotEmpty == true)
+          if (user != null && user?.image?.isNotEmpty == true)
             Container(
               margin: const EdgeInsets.only(left: 16),
               child: CircleAvatar(
@@ -282,7 +281,7 @@ class _ChatMessageState extends State<ChatMessage> {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          if (user != null && user.image?.isNotEmpty == true)
+          if (user != null && user?.image?.isNotEmpty == true)
             Container(
               margin: const EdgeInsets.only(right: 16),
               child: CircleAvatar(
@@ -297,14 +296,14 @@ class _ChatMessageState extends State<ChatMessage> {
                 Container(
                   margin: const EdgeInsets.only(top: 5.0),
                   child: widget.msg.sendImage != null &&
-                          widget.msg.sendImage.isNotEmpty == true
+                          widget.msg.sendImage?.isNotEmpty == true
                       ? GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => ImageZoomable(
                                   photoList: [
-                                    NetworkImage(widget.msg.sendImage)
+                                    NetworkImage(widget.msg.sendImage??'')
                                   ],
                                   index: 0,
                                 ),
@@ -312,7 +311,7 @@ class _ChatMessageState extends State<ChatMessage> {
                             );
                           },
                           child: Image.network(
-                            widget.msg.sendImage,
+                            widget.msg.sendImage??'',
                             width: 150.0,
                             height: 150.0,
                             fit: BoxFit.fitWidth,

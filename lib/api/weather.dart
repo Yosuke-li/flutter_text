@@ -26,9 +26,9 @@ class WeatherApi {
       // });
       _realTimeWeather =
           RealTimeWeather.fromJson(response.data['HeWeather6'].first);
-      _realTimeWeather.basic = Basic.fromJson(_realTimeWeather.mBasic);
-      _realTimeWeather.update = Update.fromJson(_realTimeWeather.mUpdate);
-      _realTimeWeather.now = Now.fromJson(_realTimeWeather.mNow);
+      _realTimeWeather.basic = Basic.fromJson(_realTimeWeather.mBasic as Map<String, dynamic>);
+      _realTimeWeather.update = Update.fromJson(_realTimeWeather.mUpdate as Map<String, dynamic>);
+      _realTimeWeather.now = Now.fromJson(_realTimeWeather.mNow as Map<String, dynamic>);
 
       return _realTimeWeather;
     } catch (e) {
@@ -50,10 +50,10 @@ class WeatherApi {
       _threeDaysForecast =
           ThreeDaysForecast.fromJson(response.data['HeWeather6'].first);
 
-      _threeDaysForecast.basic = Basic.fromJson(_threeDaysForecast.mBasic);
-      _threeDaysForecast.update = Update.fromJson(_threeDaysForecast.mUpdate);
-      for (Map<String, dynamic> d in _threeDaysForecast.mDailyForecasts) {
-        _threeDaysForecast.dailyForecasts.add(DailyForecast.fromJson(d));
+      _threeDaysForecast.basic = Basic.fromJson(_threeDaysForecast.mBasic as Map<String, dynamic>);
+      _threeDaysForecast.update = Update.fromJson(_threeDaysForecast.mUpdate as Map<String, dynamic>);
+      for (Map<String, dynamic> d in (_threeDaysForecast.mDailyForecasts as List<Map<String, dynamic>>)) {
+        _threeDaysForecast.dailyForecasts?.add(DailyForecast.fromJson(d));
       }
       return _threeDaysForecast;
     } catch (e) {

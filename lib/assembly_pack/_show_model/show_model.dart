@@ -5,7 +5,7 @@ import 'package:flutter_text/widget/modal_utils.dart';
 
 class ModalText {
   static Future<void> model(BuildContext context,
-      {String title, void Function() onFunc}) async {
+      {String? title, void Function()? onFunc}) async {
     await ModalUtils.showModal(
       context,
       modalBackgroundColor: const Color(0x00999999),

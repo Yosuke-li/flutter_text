@@ -18,7 +18,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
           Container(
             child: TextFormField(
               controller: controller,
-              onSaved: (String value) {
+              onSaved: (String? value) {
 
               },
             ),

@@ -8,10 +8,10 @@ class GlobalStore {
   static String companyIp = '172.31.172.83'; //todo ipconfig 因为非公司内网所以无法使用
   static bool isUserFiddle = false; //是否使用fiddle
 
-  static User user;
+  static User? user;
 }
 
 class EventCache {
-  bool isRoute;
-  String realTimeData;
+  bool? isRoute;
+  String? realTimeData;
 }

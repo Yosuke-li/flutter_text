@@ -8,7 +8,7 @@ ScreenUtil screenUtil = ScreenUtil._instance;
 class ScreenWidget extends StatefulWidget {
   Widget child;
 
-  ScreenWidget({Key key, this.child}) : super(key: key);
+  ScreenWidget({Key? key, required this.child}) : super(key: key);
 
   @override
   _ScreenWidgetState createState() => _ScreenWidgetState();
@@ -19,13 +19,13 @@ class _ScreenWidgetState extends State<ScreenWidget>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
   }
 
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
   }
 
   @override
@@ -54,9 +54,9 @@ class ScreenUtil {
   static ScreenUtil _instance = ScreenUtil._();
   static int width = 1000; //设计稿宽度
   static int height = 2111; //设计稿高度
-  static double _deviceWidth; //实际设备宽度
-  static double _deviceHeight; //实际设备高度
-  static double _textScaleFactor; //字体的缩放比例
+  static late double _deviceWidth; //实际设备宽度
+  static late double _deviceHeight; //实际设备高度
+  static late double _textScaleFactor; //字体的缩放比例
 
   ScreenUtil._();
 

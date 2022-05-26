@@ -14,19 +14,19 @@ typedef FirstFunc = Future<void> Function(BuildContext ctx);
 enum RefreshEnum { noMore, needMore }
 
 class Refresh extends StatefulWidget {
-  final CanLoadMore canLoadMore;
+  final CanLoadMore? canLoadMore;
 
-  final RefreshFunc refreshFunc;
+  final RefreshFunc? refreshFunc;
 
-  final LoadMoreFunc loadMoreFunc;
+  final LoadMoreFunc? loadMoreFunc;
 
-  final FirstFunc firstFunc;
+  final FirstFunc? firstFunc;
 
   final Widget child;
 
   const Refresh({
-    @required this.child,
-    Key key,
+    required this.child,
+    Key? key,
     this.canLoadMore,
     this.refreshFunc,
     this.loadMoreFunc,
@@ -55,7 +55,7 @@ class _RefreshState extends State<Refresh> {
           strokeWidth: screenUtil.adaptive(5),
           color: const Color(0xff666666),
           backgroundColor: const Color(0xb3f2f2f2),
-          child: w, onRefresh: () => widget.refreshFunc(context));
+          child: w, onRefresh: () => widget.refreshFunc!(context));
     }
     if (widget.loadMoreFunc != null) {
       w = NotificationListener<ScrollNotification>(
@@ -74,7 +74,7 @@ class _RefreshState extends State<Refresh> {
                 final refreshEnum = await widget.canLoadMore?.call(context);
                 if (refreshEnum == null || refreshEnum == RefreshEnum.needMore) {
                   Log.info('需要加载更多');
-                  await widget.loadMoreFunc(context);
+                  await widget.loadMoreFunc!(context);
                   Log.info('加载更多完成');
                 } else {
                   Log.info('没调用加载更多方法');
@@ -97,7 +97,7 @@ class _RefreshState extends State<Refresh> {
                 if (snapshot.hasError) {
                   Future(() {
                     //必须异步抛出异常
-                    throw snapshot.error;
+                    throw snapshot.error!;
                   });
 
                   return Center(
@@ -129,10 +129,10 @@ class _RefreshState extends State<Refresh> {
                 );
                 break;
               default:
-                return null;
+                return Container();
             }
           },
-          future: asyncMemoizer.runOnce(() => widget.firstFunc(context)));
+          future: asyncMemoizer.runOnce(() => widget.firstFunc!(context)));
     } else {
       return w;
     }

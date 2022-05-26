@@ -10,7 +10,7 @@ class KeyboardRootWidget extends StatefulWidget {
   final TextDirection textDirection;
 
   const KeyboardRootWidget(
-      {Key key, @required this.child, this.textDirection = TextDirection.ltr})
+      {Key? key, required this.child, this.textDirection = TextDirection.ltr})
       : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class KeyboardRootWidget extends StatefulWidget {
 }
 
 class KeyboardRootState extends State<KeyboardRootWidget> {
-  WidgetBuilder _keyboardbuilder;
+  WidgetBuilder? _keyboardbuilder;
 
   bool get hasKeyboard => _keyboardbuilder != null;
   // List<OverlayEntry> _initialEntries = [];
@@ -41,7 +41,7 @@ class KeyboardRootState extends State<KeyboardRootWidget> {
       List<Widget> children = [widget.child];
       if (_keyboardbuilder != null) {
         children.add(Builder(
-          builder: _keyboardbuilder,
+          builder: _keyboardbuilder!,
         ));
       }
       return Directionality(

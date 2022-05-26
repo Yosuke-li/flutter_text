@@ -10,7 +10,7 @@ import 'package:window_manager/window_manager.dart';
 class DesktopSysManager extends StatefulWidget {
   Widget child;
 
-  DesktopSysManager({Key key, this.child}) : super(key: key);
+  DesktopSysManager({Key? key, required this.child}) : super(key: key);
 
   @override
   _DesktopSysManagerState createState() => _DesktopSysManagerState();

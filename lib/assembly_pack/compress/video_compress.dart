@@ -16,8 +16,8 @@ class VideoCompressPage extends StatefulWidget {
 }
 
 class _VideoCompressState extends State<VideoCompressPage> {
-  File _file;
-  File _videoFile;
+  late File _file;
+  late File _videoFile;
 
   @override
   void initState() {
@@ -37,17 +37,16 @@ class _VideoCompressState extends State<VideoCompressPage> {
 
   //压缩
   void _compress() async {
-    final MediaInfo result = await loadingCallback(
+    final MediaInfo? result = await loadingCallback(
       () => VideoCompress.compressVideo(
         _file.path,
         quality: VideoQuality.DefaultQuality,
       ),
     );
 
-    Log.info(result);
     if (result != null) {
       setState(() {
-        _videoFile = result.file;
+        _videoFile = result.file!;
       });
     }
   }

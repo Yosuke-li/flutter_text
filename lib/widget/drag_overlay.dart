@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DragOverlay {
-  static Widget view;
-  static OverlayEntry _holder;
+  static late Widget view;
+  static OverlayEntry? _holder;
 
   static void remove() {
     if (_holder != null) {
-      _holder.remove();
+      _holder?.remove();
       _holder = null;
     }
   }
 
-  static void show({@required BuildContext context, @required Widget view}) {
+  static void show({required BuildContext context, required Widget view}) {
     DragOverlay.view = view;
     remove();
     final OverlayEntry overlayEntry = OverlayEntry(builder: (BuildContext context) {
@@ -21,7 +21,7 @@ class DragOverlay {
         child: _buildDraggable(context),
       );
     });
-    Overlay.of(context).insert(overlayEntry);
+    Overlay.of(context)?.insert(overlayEntry);
     _holder = overlayEntry;
   }
 
@@ -31,7 +31,6 @@ class DragOverlay {
       feedback: view,
       onDragStarted: () {},
       onDragEnd: (DraggableDetails detail) {
-        print("onDraEnd:${detail.offset}");
         createDragTarget(offset: detail.offset, context: context);
       },
       childWhenDragging: Container(),
@@ -39,9 +38,9 @@ class DragOverlay {
     );
   }
 
-  static void createDragTarget({Offset offset, BuildContext context}) {
+  static void createDragTarget({required Offset offset, required BuildContext context}) {
     if (_holder != null) {
-      _holder.remove();
+      _holder?.remove();
     }
     _holder = OverlayEntry(builder: (BuildContext context) {
       double maxY = MediaQuery.of(context).size.height - 100;
@@ -77,7 +76,7 @@ class DragOverlay {
         ),
       );
     });
-    Overlay.of(context).insert(_holder);
+    Overlay.of(context)?.insert(_holder!);
   }
 }
 
@@ -85,7 +84,7 @@ class OverlayWidget extends StatelessWidget {
   final String title;
   final Widget child;
 
-  const OverlayWidget({@required this.child, @required this.title});
+  const OverlayWidget({required this.child, required this.title});
 
   @override
   Widget build(BuildContext context) {

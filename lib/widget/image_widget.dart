@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 //显示网络图片组件
 class CustomNetWorkImage extends StatefulWidget {
   String url;
-  BoxFit fit;
-  double width;
-  double height;
+  BoxFit? fit;
+  double? width;
+  double? height;
 
-  Widget errorWidget;
-  Widget frameWidget;
-  Widget loadingWidget;
+  Widget? errorWidget;
+  Widget? frameWidget;
+  Widget? loadingWidget;
 
   CustomNetWorkImage(this.url,
       {this.width,
@@ -35,7 +35,7 @@ class _CustomNetWorkImageState extends State<CustomNetWorkImage> {
       errorBuilder: (
         BuildContext context,
         Object error,
-        StackTrace stackTrace,
+        StackTrace? stackTrace,
       ) {
         return widget.errorWidget ??
             Container(
@@ -51,7 +51,7 @@ class _CustomNetWorkImageState extends State<CustomNetWorkImage> {
       loadingBuilder: (
         BuildContext context,
         Widget child,
-        ImageChunkEvent loadingProgress,
+        ImageChunkEvent? loadingProgress,
       ) {
         if (loadingProgress == null) {
           return child;
@@ -63,13 +63,13 @@ class _CustomNetWorkImageState extends State<CustomNetWorkImage> {
           // 设置下载进度
           child: CircularProgressIndicator(
               value: loadingProgress.cumulativeBytesLoaded /
-                  loadingProgress.expectedTotalBytes),
+                  (loadingProgress.expectedTotalBytes ?? 0)),
         );
       },
       frameBuilder: (
         BuildContext context,
         Widget child,
-        int frame,
+        int? frame,
         bool wasSynchronouslyLoaded,
       ) {
         if (wasSynchronouslyLoaded) {

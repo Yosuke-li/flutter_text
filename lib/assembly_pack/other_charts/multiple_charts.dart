@@ -1,6 +1,5 @@
 import 'package:flutter_text/init.dart';
 import 'package:flutter_text/utils/datetime_utils.dart';
-import 'package:flutter_text/utils/extension.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -82,7 +81,7 @@ class _MultipleChartState extends State<MultipleCharts> {
           shouldAlwaysShow: true,
           activationMode: ActivationMode.singleTap,
           builder: (BuildContext context, TrackballDetails trackballDetails) {
-            return trackballDetails.groupingModeInfo.points.isNotEmpty
+            return trackballDetails.groupingModeInfo?.points.isNotEmpty == true
                 ? Container(
               height: 75,
               decoration: const BoxDecoration(
@@ -91,12 +90,12 @@ class _MultipleChartState extends State<MultipleCharts> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      '时间：${((trackballDetails.groupingModeInfo.points[0].xValue ~/ 1000) as num).getLocalTimeStamp}'),
+                      '时间：${((trackballDetails.groupingModeInfo?.points[0].xValue ~/ 1000) as num).getLocalTimeStamp}'),
                   for (int i = 0;
-                  i < trackballDetails.groupingModeInfo.points.length;
+                  i < (trackballDetails.groupingModeInfo?.points.length ?? 0);
                   i++)
                     Text(
-                        '${trackballDetails.groupingModeInfo.points[i].dataLabelMapper}：${trackballDetails.groupingModeInfo.points[i].y}'),
+                        '${trackballDetails.groupingModeInfo?.points[i].dataLabelMapper}：${trackballDetails.groupingModeInfo?.points[i].y}'),
                 ],
               ),
             )
@@ -113,17 +112,17 @@ class _MultipleChartState extends State<MultipleCharts> {
     return <ChartSeries<ChartsData, DateTime>>[
       ColumnSeries<ChartsData, DateTime>(
         dataSource: chartData,
-        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date),
+        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date!),
         yValueMapper: (ChartsData sales, _) => sales.profit,
         dataLabelMapper: (ChartsData sales, _) => '收益',
         pointColorMapper: (ChartsData sales, _) =>
-            sales.profit > 0 ? Colors.red : Colors.green,
+            (sales.profit??0) > 0 ? Colors.red : Colors.green,
         name: '收益',
       ),
       LineSeries<ChartsData, DateTime>(
         dataSource: chartData,
         yAxisName: 'yAxis1',
-        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date),
+        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date!),
         yValueMapper: (ChartsData sales, _) => sales.totalProfit,
         dataLabelMapper: (ChartsData sales, _) => '总收益',
         name: '总收益',
@@ -160,7 +159,7 @@ class _MultipleChartState extends State<MultipleCharts> {
           shouldAlwaysShow: true,
           activationMode: ActivationMode.singleTap,
           builder: (BuildContext context, TrackballDetails trackballDetails) {
-            return trackballDetails.groupingModeInfo.points.isNotEmpty
+            return trackballDetails.groupingModeInfo?.points.isNotEmpty == true
                 ? Container(
                     height: 75,
                     decoration: const BoxDecoration(
@@ -169,12 +168,12 @@ class _MultipleChartState extends State<MultipleCharts> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                            '时间：${DateTimeHelper.datetimeFormat(trackballDetails.groupingModeInfo.points[0].xValue ~/ 1000, 'yyyy-MM-dd')}'),
+                            '时间：${DateTimeHelper.datetimeFormat(trackballDetails.groupingModeInfo?.points[0].xValue ~/ 1000, 'yyyy-MM-dd')}'),
                         for (int i = 0;
-                            i < trackballDetails.groupingModeInfo.points.length;
+                            i < (trackballDetails.groupingModeInfo?.points.length ?? 0);
                             i++)
                           Text(
-                              '${trackballDetails.groupingModeInfo.points[i].dataLabelMapper}：${trackballDetails.groupingModeInfo.points[i].y}'),
+                              '${trackballDetails.groupingModeInfo?.points[i].dataLabelMapper}：${trackballDetails.groupingModeInfo?.points[i].y}'),
                       ],
                     ),
                   )
@@ -192,18 +191,18 @@ class _MultipleChartState extends State<MultipleCharts> {
       SplineSeries<ChartsData, DateTime>(
         dataSource: chartData,
         yAxisName: 'yAxis1',
-        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date),
+        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date!),
         yValueMapper: (ChartsData sales, _) => sales.totalProfit,
         dataLabelMapper: (ChartsData sales, _) => '总收益',
         name: '总收益',
       ),
       ColumnSeries<ChartsData, DateTime>(
         dataSource: chartData,
-        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date),
+        xValueMapper: (ChartsData sales, _) => DateTime.parse(sales.date!),
         yValueMapper: (ChartsData sales, _) => sales.profit,
         dataLabelMapper: (ChartsData sales, _) => '收益',
         pointColorMapper: (ChartsData sales, _) =>
-        sales.profit > 0 ? Colors.red : Colors.green,
+        (sales.profit ?? 0) > 0 ? Colors.red : Colors.green,
         name: '收益',
       ),
     ];

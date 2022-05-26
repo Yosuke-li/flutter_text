@@ -67,8 +67,8 @@ class AlertNumbersState extends StatefulWidget {
 }
 
 class AlertNumbers extends State<AlertNumbersState> {
-  static int number;
-  int numberSelected;
+  static int number = 0;
+  int numberSelected = 0;
   static final List<int> numberList1 = <int>[1, 2, 3];
   static final List<int> numberList2 = <int>[4, 5, 6];
   static final List<int> numberList3 = <int>[7, 8, 9];
@@ -113,13 +113,12 @@ class AlertNumbers extends State<AlertNumbersState> {
 
   List<Row> createRows() {
     final List<List<int>> numberLists = [numberList1, numberList2, numberList3];
-    final List<Row> rowList = List<Row>.filled(3, null);
+    final List<Row> rowList = List<Row>.filled(3, Row());
     for (int i = 0; i <= 2; i++) {
       rowList[i] = Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: createButtons(numberLists[i]),
       );
-      ;
     }
     return rowList;
   }

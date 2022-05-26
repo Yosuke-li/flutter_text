@@ -7,7 +7,7 @@ class ImageZoomable extends StatefulWidget {
   final List<ImageProvider> photoList;
   final int index;
 
-  const ImageZoomable({this.photoList, this.index});
+  const ImageZoomable({required this.photoList, required this.index});
 
   @override
   _ImageZoomableState createState() => _ImageZoomableState();
@@ -16,9 +16,9 @@ class ImageZoomable extends StatefulWidget {
 class _ImageZoomableState extends State<ImageZoomable> {
   @override
   int currentIndex = 0;
-  int initialIndex; //初始index
-  int length;
-  int title;
+  late int initialIndex; //初始index
+  late int length;
+  late int title;
 
   @override
   void initState() {

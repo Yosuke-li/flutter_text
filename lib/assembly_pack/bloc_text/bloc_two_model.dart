@@ -2,7 +2,7 @@ import 'package:flutter_text/assembly_pack/event_bus/event_util.dart';
 import 'package:flutter_text/widget/bloc/bloc_widget.dart';
 
 class BlocTwoModel implements BlocBase {
-  static int _count;
+  static late int _count;
 
   final StreamController<int> _controller = StreamController<int>();
   StreamSink<int> get _inAdd => _controller.sink;

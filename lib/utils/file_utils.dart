@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:path_provider/path_provider.dart';
 
 class FileUtils {
-  static FileUtils _fileUtils;
+  static FileUtils? _fileUtils;
 
   ///单例
   factory FileUtils() => _fileUtils ?? FileUtils._init();
@@ -25,7 +25,7 @@ class FileUtils {
   ///格式必需为 /pathA/pathB/
   ///已斜杠开始,并且斜杠结尾
   static Future<File> generateRandomTempFile(
-      {String path = '/', String fileType}) async {
+      {String path = '/', String? fileType}) async {
     String tempFilePath =
         await generateRandomTempFilePath(path: path, fileType: fileType);
     return File(tempFilePath).create(recursive: true);
@@ -35,7 +35,7 @@ class FileUtils {
   ///  /cache/test/xxx.png  返回示例
   ///[fileType] 例子: m4a , aac , mp3
   static Future<String> generateRandomTempFilePath(
-      {String path = '/', String fileType}) async {
+      {String path = '/', String? fileType}) async {
     assert(path != null);
     assert(path.isNotEmpty);
     assert(path.startsWith('/'));
@@ -46,10 +46,10 @@ class FileUtils {
     for (;;) {
       if (fileType == null) {
         file =
-            File("${tempDir.path}${path ?? ""}${Random().nextInt(4294967000)}");
+            File("${tempDir.path}${path}${Random().nextInt(4294967000)}");
       } else {
         file = File(
-            "${tempDir.path}${path ?? ""}${Random().nextInt(4294967000)}.$fileType");
+            "${tempDir.path}${path}${Random().nextInt(4294967000)}.$fileType");
       }
 
       if (!file.existsSync()) {
@@ -65,7 +65,7 @@ class FileUtils {
   ///斜杠结尾
   ///[fileType] 例子: m4a , aac , mp3
   static Future<File> generateRandomAppRelativeFile(
-      {String path = '', String fileType}) async {
+      {String path = '', String? fileType}) async {
     String tempAppFilePath =
         await generateRandomAppRelativeFilePath(path: path, fileType: fileType);
     return File(tempAppFilePath).create(recursive: true);
@@ -76,16 +76,16 @@ class FileUtils {
   ///cache/test/xxx.png  返回示例
   ///[fileType] 例子: m4a , aac , mp3
   static Future<String> generateRandomAppRelativeFilePath(
-      {String path = '', String fileType}) async {
+      {String path = '', String? fileType}) async {
     assert(path != null);
     assert(!path.startsWith('/'));
     assert(path.endsWith('/'));
     File file;
     for (;;) {
       if (fileType == null) {
-        file = File("${path ?? ""}${Random().nextInt(4294967000)}");
+        file = File("${path}${Random().nextInt(4294967000)}");
       } else {
-        file = File("${path ?? ""}${Random().nextInt(4294967000)}.$fileType");
+        file = File("${path}${Random().nextInt(4294967000)}.$fileType");
       }
       if (!file.existsSync()) {
         return file.path;

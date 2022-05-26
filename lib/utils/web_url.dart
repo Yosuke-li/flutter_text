@@ -5,7 +5,7 @@ import 'log_utils.dart';
 
 class WebUrl {
   //判断链接的可用性
-  static Future<String> checkUrl(String value,
+  static Future<String?> checkUrl(String value,
       {bool enable = true, String errorMsg = '该链接不可用'}) async {
     if (!enable) return null;
     return await canLaunch(value) ? null : errorMsg;
@@ -13,7 +13,7 @@ class WebUrl {
 
   //跳转链接
   static Future<void> launchUrl(String url) async {
-    final String result = await checkUrl(url);
+    final String? result = await checkUrl(url);
     if (result == null) {
       await launch(url);
     } else {

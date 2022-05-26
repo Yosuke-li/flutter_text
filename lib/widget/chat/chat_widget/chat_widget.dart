@@ -6,10 +6,10 @@ import 'package:mqtt_client/mqtt_client.dart';
 
 class ChatConnectWidget extends StatefulWidget {
   @override
-  Key key;
+  Key? key;
   Widget child;
 
-  ChatConnectWidget({this.key, this.child});
+  ChatConnectWidget({this.key, required this.child});
 
   @override
   _ChatConnectState createState() => _ChatConnectState();
@@ -25,8 +25,8 @@ class _ChatConnectState extends State<ChatConnectWidget>
 
   void clientConnect() {
     if (GlobalStore.user != null &&
-        GlobalStore.user.name != null &&
-        GlobalStore.user.name.isNotEmpty == true) {
+        GlobalStore.user?.name != null &&
+        GlobalStore.user?.name?.isNotEmpty == true) {
       if (ChatHelper.client?.connectionStatus?.state !=
           MqttConnectionState.connecting) {
         ChatHelper.init();

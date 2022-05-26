@@ -8,7 +8,7 @@ import 'log_utils.dart';
 
 class ImageCompressUtil {
   /// 图片压缩 File -> File
-  static Future<File> imageCompressAndGetFile(File file) async {
+  static Future<File?> imageCompressAndGetFile(File file) async {
     if (file.lengthSync() < 200 * 1024) {
       return file;
     }
@@ -27,7 +27,7 @@ class ImageCompressUtil {
     final Directory dir = await path_provider.getTemporaryDirectory();
     final String targetPath = dir.absolute.path +'/'+DateTime.now().millisecondsSinceEpoch.toString()+ '.jpg';
     Log.info('quality: $quality');
-    final File result = await FlutterImageCompress.compressAndGetFile(
+    final File? result = await FlutterImageCompress.compressAndGetFile(
       file.absolute.path,
       targetPath,
       minWidth: 600,
@@ -36,14 +36,14 @@ class ImageCompressUtil {
     );
 
     Log.info('压缩后：${file.lengthSync() / 1024}');
-    Log.info('压缩后：${result.lengthSync() / 1024}');
+    Log.info('压缩后：${(result?.lengthSync() ?? 0)/ 1024}');
 
     return result;
   }
 
   /// 图片压缩 File -> Uint8List
-  static Future<Uint8List> imageCompressFile(File file) async {
-    var result = await FlutterImageCompress.compressWithFile(
+  static Future<Uint8List?> imageCompressFile(File file) async {
+    final Uint8List? result = await FlutterImageCompress.compressWithFile(
       file.absolute.path,
       minWidth: 2300,
       minHeight: 1500,
@@ -51,12 +51,12 @@ class ImageCompressUtil {
       rotate: 90,
     );
     print(file.lengthSync());
-    print(result.length);
+    print(result?.length);
     return result;
   }
 
   /// 图片压缩 Asset -> Uint8List
-  static Future<Uint8List> imageCompressAsset(String assetName) async {
+  static Future<Uint8List?> imageCompressAsset(String assetName) async {
     var list = await FlutterImageCompress.compressAssetImage(
       assetName,
       minHeight: 1920,

@@ -1,10 +1,10 @@
 import 'package:intl/intl.dart';
 
 class DateTimeHelper {
-  static final Duration zone = Duration(hours: 8);
+  static const Duration zone = Duration(hours: 8);
 
   //返回两个时间戳是不是同一天(不传则和今天比)(秒,秒)
-  static bool isItTheSameDay(int utcTime, {int utcTime2}) {
+  static bool isItTheSameDay(int utcTime, {int? utcTime2}) {
     utcTime2 ??= (timeToTimeStamp(getNow())).floor();
 
     if (getDateDifference(utcTime, utcTime2: utcTime2) != 0) {
@@ -29,8 +29,8 @@ class DateTimeHelper {
 
   //不能判断是不是同一天,只返回两个日期之间的所差的天数(秒,秒)
   //这个方法只返回两个日期的差距(不传则和今天比)(整天数(入))
-  static int getDateDifference(int utcTime, {int utcTime2}) {
-    if (utcTime == null || utcTime == 0) return null;
+  static int? getDateDifference(int utcTime, {int? utcTime2}) {
+    if (utcTime == 0) return null;
     //获取服务器时间戳/时间
     utcTime = utcTime * 1000;
     if (utcTime2 == null || utcTime2 == 0) {
@@ -41,7 +41,7 @@ class DateTimeHelper {
       utcTime2 = utcTime2 * 1000;
     }
     final DateTime nowTime =
-        transformationIntDateToUtc8((utcTime2 / 1000).floor());
+    transformationIntDateToUtc8((utcTime2 / 1000).floor())!;
 
     //这里获取一个值为两个时间差(整天)用于判断整天 (取小(舍))
     int day = ((utcTime - utcTime2) / 86400000).floor();
@@ -68,28 +68,28 @@ class DateTimeHelper {
 
   //判断一个时间戳是不是昨天(秒)
   static bool yesterday(int time) {
-    return (DateTimeHelper.getNow().add(Duration(days: -1)).day) ==
+    return (DateTimeHelper.getNow().add(const Duration(days: -1)).day) ==
         (DateTime.fromMillisecondsSinceEpoch(time * 1000).day);
   }
 
   //判断一个时间戳是不是昨天,是返回昨日,不是返回日期
-  static String isYesterday(int date) {
-    if (date == null || date == 0) {
+  static String? isYesterday(int date) {
+    if (date == 0) {
       return null;
     } else {
       if (yesterday(date)) {
         return '昨日';
       } else {
-        final DateTime thisDate = transformationIntDateToUtc8(date);
+        final DateTime thisDate = transformationIntDateToUtc8(date)!;
         return '${thisDate.month}月${thisDate.day}日';
       }
     }
   }
 
   //返回 true=过期,false=没有过期
-  static bool isTimeExpired(int utcTime) {
+  static bool? isTimeExpired(int utcTime) {
     //utc时间戳
-    if (utcTime == null || utcTime == 0) {
+    if (utcTime == 0) {
       return null;
     }
     return utcTime < timeToTimeStamp(getNow());
@@ -109,11 +109,11 @@ class DateTimeHelper {
   }
 
 //将时间戳格式化(这里的时间是服务器的10位数时间戳)
-  static String datetimeFormat(int date, String type) {
-    if (date == null || date == 0) {
+  static String? datetimeFormat(int date, String type) {
+    if (date == 0) {
       return null;
     }
-    return DateFormat(type).format(transformationIntDateToUtc8(date));
+    return DateFormat(type).format(transformationIntDateToUtc8(date)!);
   }
 
 //获取本地时间,转换为需要的时区时间(只能用于显示,时间戳已改变)
@@ -124,16 +124,16 @@ class DateTimeHelper {
 
   //警告,这个方法只能用于展示时间,因为会更改实际时间戳(不允许重新上传-详情见test)
   //将服务端获取到的时间戳转换为系统支持时区时间
-  static DateTime transformationIntDateToUtc8(int date) {
-    if (date == null || date == 0) {
+  static DateTime? transformationIntDateToUtc8(int date) {
+    if (date == 0) {
       return null;
     }
     return DateTime.fromMillisecondsSinceEpoch(date * 1000).toUtc().add(zone);
   }
 
   //判断两个时间戳是不是同一周(秒,秒)
-  static bool isItTheSameWeek(int utcTime, {int utcTime2}) {
-    if (utcTime == null || utcTime == 0) return null;
+  static bool isItTheSameWeek(int utcTime, {int? utcTime2}) {
+    if (utcTime == 0) return false;
     //首先取整86400 对天数取整
     utcTime = (utcTime ~/ 86400) * 86400;
     utcTime = utcTime * 1000;
@@ -144,16 +144,16 @@ class DateTimeHelper {
     }
     //获取当前时间戳的那天的开始时间
     final DateTime dayBeginTime =
-        DateTime.fromMillisecondsSinceEpoch(utcTime, isUtc: true);
+    DateTime.fromMillisecondsSinceEpoch(utcTime, isUtc: true);
     //获取当前是一周第几天
     final int weekDay = dayBeginTime.weekday;
     final DateTime thisWeekBeginTime =
-        dayBeginTime.add(Duration(days: -(weekDay - 1)));
+    dayBeginTime.add(Duration(days: -(weekDay - 1)));
     final DateTime thisWeekEndTime =
-        dayBeginTime.add(Duration(days: 7 - (weekDay - 1)));
+    dayBeginTime.add(Duration(days: 7 - (weekDay - 1)));
 
     final DateTime time2 =
-        DateTime.fromMillisecondsSinceEpoch(utcTime2, isUtc: true).add(zone);
+    DateTime.fromMillisecondsSinceEpoch(utcTime2, isUtc: true).add(zone);
     if (thisWeekBeginTime == time2) {
       return true;
     }
@@ -168,8 +168,8 @@ class DateTimeHelper {
   }
 
   //返回两个时间戳中的差值的字符串(秒,秒)(1分钟之前,1小时之前,1天之前,1年之前)
-  static String differenceValueString(int utcTime, {int utcTime2}) {
-    if (utcTime == null || utcTime == 0) return null;
+  static String? differenceValueString(int utcTime, {int? utcTime2}) {
+    if (utcTime == 0) return null;
     utcTime = utcTime * 1000;
     if (utcTime2 == null || utcTime2 == 0) {
       utcTime2 = getLocalTimeStamp();
@@ -191,15 +191,15 @@ class DateTimeHelper {
 
   //todo 这个方法可以把Datetime.millisecondsSinceEpoch重写(等待优化)
   //将时间转换为时间戳(实际已8时区转换的)_秒数   (这个方法实际原理是因为将时间转为时间戳时,依据本地时区,而我们要求同一使用utc+8,所以在转换时间戳时会用到这个方法)
-  static int timeToTimeStamp(DateTime time) {
+  static int timeToTimeStamp(DateTime? time) {
     if (time == null) throw Exception('time为空');
     return (time.millisecondsSinceEpoch / 1000).floor() -
-        (time.timeZoneOffset)?.inSeconds +
+        (time.timeZoneOffset).inSeconds +
         (28800);
   }
 
   ///获取该天0点时间戳
-  static int timeToZeroTimeStamp(DateTime time) {
+  static int timeToZeroTimeStamp(DateTime? time) {
     time ??= DateTimeHelper.getNow();
     int timeStamp = 0;
     final int getStamp = time.millisecondsSinceEpoch ~/ 1000;
@@ -212,7 +212,7 @@ class DateTimeHelper {
   }
 
   //根据时间戳获取周几
-  static String timeToWeekDay(int time) {
+  static String timeToWeekDay(int? time) {
     time ??= DateTimeHelper.getLocalTimeStamp() ~/ 1000;
     final int weekDay =
         DateTime.fromMillisecondsSinceEpoch(time * 1000).weekday;
@@ -247,8 +247,8 @@ class DateTimeHelper {
   static List<int> timeToMouthTimeStamp(int time) {
     final List<int> result = <int>[];
     String date = '';
-    final String mouth = datetimeFormat(time, 'MM');
-    final String year = datetimeFormat(time, 'yyyy');
+    final String mouth = datetimeFormat(time, 'MM') ?? '';
+    final String year = datetimeFormat(time, 'yyyy') ?? '';
 
     const List<String> big_mouth = <String>[
       '01',
@@ -266,7 +266,7 @@ class DateTimeHelper {
     } else {
       result.add(DateTime.parse(date + '01').millisecondsSinceEpoch ~/ 1000);
       if (mouth == '02') {
-        if (int.tryParse(year) % 4 == 0) {
+        if (int.tryParse(year)! % 4 == 0) {
           result
               .add(DateTime.parse(date + '29').millisecondsSinceEpoch ~/ 1000);
         } else {
@@ -281,7 +281,7 @@ class DateTimeHelper {
   }
 
   ///获取聊天时间，当日显示小时当年显示月日，其他时间显示年月日
-  static String toChatTime(int time) {
+  static String? toChatTime(int time) {
     if (isItTheSameDay(time)) {
       return datetimeFormat(time, 'HH:mm');
     } else {
@@ -296,7 +296,7 @@ class DateTimeHelper {
     }
   }
 
-  static String secToMusicTime(int sec) {
+  static String secToMusicTime(int? sec) {
     if (sec == null) {
       return '0';
     }
@@ -304,5 +304,12 @@ class DateTimeHelper {
         '${sec ~/ 60} : ${sec % 60 > 9 ? sec % 60 : '0${sec % 60}'}';
 
     return result;
+  }
+}
+
+
+extension GenerateDate on num {
+  String? get getLocalTimeStamp {
+    return DateTimeHelper.datetimeFormat(this as int, 'yyyy-MM-dd');
   }
 }

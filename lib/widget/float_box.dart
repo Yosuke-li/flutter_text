@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FloatBox extends StatefulWidget {
-  Widget icon;
-  void Function() onTap;
+  final Widget? icon;
+  final void Function()? onTap;
 
-  FloatBox({Key key, this.onTap, this.icon});
+  const FloatBox({Key? key, this.onTap, this.icon});
 
   @override
   _FloatBoxState createState() => _FloatBoxState();

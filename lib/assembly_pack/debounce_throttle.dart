@@ -10,7 +10,7 @@ class _DebounceTState extends State<DebounceTPage> {
   int debounce = 0;
   int throttle = 0;
 
-  Timer _timer;
+  Timer? _timer;
   bool canAction = true;
 
   @override

@@ -23,7 +23,7 @@ class _BuildProviderView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<TextModel>(
       model: TextModel(),
-      builder: (BuildContext context, TextModel model, Widget child) {
+      builder: (BuildContext context, TextModel model, Widget? child) {
         return Scaffold(
           appBar: AppBar(
             title: const Text('provider demo'),
@@ -52,7 +52,7 @@ class SecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<TextModel>(
       model: TextModel(),
-      builder: (BuildContext context, TextModel model, Widget child) {
+      builder: (BuildContext context, TextModel model, Widget? child) {
         return Scaffold(
           appBar: AppBar(
             title: const Text('provider demo page 2'),

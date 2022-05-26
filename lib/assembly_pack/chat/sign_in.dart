@@ -27,8 +27,8 @@ class SignInDemo extends StatefulWidget {
 }
 
 class SignInDemoState extends State<SignInDemo> {
-  GoogleSignInAccount _currentUser;
-  String _contactText;
+  late GoogleSignInAccount _currentUser;
+  late String _contactText;
 
   @override
   void initState() {
@@ -74,7 +74,7 @@ class SignInDemoState extends State<SignInDemo> {
 
   String _pickFirstNamedContact(Map<String, dynamic> data) {
     final List<dynamic> connections = data['connections'];
-    final Map<String, dynamic> contact = connections?.firstWhere(
+    final Map<String, dynamic> contact = connections.firstWhere(
       (dynamic contact) => contact['names'] != null,
       orElse: () => null,
     );
@@ -87,7 +87,7 @@ class SignInDemoState extends State<SignInDemo> {
         return name['displayName'];
       }
     }
-    return null;
+    return '';
   }
 
   Future<void> _handleSignIn() async {
@@ -114,7 +114,7 @@ class SignInDemoState extends State<SignInDemo> {
             subtitle: Text(_currentUser.email ?? ''),
           ),
           const Text("Signed in successfully."),
-          Text(_contactText ?? ''),
+          Text(_contactText),
           RaisedButton(
             child: const Text('SIGN OUT'),
             onPressed: _handleSignOut,

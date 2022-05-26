@@ -1,8 +1,8 @@
 import 'package:flutter_text/assembly_pack/compress/video_compress.dart';
 import 'package:flutter_text/assembly_pack/menu_item.dart';
 import 'package:flutter_text/assembly_pack/redis_test.dart';
-import 'package:flutter_text/utils/extension.dart';
 import 'package:flutter_text/widget/float_box.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'assembly_pack/PopupText.dart';
 import 'assembly_pack/api_exception_page.dart';
@@ -44,17 +44,17 @@ class MainIndexPage extends StatefulWidget {
 
 class MainIndexState extends State<MainIndexPage>
     with SingleTickerProviderStateMixin {
-  StreamSubscription<PageEvent> eventBus;
-  String eventData;
-  TabController tabController;
+  StreamSubscription<PageEvent>? eventBus;
+  String? eventData;
+  late TabController tabController;
   int currentIndex = 0;
   int tapTimes = 0;
 
   int lastPressedAt = 0;
 
-  CancelCallBack cancel;
+  CancelCallBack? cancel;
 
-  static OverlayEntry entry;
+  static OverlayEntry? entry;
 
   @override
   void initState() {
@@ -62,7 +62,7 @@ class MainIndexState extends State<MainIndexPage>
     PostgresUser.init();
     if (Platform.isAndroid || Platform.isIOS) Permissions.init();
     FileUtils();
-    Log(isDebug: true);
+    Log.init(isDebug: true);
     listenTest();
     tabController = TabController(length: 3, vsync: this)
       ..addListener(() {
@@ -72,7 +72,7 @@ class MainIndexState extends State<MainIndexPage>
       });
 
     //组件完成之后的回调方法
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       if (Platform.isWindows || Platform.isMacOS) _showEntry();
     });
   }
@@ -95,7 +95,7 @@ class MainIndexState extends State<MainIndexPage>
         },
       );
     });
-    Overlay.of(context).insert(entry);
+    Overlay.of(context)?.insert(entry!);
     setState(() {});
   }
 
@@ -205,7 +205,7 @@ class MainIndexState extends State<MainIndexPage>
                   ListTile(
                     leading: const Icon(Icons.chat),
                     title: Text(
-                      '${1637898885.getLocalTimeStamp}',
+                      '1637898885.getLocalTimeStamp',
                       style: TextStyle(
                         fontSize: screenUtil.adaptive(40),
                       ),
@@ -564,7 +564,7 @@ class MainIndexState extends State<MainIndexPage>
                     ),
                     onTap: () async {
                       ListenStateTest.setNum(ListenTestModel()..num = 21);
-                      final String result =
+                      final String? result =
                           await NavigatorUtils.getXOfPush<String>(
                               context, GetxTextPage(),
                               arguments: <String, dynamic>{'count': 10});
@@ -588,7 +588,7 @@ class MainIndexState extends State<MainIndexPage>
                   ListTile(
                     leading: const Icon(Icons.timer),
                     title: Text(
-                      '点击id ${tapTimes ?? 0}',
+                      '点击id ${tapTimes}',
                       style: TextStyle(
                         fontSize: screenUtil.adaptive(40),
                       ),
@@ -1058,22 +1058,6 @@ class MainIndexState extends State<MainIndexPage>
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.view_list),
-                    title: Text(
-                      'A to Z list view',
-                      style: TextStyle(
-                        fontSize: screenUtil.adaptive(40),
-                      ),
-                    ),
-                    trailing: const Icon(Icons.keyboard_arrow_right),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => CarModelsPage()),
-                      );
-                    },
-                  ),
-                  ListTile(
                     leading: const Icon(Icons.settings),
                     title: Text(
                       '测试',
@@ -1321,13 +1305,13 @@ class MainIndexState extends State<MainIndexPage>
                     trailing: const Icon(Icons.keyboard_arrow_right),
                     onTap: () {
                       eventBus = EventBusUtil.getInstance()
-                          .on<PageEvent>()
+                          ?.on<PageEvent>()
                           .listen((data) {
                         setState(() {
                           eventData = data.test;
                         });
                         print('onTap打印eventData：$eventData');
-                        eventBus.cancel();
+                        eventBus?.cancel();
                       });
                       Navigator.of(context).push(PageRouteBuilder(
                           opaque: false,
@@ -1642,21 +1626,6 @@ class MainIndexState extends State<MainIndexPage>
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => RealTimePage()),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.book),
-                    title: Text(
-                      '阅读--',
-                      style: TextStyle(
-                        fontSize: screenUtil.adaptive(40),
-                      ),
-                    ),
-                    trailing: const Icon(Icons.keyboard_arrow_right),
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => SearchBook()),
                       );
                     },
                   ),

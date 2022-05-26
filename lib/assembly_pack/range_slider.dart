@@ -9,9 +9,9 @@ class RangeSliderPage extends StatelessWidget {
 }
 
 class MyRangeSliderPage extends StatefulWidget {
-  MyRangeSliderPage({Key key, this.title}) : super(key: key);
+  MyRangeSliderPage({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyRangeSliderPage> {
 
   Widget getRangeSlider() {
     return SliderTheme(//样式的设计
-      data: SliderThemeData(
+      data: const SliderThemeData(
         inactiveTickMarkColor: Colors.red,
         inactiveTrackColor: Colors.yellow,
       ),
@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyRangeSliderPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title ?? ''),
       ),
       body: Center(
         child: Column(

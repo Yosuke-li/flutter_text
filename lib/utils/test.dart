@@ -29,18 +29,18 @@ class DemoPageState extends State<DemoPage> {
 
 
   //滑动方向
-  SlideDirection slideDirection;
+  late SlideDirection slideDirection;
 
   //底层横向滚动
-  ScrollController rightController;
+  late ScrollController rightController;
   //ScrollController stockRowController;
   //控制左侧股票名称和右侧详情
-  ScrollController stockVerticalController;
-  ScrollController stockNameController;
+  late ScrollController stockVerticalController;
+  late ScrollController stockNameController;
   //tag
-  ScrollController tagController;
+  late ScrollController tagController;
   //图标页
-  ScrollController chartController;
+  ScrollController? chartController;
   //横向股票详情
   //ScrollController detailHorController;
 
@@ -67,7 +67,7 @@ class DemoPageState extends State<DemoPage> {
     super.initState();
   }
 
-  Offset lastPos;
+  late Offset lastPos;
 
   void handleStart(DragStartDetails details){
     lastPos = details.globalPosition;
@@ -160,7 +160,7 @@ class DemoPageState extends State<DemoPage> {
         if(stockVerticalController.offset < stockVerticalController.position.maxScrollExtent){
           stockVerticalController.jumpTo(stockVerticalController.offset+disV);
           stockNameController.jumpTo(stockNameController.offset+disV);
-          chartController.jumpTo(stockNameController.offset+disV);
+          chartController?.jumpTo(stockNameController.offset+disV);
         }
 
         break;
@@ -168,7 +168,7 @@ class DemoPageState extends State<DemoPage> {
         if(stockVerticalController.offset > stockVerticalController.position.minScrollExtent){
           stockVerticalController.jumpTo(stockVerticalController.offset-disV);
           stockNameController.jumpTo(stockNameController.offset-disV);
-          chartController.jumpTo(stockNameController.offset-disV);
+          chartController?.jumpTo(stockNameController.offset-disV);
         }
         break;
     }

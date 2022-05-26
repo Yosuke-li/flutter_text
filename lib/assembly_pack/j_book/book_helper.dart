@@ -8,19 +8,19 @@ class BookHelper {
   static Future<List<File>> setAppLocateFile(List<File> files) async {
     final List<File> news = <File>[];
     for (int i = 0; i < files.length; i++) {
-      final Uint8List unit8 = ArrayHelper.get(files, i).readAsBytesSync();
+      final Uint8List? unit8 = ArrayHelper.get(files, i)?.readAsBytesSync();
       final File tempFile =
           await FileUtils.generateRandomTempFile(fileType: 'epub');
-      final File newFile = await tempFile.writeAsBytes(unit8);
+      final File newFile = await tempFile.writeAsBytes(unit8!);
       news.add(newFile);
     }
     return news;
   }
 
-  static Future<String> getCoverImageWithFile(List<int> content) async {
+  static Future<String> getCoverImageWithFile(List<int>? content) async {
     final File tempFile =
         await FileUtils.generateRandomTempFile(fileType: 'webp');
-    final File newFile = await tempFile.writeAsBytes(content);
+    final File newFile = await tempFile.writeAsBytes(content!);
     return newFile.path;
   }
 }

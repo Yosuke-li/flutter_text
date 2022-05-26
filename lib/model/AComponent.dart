@@ -1,4 +1,4 @@
 class PageModel {
-  String name;
+  String? name;
   dynamic pageUrl;
 }

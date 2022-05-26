@@ -9,7 +9,7 @@ class overlayDemo extends StatefulWidget {
 }
 
 class overlayDemoState extends State<overlayDemo> {
-  static OverlayEntry entry;
+  static OverlayEntry? entry;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class overlayDemoState extends State<overlayDemo> {
               entry = OverlayEntry(builder: (context) {
                 return FloatBox();
               });
-              Overlay.of(context).insert(entry);
+              Overlay.of(context)?.insert(entry!);
             },
           ),
           RaisedButton(

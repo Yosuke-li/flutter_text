@@ -28,7 +28,7 @@ class _EventBusDemo2State extends State<EventBusDemo2> {
               onPressed: () {
                 Navigator.of(context).pop();
                 EventBusUtil.getInstance()
-                    .fire(PageEvent('${textController.text}'));
+                    ?.fire(PageEvent('${textController.text}'));
               },
               child: const Text('传值'),
             ),

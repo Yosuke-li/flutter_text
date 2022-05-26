@@ -24,7 +24,7 @@ class BlocPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BlocModel bloc = BlocWidget.of<BlocModel>(context);
+    final BlocModel bloc = BlocWidget.of<BlocModel>(context)!;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bloc Text'),

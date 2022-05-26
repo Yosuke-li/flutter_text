@@ -36,7 +36,7 @@ class Assembly extends StatefulWidget {
 }
 
 class AssemblyState extends State<Assembly> {
-  bool todayShowAd;
+  bool? todayShowAd;
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class AssemblyState extends State<Assembly> {
   }
 
   void getTodayShow() {
-    final bool splashShow = LocateStorage.getBoolWithExpire('SplashShow');
+    final bool? splashShow = LocateStorage.getBoolWithExpire('SplashShow');
     if (splashShow == true) {
       todayShowAd = true;
     } else {
@@ -75,7 +75,7 @@ class AssemblyState extends State<Assembly> {
               child: DesktopSysManager(
                 child: GetMaterialApp(
                   builder: BotToastInit(),
-                  showPerformanceOverlay: GlobalStore.isShowOverlay ?? false,
+                  showPerformanceOverlay: GlobalStore.isShowOverlay,
                   title: 'Flutter Study',
                   navigatorObservers: <NavigatorObserver>[
                     BotToastNavigatorObserver()
@@ -93,7 +93,7 @@ class AssemblyState extends State<Assembly> {
                     },
                     child: KeyboardRootWidget(
                       child: todayShowAd != null
-                          ? (todayShowAd ? MainIndexPage() : SplashPage())
+                          ? (todayShowAd == true ? MainIndexPage() : SplashPage())
                           : Container(
                         color: Colors.white,
                       ),
@@ -117,14 +117,14 @@ void _errorHandler(FlutterErrorDetails details) async {
   if (ReportError().isInDebugMode) {
     FlutterError.dumpErrorToConsole(details);
   } else {
-    Zone.current.handleUncaughtError(details.exception, details.stack);
+    Zone.current.handleUncaughtError(details.exception, details.stack!);
   }
 
   if (details.exception != null) {
     if (details.exception is ApiException) {
       final ApiException e = details.exception as ApiException;
       final int code = e.code;
-      final String message = e.message;
+      final String? message = e.message;
       switch (code) {
         case 401:
           final NavigatorState navigatorHelper =
@@ -139,14 +139,14 @@ void _errorHandler(FlutterErrorDetails details) async {
           navigatorHelper.popUntil((Route route) => route.isFirst);
           break;
         default:
-          ToastUtils.showToast(msg: message);
+          ToastUtils.showToast(msg: message??'');
           break;
       }
     } else if (details.exception is SocketException) {
       ToastUtils.showToast(msg: '网络不可用');
     } else if (details.exception is TimeoutException) {
       ToastUtils.showToast(
-          msg: (details.exception as TimeoutException).message);
+          msg: (details.exception as TimeoutException).message ?? '');
     }
   }
 }

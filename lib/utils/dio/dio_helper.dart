@@ -23,7 +23,7 @@ class Request {
 
   // _request 是核心函数，所有的请求都会走这里
   static Future<Response> _request<T>(String path,
-      {String method, Map<String, dynamic> params, data, String token}) async {
+      {String? method, Map<String, dynamic>? params, data, String? token}) async {
     CookieJar cookie = CookieJar();
     _dio.interceptors.add(CookieManager(cookie));
 
@@ -50,8 +50,8 @@ class Request {
       } else {
         Log.info('HTTP错误，状态码为：${response.statusCode}');
         ToastUtils.showToast(msg: 'HTTP错误，状态码为${response.statusCode}');
-        _handleHttpError(response.statusCode);
-        throw ApiException(response.statusCode, response.statusMessage);
+        _handleHttpError(response.statusCode ?? 400);
+        throw ApiException(response.statusCode ?? 400, response.statusMessage);
       }
     } on DioError catch (e, s) {
       Log.error('请求异常: ${_dioError(e)}', stackTrace: s);
@@ -144,12 +144,12 @@ class Request {
   }
 
   static Future<Response> get<T>(String path,
-      {Map<String, dynamic> params, String token}) {
+      {Map<String, dynamic>? params, String? token}) {
     return _request(path, method: 'get', params: params, token: token);
   }
 
   static Future<Response> post<T>(String path,
-      {Map<String, dynamic> params, data, String token}) {
+      {Map<String, dynamic>? params, data, String? token}) {
     return _request(path,
         method: 'post', params: params, data: data, token: token);
   }

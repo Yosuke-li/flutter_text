@@ -6,15 +6,15 @@ import 'package:path/path.dart' as path;
 import 'package:shell/shell.dart';
 
 class DownLoadPage extends StatefulWidget {
-  const DownLoadPage({Key key}) : super(key: key);
+  const DownLoadPage({Key? key}) : super(key: key);
 
   @override
   State<DownLoadPage> createState() => _DownLoadPageState();
 }
 
 class _DownLoadPageState extends State<DownLoadPage> {
-  String now;
-  Response response;
+  String? now;
+  Response? response;
 
   static Future<String> _getDocument() async {
     final document = await getApplicationDocumentsDirectory();

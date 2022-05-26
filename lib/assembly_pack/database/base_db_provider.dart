@@ -20,7 +20,7 @@ abstract class BaseDbProvider {
   Future<void> prepare(String name, String createSql) async {
     isTableExits = await SqlManager.isTableExits(name);
     if (!isTableExits) {
-      Database db = await SqlManager.getCurrentDatabase();
+      Database? db = await SqlManager.getCurrentDatabase();
       return await db.execute(createSql);
     }
   }

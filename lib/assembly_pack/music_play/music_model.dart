@@ -4,9 +4,9 @@ import 'package:flutter_text/global/store.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 
 class MusicModel {
-  String name;
-  int id;
-  String path;
+  String? name;
+  int? id;
+  String? path;
 
   MusicModel({this.name, this.id, this.path});
 
@@ -44,7 +44,7 @@ class MusicCache {
   static const String _key = 'music_cache';
 
   static Future<void> clear() async {
-    final String hasKey = LocateStorage.getOneKey(_key);
+    final String hasKey = LocateStorage.getOneKey(_key)!;
     LocateStorage.clean(key: hasKey);
   }
 
@@ -58,7 +58,7 @@ class MusicCache {
   static Future<List<MusicModel>> getAllCache() async {
     List<MusicModel> result = <MusicModel>[];
     final String json =
-    LocateStorage.getString(_key);
+    LocateStorage.getString(_key)!;
     print(json);
     if (json != null && json.isNotEmpty == true) {
       result = MusicModel.listFromJson(jsonDecode(json));
@@ -66,11 +66,11 @@ class MusicCache {
     return result;
   }
 
-  static Future<MusicModel> getCache(String name) async {
+  static Future<MusicModel?> getCache(String name) async {
     final List<MusicModel> allCache = await getAllCache();
-    MusicModel result;
+    MusicModel? result;
     for (int i = 0; i<allCache.length; i++) {
-      if (ArrayHelper.get(allCache, i).name == name) {
+      if (ArrayHelper.get(allCache, i)?.name == name) {
         result = ArrayHelper.get(allCache, i);
         break;
       }

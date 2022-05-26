@@ -12,7 +12,7 @@ class KChartPage extends StatefulWidget {
 }
 
 class KChartState extends State<KChartPage> {
-  List<KLineEntity> data;
+  late List<KLineEntity> data;
   bool showLoading = false;
   SecondaryState _secondaryState = SecondaryState.MACD;
   MainState _mainState = MainState.MA;
@@ -21,7 +21,7 @@ class KChartState extends State<KChartPage> {
   bool _volHidden = true;
   bool _hideGrid = false;
   bool _showNowPrice = true;
-  List<DepthEntity> _bids, _asks;
+  late List<DepthEntity> _bids, _asks;
   bool isChangeUI = false;
 
   ChartStyle chartStyle = ChartStyle();
@@ -157,7 +157,7 @@ class KChartState extends State<KChartPage> {
     );
   }
 
-  Widget button(String text, {VoidCallback onPressed}) {
+  Widget button(String text, {VoidCallback? onPressed}) {
     return TextButton(
       onPressed: () {
         if (onPressed != null) {

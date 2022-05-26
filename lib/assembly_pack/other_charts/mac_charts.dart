@@ -11,11 +11,11 @@ class MACChartsPage extends StatefulWidget {
 }
 
 class _MACChartsState extends State<MACChartsPage> {
-  double _period;
-  double _longPeriod;
-  double _shortPeriod;
-  TrackballBehavior _trackballBehavior;
-  TooltipBehavior _tooltipBehavior;
+  late double _period;
+  late double _longPeriod;
+  late double _shortPeriod;
+  late TrackballBehavior _trackballBehavior;
+  late TooltipBehavior _tooltipBehavior;
 
   @override
   void initState() {

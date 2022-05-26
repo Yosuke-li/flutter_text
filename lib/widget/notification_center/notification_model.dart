@@ -1,9 +1,9 @@
 //模型
 class NotificationModel {
-  String type;
-  String title;
-  String msg;
-  int id;
+  String? type;
+  String? title;
+  String? msg;
+  int? id;
 
   NotificationModel({this.id, this.title, this.type, this.msg});
 
@@ -54,8 +54,6 @@ extension NotificationTypeTxt on NotificationType {
       case NotificationType.SelfChat:
         return 'selfChat';
         break;
-      default:
-        return null;
     }
   }
 }

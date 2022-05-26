@@ -1,9 +1,9 @@
 class DbRegister {
-  int id;
-  String account;
-  String password;
-  int updateTime;
-  int createTime;
+  int? id;
+  String? account;
+  String? password;
+  int? updateTime;
+  int? createTime;
 
   DbRegister({
     this.createTime, this.updateTime, this.password, this.account, this.id,

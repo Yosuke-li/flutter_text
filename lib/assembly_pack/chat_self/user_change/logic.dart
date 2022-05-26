@@ -17,25 +17,25 @@ class UserChangeLogic extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    state.nameController.text = GlobalStore.user.name;
-    state.imageController.text = GlobalStore.user.image;
+    state.nameController.text = GlobalStore.user?.name??'';
+    state.imageController.text = GlobalStore.user?.image??'';
   }
 
   void onUpdate() async {
-    final FormState from = state.formKey.currentState;
-    if (from.validate()) {
+    final FormState? from = state.formKey.currentState;
+    if (from != null && from.validate()) {
       from.save();
-      final User user = GlobalStore.user;
-      user.name = state.nameController.text;
-      user.image = state.imageController.text;
+      final User? user = GlobalStore.user;
+      user?.name = state.nameController.text;
+      user?.image = state.imageController.text;
 
       try {
-        await loadingCallback(() => PostgresUser.updateUser(user));
+        await loadingCallback(() => PostgresUser.updateUser(user!));
         GlobalStore.user = user;
-        await UserCache().deleteCache(user.id);
+        await UserCache().deleteCache(user!.id!);
         await UserCache().setCache(user);
         ToastUtils.showToast(msg: '更新成功');
-        NavigatorUtils.pop(Get.context);
+        NavigatorUtils.pop(Get.context!);
       } catch (error, stack) {
         Log.error(error, stackTrace: stack);
         rethrow;

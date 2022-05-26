@@ -3,7 +3,7 @@ import 'package:flutter_text/utils/array_helper.dart';
 
 //用于输入金钱 如 ：21.2121
 class TlMoneyTextInputFormatter extends TextInputFormatter {
-  TlMoneyTextInputFormatter(this.integerMaxLen, {this.decimalMaxLen})
+  TlMoneyTextInputFormatter(this.integerMaxLen, {required this.decimalMaxLen})
       : assert((integerMaxLen == null || integerMaxLen > 0) ||
       (decimalMaxLen == null && decimalMaxLen > 0));
   final int integerMaxLen; //整数位
@@ -55,7 +55,7 @@ class TLLengthLimitingTextInputFormatter
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    if (newValue.text.runes.length > maxLength &&
+    if (newValue.text.runes.length > maxLength! &&
         oldValue.composing == TextRange.empty &&
         newValue.composing != TextRange.empty) {
       return super.formatEditUpdate(oldValue, newValue);
@@ -132,7 +132,7 @@ class TlTextInputFormatterHelper {
 
   ///价格
   static List<TextInputFormatter> priceInputFormatter(int integerMaxLen,
-      {int decimalMaxLen}) {
+      {required int decimalMaxLen}) {
     return <TextInputFormatter>[
       TlMoneyTextInputFormatter(integerMaxLen, decimalMaxLen: decimalMaxLen),
       doubleInputFormatter,

@@ -12,17 +12,17 @@ import 'float_box.dart';
 
 class WindowsWidget extends StatefulWidget {
   BuildContext outSideContext;
-  Widget child;
+  Widget? child;
 
-  WindowsWidget({@required this.outSideContext, this.child});
+  WindowsWidget({required this.outSideContext, this.child});
 
   @override
   _WindowsWidgetState createState() => _WindowsWidgetState();
 }
 
 class _WindowsWidgetState extends State<WindowsWidget> {
-  OverlayEntry entry;
-  VoidCallback voidCallback;
+  OverlayEntry? entry;
+  VoidCallback? voidCallback;
   bool canPop = false;
 
   @override
@@ -35,13 +35,13 @@ class _WindowsWidgetState extends State<WindowsWidget> {
   void setListen() {
     final Future<void> Function() cancel = EventBusHelper.listen<EventCache>((EventCache event) {
       if (event.isRoute != null) {
-        canPop = event.isRoute;
+        canPop = event.isRoute!;
 
         if (canPop == true) {
           entry = OverlayEntry(builder: (context) {
             return  FloatBox();
           });
-          Overlay.of(widget.outSideContext).insert(entry);
+          Overlay.of(widget.outSideContext)?.insert(entry!);
         } else {
           entry?.remove();
         }
@@ -66,6 +66,6 @@ class _WindowsWidgetState extends State<WindowsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.child;
+    return widget.child!;
   }
 }

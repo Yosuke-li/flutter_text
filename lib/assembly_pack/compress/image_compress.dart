@@ -10,11 +10,11 @@ class ImageCompressPage extends StatefulWidget {
 }
 
 class _ImageCompressState extends State<ImageCompressPage> {
-  File _file;
-  File _compressImage;
+  File? _file;
+  File? _compressImage;
 
-  int width;
-  int height;
+  int? width;
+  int? height;
 
   //获取图片
   Future<void> _getImage() async {
@@ -47,7 +47,7 @@ class _ImageCompressState extends State<ImageCompressPage> {
     if (_file == null) {
       return;
     }
-    final File result = await ImageCompressUtil.imageCompressAndGetFile(_file);
+    final File? result = await ImageCompressUtil.imageCompressAndGetFile(_file!);
 
     if (result != null) {
       setState(() {
@@ -75,14 +75,14 @@ class _ImageCompressState extends State<ImageCompressPage> {
                     if (_file != null)
                       Container(
                         child: Image.file(
-                          _file,
+                          _file!,
                           fit: BoxFit.cover,
                         ),
                       ),
                     const SizedBox(height: 10),
                     Text('图片尺寸：width ${width ?? 0} height ${height ?? 0}'),
                     Text(
-                        '图片大小：${_file != null ? (_file.readAsBytesSync().lengthInBytes / 1024).toStringAsFixed(2) : 0} KB')
+                        '图片大小：${_file != null ? ((_file?.readAsBytesSync().lengthInBytes ?? 0) / 1024).toStringAsFixed(2) : 0} KB')
                   ],
                 ),
               ),
@@ -120,13 +120,13 @@ class _ImageCompressState extends State<ImageCompressPage> {
                     if (_compressImage != null)
                       Container(
                         child: Image.file(
-                          _compressImage,
+                          _compressImage!,
                           fit: BoxFit.cover,
                         ),
                       ),
                     const SizedBox(height: 10),
                     Text(
-                        '压缩后图片大小：${_compressImage != null ? (_compressImage.readAsBytesSync().lengthInBytes / 1024).toStringAsFixed(2) : 0} KB')
+                        '压缩后图片大小：${_compressImage != null ? ((_compressImage?.readAsBytesSync().lengthInBytes ?? 0) / 1024).toStringAsFixed(2) : 0} KB')
                   ],
                 ),
               ),

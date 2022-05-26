@@ -8,7 +8,7 @@ class ExampleOnePage extends StatefulWidget {
 
 class _ExampleOneState extends State<ExampleOnePage> {
   bool check1 = false;
-  String _groupValue;
+  String? _groupValue;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +95,7 @@ class _ExampleOneState extends State<ExampleOnePage> {
                 groupValue: _groupValue,
                 onChanged: (value) {
                   setState(() {
-                    _groupValue = value;
+                    _groupValue = value.toString();
                   });
                 },
               ),
@@ -104,7 +104,7 @@ class _ExampleOneState extends State<ExampleOnePage> {
               ),
               NeumorphicIndicator(
                 percent: 0.8,
-                padding: EdgeInsets.all(3),
+                padding: const EdgeInsets.all(3),
                 orientation: NeumorphicIndicatorOrientation.horizontal,
                 height: 20,
                 style: IndicatorStyle(

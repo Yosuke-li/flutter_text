@@ -111,12 +111,14 @@ class PickImageState extends State<PickImageDemo> {
   }
 
   Future<void> _getWechatPicker() async {
-    final List<AssetEntity> images = await AssetPicker.pickAssets(context);
+    final List<AssetEntity>? images = await AssetPicker.pickAssets(context);
     if (images != null) {
       final List<File> list = <File>[];
       for (int i = 0; i < images.length; i++) {
-        final File file = await ArrayHelper.get(images, i).file;
-        list.add(file);
+        final File? file = await ArrayHelper.get(images, i)?.file;
+        if (file != null) {
+          list.add(file);
+        }
       }
       setState(() {
         _imageList.addAll(list);

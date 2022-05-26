@@ -16,10 +16,10 @@ class FileToLocateHelper {
   // getApplicationDocumentsDirectory result = await ImageGallerySaver.saveFile(filePath);
   //netWorkUrl 网络url, fire 本地文件，byteUrl 大部分是asset文件
   static void saveFileToLocated(String fileName,
-      {String netWorkUrl,
-        String fileUrl,
-        List<int> byteUrl,
-        void Function(String) onSuccessToast}) async {
+      {String? netWorkUrl,
+        String? fileUrl,
+        List<int>? byteUrl,
+        void Function(String)? onSuccessToast}) async {
     assert(netWorkUrl != null || fileUrl != null || byteUrl != null);
     final bool check = Platform.isAndroid ? await _checkPermission() : true;
     if (!check) {
@@ -53,7 +53,7 @@ class FileToLocateHelper {
 
   // 点开大图保存文件专用
   static void saveFileImgToLocatedWithType(
-      {String fileUrl, Uint8List byte, void Function() onSuccessToast}) async {
+      {String? fileUrl, Uint8List? byte, void Function()? onSuccessToast}) async {
     assert(fileUrl != null || byte != null);
     final bool check = Platform.isAndroid ? await _checkPermission() : true;
     if (!check) {
@@ -66,13 +66,13 @@ class FileToLocateHelper {
         if (fileUrl != null) {
           result = await ImageGallerySaver.saveFile(fileUrl);
         } else {
-          result = await ImageGallerySaver.saveImage(byte);
+          result = await ImageGallerySaver.saveImage(byte!);
         }
         onSuccessToast?.call();
       } else {
         //ios
         final File file = await _createFileWithType('webp');
-        byte ??= await File(fileUrl).readAsBytes();
+        byte ??= await File(fileUrl!).readAsBytes();
         final File file1 = await file.writeAsBytes(byte);
 
       }
@@ -85,8 +85,8 @@ class FileToLocateHelper {
   static Future<File> _createFile(String fileName) async {
     String filePath;
     if (Platform.isAndroid) {
-      final Directory dir = await getExternalStorageDirectory();
-      filePath = dir.path + '$fileName';
+      final Directory? dir = await getExternalStorageDirectory();
+      filePath = (dir?.path ?? '') + '$fileName';
     } else {
       final Directory tempDir = await getTemporaryDirectory();
       filePath = tempDir.path + '$fileName';
@@ -104,8 +104,8 @@ class FileToLocateHelper {
   static Future<File> _createFileWithType(String fileType) async {
     String filePath;
     if (Platform.isAndroid) {
-      final Directory dir = await getExternalStorageDirectory();
-      filePath = dir.path + '${Random().nextInt(4294967000)}' + ('.$fileType');
+      final Directory? dir = await getExternalStorageDirectory();
+      filePath = (dir?.path ?? '') + '${Random().nextInt(4294967000)}' + ('.$fileType');
     } else {
       filePath = await FileUtils.generateRandomTempFilePath(fileType: fileType);
     }
@@ -126,7 +126,7 @@ class FileToLocateHelper {
 
   //将asset里的文件转为bytes
   static Future<List<int>> getAssetFileBytes(
-      {@required String assetPath}) async {
+      {required String assetPath}) async {
     List<int> bytes = <int>[];
     final ByteData load = await rootBundle.load(assetPath);
     final ByteBuffer buffer = load.buffer;

@@ -11,33 +11,32 @@ class DecodeGifPage extends StatefulWidget {
 }
 
 class GifModel {
-  int duration;
-  int frameCount;
-  List<List<List<Color>>> value;
+  int? duration;
+  int? frameCount;
+  List<List<List<Color>>>? value;
 
   GifModel({this.value, this.duration, this.frameCount});
 }
 
 class _DecodeGifState extends State<DecodeGifPage>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
-  Animation<int> _animation;
+  late Animation<int> _animation;
 
   List<List<List<Color>>> _gifFrames = [];
 
   @override
   void initState() {
     super.initState();
-    setState(() {});
     _getDecodeGif().then((GifModel res) async {
       if (!mounted) return;
 
       _controller = AnimationController(
-          vsync: this, duration: Duration(milliseconds: res.frameCount * res.duration));
-      _animation = IntTween(begin: 0, end:(res.frameCount - 1)).animate(_controller);
+          vsync: this, duration: Duration(milliseconds: (res.frameCount??1) * (res.duration??1)));
+      _animation = IntTween(begin: 0, end:(res.frameCount??1)).animate(_controller);
 
-      _gifFrames = res.value;
+      _gifFrames = res.value??[];
       setState(() {
         _controller.repeat();
       });
@@ -46,7 +45,7 @@ class _DecodeGifState extends State<DecodeGifPage>
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -71,9 +70,9 @@ class _DecodeGifState extends State<DecodeGifPage>
     for (int i = 0; i < code.frameCount; i++) {
       final ui.FrameInfo frameInfo = await code.getNextFrame();
 
-      final ByteData byteData =
+      final ByteData? byteData =
           await frameInfo.image.toByteData(format: ui.ImageByteFormat.rawRgba);
-      final Uint8List uint8List = Uint8List.view(byteData.buffer);
+      final Uint8List uint8List = Uint8List.view(byteData!.buffer);
 
       final List<Color> colors = [];
       Color color;
@@ -119,7 +118,7 @@ class _DecodeGifState extends State<DecodeGifPage>
                   child: RepaintBoundary(
                     child: AnimatedBuilder(
                       animation: _animation,
-                      builder: (BuildContext context, Widget child) {
+                      builder: (BuildContext context, Widget? child) {
                         return AspectRatio(
                           aspectRatio: 1,
                           child: CustomPaint(
@@ -143,16 +142,16 @@ class _DecodeGifState extends State<DecodeGifPage>
 }
 
 class SelfGif extends CustomPainter {
-  final List<List<List<Color>>> frames;
+  final List<List<List<Color>>>? frames;
 
   final int frameIndex;
 
-  const SelfGif({this.frames, this.frameIndex});
+  const SelfGif({this.frames, this.frameIndex = 0});
 
   @override
   void paint(Canvas canvas, Size size) {
     final double width = math.min(size.width, size.height);
-    final List<List<Color>> frame = frames[frameIndex];
+    final List<List<Color>> frame = frames![frameIndex];
     final double perWidth = width / frame.length;
 
     final Paint paint = Paint();

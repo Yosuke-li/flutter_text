@@ -11,9 +11,9 @@
 //
 
 class SingleTon {
-  static SingleTon _init;
+  static late SingleTon _init;
 
-  static String _key;
+  static late String _key;
 
   SingleTon._internal(String val) {
     _init = this;

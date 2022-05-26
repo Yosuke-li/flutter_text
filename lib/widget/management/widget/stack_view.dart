@@ -2,8 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_text/widget/management/common/listenable.dart';
-
-import '../common/view_key.dart';
+import 'package:flutter_text/widget/management/common/view_key.dart';
 
 abstract class StackViewListener {
   void onOpen(ViewKey key, WidgetBuilder createIfAbsent);
@@ -26,13 +25,11 @@ class StackController with GenericListenable<StackViewListener> {
 }
 
 class StackView extends StatefulWidget {
-  final StackController controller;
-  final Widget child;
-  final ValueChanged<ViewKey> onCurrentIndexChanged;
+  final StackController? controller;
+  final Widget? child;
+  final ValueChanged<ViewKey?>? onCurrentIndexChanged;
 
-  const StackView(
-      {Key key, this.controller, this.child, this.onCurrentIndexChanged})
-      : super(key: key);
+  const StackView({Key? key, this.controller, this.onCurrentIndexChanged, this.child}) : super(key: key);
 
   @override
   _StackViewState createState() => _StackViewState();
@@ -85,7 +82,7 @@ class _StackViewState extends State<StackView> implements StackViewListener {
     } else {
       _currentIndex = index;
     }
-    widget.onCurrentIndexChanged?.call(_list[_currentIndex].key);
+    widget.onCurrentIndexChanged?.call(_list[_currentIndex].key as ViewKey);
     _markNeedUpdate();
   }
 
@@ -98,10 +95,10 @@ class _StackViewState extends State<StackView> implements StackViewListener {
     if (index <= _currentIndex) {
       _currentIndex--;
       _currentIndex = max(0, _currentIndex);
-      if (_list.isEmpty) {
+      if(_list.isEmpty){
         widget.onCurrentIndexChanged?.call(null);
-      } else {
-        widget.onCurrentIndexChanged?.call(_list[_currentIndex].key);
+      }else{
+        widget.onCurrentIndexChanged?.call(_list[_currentIndex].key as ViewKey);
       }
     }
     _markNeedUpdate();
@@ -115,13 +112,11 @@ class _StackViewState extends State<StackView> implements StackViewListener {
 
   @override
   Widget build(BuildContext context) {
-    return _list.isNotEmpty
-        ? IndexedStack(
-            index: _currentIndex,
-            children: _list,
-          )
-        : Container(
-            child: widget.child,
-          );
+    return _list.isNotEmpty ? IndexedStack(
+      index: _currentIndex,
+      children: _list,
+    ) : Container(
+      child: widget.child,
+    );
   }
 }

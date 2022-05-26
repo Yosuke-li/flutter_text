@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/utils/log_utils.dart';
 
 class JsonWidgetPage extends StatefulWidget {
-  const JsonWidgetPage({Key key}) : super(key: key);
+  const JsonWidgetPage({Key? key}) : super(key: key);
 
   @override
   State<JsonWidgetPage> createState() => _JsonWidgetPageState();

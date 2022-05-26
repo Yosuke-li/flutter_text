@@ -1,9 +1,9 @@
 import 'package:flutter_text/assembly_pack/other_charts/model.dart';
 
 class ChartsData {
-  String date;
-  double profit;
-  double totalProfit;
+  String? date;
+  double? profit;
+  double? totalProfit;
 
   ChartsData({this.date, this.profit, this.totalProfit});
 
@@ -17,7 +17,7 @@ class ChartsData {
     totalProfit = json['totalProfit'];
   }
 
-  static List<ChartsData> listFromJson(List<dynamic> json) {
+  static List<ChartsData> listFromJson(List<dynamic>? json) {
     return json == null
         ? <ChartsData>[]
         : json.map((e) => ChartsData.fromJson(e)).toList();

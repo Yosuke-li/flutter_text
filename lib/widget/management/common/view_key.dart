@@ -7,7 +7,7 @@ class ViewKey implements LocalKey {
 
   final String id;
 
-  const ViewKey({@required this.namespace, @required this.id});
+  const ViewKey({required this.namespace, required this.id});
 
   @override
   bool operator ==(Object other) =>
@@ -24,7 +24,7 @@ class ViewKey implements LocalKey {
 class ViewKeyWidget extends StatelessWidget {
   final Widget child;
 
-  const ViewKeyWidget({@required ViewKey key, @required this.child})
+  const ViewKeyWidget({required ViewKey key, required this.child})
       : super(key: key);
 
   @override

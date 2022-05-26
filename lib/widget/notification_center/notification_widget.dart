@@ -7,7 +7,7 @@ import 'notification_helper.dart';
 import 'notification_listener.dart';
 
 class NotificationListenPage extends StatefulWidget {
-  NotificationListenPage({@required this.child});
+  NotificationListenPage({required this.child});
 
   Widget child;
 
@@ -16,7 +16,7 @@ class NotificationListenPage extends StatefulWidget {
 }
 
 class NotificationListenPageState extends State<NotificationListenPage> {
-  NotificationController _controller;
+  late NotificationController _controller;
 
   @override
   void initState() {
@@ -30,7 +30,7 @@ class NotificationListenPageState extends State<NotificationListenPage> {
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     super.dispose();
   }
 

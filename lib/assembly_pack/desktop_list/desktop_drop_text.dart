@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/init.dart';
 
 class DesktopDropText extends StatefulWidget {
-  const DesktopDropText({Key key}) : super(key: key);
+  const DesktopDropText({Key? key}) : super(key: key);
 
   @override
   _DesktopDropTextState createState() => _DesktopDropTextState();
 }
 
 class _DesktopDropTextState extends State<DesktopDropText> {
-  XFile _file;
+  late XFile _file;
 
   void _dragDone(DropDoneDetails details) async {
     _file = details.files.last;

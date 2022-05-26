@@ -2,7 +2,7 @@ import '../../init.dart';
 import '../../widget/overlay_field.dart';
 
 class OverlayText extends StatefulWidget {
-  const OverlayText({Key key}) : super(key: key);
+  const OverlayText({Key? key}) : super(key: key);
 
   @override
   _OverlayTextState createState() => _OverlayTextState();

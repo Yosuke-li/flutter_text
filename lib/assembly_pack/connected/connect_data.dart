@@ -18,8 +18,8 @@ class _ConnectState extends State<ConnectWidget> {
     }
   }
 
-  StreamSubscription<ConnectivityResult> connectivitySubscription;
-  bool wifi;
+  late StreamSubscription<ConnectivityResult> connectivitySubscription;
+  late bool wifi;
 
   @override
   void initState() {

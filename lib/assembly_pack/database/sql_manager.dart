@@ -6,7 +6,7 @@ class SqlManager {
 
   static const _NAME = 'my.db';
 
-  static Database _database;
+  static late Database _database;
 
   //初始化
   static Future<void> init() async {
@@ -33,6 +33,5 @@ class SqlManager {
 
   static void close() {
     _database.close();
-    _database = null;
   }
 }

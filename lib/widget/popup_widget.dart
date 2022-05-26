@@ -17,66 +17,66 @@ enum PopupToastDirection {
 /// 通用 Popup Window 提示，带三角号
 class PopupToastWindow extends StatefulWidget {
   /// 依附的组件的Context
-  final BuildContext context;
+  final BuildContext? context;
 
   /// 箭头的高度
-  final double arrowHeight;
+  final double? arrowHeight;
 
   /// 要显示的文本
-  final String text;
+  final String? text;
 
   /// 依附的组件和PopupToastWindow组件共同持有的GlobalKey
   final GlobalKey popKey;
 
   /// 要显示文本的样式
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
 
   /// popUpWindow的背景颜色
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// 边框颜色
-  final Color borderColor;
+  final Color? borderColor;
 
   /// 是否有关闭图标
-  final bool isShowCloseIcon;
+  final bool? isShowCloseIcon;
 
   /// 距离targetView偏移量
-  final double offset;
+  final double? offset;
 
   /// popUpWindow位于targetView的方向
-  final PopupToastDirection popDirection;
+  final PopupToastDirection? popDirection;
 
   /// 自定义widget
-  final Widget widget;
+  final Widget? widget;
 
   /// 容器内边距
-  final EdgeInsets paddingInsets;
+  final EdgeInsets? paddingInsets;
 
   /// 容器圆角
-  final double borderRadius;
+  final double? borderRadius;
 
   /// 是否能多行显示  默认false:单行显示
   final bool canWrap;
 
   /// 默认距离TargetView边线的距离,默认：20
-  final double spaceMargin;
+  final double? spaceMargin;
 
   /// 箭头偏移量
-  final double arrowOffset;
+  final double? arrowOffset;
 
   /// popUpWindow消失回调
-  final VoidCallback onDismiss;
+  final VoidCallback? onDismiss;
 
   /// popWindow距离底部的距离小于此值的时候，
   /// 自动将popWindow在targetView上面弹出
-  final double turnOverFromBottom;
+  final double? turnOverFromBottom;
 
   ///宽度
-  final double width;
+  final double? width;
 
   const PopupToastWindow(this.context,
       {this.text,
-      this.popKey,
+      required this.popKey,
       this.arrowHeight,
       this.textStyle,
       this.backgroundColor,
@@ -103,7 +103,7 @@ class PopupToastWindow extends StatefulWidget {
       Color backgroundColor = const Color(0xFF1A1A1A),
       bool hasCloseIcon = false,
       double offset = 5,
-      Widget widget,
+      Widget? widget,
       EdgeInsets paddingInsets =
           const EdgeInsets.only(left: 18, top: 14, right: 18, bottom: 14),
       double borderRadius = 8,
@@ -111,9 +111,9 @@ class PopupToastWindow extends StatefulWidget {
       double borderWidth = 1,
       bool canWrap = false,
       double spaceMargin = 0,
-      double arrowOffset,
-      double width,
-      VoidCallback dismissCallback,
+      double? arrowOffset,
+      double? width,
+      VoidCallback? dismissCallback,
       double turnOverFromBottom = 50.0}) {
     Navigator.push(
       context,
@@ -131,7 +131,7 @@ class PopupToastWindow extends StatefulWidget {
           widget: widget,
           paddingInsets: paddingInsets,
           borderRadius: borderRadius,
-          borderColor: borderColor ?? Colors.transparent,
+          borderColor: borderColor,
           canWrap: canWrap,
           width: width,
           spaceMargin: spaceMargin,
@@ -149,10 +149,10 @@ class PopupToastWindow extends StatefulWidget {
 
 class _PopupToastWindowState extends State<PopupToastWindow> {
   /// targetView的位置
-  Rect _showRect;
+  Rect? _showRect;
 
   /// 屏幕的尺寸
-  Size _screenSize;
+  late Size _screenSize;
 
   /// 箭头和左右侧边线间距
   final double _arrowSpacing = 18;
@@ -161,34 +161,34 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
   bool _expandedRight = true;
 
   /// popUpWindow在中线两侧的具体位置
-  double _left, _right, _top, _bottom;
+  late double _left, _right, _top, _bottom;
 
   /// 箭头展示方向
-  PopupToastDirection _popDirection;
+  PopupToastDirection? _popDirection;
 
   /// 去除透明度的边框色
-  Color _borderColor;
+  Color? _borderColor;
 
   /// 去除透明度的背景颜色
-  Color _backgroundColor;
+  Color? _backgroundColor;
 
   @override
   void initState() {
     super.initState();
     _showRect = _getWidgetGlobalRect(widget.popKey);
     _screenSize = window.physicalSize / window.devicePixelRatio;
-    _borderColor = widget.borderColor.withAlpha(255);
-    _backgroundColor = widget.backgroundColor.withAlpha(255);
+    _borderColor = widget.borderColor?.withAlpha(255);
+    _backgroundColor = widget.backgroundColor?.withAlpha(255);
     _popDirection = widget.popDirection;
     _calculateOffset();
   }
 
   // 获取targetView的位置
-  Rect _getWidgetGlobalRect(GlobalKey key) {
+  Rect? _getWidgetGlobalRect(GlobalKey key) {
     if (key == null) {
       return null;
     }
-    RenderBox renderBox = key.currentContext.findRenderObject();
+    RenderBox renderBox = key.currentContext?.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     return Rect.fromLTWH(
         offset.dx, offset.dy, renderBox.size.width, renderBox.size.height);
@@ -196,25 +196,31 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
 
   // 计算popUpWindow显示的位置
   void _calculateOffset() {
-    if (_showRect.center.dx < _screenSize.width / 2) {
+    if ((_showRect?.center.dx ?? 0) < _screenSize.width / 2) {
       // popUpWindow向右侧延伸
       _expandedRight = true;
-      _left = _showRect.left + widget.spaceMargin;
+      _left = (_showRect?.left ?? 0) + (widget.spaceMargin ?? 0);
     } else {
       // popUpWindow向左侧延伸
       _expandedRight = false;
-      _right = _screenSize.width - _showRect.right + widget.spaceMargin;
+      _right = _screenSize.width -
+          (_showRect?.right ?? 0) +
+          (widget.spaceMargin ?? 0);
     }
     if (_popDirection == PopupToastDirection.bottom) {
       // 在targetView下方
-      _top = _showRect.height + _showRect.top + widget.offset;
-      if ((_screenSize.height - _top) < widget.turnOverFromBottom) {
+      _top = (_showRect?.height ?? 0) +
+          (_showRect?.top ?? 0) +
+          (widget.offset ?? 0);
+      if ((_screenSize.height - _top) < (widget.turnOverFromBottom ?? 0)) {
         _popDirection = PopupToastDirection.top;
-        _bottom = _screenSize.height - _showRect.top + widget.offset;
+        _bottom =
+            _screenSize.height - (_showRect?.top ?? 0) + (widget.offset ?? 0);
       }
     } else if (_popDirection == PopupToastDirection.top) {
       // 在targetView上方
-      _bottom = _screenSize.height - _showRect.top + widget.offset;
+      _bottom =
+          _screenSize.height - (_showRect?.top ?? 0) + (widget.offset ?? 0);
     }
   }
 
@@ -228,7 +234,7 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
             onTap: () {
               Navigator.pop(context);
               if (widget.onDismiss != null) {
-                widget.onDismiss();
+                widget.onDismiss!();
               }
             },
             child: Material(
@@ -244,7 +250,7 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
           ),
           onWillPop: () {
             if (widget.onDismiss != null) {
-              widget.onDismiss();
+              widget.onDismiss!();
             }
             return Future.value(true);
           }),
@@ -257,39 +263,39 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
         ? Positioned(
             left: widget.arrowOffset ??
                 _left +
-                    (_showRect.width - _arrowSpacing) / 2 -
-                    widget.spaceMargin,
+                    ((_showRect?.width ?? 0) - _arrowSpacing) / 2 -
+                    (widget.spaceMargin ?? 0),
             top: _popDirection == PopupToastDirection.bottom
-                ? _top - widget.arrowHeight
+                ? _top - (widget.arrowHeight ?? 0)
                 : null,
             bottom: _popDirection == PopupToastDirection.top
-                ? _bottom - widget.arrowHeight
+                ? _bottom - (widget.arrowHeight ?? 0)
                 : null,
             child: CustomPaint(
-              size: Size(15.0, widget.arrowHeight),
+              size: Size(15.0, (widget.arrowHeight ?? 0)),
               painter: _TrianglePainter(
                   isDownArrow: _popDirection == PopupToastDirection.top,
-                  color: _backgroundColor,
-                  borderColor: _borderColor),
+                  color: _backgroundColor!,
+                  borderColor: _borderColor!),
             ),
           )
         : Positioned(
             right: widget.arrowOffset ??
                 _right +
-                    (_showRect.width - _arrowSpacing) / 2 -
-                    widget.spaceMargin,
+                    ((_showRect?.width ?? 0) - _arrowSpacing) / 2 -
+                    (widget.spaceMargin ?? 0),
             top: _popDirection == PopupToastDirection.bottom
-                ? _top - widget.arrowHeight
+                ? _top - (widget.arrowHeight ?? 0)
                 : null,
             bottom: _popDirection == PopupToastDirection.top
-                ? _bottom - widget.arrowHeight
+                ? _bottom - (widget.arrowHeight ?? 0)
                 : null,
             child: CustomPaint(
-              size: Size(15.0, widget.arrowHeight),
+              size: Size(15.0, widget.arrowHeight??0),
               painter: _TrianglePainter(
                   isDownArrow: _popDirection == PopupToastDirection.top,
-                  color: _backgroundColor,
-                  borderColor: _borderColor),
+                  color: _backgroundColor!,
+                  borderColor: _borderColor!),
             ),
           );
   }
@@ -309,7 +315,7 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
             padding: widget.paddingInsets,
             decoration: BoxDecoration(
                 color: _backgroundColor,
-                border: Border.all(color: _borderColor, width: 0.5),
+                border: Border.all(color: _borderColor!, width: 0.5),
                 borderRadius: BorderRadius.circular(widget.borderRadius ?? 4)),
             constraints: BoxConstraints(
                 maxWidth: _expandedRight
@@ -325,7 +331,7 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
                             text: TextSpan(children: <InlineSpan>[
                             TextSpan(
                                 text: widget.text, style: widget.textStyle),
-                            widget.isShowCloseIcon
+                            widget.isShowCloseIcon == true
                                 ? const WidgetSpan(
                                     alignment: PlaceholderAlignment.middle,
                                     child: Padding(
@@ -343,13 +349,13 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: Text(
-                                  widget.text,
+                                  widget.text??'',
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: widget.textStyle,
                                 ),
                               ),
-                              widget.isShowCloseIcon
+                              widget.isShowCloseIcon == true
                                   ? const Padding(
                                       padding: EdgeInsets.only(left: 6),
                                       child: Icon(
@@ -366,9 +372,9 @@ class _PopupToastWindowState extends State<PopupToastWindow> {
 
 // 绘制箭头
 class _TrianglePainter extends CustomPainter {
-  bool isDownArrow;
-  Color color;
-  Color borderColor;
+  bool? isDownArrow;
+  Color? color;
+  Color? borderColor;
 
   _TrianglePainter({
     this.isDownArrow,
@@ -381,10 +387,10 @@ class _TrianglePainter extends CustomPainter {
     Path path = Path();
     Paint paint = Paint();
     paint.strokeWidth = 2.0;
-    paint.color = color;
+    paint.color = color!;
     paint.style = PaintingStyle.fill;
 
-    if (isDownArrow) {
+    if (isDownArrow = true) {
       path.moveTo(0.0, -1.5);
       path.lineTo(size.width / 2.0, size.height);
       path.lineTo(size.width, -1.5);
@@ -398,10 +404,10 @@ class _TrianglePainter extends CustomPainter {
     Paint paintBorder = Paint();
     Path pathBorder = Path();
     paintBorder.strokeWidth = 0.5;
-    paintBorder.color = borderColor;
+    paintBorder.color = borderColor!;
     paintBorder.style = PaintingStyle.stroke;
 
-    if (isDownArrow) {
+    if (isDownArrow = true) {
       pathBorder.moveTo(0.0, -0.5);
       pathBorder.lineTo(size.width / 2.0, size.height);
       pathBorder.lineTo(size.width, -0.5);
@@ -424,16 +430,16 @@ class PopupToastRoute<T> extends PopupRoute<T> {
   final Duration _duration = const Duration(milliseconds: 100);
   Widget child;
 
-  PopupToastRoute({@required this.child});
+  PopupToastRoute({required this.child});
 
   @override
-  Color get barrierColor => null;
+  Color? get barrierColor => null;
 
   @override
   bool get barrierDismissible => true;
 
   @override
-  String get barrierLabel => null;
+  String? get barrierLabel => null;
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
@@ -441,8 +447,7 @@ class PopupToastRoute<T> extends PopupRoute<T> {
     return FadeTransition(
       opacity: Tween<double>(begin: 0.0, end: 1.0)
           //fastOutSlowIn快出慢进
-          .animate(
-              CurvedAnimation(parent: animation, curve: Curves.linear)),
+          .animate(CurvedAnimation(parent: animation, curve: Curves.linear)),
       child: child,
     );
   }

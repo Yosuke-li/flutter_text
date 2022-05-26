@@ -24,7 +24,7 @@ class contextPage extends StatefulWidget {
 class contextPageState extends State<contextPage> {
   bool get _isFullScreen =>
       MediaQuery.of(context).orientation == Orientation.landscape;
-  File _video;
+  late File _video;
 
   Size get _window => MediaQuery.of(context).size;
 

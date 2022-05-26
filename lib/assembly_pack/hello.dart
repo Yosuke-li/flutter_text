@@ -35,7 +35,7 @@ class HelloDemoState extends State<HelloDemo> {
     final ByteData data = await rootBundle.load('images/plane2.gif');
     final Uint8List uintList = Uint8List.view(data.buffer);
     final ui.Codec code = await ui.instantiateImageCodec(uintList);
-    final first = await code.getNextFrame();
+    final ui.FrameInfo first = await code.getNextFrame();
     Log.info(first.image);
     Log.info(code.frameCount);
   }
@@ -94,17 +94,17 @@ class HelloDemoState extends State<HelloDemo> {
 class LinearBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final tween = MultiTrackTween([
-      Track("color1").add(Duration(seconds: 20),
+    final MultiTrackTween tween = MultiTrackTween([
+      Track("color1").add(const Duration(seconds: 20),
           ColorTween(begin: Colors.red, end: Colors.blueAccent.shade700)),
-      Track("color2").add(Duration(seconds: 20),
+      Track("color2").add(const Duration(seconds: 20),
           ColorTween(begin: Colors.deepOrange, end: Colors.blue.shade600))
     ]);
-    return ControlledAnimation(
+    return ControlledAnimation<Map<String, dynamic>>(
       playback: Playback.MIRROR,
       tween: tween,
       duration: tween.duration,
-      builder: (context, animation) {
+      builder: (BuildContext context, animation) {
         return Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(

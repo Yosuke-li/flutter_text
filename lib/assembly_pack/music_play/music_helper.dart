@@ -28,8 +28,6 @@ extension PlayModeTxt on PlayMode {
       case PlayMode.normal:
         return '列表播放';
         break;
-      default:
-        return null;
     }
   }
 }
@@ -44,8 +42,8 @@ class MusicHelper {
 
   // 本地文件
   static Future<MusicModel> setAppLocateFile(FilePickerResult files) async {
-    final PlatformFile _file = ArrayHelper.get(files.files, 0);
-    final Uint8List unit8 = File(_file.path).readAsBytesSync();
+    final PlatformFile _file = ArrayHelper.get(files.files, 0)!;
+    final Uint8List unit8 = File(_file.path!).readAsBytesSync();
     final File tempFile =
         await FileUtils.generateRandomTempFile(fileType: 'mp3');
     final File newFile = await tempFile.writeAsBytes(unit8);
@@ -68,7 +66,7 @@ class MusicHelper {
     } else {
       index = index + 1;
     }
-    return ArrayHelper.get(_mode, index);
+    return ArrayHelper.get(_mode, index)!;
   }
 
 

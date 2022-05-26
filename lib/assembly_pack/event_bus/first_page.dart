@@ -8,8 +8,8 @@ class EventBusDemo extends StatefulWidget {
 }
 
 class _EventBusDemoState extends State<EventBusDemo> {
-  StreamSubscription<PageEvent> eventBus;
-  String eventData;
+  StreamSubscription<PageEvent>? eventBus;
+  String? eventData;
 
   @override
   void initState() {
@@ -22,8 +22,8 @@ class _EventBusDemoState extends State<EventBusDemo> {
       body: ListView(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(top: 20),
-            child: Center(
+            padding: const EdgeInsets.only(top: 20),
+            child: const Center(
 //              child: Text('${eventData}' == ''|| '${eventData}' == null ? '' : '${eventData}'),
             ),
           ),
@@ -37,10 +37,10 @@ class _EventBusDemoState extends State<EventBusDemo> {
                         child: Container(
                           width: 350,
                           height: 150,
-                          decoration: new BoxDecoration(
+                          decoration: BoxDecoration(
                             color: Colors.grey,
-                            borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                            border: new Border.all(width: 1, color: Colors.grey),
+                            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                            border: Border.all(width: 1, color: Colors.grey),
                           ),
                           child: EventBusDemo2(),
                         ),

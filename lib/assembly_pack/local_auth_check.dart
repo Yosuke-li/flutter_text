@@ -19,8 +19,8 @@ enum _SupportState {
 class _localAuthCheckState extends State<LocalAuthCheck> {
   final LocalAuthentication auth = LocalAuthentication();
   _SupportState _supportState = _SupportState.unknown;
-  bool _canCheckBiometrics;
-  List<BiometricType> _availableBiometrics;
+  bool _canCheckBiometrics = false;
+  List<BiometricType>? _availableBiometrics;
   String _authorized = 'Not Authorized';
   bool _isAuthenticating = false;
   

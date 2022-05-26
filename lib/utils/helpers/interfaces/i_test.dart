@@ -1,5 +1,5 @@
 abstract class TestCache<T> {
-  Future<T> getCache(int id);
+  Future<T?> getCache(int id);
 
   Future<void> setCache(T data);
 

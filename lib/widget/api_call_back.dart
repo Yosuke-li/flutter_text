@@ -8,9 +8,9 @@ import 'package:flutter_text/utils/toast_utils.dart';
 ///[enableErrorTip] 如果为true则自动弹出Text Toast进行提示
 ///[errTip]报错时弹出的提示文本,没有则使用Error的message
 Future<T> loadingCallback<T>(Future<T> callback(),
-    {Widget customLoading,
-    String errTip,
-    @Deprecated('参数已被忽视') bool enableErrorTip = true}) async {
+    {Widget? customLoading,
+      String? errTip,
+      @Deprecated('参数已被忽视') bool enableErrorTip = true}) async {
   final Cancel cancel = ToastUtils.showLoading(customLoading: customLoading);
   try {
     return await callback();
@@ -33,17 +33,17 @@ typedef TimeoutFunc = Future<void> Function(TimeoutException exception);
 ///异步函数超时包裹
 ///[timeout]默认超时时间 30s
 ///[timeoutFunc] 超时执行函数,
-Future<T> timeoutWrapCallback<T>(Future<T> callBack(),
-    {Duration timeout, TimeoutFunc timeoutFunc}) async {
+Future<T?> timeoutWrapCallback<T>(Future<T> callBack(),
+    {Duration? timeout, TimeoutFunc? timeoutFunc}) async {
   timeout ??= const Duration(seconds: 30);
   try {
-    return await callBack?.call()?.timeout(timeout, onTimeout: () async {
+    return await callBack.call().timeout(timeout, onTimeout: () async {
       throw TimeoutException('函数执行超时');
     });
   } catch (e) {
     if (e.runtimeType == TimeoutException) {
       if (timeoutFunc != null) {
-        timeoutFunc?.call(e);
+        timeoutFunc.call(e as TimeoutException);
         rethrow;
       } else {
         rethrow;
@@ -53,3 +53,4 @@ Future<T> timeoutWrapCallback<T>(Future<T> callBack(),
     }
   }
 }
+

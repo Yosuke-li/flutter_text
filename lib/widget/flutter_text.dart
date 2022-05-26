@@ -13,8 +13,8 @@ class FlutterText extends StatefulWidget {
 
 class _FlutterTextState extends State<FlutterText>
     with SingleTickerProviderStateMixin {
-  Animation<double> animation;
-  AnimationController controller;
+  late Animation<double> animation;
+  late AnimationController controller;
 
   @override
   void initState() {

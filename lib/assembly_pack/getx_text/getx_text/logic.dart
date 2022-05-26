@@ -32,7 +32,7 @@ class GetxTextLogic extends GetxController {
         list.add(v['name'] as String);
       });
       state.servers = list;
-      state.select.value = ArrayHelper.get(state.servers, 100);
+      state.select.value = ArrayHelper.get(state.servers, 100)??'';
     });
   }
 }
