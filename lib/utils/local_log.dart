@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:package_info/package_info.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
@@ -10,7 +11,8 @@ class LocalLog {
 
   static Future<File> _getDocument() async {
     final document = await getTemporaryDirectory();
-    final filePath =  path.join(document.path, 'log.log');
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    final filePath =  path.join(document.path, '${info.packageName}_log.log');
 
     final File file = File(filePath);
     if (!file.existsSync()) {
@@ -35,7 +37,7 @@ class LocalLog {
     if ((file.readAsBytesSync().lengthInBytes / 1024 / 1024) < 50) {
       final String a = await file.readAsString();
       if (a.isNotEmpty == true) {
-        _log = '$a\n$_log';
+        _log = '$a$_log';
       }
     }
     await file.writeAsString(_log);

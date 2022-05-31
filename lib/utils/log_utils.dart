@@ -21,7 +21,7 @@ class Log {
     LocalLog.setLog('${LogLevel.DEBUG.toString()} -- ${DateTime.now().toString()} -- $message');
   }
 
-  static void info(Object message) {
+  static void   info(Object message) {
     if (_debugMode) {
       log('${LogLevel.INFO.toString()} -- ${DateTime.now().toString()} -- $message',
           level: 500);

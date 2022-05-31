@@ -1,3 +1,5 @@
+import 'package:flutter_text/utils/datetime_utils.dart';
+
 import '../init.dart';
 import 'package:redis/redis.dart';
 
@@ -11,6 +13,7 @@ class RedisTest extends StatefulWidget {
 class _RedisTestState extends State<RedisTest> {
 
   final RedisConnection redisConn = RedisConnection();
+  late Command res;
 
   @override
   void initState() {
@@ -19,9 +22,13 @@ class _RedisTestState extends State<RedisTest> {
   }
 
   Future<void> _init() async {
-    final Command res = await redisConn.connect('localhost', 6379);
+    res = await redisConn.connect('localhost', 6379);
     final test = await res.get('qq_password');
+    final setList = await res.send_object(['smembers', 'setList']);
+    final keys = await res.send_object(['keys', '*']);
     Log.info('$test');
+    Log.info('$setList');
+    Log.info('$keys');
   }
 
   @override
@@ -30,7 +37,16 @@ class _RedisTestState extends State<RedisTest> {
       appBar: AppBar(
         title: const Text('redis测试'),
       ),
-      body: Container(),
+      body: Container(
+        child: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              res.send_object(['set', 'flutter', 'flutter_value_${DateTimeHelper.getLocalTimeStamp()}']);
+            },
+            child: const Text('set'),
+          ),
+        ),
+      ),
     );
   }
 }

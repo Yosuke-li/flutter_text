@@ -390,7 +390,7 @@ class _TrianglePainter extends CustomPainter {
     paint.color = color!;
     paint.style = PaintingStyle.fill;
 
-    if (isDownArrow = true) {
+    if (isDownArrow == true) {
       path.moveTo(0.0, -1.5);
       path.lineTo(size.width / 2.0, size.height);
       path.lineTo(size.width, -1.5);
@@ -407,7 +407,7 @@ class _TrianglePainter extends CustomPainter {
     paintBorder.color = borderColor!;
     paintBorder.style = PaintingStyle.stroke;
 
-    if (isDownArrow = true) {
+    if (isDownArrow == true) {
       pathBorder.moveTo(0.0, -0.5);
       pathBorder.lineTo(size.width / 2.0, size.height);
       pathBorder.lineTo(size.width, -0.5);

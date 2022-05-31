@@ -14,11 +14,21 @@ import 'package:flutter_text/widget/navigator_helper.dart';
 import 'assembly_pack/event_bus/event_util.dart';
 import 'index.dart';
 import 'utils/init.dart';
+import 'utils/local_log.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-    WidgetsFlutterBinding.ensureInitialized();
     await windowManager.ensureInitialized();
+    windowManager.waitUntilReadyToShow().then((value) async {
+      // await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
+      await windowManager.setSize(const Size(1250, 800));
+      await windowManager.setTitle('flutter学习组件');
+      await windowManager.setMinimumSize(const Size(1250, 800));
+      await windowManager.center();
+      await windowManager.show();
+    });
   }
   SecurityKeyboardCenter.register();
   runZonedGuarded<Future<void>>(() async {
@@ -113,6 +123,7 @@ class AssemblyState extends State<Assembly> {
 //错误信息处理
 void _errorHandler(FlutterErrorDetails details) async {
   await ReportError().reportError(details.exception, details.stack);
+  LocalLog.setLog('${LogLevel.ERROR.toString()} -- ${DateTime.now().toString()} -- ${details.exception}');
 
   if (ReportError().isInDebugMode) {
     FlutterError.dumpErrorToConsole(details);
