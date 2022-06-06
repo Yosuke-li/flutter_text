@@ -39,11 +39,7 @@ class SqlUser {
     _desc = map['desc'];
   }
 
-  String toString() {
-    return 'User[id=$id, name=$name, desc=$desc]';
-  }
-
-  SqlUser.fromJson(Map<String, dynamic> json) {
+  SqlUser.fromJson(Map<String, dynamic>? json) {
     if (json == null || json.keys.isNotEmpty != true) return;
     final Map<String, dynamic> keyToLowerCaseJson = {};
     keyToLowerCaseJson.addEntries(json.keys.map((element) {
@@ -53,7 +49,7 @@ class SqlUser {
     SqlUser.fromMapObject(keyToLowerCaseJson);
   }
 
-  static List<SqlUser> listFromJson(List<dynamic> json) {
+  static List<SqlUser> listFromJson(List<dynamic>? json) {
     return json == null
         ? <SqlUser>[]
         : json.map((e) => SqlUser.fromJson(e)).toList();

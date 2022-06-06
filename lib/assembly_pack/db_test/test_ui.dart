@@ -29,8 +29,6 @@ class _TestDbState extends State<TestDb> {
     final int counts = await provider.getTableCountsV2();
     
     final List<SqlUser> cache = await iCacheApi.getAllCache();
-    print('counts: $counts');
-    print('cache: ${jsonEncode(cache)}');
     setState(() {
       userList = list;
     });

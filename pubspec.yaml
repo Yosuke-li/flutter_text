@@ -46,7 +46,7 @@ dependencies:
   mini_calendar: ^0.3.1 #日历
   flutter_picker: ^2.0.2 #文件选择
   flutter_swiper: ^1.1.6 #滑动
-  inview_notifier_list: 1.0.0 #视频滚动到播放
+  inview_notifier_list: 3.0.0 #视频滚动到播放
   sentry: ^5.0.0  #日志监听
   connectivity: ^3.0.3
   image_gallery_saver: ^1.2.2 #文件保存
@@ -58,7 +58,7 @@ dependencies:
   scrollable_positioned_list: ^0.2.0-nullsafety.0 #滚动
   wechat_assets_picker: ^7.0.5 #微信的文件选择器
   move_to_background: ^1.0.0 #退出app到后台
-  lpinyin: ^1.0.9   # 汉字转拼音
+  lpinyin: ^2.0.3   # 汉字转拼音
 #  flutter_doraemonkit:
 #    git:
 #      url: https://github.com/NayoLx/flutter_doraemonkit_plugin.git
@@ -98,6 +98,8 @@ dependencies:
   dynamic_widget: ^4.0.4
   shell: ^2.0.0 #调用命令行
   redis: ^3.1.0
+  json_serializable: ^6.2.0
+  build_runner: ^2.1.10
 
 
 #  dropdown_search:

@@ -19,7 +19,7 @@ class _ConnectState extends State<ConnectWidget> {
   }
 
   late StreamSubscription<ConnectivityResult> connectivitySubscription;
-  late bool wifi;
+  bool? wifi;
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class _ConnectState extends State<ConnectWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(wifi ? "有wifi" : "断wifi了"),
+        child: Text(wifi == false ? "有wifi" : "断wifi了"),
       ),
     );
   }

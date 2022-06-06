@@ -11,7 +11,7 @@
 //
 
 class SingleTon {
-  static late SingleTon _init;
+  static SingleTon? _init;
 
   static late String _key;
 

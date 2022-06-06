@@ -48,10 +48,6 @@ class User {
     this._image = map['image'];
   }
 
-  String toString() {
-    return 'User[id=$id, name=$name, desc=$desc, image=$image]';
-  }
-
   User.fromJson(Map<String, dynamic> json) {
     if (json == null || json.keys.isNotEmpty != true) return;
     final Map<String, dynamic> keyToLowerCaseJson = {};

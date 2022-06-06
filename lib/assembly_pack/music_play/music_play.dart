@@ -39,13 +39,13 @@ class _Page extends StatefulWidget {
 
 class _PageState extends State<_Page> with TickerProviderStateMixin {
   AudioPlayer _audioPlayer = AudioPlayer();
-  late int times;
-  late int currentTime;
+  int? times;
+  int? currentTime;
 
-  late AudioPlayerState _state; //播放状态
+  AudioPlayerState? _state; //播放状态
   PanelController panel = PanelController();
   List<MusicModel> _list = <MusicModel>[];
-  late MusicModel currentMusic;
+  MusicModel? currentMusic;
   int currentIndex = 0;
 
   late AnimationController _controller;
@@ -93,8 +93,10 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
     if (result != null) {
       if (result.isSinglePick == true) {
         currentMusic = await MusicHelper.setAppLocateFile(result);
-        play(currentMusic.path!);
-        setState(() {});
+        if (currentMusic != null) {
+          play(currentMusic!.path!);
+          setState(() {});
+        }
       }
     }
     getMusicCacheList();
@@ -145,7 +147,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
   //暂停
   void startOrPause() async {
     if (_state == null) {
-      play(currentMusic.path!);
+      play(currentMusic!.path!);
       return;
     }
     if (_state == AudioPlayerState.PAUSED) {
@@ -191,7 +193,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
     }
     currentMusic = ArrayHelper.get(_list, index)!;
     currentIndex = index;
-    play(currentMusic.path!);
+    play(currentMusic!.path!);
     setState(() {});
   }
 
@@ -205,7 +207,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
     }
     currentMusic = ArrayHelper.get(_list, index)!;
     currentIndex = index;
-    play(currentMusic.path!);
+    play(currentMusic!.path!);
     setState(() {});
   }
 
@@ -410,7 +412,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Text('${currentMusic.name ?? ' '}',
+        Text('${currentMusic?.name ?? ' '}',
             style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 16,
@@ -453,8 +455,8 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
             NeumorphicSlider(
               height: 8,
               min: 0,
-              max: times.toDouble(),
-              value: currentTime.toDouble(),
+              max: times?.toDouble()??0,
+              value: currentTime?.toDouble()??0,
               onChanged: (double value) {
                 onSeekChange(value.toInt());
               },

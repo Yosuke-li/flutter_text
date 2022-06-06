@@ -6,7 +6,7 @@ class SqlManager {
 
   static const _NAME = 'my.db';
 
-  static late Database _database;
+  static Database? _database;
 
   //初始化
   static Future<void> init() async {
@@ -18,7 +18,7 @@ class SqlManager {
 
   static Future<bool> isTableExits(String tableName) async {
     await getCurrentDatabase();
-    final result = await _database.rawQuery(
+    final result = await _database?.rawQuery(
         "select * from Sqlite_master where type= 'table' and name = '$tableName'");
     return result != null && result.isNotEmpty;
   }
@@ -28,10 +28,10 @@ class SqlManager {
     if (_database == null) {
       await init();
     }
-    return _database;
+    return _database!;
   }
 
   static void close() {
-    _database.close();
+    _database?.close();
   }
 }

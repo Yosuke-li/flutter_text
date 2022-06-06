@@ -1,6 +1,7 @@
 import 'package:flutter_text/assembly_pack/compress/video_compress.dart';
 import 'package:flutter_text/assembly_pack/menu_item.dart';
 import 'package:flutter_text/assembly_pack/redis_test.dart';
+import 'package:flutter_text/utils/datetime_utils.dart';
 import 'package:flutter_text/widget/float_box.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,6 +20,7 @@ import 'assembly_pack/mouse_text.dart';
 import 'assembly_pack/music_play/music_play.dart';
 import 'assembly_pack/other_charts/list_group.dart';
 import 'assembly_pack/pc_keyboard.dart';
+import 'assembly_pack/scratchable/scratchable_info.dart';
 import 'assembly_pack/slide_image/slide_image.dart';
 import 'assembly_pack/unit/unit_component.dart';
 import 'init.dart';
@@ -205,7 +207,7 @@ class MainIndexState extends State<MainIndexPage>
                   ListTile(
                     leading: const Icon(Icons.chat),
                     title: Text(
-                      '1637898885.getLocalTimeStamp',
+                      '${1637898885.getLocalTimeStamp}',
                       style: TextStyle(
                         fontSize: screenUtil.adaptive(40),
                       ),
@@ -617,6 +619,22 @@ class MainIndexState extends State<MainIndexPage>
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => SlidingUpText()),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.flash_auto),
+                    title: Text(
+                      '闪闪',
+                      style: TextStyle(
+                        fontSize: screenUtil.adaptive(40),
+                      ),
+                    ),
+                    trailing: const Icon(Icons.keyboard_arrow_right),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const ScratchInfo()),
                       );
                     },
                   ),

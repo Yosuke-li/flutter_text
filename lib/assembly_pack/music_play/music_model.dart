@@ -57,8 +57,8 @@ class MusicCache {
 
   static Future<List<MusicModel>> getAllCache() async {
     List<MusicModel> result = <MusicModel>[];
-    final String json =
-    LocateStorage.getString(_key)!;
+    final String? json =
+    LocateStorage.getString(_key);
     print(json);
     if (json != null && json.isNotEmpty == true) {
       result = MusicModel.listFromJson(jsonDecode(json));

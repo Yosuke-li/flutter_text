@@ -25,7 +25,8 @@ class LoginApi implements TestCache<SqlUser> {
     final List<SqlUser> allCache = await getAllCache();
     allCache.add(data);
     newList =
-        ArrayHelper.unique<SqlUser>(listData: allCache, getKey: (item) => item.id);
+        ArrayHelper.unique<SqlUser>(listData: allCache, getKey: (SqlUser item) => item.id);
+
     LocateStorage.setString(_key, jsonEncode(newList));
   }
 
