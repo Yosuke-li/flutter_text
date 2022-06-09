@@ -57,7 +57,7 @@ class LocalNotificationState extends State<LocalNotification> {
 
   void showNotification() async {
     const AndroidNotificationDetails android = AndroidNotificationDetails(
-        'channel id', 'channel NAME', 'CHANNEL DESCRIPTION',
+        'channel id', 'channel NAME',
         priority: Priority.high, importance: Importance.max);
     const iOS =  IOSNotificationDetails();
     const platform = NotificationDetails(android: android, iOS: iOS);

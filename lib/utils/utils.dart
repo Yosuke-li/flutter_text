@@ -234,7 +234,7 @@ class Utils {
 
   /// 是否是空字符串
   ///
-  static bool isEmptyString(String str) {
+  static bool isEmptyString(String? str) {
     if (str == null || str.isEmpty) {
       return true;
     }
@@ -243,7 +243,7 @@ class Utils {
 
   /// 是否不是空字符串
   ///
-  static bool isNotEmptyString(String str) {
+  static bool isNotEmptyString(String? str) {
     if (str != null && str.isNotEmpty) {
       return true;
     }
@@ -263,5 +263,13 @@ class Utils {
       });
     };
     return target;
+  }
+
+  static num? getNumByDouble(num? value, int fractionDigits) {
+    if (value == null) return null;
+    final String valueStr = value.toStringAsFixed(fractionDigits);
+    return fractionDigits == 0
+        ? int.tryParse(valueStr)
+        : double.tryParse(valueStr);
   }
 }

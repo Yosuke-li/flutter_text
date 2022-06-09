@@ -23,7 +23,7 @@ class _ScratchInfoState extends State<ScratchInfo> {
   void initState() {
     super.initState();
     _getList();
-    _timer = Timer.periodic(const Duration(milliseconds: 1000), (t) {
+    _timer = Timer.periodic(const Duration(milliseconds: 2000), (t) {
       update();
     });
   }
@@ -66,9 +66,6 @@ class _ScratchInfoState extends State<ScratchInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('闪闪'),
-      ),
       body: RepaintBoundary(
         child: Container(
           margin: const EdgeInsets.only(top: 10),
@@ -114,7 +111,6 @@ class _ScratchItemInfoState extends State<_ScratchItemInfo>
   void initState() {
     super.initState();
     if (widget.scratch.isUpdate == true) {
-
       _animationController = AnimationController(
           vsync: this, duration: const Duration(milliseconds: 500));
       if (_animationController != null) {
@@ -150,18 +146,6 @@ class _ScratchItemInfoState extends State<_ScratchItemInfo>
     super.dispose();
   }
 
-  Future<void> _update() async {
-    isUpdate = true;
-    if (mounted) {
-      setState(() {});
-    }
-    await Future.delayed(const Duration(milliseconds: 300));
-    isUpdate = false;
-    if (mounted) {
-      setState(() {});
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -179,7 +163,7 @@ class _ScratchItemInfoState extends State<_ScratchItemInfo>
           ),
           Container(
             child: Text(
-              '${widget.scratch.price.toStringAsFixed(2)}',
+              '${Utils.getNumByDouble(widget.scratch.price, 2)}',
               style: TextStyle(
                 color: widget.scratch.up ? Colors.red : Colors.green,
                 fontSize: 14,
@@ -194,7 +178,7 @@ class _ScratchItemInfoState extends State<_ScratchItemInfo>
             children: [
               Container(
                 child: Text(
-                  '${widget.scratch.up ? '+' : '-'}${widget.scratch.side.toStringAsFixed(2)}',
+                  '${widget.scratch.up ? '+' : '-'}${Utils.getNumByDouble(widget.scratch.side, 2)}',
                   style: TextStyle(
                     color: widget.scratch.up ? Colors.red : Colors.green,
                     fontSize: 12,
@@ -206,7 +190,7 @@ class _ScratchItemInfoState extends State<_ScratchItemInfo>
               ),
               Container(
                 child: Text(
-                  '${widget.scratch.up ? '+' : '-'}${widget.scratch.range.toStringAsFixed(2)}%',
+                  '${widget.scratch.up ? '+' : '-'}${Utils.getNumByDouble(widget.scratch.range, 2)}%',
                   style: TextStyle(
                     color: widget.scratch.up ? Colors.red : Colors.green,
                     fontSize: 12,

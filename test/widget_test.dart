@@ -4,6 +4,7 @@ import 'package:flutter_text/utils/datetime_utils.dart';
 import 'package:flutter_text/utils/encrypt.dart';
 import 'package:flutter_text/utils/lock.dart';
 import 'package:flutter_text/utils/singleton.dart';
+import 'package:flutter_text/utils/utils.dart';
 import 'package:lpinyin/lpinyin.dart';
 
 void main() {
@@ -105,6 +106,15 @@ void main() {
   test('generate date time', () {
     final String? time = 1637898885.getLocalTimeStamp;
     print(time);
+  });
+
+  test('numWithDigits', () {
+    final num? key = Utils.getNumByDouble(16.2, 3);
+    final num? key2 = Utils.getNumByDouble(0.24, 1);
+    final num? key3 = Utils.getNumByDouble(0.899, 0);
+    print(key);
+    print(key2);
+    print(key3);
   });
 
   test('replace', () {

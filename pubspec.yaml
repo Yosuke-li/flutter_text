@@ -54,7 +54,7 @@ dependencies:
   path_provider: ^2.0.1
   sqflite: ^2.0.0+3 #sql数据库
   bot_toast: 4.0.0 #弹窗
-  flutter_local_notifications: ^5.0.0+1 #本地消息推送
+  flutter_local_notifications: ^9.5.0 #本地消息推送
   scrollable_positioned_list: ^0.2.0-nullsafety.0 #滚动
   wechat_assets_picker: ^7.0.5 #微信的文件选择器
   move_to_background: ^1.0.0 #退出app到后台

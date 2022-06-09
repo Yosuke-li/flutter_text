@@ -42,9 +42,9 @@ class NotificationHelper {
   //触发监听
   static void initEvent(NotificationModel event) async{
     const AndroidNotificationDetails android = AndroidNotificationDetails(
-        'channel id', 'channel NAME', 'CHANNEL DESCRIPTION',
+        'channel id', 'channel NAME',
         priority: Priority.high, importance: Importance.max);
-    const IOSNotificationDetails iOS =  IOSNotificationDetails();
+    const IOSNotificationDetails iOS =  IOSNotificationDetails(threadIdentifier: 'channel id');
     const NotificationDetails platform = NotificationDetails(android: android, iOS: iOS);
     await flutterLocalNotificationsPlugin.show(
         event.id??0, event.title, event.msg, platform,
