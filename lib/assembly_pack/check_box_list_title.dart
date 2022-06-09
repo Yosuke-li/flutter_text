@@ -10,19 +10,19 @@ class CheckBoxListTitle extends StatelessWidget {
           title: const Text('checkBoxListTitle 组件'),
         ),
         body: Center(
-          child: contextPage(),
+          child: _contextPage(),
         ),
       ),
     );
   }
 }
 
-class contextPage extends StatefulWidget {
+class _contextPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => contextPageState();
+  State<StatefulWidget> createState() => _contextPageState();
 }
 
-class contextPageState extends State<contextPage> {
+class _contextPageState extends State<_contextPage> {
   bool is_male = false;
   bool is_female = false;
   bool _value = false;

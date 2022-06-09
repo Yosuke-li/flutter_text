@@ -6,27 +6,27 @@ class DecoratedBoxPage extends StatelessWidget {
     return MaterialApp(
       title: 'slider Study',
       home: Scaffold(
-        appBar: new AppBar(
-          title: new Text('Decorated Box 组件'),
+        appBar: AppBar(
+          title: const Text('Decorated Box 组件'),
         ),
         body: Center(
-          child: contextPage(),
+          child: _contextPage(),
         ),
       ),
     );
   }
 }
 
-class contextPage extends StatefulWidget  {
+class _contextPage extends StatefulWidget  {
   @override
-  State<StatefulWidget> createState() => contextPageState();
+  State<StatefulWidget> createState() => _contextPageState();
 
 }
 
-class contextPageState extends State<contextPage> {
+class _contextPageState extends State<_contextPage> {
   @override
   Widget build(BuildContext context) {
-    return new Center(
+    return Center(
       child: Container(
         width: 300,
         height: 300,
@@ -34,7 +34,7 @@ class contextPageState extends State<contextPage> {
           position: DecorationPosition.background,        //装饰定位，background背景模式，foreground前景模式
           decoration: BoxDecoration(
             color: Colors.grey,
-            image: DecorationImage(                     //设置图片，图片的填充方式
+            image: const DecorationImage(                     //设置图片，图片的填充方式
               fit: BoxFit.cover,
               image: ExactAssetImage('images/timg.jpg'),
             ),
@@ -46,7 +46,7 @@ class contextPageState extends State<contextPage> {
           ),
           child: Container(                                 //外部一层container就可以设置位置
             alignment: Alignment.topCenter,
-            child: Text(
+            child: const Text(
                 '定位演示',
                 style: TextStyle(
                   fontSize: 30,

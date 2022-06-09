@@ -10,21 +10,21 @@ class TextFieldPage extends StatelessWidget {
           title: const Text('text_field 组件'),
         ),
         body: Center(
-          child: contextPage(),
+          child: _contextPage(),
         ),
       ),
     );
   }
 }
 
-class contextPage extends StatefulWidget  {
+class _contextPage extends StatefulWidget  {
 
   @override
-  State<StatefulWidget> createState() => contextPageState();
+  State<StatefulWidget> createState() => _contextPageState();
 
 }
 
-class contextPageState extends State<contextPage> {
+class _contextPageState extends State<_contextPage> {
   @override
 
   TextEditingController usernameController = TextEditingController();

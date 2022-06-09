@@ -1,41 +1,6 @@
-import 'package:flutter_text/assembly_pack/compress/video_compress.dart';
-import 'package:flutter_text/assembly_pack/menu_item.dart';
-import 'package:flutter_text/assembly_pack/redis_test.dart';
-import 'package:flutter_text/utils/array_helper.dart';
-import 'package:flutter_text/utils/datetime_utils.dart';
-import 'package:flutter_text/widget/float_box.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import 'assembly_pack/PopupText.dart';
-import 'assembly_pack/api_exception_page.dart';
-import 'assembly_pack/choose_seat/StreamText.dart';
-import 'assembly_pack/choose_seat/choose_seat.dart';
-import 'assembly_pack/controller_test/test_page.dart';
-import 'assembly_pack/decode_gif.dart';
-import 'assembly_pack/compress/image_compress.dart';
-import 'assembly_pack/desktop_list/desktop_component.dart';
-import 'assembly_pack/keyboardPage.dart';
-import 'assembly_pack/lazy_list/lazy_list_page.dart';
-import 'assembly_pack/lazy_list/normal_list_page.dart';
-import 'assembly_pack/mouse_text.dart';
-import 'assembly_pack/music_play/music_play.dart';
-import 'assembly_pack/other_charts/list_group.dart';
-import 'assembly_pack/pc_keyboard.dart';
-import 'assembly_pack/scratchable/scratchable_info.dart';
-import 'assembly_pack/slide_image/slide_image.dart';
-import 'assembly_pack/unit/unit_component.dart';
 import 'init.dart';
 
-import 'assembly_pack/slideing_panel.dart';
 import 'assembly_pack/sliding_up_panel.dart';
-import 'assembly_pack/layout_row.dart';
-import 'assembly_pack/decorated_box.dart';
-import 'assembly_pack/text_field.dart';
-import 'assembly_pack/check_box_list_title.dart';
-import 'assembly_pack/gridview.dart';
-import 'assembly_pack/raised_button.dart';
-import 'assembly_pack/flexible_space_bar.dart';
-import 'widget/drag_overlay.dart';
 
 part 'index.init.dart';
 
@@ -245,7 +210,7 @@ class MainIndexState extends State<MainIndexPage>
                         if (mainModel.route != null) {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                                builder: (context) => mainModel.route!),
+                                builder: (BuildContext context) => mainModel.route!),
                           );
                         } else {
                           mainModel.onTapFunc?.call(context);
@@ -275,7 +240,7 @@ class MainIndexState extends State<MainIndexPage>
                       if (mainModel.route != null) {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (context) => mainModel.route!),
+                              builder: (BuildContext context) => mainModel.route!),
                         );
                       } else {
                         mainModel.onTapFunc?.call(context);
@@ -302,7 +267,7 @@ class MainIndexState extends State<MainIndexPage>
             currentIndex = index;
           });
           tabController.animateTo(index,
-              duration: Duration(milliseconds: 300), curve: Curves.linear);
+              duration: const Duration(milliseconds: 300), curve: Curves.linear);
         },
       ),
     );
