@@ -1,6 +1,6 @@
 part of 'index.dart';
 
-List<MainWidgetModel> page1 = [
+List<MainWidgetModel> page1 = <MainWidgetModel>[
   MainWidgetModel(
     title: '聊天室--',
     route: ChatPackApp(),
@@ -152,7 +152,7 @@ List<MainWidgetModel> page1 = [
   )
 ];
 
-List<MainWidgetModel> page2 = [
+List<MainWidgetModel> page2 = <MainWidgetModel>[
   MainWidgetModel(
     title: 'SlidingUpPanel使用',
     route: SlidingUpText(),
@@ -481,7 +481,7 @@ List<MainWidgetModel> page2 = [
   ),
 ];
 
-List<MainWidgetModel> page3 = [
+List<MainWidgetModel> page3 = <MainWidgetModel>[
   MainWidgetModel(
     title: '翻译',
     route: translatePage(),
