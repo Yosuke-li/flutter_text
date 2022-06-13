@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_text/init.dart';
 
 class DesktopDropText extends StatefulWidget {
@@ -13,13 +12,13 @@ class DesktopDropText extends StatefulWidget {
 }
 
 class _DesktopDropTextState extends State<DesktopDropText> {
-  late XFile _file;
+  XFile? _file;
 
   void _dragDone(DropDoneDetails details) async {
     _file = details.files.last;
-    Log.info('_file.path: ${_file.path}');
-    Log.info('_file.name: ${_file.name}');
-    Log.info('_file.mimeType: ${_file.mimeType}');
+    Log.info('_file.path: ${_file?.path}');
+    Log.info('_file.name: ${_file?.name}');
+    Log.info('_file.mimeType: ${_file?.mimeType}');
     setState(() {});
   }
 
@@ -31,7 +30,7 @@ class _DesktopDropTextState extends State<DesktopDropText> {
       ),
       body: DropTarget(
         onDragDone: _dragDone,
-        child: _file == null ? _upload() : _view(_file),
+        child: _file == null ? _upload() : _view(_file!),
       ),
     );
   }

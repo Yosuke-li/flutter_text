@@ -27,7 +27,7 @@ class _SudoGameState extends State<SudoGamePage> {
   late List<List<int>> gameCopy;
   late List<List<int>> gameSolved;
   static String currentDifficultyLevel = 'easy';
-  static late String currentAccentColor;
+  static String? currentAccentColor;
   static late String platform;
 
   static List<String> gameLevel = <String>[
@@ -42,16 +42,12 @@ class _SudoGameState extends State<SudoGamePage> {
   void initState() {
     super.initState();
     getPrefs().whenComplete(() {
-      if (currentDifficultyLevel == null) {
-        currentDifficultyLevel = 'easy';
-        setPrefs('currentDifficultyLevel');
-      }
-      if (currentAccentColor == null) {
-        currentAccentColor = 'Blue';
-        setPrefs('currentAccentColor');
-      }
+      currentDifficultyLevel = 'easy';
+      currentAccentColor = 'Blue';
+      setPrefs('currentDifficultyLevel');
+      setPrefs('currentAccentColor');
       newGame(currentDifficultyLevel);
-      changeAccentColor(currentAccentColor, true);
+      changeAccentColor(currentAccentColor!, true);
     });
     if (kIsWeb) {
       platform = 'web-' +
@@ -70,8 +66,8 @@ class _SudoGameState extends State<SudoGamePage> {
   Future<void> getPrefs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      currentDifficultyLevel = prefs.getString('currentDifficultyLevel')!;
-      currentAccentColor = prefs.getString('currentAccentColor')!;
+      currentDifficultyLevel = prefs.getString('currentDifficultyLevel')??'easy';
+      currentAccentColor = prefs.getString('currentAccentColor');
     });
   }
 
@@ -80,7 +76,7 @@ class _SudoGameState extends State<SudoGamePage> {
     if (property == 'currentDifficultyLevel') {
       prefs.setString('currentDifficultyLevel', currentDifficultyLevel);
     } else if (property == 'currentAccentColor') {
-      prefs.setString('currentAccentColor', currentAccentColor);
+      prefs.setString('currentAccentColor', currentAccentColor!);
     }
   }
 

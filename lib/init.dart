@@ -123,3 +123,5 @@ export 'assembly_pack/check_box_list_title.dart';
 export 'assembly_pack/gridview.dart';
 export 'assembly_pack/raised_button.dart';
 export 'widget/drag_overlay.dart';
+export 'assembly_pack/text_style_test.dart';
+

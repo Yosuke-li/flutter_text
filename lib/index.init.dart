@@ -157,6 +157,10 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     title: 'SlidingUpPanel使用',
     route: SlidingUpText(),
     icon: const Icon(Icons.keyboard),
+  ),MainWidgetModel(
+    title: 'TextStyleTest',
+    route: TextStyleTest(),
+    icon: const Icon(Icons.keyboard),
   ),
   MainWidgetModel(
     title: '闪闪',

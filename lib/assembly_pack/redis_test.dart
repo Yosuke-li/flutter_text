@@ -11,7 +11,6 @@ class RedisTest extends StatefulWidget {
 }
 
 class _RedisTestState extends State<RedisTest> {
-
   final RedisConnection redisConn = RedisConnection();
   late Command res;
 
@@ -32,6 +31,12 @@ class _RedisTestState extends State<RedisTest> {
   }
 
   @override
+  void dispose() {
+    redisConn.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +46,11 @@ class _RedisTestState extends State<RedisTest> {
         child: Center(
           child: ElevatedButton(
             onPressed: () {
-              res.send_object(['set', 'flutter', 'flutter_value_${DateTimeHelper.getLocalTimeStamp()}']);
+              res.send_object([
+                'set',
+                'flutter',
+                'flutter_value_${DateTimeHelper.getLocalTimeStamp()}'
+              ]);
             },
             child: const Text('set'),
           ),

@@ -16,8 +16,8 @@ class VideoCompressPage extends StatefulWidget {
 }
 
 class _VideoCompressState extends State<VideoCompressPage> {
-  late File _file;
-  late File _videoFile;
+  File? _file;
+  File? _videoFile;
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _VideoCompressState extends State<VideoCompressPage> {
   void _compress() async {
     final MediaInfo? result = await loadingCallback(
       () => VideoCompress.compressVideo(
-        _file.path,
+        _file!.path,
         quality: VideoQuality.DefaultQuality,
       ),
     );
@@ -54,10 +54,10 @@ class _VideoCompressState extends State<VideoCompressPage> {
   void saveToLocal() async {
     try {
       if (Platform.isAndroid) {
-        await ImageGallerySaver.saveFile(_videoFile.path);
+        await ImageGallerySaver.saveFile(_videoFile!.path);
         ToastUtils.showToast(msg: '文件已保存到$_videoFile');
       } else if (Platform.isIOS) {
-        await IosShare.iosShareHelper(_videoFile.path);
+        await IosShare.iosShareHelper(_videoFile!.path);
       }
     } catch (e) {
       rethrow;
@@ -90,7 +90,7 @@ class _VideoCompressState extends State<VideoCompressPage> {
                       ),
                     const SizedBox(height: 10),
                     Text(
-                        '视频大小：${_file != null ? (_file.readAsBytesSync().lengthInBytes / 1024).toStringAsFixed(2) : 0} KB')
+                        '视频大小：${_file != null ? (_file!.readAsBytesSync().lengthInBytes / 1024).toStringAsFixed(2) : 0} KB')
                   ],
                 ),
               ),
@@ -143,7 +143,7 @@ class _VideoCompressState extends State<VideoCompressPage> {
                       ),
                     const SizedBox(height: 10),
                     Text(
-                        '压缩后视频大小：${_videoFile != null ? (_videoFile.readAsBytesSync().lengthInBytes / 1024).toStringAsFixed(2) : 0} KB')
+                        '压缩后视频大小：${_videoFile != null ? (_videoFile!.readAsBytesSync().lengthInBytes / 1024).toStringAsFixed(2) : 0} KB')
                   ],
                 ),
               ),

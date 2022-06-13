@@ -20,8 +20,8 @@ class LoginVideoPageState extends State<LoginVideoPage> {
       ..initialize().then((_) {
         setState(() {});
         _controller.play();
-        _controller.setLooping(false);
-        Timer.periodic(Duration(seconds: 60), (Timer time) {});
+        _controller.setLooping(true);
+        Timer.periodic(const Duration(seconds: 60), (Timer time) {});
       });
   }
 
