@@ -5,7 +5,7 @@
 // ignore_for_file: directives_ordering
 // ignore_for_file: lines_longer_than_80_chars
 
-import 'package:audioplayers/audioplayers_web.dart';
+import 'package:audioplayers_web/audioplayers_web.dart';
 import 'package:connectivity_for_web/connectivity_for_web.dart';
 import 'package:desktop_drop/desktop_drop_web.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';

@@ -158,6 +158,10 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     route: SlidingUpText(),
     icon: const Icon(Icons.keyboard),
   ),MainWidgetModel(
+    title: 'ShellTest',
+    route: ShellTest(),
+    icon: const Icon(Icons.keyboard),
+  ),MainWidgetModel(
     title: 'TextStyleTest',
     route: TextStyleTest(),
     icon: const Icon(Icons.keyboard),

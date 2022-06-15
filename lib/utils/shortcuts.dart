@@ -5,7 +5,7 @@ import 'package:flutter_text/utils/toast_utils.dart';
 
 //单例
 class ShortCutsInit {
-  static late ShortCutsInit? _init;
+  static ShortCutsInit? _init;
 
   static final FlutterShortcuts _flutterShortcuts = FlutterShortcuts();
 

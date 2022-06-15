@@ -1,10 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/scratchable/scratch_model.dart';
 import 'package:flutter_text/init.dart';
-import 'package:flutter_text/utils/array_helper.dart';
-import 'package:k_chart/flutter_k_chart.dart';
 
 import 'fake.dart';
 

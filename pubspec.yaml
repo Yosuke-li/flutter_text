@@ -37,7 +37,7 @@ dependencies:
   cookie_jar: ^3.0.1 #cookie
   dio_cookie_manager: ^2.0.0
   intl: ^0.17.0 #本地化和国际化
-  audioplayers: ^0.18.3 #音频播放
+  audioplayers: ^1.0.0 #音频播放
   image_picker_saver: ^0.3.0 #图片选择器
   permission_handler: ^8.3.0 #权限
   flutter_full_pdf_viewer: ^1.0.6  #pdf浏览器
@@ -87,6 +87,7 @@ dependencies:
 #  agora_rtc_engine: ^4.0.7 #声网api
   flutter_neumorphic: ^3.2.0 #动画组件
   flutter_image_compress: ^1.1.0 #图片压缩
+  image_compression: ^1.0.3
   video_compress_ds: ^3.1.6 #视频压缩
   sudoku_solver_generator: ^2.1.0+1 #数独api
   desktop_drop: ^0.3.3 #桌面拖动

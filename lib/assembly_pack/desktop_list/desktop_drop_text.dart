@@ -3,6 +3,11 @@ import 'dart:typed_data';
 import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter_text/init.dart';
+import 'package:image_compression/image_compression.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:path/path.dart' as path;
+import 'package:flutter_text/utils/compress.dart';
+import 'package:shell/shell.dart';
 
 class DesktopDropText extends StatefulWidget {
   const DesktopDropText({Key? key}) : super(key: key);
@@ -53,10 +58,42 @@ class _DesktopDropTextState extends State<DesktopDropText> {
             child: Image.file(f),
           ),
           Container(
-            child: Text('图片大小：${(f.readAsBytesSync().lengthInBytes / 1024 / 1024).toStringAsFixed(2)}MB'),
+            child: Text(
+                '图片大小：${(f.readAsBytesSync().lengthInBytes / 1024 / 1024).toStringAsFixed(2)}MB'),
           ),
+          ElevatedButton(
+            onPressed: () {
+              _compress();
+            },
+            child: const Text('压缩图片'),
+          )
         ],
       ),
     );
+  }
+
+  Future<void> _compress() async {
+    final shell = Shell();
+    if (_file == null) {
+      return;
+    }
+    final File f = File(_file!.path);
+    final ImageFile input =
+        ImageFile(rawBytes: f.readAsBytesSync(), filePath: f.path);
+    final ImageFile result =
+        await compressInQueue(ImageFileConfiguration(input: input));
+
+    if (result != null) {
+      final Directory dir = await path_provider.getTemporaryDirectory();
+      final String filePath = path.join(dir.path, '${_file!.name}');
+      Log.info(filePath);
+      final File file = File(filePath);
+      if (!file.existsSync()) {
+        file.createSync();
+      }
+      await file.writeAsBytes(result.rawBytes).whenComplete(
+            () => shell.start('open ${dir.path}'),
+          );
+    }
   }
 }
