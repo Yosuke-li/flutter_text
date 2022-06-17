@@ -193,32 +193,37 @@ class MainIndexState extends State<MainIndexPage>
             ),
             RepaintBoundary(
               child: Container(
-                child: ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    final MainWidgetModel mainModel =
-                        ArrayHelper.get(_page2, index)!;
-                    return ListTile(
-                      leading: mainModel.icon,
-                      title: Text(
-                        '${mainModel.title}',
-                        style: TextStyle(
-                          fontSize: screenUtil.adaptive(40),
+                child: ScrollListenerWidget(
+                  child: ListView.builder(
+                    itemBuilder: (BuildContext context, int index) {
+                      final MainWidgetModel mainModel =
+                      ArrayHelper.get(_page2, index)!;
+                      return ListTile(
+                        leading: mainModel.icon,
+                        title: Text(
+                          '${mainModel.title}',
+                          style: TextStyle(
+                            fontSize: screenUtil.adaptive(40),
+                          ),
                         ),
-                      ),
-                      trailing: const Icon(Icons.keyboard_arrow_right),
-                      onTap: () {
-                        if (mainModel.route != null) {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => mainModel.route!),
-                          );
-                        } else {
-                          mainModel.onTapFunc?.call(context);
-                        }
-                      },
-                    );
+                        trailing: const Icon(Icons.keyboard_arrow_right),
+                        onTap: () {
+                          if (mainModel.route != null) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => mainModel.route!),
+                            );
+                          } else {
+                            mainModel.onTapFunc?.call(context);
+                          }
+                        },
+                      );
+                    },
+                    itemCount: _page2.length,
+                  ),
+                  callback: (int first, int last) {
+                    Log.info('firstIndex - lastIndex: $first - $last');
                   },
-                  itemCount: _page2.length,
                 ),
               ),
             ),

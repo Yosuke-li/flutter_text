@@ -506,5 +506,13 @@ List<MainWidgetModel> page3 = <MainWidgetModel>[
     title: '梨视频',
     route: PearVideoFirstPage(),
     icon: const Icon(Icons.video_library),
+  ),MainWidgetModel(
+    title: 'tank war',
+    route: const TankMainPage(),
+    icon: const Icon(Icons.gamepad),
+  ),MainWidgetModel(
+    title: 'webview test',
+    route: const WebviewTest(),
+    icon: const Icon(Icons.web),
   ),
 ];

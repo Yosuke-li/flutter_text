@@ -151,7 +151,7 @@ class SelfGif extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final double width = math.min(size.width, size.height);
-    final List<List<Color>> frame = frames![frameIndex];
+    final List<List<Color>> frame = ArrayHelper.get(frames!, frameIndex)!;
     final double perWidth = width / frame.length;
 
     final Paint paint = Paint();

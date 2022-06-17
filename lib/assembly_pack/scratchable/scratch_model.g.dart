@@ -6,7 +6,7 @@ part of 'scratch_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ScratchModel _$scratchModelFromJson(Map<String, dynamic> json) => ScratchModel(
+ScratchModel _$ScratchModelFromJson(Map<String, dynamic> json) => ScratchModel(
       json['title'] as String,
       json['id'] as String,
       json['price'] as num,
@@ -17,7 +17,7 @@ ScratchModel _$scratchModelFromJson(Map<String, dynamic> json) => ScratchModel(
       json['isUpdate'] as bool?,
     );
 
-Map<String, dynamic> _$scratchModelToJson(ScratchModel instance) =>
+Map<String, dynamic> _$ScratchModelToJson(ScratchModel instance) =>
     <String, dynamic>{
       'title': instance.title,
       'id': instance.id,

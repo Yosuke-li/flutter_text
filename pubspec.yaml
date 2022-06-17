@@ -101,6 +101,8 @@ dependencies:
   redis: ^3.1.0
   json_serializable: ^6.2.0
   build_runner: ^2.1.10
+  flame: ^1.2.0
+  webview_flutter: ^3.0.4
 
 
 #  dropdown_search:
@@ -136,5 +138,6 @@ flutter:
     - assets/long14.epub
     - assets/data/
     - assets/dll/
+    - assets/images/
     - assets/banner/
 

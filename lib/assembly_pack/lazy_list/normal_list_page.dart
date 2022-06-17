@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import '../../init.dart';
 
 class NormalListPage extends StatefulWidget {
   @override
@@ -20,32 +20,37 @@ class _NormalListState extends State<NormalListPage> {
       appBar: AppBar(
         title: const Text('正常加载'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 50,
-              alignment: Alignment.center,
-              child: const Text('this is start'),
-            ),
-            RepaintBoundary(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  print('this is index = $index');
-                  return _buildItem(index);
-                },
-                itemCount: 1000,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+      body: ScrollListenerWidget(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 50,
+                alignment: Alignment.center,
+                child: const Text('this is start'),
               ),
-            ),
-            Container(
-              height: 50,
-              alignment: Alignment.center,
-              child: const Text('this is end'),
-            ),
-          ],
+              RepaintBoundary(
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    print('this is index = $index');
+                    return _buildItem(index);
+                  },
+                  itemCount: 1000,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                ),
+              ),
+              Container(
+                height: 50,
+                alignment: Alignment.center,
+                child: const Text('this is end'),
+              ),
+            ],
+          ),
         ),
+        callback: (int firstIndex, int lastIndex) {
+          Log.info('firstIndex - lastIndex: $firstIndex - $lastIndex');
+        },
       ),
     );
   }
@@ -53,8 +58,8 @@ class _NormalListState extends State<NormalListPage> {
   Widget _buildItem(int index) {
     return Container(
       height: 100,
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.purple, width: 1)),
+      decoration:
+          BoxDecoration(border: Border.all(color: Colors.purple, width: 1)),
       child: Center(child: Text('$index')),
     );
   }

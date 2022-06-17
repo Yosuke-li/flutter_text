@@ -32,9 +32,9 @@ class ScratchModel extends Object {
 
   ScratchModel(this.title,this.id,this.price,this.side,this.range,this.updateTime,this.up,this.isUpdate);
 
-  factory ScratchModel.fromJson(Map<String, dynamic> srcJson) => _$scratchModelFromJson(srcJson);
+  factory ScratchModel.fromJson(Map<String, dynamic> srcJson) => _$ScratchModelFromJson(srcJson);
 
-  Map<String, dynamic> toJson() => _$scratchModelToJson(this);
+  Map<String, dynamic> toJson() => _$ScratchModelToJson(this);
 
   static List<ScratchModel> listFromJson(List<dynamic>? json) {
     return json == null
