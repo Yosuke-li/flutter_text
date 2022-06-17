@@ -13,7 +13,6 @@ dependencies:
   drag_list: ^1.0.7 #拖拽
   flutter_slidable: ^0.5.4 #列表侧边菜单
   flutter_screenutil: ^0.5.2 #size适配
-  sliding_up_panel: ^0.3.6
   liquid_swipe: ^2.1.0 #滑动组件
   shared_preferences: ^2.0.5 #key-value存储
   image_picker: ^0.6.0+20 #图片选择

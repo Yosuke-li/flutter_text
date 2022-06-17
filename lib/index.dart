@@ -1,7 +1,5 @@
 import 'init.dart';
 
-import 'assembly_pack/sliding_up_panel.dart';
-
 part 'index.init.dart';
 
 class MainIndexPage extends StatefulWidget {

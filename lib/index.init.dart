@@ -154,10 +154,6 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
 
 List<MainWidgetModel> page2 = <MainWidgetModel>[
   MainWidgetModel(
-    title: 'SlidingUpPanel使用',
-    route: SlidingUpText(),
-    icon: const Icon(Icons.keyboard),
-  ),MainWidgetModel(
     title: 'ShellTest',
     route: ShellTest(),
     icon: const Icon(Icons.keyboard),
