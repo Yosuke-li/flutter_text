@@ -128,5 +128,7 @@ export 'assembly_pack/shell_test.dart';
 export 'assembly_pack/tank/main.dart';
 export 'assembly_pack/webview_test.dart';
 export 'package:flutter_text/widget/scroll_listener_widget.dart';
+export 'assembly_pack/auto_play_list/auto_play.dart';
+
 
 

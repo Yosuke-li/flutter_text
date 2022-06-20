@@ -157,7 +157,8 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     title: 'ShellTest',
     route: ShellTest(),
     icon: const Icon(Icons.keyboard),
-  ),MainWidgetModel(
+  ),
+  MainWidgetModel(
     title: 'TextStyleTest',
     route: TextStyleTest(),
     icon: const Icon(Icons.keyboard),
@@ -490,25 +491,35 @@ List<MainWidgetModel> page3 = <MainWidgetModel>[
     title: '翻译',
     route: translatePage(),
     icon: const Icon(Icons.translate),
-  ),MainWidgetModel(
+  ),
+  MainWidgetModel(
     title: '天 气 预 报',
     route: RealTimePage(),
     icon: const Icon(Icons.cloud),
-  ),MainWidgetModel(
+  ),
+  MainWidgetModel(
     title: '书架',
     route: BookShelf(),
     icon: const Icon(Icons.book),
-  ),MainWidgetModel(
+  ),
+  MainWidgetModel(
     title: '梨视频',
     route: PearVideoFirstPage(),
     icon: const Icon(Icons.video_library),
-  ),MainWidgetModel(
+  ),
+  MainWidgetModel(
     title: 'tank war',
     route: const TankMainPage(),
     icon: const Icon(Icons.gamepad),
-  ),MainWidgetModel(
+  ),
+  MainWidgetModel(
     title: 'webview test',
     route: const WebviewTest(),
     icon: const Icon(Icons.web),
+  ),
+  MainWidgetModel(
+    title: 'AutoPlayListPage',
+    route: const AutoPlayListPage(),
+    icon: const Icon(Icons.video_call),
   ),
 ];

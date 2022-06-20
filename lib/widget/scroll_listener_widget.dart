@@ -16,7 +16,7 @@ class ScrollListenerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NotificationListener(
+    return NotificationListener<ScrollNotification>(
       child: child,
       onNotification: _onNotification,
     );
@@ -27,15 +27,20 @@ class ScrollListenerWidget extends StatelessWidget {
         findSliverMutBoxAdaptorElement(notice.context! as Element)!;
 
     final double viewportDimension = notice.metrics.viewportDimension;
+    final double maxPixel = notice.metrics.maxScrollExtent;
     int firstIndex = 0;
     int lastIndex = 0;
 
-    void onVisitChildren(Element elemnt) {
+    void onVisitChildren(Element element) {
       final SliverMultiBoxAdaptorParentData oldParentData =
-          elemnt.renderObject?.parentData as SliverMultiBoxAdaptorParentData;
-      double layoutOffset = oldParentData.layoutOffset!;
-      double pixels = notice.metrics.pixels;
-      double all = pixels + viewportDimension;
+          element.renderObject?.parentData as SliverMultiBoxAdaptorParentData;
+      final double layoutOffset = oldParentData.layoutOffset!;
+      final double pixels = notice.metrics.pixels;
+      final double all = pixels + viewportDimension;
+      Log.info('layoutOffset: $layoutOffset');
+      Log.info('viewportDimension: $viewportDimension');
+      Log.info('pixels: $pixels');
+      Log.info('maxPixel: $maxPixel');
 
       if (layoutOffset >= pixels) {
         firstIndex = min(firstIndex, oldParentData.index! - 1);
