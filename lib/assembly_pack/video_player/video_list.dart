@@ -22,7 +22,7 @@ class VideoList extends StatelessWidget {
             builder: (BuildContext context, int index) {
               return Container(
                 width: double.infinity,
-                height: 300.0,
+                height: 250.0,
                 alignment: Alignment.center,
                 margin: EdgeInsets.symmetric(vertical: 50.0),
                 child: LayoutBuilder(

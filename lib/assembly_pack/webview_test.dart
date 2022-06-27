@@ -10,14 +10,16 @@ class WebviewTest extends StatefulWidget {
 }
 
 class _WebviewTestState extends State<WebviewTest> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('webview'),
       ),
-      body: const WebView(initialUrl: 'https://flutter.cn',),
+      body: const WebView(
+        initialUrl: 'https://appaplqmzzg4085.h5.xiaoeknow.com/',
+        javascriptMode: JavascriptMode.unrestricted,
+      ),
     );
   }
 }

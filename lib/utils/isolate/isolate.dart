@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:isolate';
 import 'package:async/async.dart';
 
@@ -101,4 +102,20 @@ int calculateEvenCount(int num) {
     num--;
   }
   return count;
+}
+
+
+/// sync* 多元素同步
+/// yield关键字有点像return，但是它是单次返回值，并不会像return直接结束整个函数
+//
+Iterable<String> getEmoji(int count) sync* {
+  Runes runes = Runes('\u{1f47a}');
+  for (int i =0; i<count; i++) {
+    yield String.fromCharCodes(runes.map((e) => e + i));
+    sleep(const Duration(seconds: 1));
+  }
+}
+
+Iterable<String> getEmojiWithTime(int count) sync* {
+  yield* getEmoji(count).map((e) => '$e == ${DateTime.now().millisecondsSinceEpoch}');
 }

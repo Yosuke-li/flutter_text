@@ -138,5 +138,6 @@ flutter:
     - assets/data/
     - assets/dll/
     - assets/images/
+    - assets/images/human/
     - assets/banner/
 

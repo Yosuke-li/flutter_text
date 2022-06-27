@@ -21,4 +21,18 @@ void main() {
     }
     print('2');
   });
+
+  test('isolate4', () async {
+    final Iterable<String> get4 = getEmoji(10);
+    get4.forEach((String element) {
+      print('$element == ${DateTime.now().millisecondsSinceEpoch}');
+    });
+  });
+
+  test('isolate5', () {
+    final Iterable<String> get5 = getEmojiWithTime(10);
+    get5.forEach((String element) {
+      print('$element');
+    });
+  });
 }

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 
 import '../../init.dart';
 import 'example.dart';
-import 'joycon.dart';
 
 class TankMainPage extends StatefulWidget {
   const TankMainPage({Key? key}) : super(key: key);

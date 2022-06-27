@@ -27,7 +27,6 @@ class ScrollListenerWidget extends StatelessWidget {
         findSliverMutBoxAdaptorElement(notice.context! as Element)!;
 
     final double viewportDimension = notice.metrics.viewportDimension;
-    final double maxPixel = notice.metrics.maxScrollExtent;
     int firstIndex = 0;
     int lastIndex = 0;
 
@@ -37,10 +36,6 @@ class ScrollListenerWidget extends StatelessWidget {
       final double layoutOffset = oldParentData.layoutOffset!;
       final double pixels = notice.metrics.pixels;
       final double all = pixels + viewportDimension;
-      Log.info('layoutOffset: $layoutOffset');
-      Log.info('viewportDimension: $viewportDimension');
-      Log.info('pixels: $pixels');
-      Log.info('maxPixel: $maxPixel');
 
       if (layoutOffset >= pixels) {
         firstIndex = min(firstIndex, oldParentData.index! - 1);

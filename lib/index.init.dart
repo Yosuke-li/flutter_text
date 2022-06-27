@@ -508,7 +508,7 @@ List<MainWidgetModel> page3 = <MainWidgetModel>[
     icon: const Icon(Icons.video_library),
   ),
   MainWidgetModel(
-    title: 'tank war',
+    title: 'game',
     route: const TankMainPage(),
     icon: const Icon(Icons.gamepad),
   ),

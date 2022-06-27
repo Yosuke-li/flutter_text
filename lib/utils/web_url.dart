@@ -1,5 +1,5 @@
 import 'package:flutter_text/utils/toast_utils.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher.dart' as u;
 
 import 'log_utils.dart';
 
@@ -8,14 +8,14 @@ class WebUrl {
   static Future<String?> checkUrl(String value,
       {bool enable = true, String errorMsg = '该链接不可用'}) async {
     if (!enable) return null;
-    return await canLaunch(value) ? null : errorMsg;
+    return await u.canLaunchUrl(Uri.parse(value)) ? null : errorMsg;
   }
 
   //跳转链接
   static Future<void> launchUrl(String url) async {
     final String? result = await checkUrl(url);
     if (result == null) {
-      await launch(url);
+      await u.launchUrl(Uri.parse(url));
     } else {
       ToastUtils.showToast(msg: result);
       return;
@@ -25,7 +25,7 @@ class WebUrl {
   //scheme跳转
   static Future<void> launchSchemeUrl(String url) async {
     try {
-      await launch(url);
+      await u.launchUrl(Uri(scheme: url));
     } catch (error, stack) {
       Log.error(error, stackTrace: stack);
       rethrow;
