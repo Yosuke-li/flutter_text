@@ -1,11 +1,11 @@
 part of 'index.dart';
 
 List<MainWidgetModel> page1 = <MainWidgetModel>[
-  MainWidgetModel(
-    title: '聊天室--',
-    route: ChatPackApp(),
-    icon: const Icon(Icons.chat),
-  ),
+  // MainWidgetModel(
+  //   title: '聊天室--',
+  //   route: ChatPackApp(),
+  //   icon: const Icon(Icons.chat),
+  // ),
   MainWidgetModel(
     title: '聊天列表--',
     route: ChatListWidget(),
@@ -14,7 +14,7 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
   MainWidgetModel(
     title: '${1637898885.getLocalTimeStamp}',
     route: null,
-    icon: const Icon(Icons.chat),
+    icon: const Icon(Icons.numbers),
   ),
   MainWidgetModel(
     title: '视频通话装置--',

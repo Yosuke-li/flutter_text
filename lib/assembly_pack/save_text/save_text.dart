@@ -252,28 +252,28 @@ class _MyAppState extends State<TextT> {
 
   Future _scan() async {
     String barcode = await scanner.scan();
-    this._outputController.text = barcode;
+    _outputController.text = barcode;
   }
 
   Future _scanPhoto() async {
     String barcode = await scanner.scanPhoto();
-    this._outputController.text = barcode;
+    _outputController.text = barcode;
   }
 
   Future _scanPath(String path) async {
     String barcode = await scanner.scanPath(path);
-    this._outputController.text = barcode;
+    _outputController.text = barcode;
   }
 
   Future _scanBytes() async {
     File file = await ImagePickerSaver.pickImage(source: ImageSource.camera);
     Uint8List bytes = file.readAsBytesSync();
     String barcode = await scanner.scanBytes(bytes);
-    this._outputController.text = barcode;
+    _outputController.text = barcode;
   }
 
   Future _generateBarCode(String inputCode) async {
     Uint8List result = await scanner.generateBarCode(inputCode);
-    this.setState(() => this.bytes = result);
+    setState(() => this.bytes = result);
   }
 }

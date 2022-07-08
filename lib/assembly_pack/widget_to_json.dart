@@ -43,7 +43,7 @@ class _JsonWidgetPageState extends State<JsonWidgetPage> {
                 ),
               ),
             ),
-            RaisedButton(
+            ElevatedButton(
               child: const Text('Export'),
               onPressed: () {
                 final DynamicWidgetJsonExportor exportor =

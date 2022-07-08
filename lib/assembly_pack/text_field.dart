@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/widget/keyboard/security_keyboard.dart';
 
 class TextFieldPage extends StatelessWidget {
   @override
@@ -48,7 +49,7 @@ class _contextPageState extends State<_contextPage> {
         ),
         TextField(
           controller: passwordController,
-          keyboardType: TextInputType.number,
+          keyboardType: SecurityKeyboardCenter.number,
           decoration: const InputDecoration(
             contentPadding: EdgeInsets.all(10.0),
             icon: Icon(Icons.lock),
@@ -58,7 +59,7 @@ class _contextPageState extends State<_contextPage> {
         ),
         Container(
           margin: EdgeInsets.fromLTRB(0, 50, 0, 20),
-          child: RaisedButton(
+          child: ElevatedButton(
             onPressed: () {
               loginCheck();
             },

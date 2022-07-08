@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../init.dart';
+
 class VideoWidget extends StatefulWidget {
   final String url;
   final bool play;
@@ -53,7 +55,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _initializeVideoPlayerFuture,
-      builder: (context, snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<Object?> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return VideoPlayer(_controller);
         } else {

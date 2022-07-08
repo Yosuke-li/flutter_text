@@ -18,7 +18,7 @@ import 'utils/local_log.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  SecurityKeyboardCenter.register();
   if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
     await windowManager.ensureInitialized();
     windowManager.waitUntilReadyToShow().then((value) async {

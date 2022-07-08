@@ -24,10 +24,11 @@ extension SecurityKeyboardTypeTxt on SecurityKeyboardType {
 }
 
 class SecurityKeyboardCenter {
+  static SecurityTextInputType number =
+      SecurityTextInputType(name: SecurityKeyboardType.number.enumToString);
 
-  static SecurityTextInputType number = SecurityTextInputType(name: SecurityKeyboardType.number.enumToString);
-
-  static SecurityTextInputType text = SecurityTextInputType(name: SecurityKeyboardType.text.enumToString);
+  static SecurityTextInputType text =
+      SecurityTextInputType(name: SecurityKeyboardType.text.enumToString);
 
   static void register() {
     if (Platform.isWindows || Platform.isMacOS) {
@@ -59,7 +60,6 @@ class SecurityKeyboardCenter {
 }
 
 class SecurityKeyboard extends StatelessWidget {
-
   static double getHeight(BuildContext ctx) {
     final MediaQueryData mediaQuery = MediaQuery.of(ctx);
     return mediaQuery.size.width / 3 / 2 * 4;
@@ -76,10 +76,14 @@ class SecurityKeyboard extends StatelessWidget {
     Widget keyboard;
     switch (type) {
       case SecurityKeyboardType.number:
-        keyboard = SecurityKeyboardNumber(controller: controller,);
+        keyboard = SecurityKeyboardNumber(
+          controller: controller,
+        );
         break;
       case SecurityKeyboardType.text:
-        keyboard = SecurityKeyboardText(controller: controller,);
+        keyboard = SecurityKeyboardText(
+          controller: controller,
+        );
         break;
     }
     return keyboard;
