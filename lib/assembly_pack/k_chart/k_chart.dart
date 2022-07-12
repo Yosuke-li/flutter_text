@@ -12,7 +12,7 @@ class KChartPage extends StatefulWidget {
 }
 
 class KChartState extends State<KChartPage> {
-  late List<KLineEntity> data;
+  List<KLineEntity> data = [];
   bool showLoading = false;
   SecondaryState _secondaryState = SecondaryState.MACD;
   MainState _mainState = MainState.MA;
