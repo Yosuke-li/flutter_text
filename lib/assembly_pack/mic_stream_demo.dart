@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_plugin_record/flutter_plugin_record.dart';
+// import 'package:flutter_plugin_record/flutter_plugin_record.dart';
 
 class MicStreamDemo extends StatefulWidget {
 
@@ -9,7 +9,7 @@ class MicStreamDemo extends StatefulWidget {
 }
 
 class MicStreamDemoState extends State<MicStreamDemo> {
-  FlutterPluginRecord recordPlugin = FlutterPluginRecord();
+  dynamic recordPlugin = [];
   String tempVoice = 'images/voice/voice_volume_1.png';
 
   @override

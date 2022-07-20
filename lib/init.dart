@@ -129,6 +129,7 @@ export 'assembly_pack/game/main.dart';
 export 'assembly_pack/webview_test.dart';
 export 'package:flutter_text/widget/scroll_listener_widget.dart';
 export 'assembly_pack/auto_play_list/auto_play.dart';
+export 'assembly_pack/riverpod/riverpod_test.dart';
 
 
 

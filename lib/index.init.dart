@@ -159,6 +159,11 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     icon: const Icon(Icons.keyboard),
   ),
   MainWidgetModel(
+    title: 'RiverPodTest',
+    route: const RiverPodTestPage(),
+    icon: const Icon(Icons.add_to_drive_rounded),
+  ),
+  MainWidgetModel(
     title: 'TextStyleTest',
     route: TextStyleTest(),
     icon: const Icon(Icons.keyboard),

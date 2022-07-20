@@ -1,4 +1,5 @@
 // import 'package:flutter_doraemonkit/flutter_doraemonkit.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_text/assembly_pack/desktop_list/desktop_sys_manager.dart';
 import 'package:flutter_text/splash.dart';
 import 'package:flutter_text/utils/shortcuts.dart';
@@ -33,7 +34,7 @@ Future<void> main() async {
   SecurityKeyboardCenter.register();
   runZonedGuarded<Future<void>>(() async {
     FlutterError.onError = _errorHandler;
-    runApp(Assembly());
+    runApp(ProviderScope(child: Assembly()));
   }, (Object error, StackTrace stackTrace) async {
     _errorHandler(FlutterErrorDetails(exception: error, stack: stackTrace));
   });
