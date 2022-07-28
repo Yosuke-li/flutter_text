@@ -7,6 +7,7 @@ import 'package:flutter_text/utils/array_helper.dart';
 import '../sudu/sudo_game.dart';
 import '../widget_to_json.dart';
 import 'Reorderable.dart';
+import 'auto_complete_test.dart';
 import 'curve_animated/curve_animated.dart';
 import 'overlay_text.dart';
 
@@ -44,6 +45,9 @@ class UnitComponentPageState extends State<UnitComponentPage> {
       PageModel()
         ..name = 'JsonWidgetPage'
         ..pageUrl = const JsonWidgetPage(),
+      PageModel()
+        ..name = 'AutoCompleteTest'
+        ..pageUrl = const AutoCompleteTest(),
     ];
   }
 

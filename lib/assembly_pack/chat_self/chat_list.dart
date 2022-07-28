@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_text/assembly_pack/chat_self/chat_room/view.dart';
 import 'package:flutter_text/assembly_pack/chat_self/user_change/view.dart';
 import 'package:flutter_text/assembly_pack/chat_self/user_login/view.dart';
+import 'package:flutter_text/assembly_pack/riverpod/notifier.dart';
 import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/model/db_user.dart';
 import 'package:flutter_text/utils/log_utils.dart';
@@ -42,15 +44,20 @@ class _ChatListState extends State<ChatListWidget> {
               Center(
                 child: Container(
                   margin: const EdgeInsets.only(right: 20),
-                  child: GestureDetector(
-                    child: const Text('登陆'),
-                    onTap: () {
-                      NavigatorUtils.getXOfPush<bool>(context, UserLoginPage())
-                          .then((bool? value) {
-                        if (value == true) {
-                          getRoom();
-                        }
-                      });
+                  child: Consumer(
+                    builder: (context, ref, _) {
+                      return GestureDetector(
+                        child: const Text('登陆'),
+                        onTap: () {
+                          NavigatorUtils.getXOfPush<bool>(context, UserLoginPage())
+                              .then((bool? value) {
+                            if (value == true) {
+                              getRoom();
+                              ref.read(loginProvider.notifier).set(GlobalStore.user!);
+                            }
+                          });
+                        },
+                      );
                     },
                   ),
                 ),

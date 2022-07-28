@@ -244,6 +244,11 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     icon: const Icon(Icons.keyboard),
   ),
   MainWidgetModel(
+    title: 'TextInputTest',
+    route: TextInputTest(),
+    icon: const Icon(Icons.keyboard),
+  ),
+  MainWidgetModel(
     title: 'Cache Image Page',
     route: CacheImagePage(),
     icon: const Icon(Icons.image_search),
@@ -272,6 +277,11 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     title: '搜索',
     route: SearchDemoPage(),
     icon: const Icon(Icons.flash_auto),
+  ),
+  MainWidgetModel(
+    title: 'NavigationTest',
+    route: const NavigationTest(),
+    icon: const Icon(Icons.tab),
   ),
   MainWidgetModel(
     title: '金融list',

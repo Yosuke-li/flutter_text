@@ -1,42 +1,24 @@
 class SqlUser {
-  SqlUser();
+  SqlUser({this.id, this.name, this.desc});
 
-  int? _id;
-  String? _name;
-  String? _desc;
-
-  int? get id => _id;
-
-  String? get name => _name;
-
-  String? get desc => _desc;
-
-  set desc(String? value) {
-    _desc = value;
-  }
-
-  set name(String? value) {
-    _name = value;
-  }
-
-  set id(int? value) {
-    _id = value;
-  }
+  int? id;
+  String? name;
+  String? desc;
 
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
 
-    map['id'] = _id;
-    map['name'] = _name;
-    map['desc'] = _desc;
+    map['id'] = id;
+    map['name'] = name;
+    map['desc'] = desc;
 
     return map;
   }
 
   SqlUser.fromMapObject(Map<String, dynamic> map) {
-    _id = map['id'];
-    _name = map['name'];
-    _desc = map['desc'];
+    id = map['id'];
+    name = map['name'];
+    desc = map['desc'];
   }
 
   SqlUser.fromJson(Map<String, dynamic>? json) {

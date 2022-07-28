@@ -2,7 +2,7 @@ import 'dart:async';
 
 //使用例子请看[mutex]方法
 class Lock {
-  late Completer<void>? _completer;
+  Completer<void>? _completer;
 
   Future<T> mutex<T>(Future<T> callback()) async {
     await lock();

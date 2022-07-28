@@ -47,7 +47,7 @@ class LoginVideoPageState extends State<LoginVideoPage> {
                       aspectRatio: _controller.value.aspectRatio,
                       child: VideoPlayer(_controller),
                     )
-                  : Center(
+                  : const Center(
                       child: CircularProgressIndicator(),
                     ),
             ),
@@ -63,7 +63,7 @@ class LoginVideoPageState extends State<LoginVideoPage> {
                 borderRadius: BorderRadius.circular(60.0),
                 child: MaterialButton(
                   onPressed: () {},
-                  child: Text(
+                  child: const Text(
                     "微信登录",
                     style: TextStyle(fontSize: 15.0),
                   ),
@@ -74,14 +74,14 @@ class LoginVideoPageState extends State<LoginVideoPage> {
                   elevation: 0.0,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20.0,
               ),
               ClipRRect(
                 borderRadius: BorderRadius.circular(60.0),
                 child: MaterialButton(
                   onPressed: () {},
-                  child: Text(
+                  child: const Text(
                     "手机号登录",
                     style: TextStyle(fontSize: 15.0),
                   ),
@@ -92,10 +92,10 @@ class LoginVideoPageState extends State<LoginVideoPage> {
                   textColor: Color(0xffededed),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60.0,
               ),
-              Text(
+              const Text(
                 "我已阅读并同意《服务协议》及《隐私政策》",
                 style: TextStyle(color: Colors.white, fontSize: 13.0),
               )
@@ -107,8 +107,8 @@ class LoginVideoPageState extends State<LoginVideoPage> {
           top: 80.0,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
+            children: const <Widget>[
+               Text(
                 "登录",
                 style: TextStyle(
                     fontSize: 40.0,

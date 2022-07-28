@@ -2,8 +2,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_text/utils/array_helper.dart';
 
 //用于输入金钱 如 ：21.2121
-class TlMoneyTextInputFormatter extends TextInputFormatter {
-  TlMoneyTextInputFormatter(this.integerMaxLen, {required this.decimalMaxLen})
+class MoneyTextInputFormatter extends TextInputFormatter {
+  MoneyTextInputFormatter(this.integerMaxLen, {required this.decimalMaxLen})
       : assert((integerMaxLen == null || integerMaxLen > 0) ||
       (decimalMaxLen == null && decimalMaxLen > 0));
   final int integerMaxLen; //整数位
@@ -21,7 +21,7 @@ class TlMoneyTextInputFormatter extends TextInputFormatter {
       TextEditingValue newValue,
       int integerMaxLen,
       int decimalMaxLen) {
-    final int len = newValue.text?.length ?? 0;
+    final int len = newValue.text.length;
     bool isHas = false; //是否有小数点
     for (int i = 0; i < len; i++) {
       if (newValue.text[i] == '.' && i == 0)
@@ -32,7 +32,7 @@ class TlMoneyTextInputFormatter extends TextInputFormatter {
     }
 
     if (isHas == true) {
-      if ((decimalMaxLen ?? 0) == 0) {
+      if ((decimalMaxLen) == 0) {
         return oldValue;
       }
       final List<String> list = newValue.text.split('.');
@@ -48,9 +48,9 @@ class TlMoneyTextInputFormatter extends TextInputFormatter {
 }
 
 //在拼写时跳过格式化
-class TLLengthLimitingTextInputFormatter
+class TxLengthLimitingTextInputFormatter
     extends LengthLimitingTextInputFormatter {
-  TLLengthLimitingTextInputFormatter(int maxLength) : super(maxLength);
+  TxLengthLimitingTextInputFormatter(int maxLength) : super(maxLength);
 
   @override
   TextEditingValue formatEditUpdate(
@@ -68,9 +68,9 @@ class TLLengthLimitingTextInputFormatter
 }
 
 //在拼写时跳过格式化
-class TLPinyinWhitelistingTextInputFormatter
+class PinyinWhitelistingTextInputFormatter
     extends FilteringTextInputFormatter {
-  TLPinyinWhitelistingTextInputFormatter(Pattern whitelistedPattern)
+  PinyinWhitelistingTextInputFormatter(Pattern whitelistedPattern)
       : super.allow(whitelistedPattern);
 
   @override
@@ -83,12 +83,12 @@ class TLPinyinWhitelistingTextInputFormatter
   }
 }
 
-class TlTextInputFormatterHelper {
+class TextInputFormatterHelper {
   ///身份证校验
   static List<TextInputFormatter> get idCardInputFormatter =>
       <TextInputFormatter>[
-        TLPinyinWhitelistingTextInputFormatter(RegExp('[0-9Xx]')),
-        TLLengthLimitingTextInputFormatter(18),
+        PinyinWhitelistingTextInputFormatter(RegExp('[0-9Xx]')),
+        TxLengthLimitingTextInputFormatter(18),
         TextInputFormatter.withFunction((
             TextEditingValue oldValue,
             TextEditingValue newValue,
@@ -96,7 +96,7 @@ class TlTextInputFormatterHelper {
           final String last = newValue.text.length > 1
               ? newValue.text[newValue.text.length - 1]
               : '';
-          if (newValue.text.length < 17 && last?.toLowerCase() == 'x') {
+          if (newValue.text.length < 17 && last.toLowerCase() == 'x') {
             return oldValue;
           }
           return newValue;
@@ -109,7 +109,7 @@ class TlTextInputFormatterHelper {
       TextEditingValue newValue,
       ) {
     if (newValue.composing == TextRange.empty) {
-      if (newValue.text.length > (oldValue.text?.length ?? 0)) {
+      if (newValue.text.length > (oldValue.text.length)) {
         final String temp = newValue.text.replaceAll(' ', '');
         if (temp.length != newValue.text.length) {
           return oldValue;
@@ -122,8 +122,8 @@ class TlTextInputFormatterHelper {
   ///手机号
   static List<TextInputFormatter> get phoneInputFormatter =>
       <TextInputFormatter>[
-        TLPinyinWhitelistingTextInputFormatter(RegExp('[0-9]')),
-        TLLengthLimitingTextInputFormatter(11),
+        PinyinWhitelistingTextInputFormatter(RegExp('[0-9]')),
+        LengthLimitingTextInputFormatter(11),
       ];
 
   ///整数或小数
@@ -134,7 +134,7 @@ class TlTextInputFormatterHelper {
   static List<TextInputFormatter> priceInputFormatter(int integerMaxLen,
       {required int decimalMaxLen}) {
     return <TextInputFormatter>[
-      TlMoneyTextInputFormatter(integerMaxLen, decimalMaxLen: decimalMaxLen),
+      MoneyTextInputFormatter(integerMaxLen, decimalMaxLen: decimalMaxLen),
       doubleInputFormatter,
     ];
   }

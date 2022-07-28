@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../init.dart';
+import '../../widget/chat/helper/user/user.dart';
 import 'notifier.dart';
 
 // class RiverPodTest extends ConsumerWidget {
@@ -38,6 +39,14 @@ class RiverPodTestPage extends StatefulWidget {
 }
 
 class _RiverPodTestPageState extends State<RiverPodTestPage> {
+
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +57,13 @@ class _RiverPodTestPageState extends State<RiverPodTestPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Consumer(
+              builder: (BuildContext context, WidgetRef ref, _) {
+                final User? user =
+                ref.watch(loginProvider.select((value) => value.user));
+                return Text('${user?.name}');
+              },
+            ),
             Consumer(
               builder: (BuildContext context, WidgetRef ref, _) {
                 final Object? count =
