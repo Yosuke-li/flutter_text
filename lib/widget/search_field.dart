@@ -127,7 +127,7 @@ class _SearchFieldState extends State<SearchField> {
     super.initState();
     sourceController = widget.controller ?? TextEditingController();
     initialize();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.initialValue == null || widget.initialValue?.isEmpty == true) {
         sourceStream.sink.add([]);
       } else {

@@ -9,6 +9,8 @@ class ChooseSeat extends StatefulWidget {
 }
 
 class _ChooseSeatState extends State<ChooseSeat> {
+  static const int _row = 20;
+  static const int _column = 6;
   // final RoomSeatModel data = RoomSeatModel()
   //   ..row = 10
   //   ..column = 6
@@ -22,12 +24,6 @@ class _ChooseSeatState extends State<ChooseSeat> {
     super.initState();
   }
 
-  // GestureScaleEndCallback onScaleEnd;
-  //
-  // GestureScaleUpdateCallback onScaleUpdate;
-  //
-  // GestureScaleStartCallback onScaleStart;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +32,9 @@ class _ChooseSeatState extends State<ChooseSeat> {
       ),
       body: Center(
         child: Container(
-          width: MediaQuery.of(context).size.width,
+          width: 300,
           height: 400,
-          child: _buildView(),
+          child: _buildSeatTable(),
         ),
       ),
     );
@@ -50,11 +46,11 @@ class _ChooseSeatState extends State<ChooseSeat> {
         child: Stack(
           children: [
             _buildSeatTable(),
-            Positioned(
-              right: 0,
-              top: 0,
-              child: _buildTab(),
-            ),
+            // Positioned(
+            //   right: 0,
+            //   top: 0,
+            //   child: _buildTab(),
+            // ),
           ],
         ),
       ),
@@ -77,7 +73,9 @@ class _ChooseSeatState extends State<ChooseSeat> {
 
   Widget _buildSeatTable() {
     return InteractiveViewer(
-      maxScale: 2,
+      // maxScale: 2,
+      constrained: false,
+      scaleEnabled: false,
       onInteractionEnd: (ScaleEndDetails details) {
         Log.info(details);
       },
@@ -87,19 +85,29 @@ class _ChooseSeatState extends State<ChooseSeat> {
       onInteractionUpdate: (ScaleUpdateDetails details) {
         Log.info(details);
       },
-      child: Column(
-        children: [
-          // for (int row = 0; row < data.row; row++)
-          //   Row(
-          //     children: [
-          //       for (int column = 0; column < data.column; column++)
-          //         Container(
-          //           width: MediaQuery.of(context).size.width / data.column,
-          //           child: Text('($row, $column)'),
-          //         )
-          //     ],
-          //   )
-        ],
+      child: SingleChildScrollView(
+        child: Table(
+          columnWidths: <int, TableColumnWidth>{
+            for (int i = 0; i<_column; i++)
+              i: const FlexColumnWidth(150),
+          },
+          children: <TableRow>[
+            for (int row = 0; row < _row; row += 1)
+              TableRow(
+                children: <Widget>[
+                  for (int column = 0; column < _column; column += 1)
+                    Container(
+                      margin: EdgeInsets.all(2),
+                      height: 50,
+                      width: 100,
+                      alignment: Alignment.center,
+                      color: Colors.blueAccent,
+                      child: Text('($row,$column)',style: TextStyle(fontSize: 20),),
+                    ),
+                ],
+              ),
+          ],
+        ),
       ),
     );
   }

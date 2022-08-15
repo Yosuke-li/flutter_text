@@ -51,7 +51,7 @@ class MainIndexState extends State<MainIndexPage>
       });
 
     //组件完成之后的回调方法
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (Platform.isWindows || Platform.isMacOS) _showEntry();
     });
 

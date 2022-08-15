@@ -25,7 +25,7 @@ class _SpeedDialDemoState extends State<_SpeedDialDemo> {
   Widget build (BuildContext context) {
     return SpeedDial(
         curve: Curves.linear,
-        animationSpeed: 300,
+        animationDuration: const Duration(milliseconds: 300),
         child: Icon(_icon ?? Icons.list),
         children:[
           SpeedDialChild(

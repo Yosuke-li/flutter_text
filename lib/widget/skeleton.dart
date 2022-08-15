@@ -34,10 +34,10 @@ class SkeletonManager<T> {
     _version++;
     int oldVersion = _version;
     if(_isFirst){
-      SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
         _tryLoad();
       });
-      SchedulerBinding.instance?.ensureVisualUpdate();
+      SchedulerBinding.instance.ensureVisualUpdate();
       _isFirst=false;
       return;
     }
@@ -79,7 +79,7 @@ class SkeletonManager<T> {
       return;
     }
     _handle = true;
-    SchedulerBinding.instance?.addPostFrameCallback((_) async {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
       try {
         if (_sourceList.isEmpty) {
           return;
@@ -100,13 +100,13 @@ class SkeletonManager<T> {
         _handle = false;
       }
     });
-    SchedulerBinding.instance?.ensureVisualUpdate();
+    SchedulerBinding.instance.ensureVisualUpdate();
   }
 
   Future<void> _doLoad() async {
     assert(_sourceList.isNotEmpty);
     await load(_sourceList.toList());
-    await SchedulerBinding.instance?.endOfFrame;
+    await SchedulerBinding.instance.endOfFrame;
   }
 }
 

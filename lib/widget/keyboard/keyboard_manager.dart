@@ -38,7 +38,7 @@ class KeyboardManager {
   static void interceptorInput() {
     if (isInterceptor) return;
     isInterceptor = true;
-    ServicesBinding.instance?.defaultBinaryMessenger
+    ServicesBinding.instance.defaultBinaryMessenger
         .setMessageHandler("flutter/textinput", _textInputHanlde);
   }
 
@@ -105,7 +105,7 @@ class KeyboardManager {
                   _keyboardController?.client?.connectionId,
                   _keyboardController?.value.toJSON()
                 ]);
-                ServicesBinding.instance?.defaultBinaryMessenger
+                ServicesBinding.instance.defaultBinaryMessenger
                     .handlePlatformMessage("flutter/textinput",
                     _codec.encodeMethodCall(callbackMethodCall), (data) {});
               });
@@ -237,7 +237,7 @@ class KeyboardManager {
   static void sendPerformAction(TextInputAction action) {
     var callbackMethodCall = MethodCall("TextInputClient.performAction",
         [_keyboardController?.client?.connectionId, action.toString()]);
-    ServicesBinding.instance?.defaultBinaryMessenger.handlePlatformMessage(
+    ServicesBinding.instance.defaultBinaryMessenger.handlePlatformMessage(
         "flutter/textinput",
         _codec.encodeMethodCall(callbackMethodCall),
             (data) {});
@@ -405,7 +405,7 @@ class KeyboardPageState extends State<KeyboardPage> {
     // TODO: implement initState
     super.initState();
 
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _height = widget.height;
       setState(() => {});
     });
@@ -453,13 +453,13 @@ class KeyboardPageState extends State<KeyboardPage> {
   }
 
   void update() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() => {});
     });
   }
 
   void updateHeight(double height) {
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       this._height = height;
       setState(() => {});
     });

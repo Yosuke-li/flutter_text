@@ -218,7 +218,7 @@ class _Modal extends State<_ModalWidget> {
     }
 
     //组件完成之后的回调方法
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _position();
     });
   }

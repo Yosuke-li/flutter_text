@@ -6,6 +6,11 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
   //   route: ChatPackApp(),
   //   icon: const Icon(Icons.chat),
   // ),
+  // MainWidgetModel(
+  //   title: 'udp--',
+  //   route: UdpTestPage(),
+  //   icon: const Icon(Icons.chat),
+  // ),
   MainWidgetModel(
     title: '聊天列表--',
     route: ChatListWidget(),

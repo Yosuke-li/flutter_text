@@ -12,8 +12,8 @@ class _AnimatedPhysicalState extends State<AnimatedPhysicalPage> {
   void initState() {
     super.initState();
     Future<void>.delayed(const Duration(seconds: 1)).then(
-          (value) => setState(() {
-            _elevation = 20.0;
+      (value) => setState(() {
+        _elevation = 20.0;
       }),
     );
   }
@@ -26,6 +26,12 @@ class _AnimatedPhysicalState extends State<AnimatedPhysicalPage> {
           child: Container(
             width: 300,
             height: 300,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(500),
+              gradient: LinearGradient(
+                colors: <Color>[Colors.blue, Colors.blue.shade300],
+              ),
+            ),
           ),
           duration: const Duration(seconds: 1),
           animateColor: true,

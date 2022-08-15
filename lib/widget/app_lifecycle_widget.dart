@@ -16,13 +16,13 @@ class _AppLifecycleWidgetState extends State<AppLifecycleWidget>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override

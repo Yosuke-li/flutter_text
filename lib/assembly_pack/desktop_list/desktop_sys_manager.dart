@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/utils/log_utils.dart';
 import 'package:flutter_text/utils/toast_utils.dart';
-import 'package:tray_manager/tray_manager.dart';
-import 'package:window_manager/window_manager.dart';
+import 'package:tray_manager/tray_manager.dart' as tray;
+import 'package:window_manager/window_manager.dart' as win;
 
 /// 系统托盘
 class DesktopSysManager extends StatefulWidget {
@@ -17,8 +17,8 @@ class DesktopSysManager extends StatefulWidget {
 }
 
 class _DesktopSysManagerState extends State<DesktopSysManager>
-    with TrayListener {
-  final TrayManager _trayManager = TrayManager.instance;
+    with tray.TrayListener {
+  final tray.TrayManager _trayManager = tray.TrayManager.instance;
 
   @override
   void initState() {
@@ -38,39 +38,39 @@ class _DesktopSysManagerState extends State<DesktopSysManager>
 
   /// 设置菜单项
   void _generateContextMenu() async {
-    List<MenuItem> items = [
-      MenuItem(label: '语文'),
-      MenuItem(label: '数学', toolTip: '躲不掉的'),
-      MenuItem(label: '英语', disabled: false),
-      MenuItem.separator(),
-      MenuItem(
+    List<tray.MenuItem> items = [
+      tray.MenuItem(label: '语文'),
+      tray.MenuItem(label: '数学', toolTip: '躲不掉的'),
+      tray.MenuItem(label: '英语', disabled: false),
+      tray.MenuItem.separator(),
+      tray.MenuItem(
         key: 'science',
         label: '理科',
         type: 'submenu',
-        submenu: Menu(items: <MenuItem>[
-          MenuItem(label: '物理'),
-          MenuItem(label: '化学'),
-          MenuItem(label: '生物'),
+        submenu: tray.Menu(items: <tray.MenuItem>[
+          tray.MenuItem(label: '物理'),
+          tray.MenuItem(label: '化学'),
+          tray.MenuItem(label: '生物'),
         ]),
       ),
-      MenuItem.separator(),
-      MenuItem(
+      tray.MenuItem.separator(),
+      tray.MenuItem(
         key: 'arts',
         label: '文科',
         type: 'submenu',
-        submenu: Menu(items: <MenuItem>[
-          MenuItem(label: '物理'),
-          MenuItem(label: '化学'),
-          MenuItem(label: '生物'),
+        submenu: tray.Menu(items: <tray.MenuItem>[
+          tray.MenuItem(label: '物理'),
+          tray.MenuItem(label: '化学'),
+          tray.MenuItem(label: '生物'),
         ]),
       ),
     ];
-    await _trayManager.setContextMenu(Menu(items: items));
+    await _trayManager.setContextMenu(tray.Menu(items: items));
   }
 
   @override
   void onTrayIconMouseDown() async {
-    await windowManager.show();
+    await win.windowManager.show();
     Log.info('鼠标左键点击');
   }
 
@@ -81,7 +81,7 @@ class _DesktopSysManagerState extends State<DesktopSysManager>
   }
 
   @override
-  void onTrayMenuItemClick(MenuItem menuItem) {
+  void onTrayMenuItemClick(tray.MenuItem menuItem) {
     ToastUtils.showToast(msg: '你选择了${menuItem.label}');
   }
 

@@ -132,6 +132,8 @@ export 'assembly_pack/auto_play_list/auto_play.dart';
 export 'assembly_pack/riverpod/riverpod_test.dart';
 export 'assembly_pack/text_input_test.dart';
 export 'assembly_pack/navigation/navigation_test.dart';
+export 'assembly_pack/udp/udp_test.dart';
+
 
 
 
