@@ -6,7 +6,7 @@ import 'package:flutter_text/init.dart';
 import 'package:image_compression/image_compression.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:path/path.dart' as path;
-import 'package:flutter_text/utils/compress.dart';
+import 'package:self_utils/utils/compress.dart';
 import 'package:shell/shell.dart';
 
 class DesktopDropText extends StatefulWidget {

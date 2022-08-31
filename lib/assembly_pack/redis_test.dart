@@ -1,4 +1,4 @@
-import 'package:flutter_text/utils/datetime_utils.dart';
+import 'package:self_utils/utils/datetime_utils.dart';
 
 import '../init.dart';
 import 'package:redis/redis.dart';

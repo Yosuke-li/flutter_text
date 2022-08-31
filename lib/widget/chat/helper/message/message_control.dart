@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_text/utils/utils.dart';
+import 'package:self_utils/utils/utils.dart';
 import 'package:flutter_text/widget/chat/helper/global/event.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter_text/utils/utils.dart';
+import 'package:self_utils/utils/utils.dart';
 
 import 'notification_helper.dart';
 import 'notification_model.dart';

@@ -5,9 +5,9 @@ import 'package:epub_view/epub_view.dart';
 import 'package:epub_view/src/data/models/chapter_view_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/j_book/book_cache.dart';
-import 'package:flutter_text/utils/navigator.dart';
-import 'package:flutter_text/utils/screen.dart';
-import 'package:flutter_text/widget/api_call_back.dart';
+import 'package:self_utils/utils/navigator.dart';
+import 'package:self_utils/utils/screen.dart';
+import 'package:self_utils/widget/api_call_back.dart';
 
 class BookView extends StatefulWidget {
   final BookModel book;

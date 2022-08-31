@@ -7,13 +7,13 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_text/assembly_pack/controller_test/controller.dart';
 import 'package:flutter_text/assembly_pack/music_play/music_helper.dart';
 import 'package:flutter_text/assembly_pack/music_play/music_model.dart';
-import 'package:flutter_text/utils/array_helper.dart';
-import 'package:flutter_text/utils/datetime_utils.dart';
-import 'package:flutter_text/utils/log_utils.dart';
-import 'package:flutter_text/utils/screen.dart';
-import 'package:flutter_text/utils/toast_utils.dart';
-import 'package:flutter_text/widget/api_call_back.dart';
-import 'package:flutter_text/widget/slide_panel_left.dart';
+import 'package:self_utils/utils/array_helper.dart';
+import 'package:self_utils/utils/datetime_utils.dart';
+import 'package:self_utils/utils/log_utils.dart';
+import 'package:self_utils/utils/screen.dart';
+import 'package:self_utils/utils/toast_utils.dart';
+import 'package:self_utils/widget/api_call_back.dart';
+import 'package:self_utils/widget/slide_panel_left.dart';
 
 class MusicPlayPage extends StatefulWidget {
   @override

@@ -6,7 +6,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_text/init.dart';
-import 'package:flutter_text/widget/animated_wave.dart';
+import 'package:self_utils/widget/animated_wave.dart';
 import 'package:simple_animations/simple_animations.dart';
 
 class Hello extends StatelessWidget {

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/utils/api_exception.dart';
-import 'package:flutter_text/utils/toast_utils.dart';
 
-import '../utils/log_utils.dart';
-import '../widget/navigator_helper.dart';
+import 'package:self_utils/utils/log_utils.dart';
+import 'package:self_utils/widget/navigator_helper.dart';
 
 class ApiTextPage extends StatefulWidget {
   @override

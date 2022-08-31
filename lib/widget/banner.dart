@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_text/model/img_model.dart';
-import 'package:flutter_text/widget/image_widget.dart';
+import 'package:self_utils/widget/image_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WidgetBanner extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/bloc_text/bloc_model.dart';
-import 'package:flutter_text/utils/log_utils.dart';
-import 'package:flutter_text/widget/bloc/bloc_widget.dart';
+import 'package:self_utils/utils/log_utils.dart';
+import 'package:self_utils/widget/bloc/bloc_widget.dart';
 
 import 'bloc_two_model.dart';
 

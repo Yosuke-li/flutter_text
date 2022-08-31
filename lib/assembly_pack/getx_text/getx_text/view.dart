@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/utils/navigator.dart';
-import 'package:flutter_text/utils/screen.dart';
+import 'package:self_utils/utils/navigator.dart';
+import 'package:self_utils/utils/screen.dart';
 import 'package:get/get.dart';
 
 import 'down_menu.dart';

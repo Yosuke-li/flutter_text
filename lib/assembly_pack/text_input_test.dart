@@ -1,4 +1,4 @@
-import 'package:flutter_text/utils/text_formatter.dart';
+import 'package:self_utils/utils/text_formatter.dart';
 
 import '../init.dart';
 

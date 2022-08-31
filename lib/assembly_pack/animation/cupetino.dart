@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/init.dart';
-import 'package:flutter_text/utils/log_utils.dart';
+import 'package:self_utils/utils/log_utils.dart';
 
 //todo 有问题！！！ Ios组件
 class CupertinoContextMenuPage extends StatefulWidget {

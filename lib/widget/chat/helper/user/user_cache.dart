@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_text/global/global.dart';
-import 'package:flutter_text/global/store.dart';
-import 'package:flutter_text/utils/array_helper.dart';
-import 'package:flutter_text/utils/helpers/interfaces/i_test.dart';
+import 'package:self_utils/global/store.dart';
+import 'package:self_utils/utils/array_helper.dart';
+import 'package:self_utils/utils/helpers/interfaces/i_test.dart';
 import 'package:flutter_text/widget/chat/helper/user/user.dart';
 import 'package:flutter_text/widget/chat/helper/user/user_db.dart';
 

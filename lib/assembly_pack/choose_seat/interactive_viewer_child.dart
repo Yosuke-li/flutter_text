@@ -6,6 +6,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/physics.dart';
+import 'package:flutter_text/init.dart';
 import 'package:vector_math/vector_math_64.dart' show Quad, Vector3, Matrix4;
 
 import 'package:flutter/widgets.dart';
@@ -555,7 +556,7 @@ class InteractiveViewerChildState extends State<InteractiveViewerChild> with Tic
     } else {
       _gestureType ??= _getGestureType(details);
     }
-
+    Log.info(details);
     switch (_gestureType!) {
       case _GestureType.scale:
         assert(_scaleStart != null);
@@ -595,9 +596,6 @@ class InteractiveViewerChildState extends State<InteractiveViewerChild> with Tic
       case _GestureType.pan:
         assert(_referenceFocalPoint != null);
         _panAxis ??= _getPanAxis(_referenceFocalPoint!, focalPointScene);
-        if (_panAxis == Axis.horizontal) {
-          _panAxis = null;
-        }
         final Offset translationChange = focalPointScene - _referenceFocalPoint!;
         _transformationController!.value = _matrixTranslate(
           _transformationController!.value,

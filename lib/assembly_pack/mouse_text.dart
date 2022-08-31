@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_text/utils/log_utils.dart';
+import 'package:self_utils/utils/log_utils.dart';
 
 class MouseTextPage extends StatefulWidget {
 

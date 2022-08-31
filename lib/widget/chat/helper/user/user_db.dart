@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_text/utils/datetime_utils.dart';
-import 'package:flutter_text/utils/log_utils.dart';
+import 'package:self_utils/utils/datetime_utils.dart';
+import 'package:self_utils/utils/log_utils.dart';
 import 'package:flutter_text/widget/chat/helper/global/event.dart';
 import 'package:flutter_text/widget/chat/helper/user/user.dart';
 import 'package:postgres/postgres.dart';

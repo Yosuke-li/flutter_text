@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_text/utils/log_utils.dart';
-import 'package:flutter_text/utils/toast_utils.dart';
-import 'package:flutter_text/widget/api_call_back.dart';
-import 'package:flutter_text/widget/video_widget.dart';
+import 'package:self_utils/utils/log_utils.dart';
+import 'package:self_utils/utils/toast_utils.dart';
+import 'package:self_utils/widget/api_call_back.dart';
+import 'package:self_utils/widget/video_widget.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
 import 'package:ios_share/ios_share.dart';

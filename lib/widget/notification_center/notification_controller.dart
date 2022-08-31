@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_text/utils/utils.dart';
+import 'package:self_utils/utils/utils.dart';
 
 import 'notification_listener.dart';
 

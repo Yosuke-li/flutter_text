@@ -1,5 +1,3 @@
-import 'package:flutter_text/widget/animate_router.dart';
-
 import 'index.dart';
 import 'init.dart';
 

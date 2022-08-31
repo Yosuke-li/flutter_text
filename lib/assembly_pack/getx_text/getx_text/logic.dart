@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_text/utils/array_helper.dart';
+import 'package:self_utils/utils/array_helper.dart';
 import 'package:get/get.dart';
 
 import 'state.dart';

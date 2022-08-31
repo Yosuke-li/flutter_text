@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_text/model/weather.dart';
-import 'package:flutter_text/utils/dio/dio_helper.dart';
+import 'package:self_utils/utils/dio/dio_helper.dart';
 
 class WeatherApi {
   final String rootUrl = 'https://free-api.heweather.net/s6/weather';

@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/animation/drop_selectable_widget.dart';
 import 'package:flutter_text/init.dart';
-import 'package:flutter_text/utils/array_helper.dart';
+import 'package:self_utils/utils/array_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sudoku_solver_generator/sudoku_solver_generator.dart';
 

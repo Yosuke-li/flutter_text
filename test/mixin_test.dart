@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_text/utils/helpers/f_test.dart';
-import 'package:flutter_text/utils/mixin/test.dart';
+import 'package:self_utils/utils/helpers/f_test.dart';
+import 'package:self_utils/utils/mixin/test.dart';
 
 void main() {
   test('mixin', () async {

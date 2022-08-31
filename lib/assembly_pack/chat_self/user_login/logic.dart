@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/global/global.dart';
-import 'package:flutter_text/utils/navigator.dart';
-import 'package:flutter_text/utils/toast_utils.dart';
+import 'package:self_utils/utils/navigator.dart';
+import 'package:self_utils/utils/toast_utils.dart';
 import 'package:flutter_text/widget/chat/helper/user/user.dart';
 import 'package:flutter_text/widget/chat/helper/user/user_db.dart';
 import 'package:get/get.dart';

@@ -2,20 +2,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_text/assembly_pack/desktop_list/desktop_sys_manager.dart';
 import 'package:flutter_text/splash.dart';
-import 'package:flutter_text/utils/shortcuts.dart';
+import 'package:self_utils/utils/shortcuts.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'init.dart';
-
-import 'package:flutter_text/utils/api_exception.dart';
-import 'package:flutter_text/utils/toast_utils.dart';
-import 'package:flutter_text/widget/keyboard/security_keyboard.dart';
-import 'package:flutter_text/widget/navigator_helper.dart';
-import 'assembly_pack/event_bus/event_util.dart';
 import 'index.dart';
-import 'utils/init.dart';
-import 'utils/local_log.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

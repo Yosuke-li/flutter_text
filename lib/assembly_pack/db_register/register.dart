@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_register/register_provider.dart';
 import 'package:flutter_text/assembly_pack/db_register/register_table.dart';
 import 'package:flutter_text/model/db_register.dart';
-import 'package:flutter_text/utils/toast_utils.dart';
+import 'package:self_utils/utils/toast_utils.dart';
 
 class RegisterPage extends StatefulWidget {
   DbRegister? register;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/utils/screen.dart';
+import 'package:self_utils/utils/screen.dart';
 import 'package:flutter_text/widget/notification_center/notification_listener.dart';
 import 'package:flutter_text/widget/notification_center/notification_model.dart';
 import 'package:move_to_background/move_to_background.dart';

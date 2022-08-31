@@ -1,7 +1,7 @@
 import 'package:flutter_text/assembly_pack/database/base_db_provider.dart';
 import 'package:flutter_text/model/sql_user.dart';
-import 'package:flutter_text/utils/array_helper.dart';
-import 'package:flutter_text/utils/utils.dart';
+import 'package:self_utils/utils/array_helper.dart';
+import 'package:self_utils/utils/utils.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 class UserDbProvider extends BaseDbProvider {

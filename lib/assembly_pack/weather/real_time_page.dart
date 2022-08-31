@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_text/assembly_pack/weather/search_city.dart';
-import 'package:flutter_text/global/store.dart';
+import 'package:self_utils/global/store.dart';
 import 'package:intl/intl.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';

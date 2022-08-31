@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_text/utils/datetime_utils.dart';
-import 'package:flutter_text/utils/encrypt.dart';
-import 'package:flutter_text/utils/lock.dart';
-import 'package:flutter_text/utils/singleton.dart';
-import 'package:flutter_text/utils/utils.dart';
+import 'package:self_utils/utils/datetime_utils.dart';
+import 'package:self_utils/utils/encrypt.dart';
+import 'package:self_utils/utils/lock.dart';
+import 'package:self_utils/utils/singleton.dart';
+import 'package:self_utils/utils/utils.dart';
 import 'package:lpinyin/lpinyin.dart';
 
 void main() {

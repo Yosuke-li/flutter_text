@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/widget/slide_panel_left.dart';
+import 'package:self_utils/widget/slide_panel_left.dart';
 
 class SlidingUpPanelText extends StatelessWidget {
   @override

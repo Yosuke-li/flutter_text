@@ -2,9 +2,9 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_text/utils/file_to_locate.dart';
-import 'package:flutter_text/utils/screen.dart';
-import 'package:flutter_text/utils/toast_utils.dart';
+import 'package:self_utils/utils/file_to_locate.dart';
+import 'package:self_utils/utils/screen.dart';
+import 'package:self_utils/utils/toast_utils.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:ios_share/ios_share.dart';
 import 'package:path_provider/path_provider.dart';

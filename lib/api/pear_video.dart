@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_text/model/pear_video.dart';
-import 'package:flutter_text/utils/httpHeaders.dart';
+import 'package:self_utils/utils/httpHeaders.dart';
 
 class PearVideoApi {
   final ListUrl = 'https://app.pearvideo.com/clt/jsp/v2/getCategorys.jsp';  //获取类别

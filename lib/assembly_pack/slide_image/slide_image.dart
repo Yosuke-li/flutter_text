@@ -1,6 +1,6 @@
 import 'package:flutter_text/assembly_pack/slide_image/slide_card.dart';
 import 'package:flutter_text/init.dart';
-import 'package:flutter_text/utils/array_helper.dart';
+import 'package:self_utils/utils/array_helper.dart';
 
 import 'movie.dart';
 

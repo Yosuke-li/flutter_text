@@ -1,12 +1,12 @@
 // import 'package:agora_rtc_engine/rtc_engine.dart';
 // import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 // import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
-// import 'package:flutter_text/utils/permission/check_permission.dart';
+// import 'package:self_utils/utils/permission/check_permission.dart';
 // import 'package:permission_handler/permission_handler.dart';
 // import 'package:flutter/material.dart';
 // import 'dart:async';
 //
-// import 'package:flutter_text/utils/log_utils.dart';
+// import 'package:self_utils/utils/log_utils.dart';
 //
 // import 'config.dart';
 //

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/unit/SelectText.dart';
 import 'package:flutter_text/assembly_pack/unit/StepView.dart';
 import 'package:flutter_text/model/AComponent.dart';
-import 'package:flutter_text/utils/array_helper.dart';
+import 'package:self_utils/utils/array_helper.dart';
 
 import '../sudu/sudo_game.dart';
 import '../widget_to_json.dart';

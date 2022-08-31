@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter_text/global/global.dart';
-import 'package:flutter_text/utils/event_bus_helper.dart';
-import 'package:flutter_text/utils/mqtt_helper.dart';
+import 'package:self_utils/utils/event_bus_helper.dart';
+import 'package:self_utils/utils/mqtt_helper.dart';
 import 'package:get/get.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter_text/init.dart';
-import 'package:flutter_text/utils/array_helper.dart';
+import 'package:self_utils/utils/array_helper.dart';
 
 import 'candle_charts.dart';
 import 'mac_charts.dart';

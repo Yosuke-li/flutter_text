@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/chat_self/user_register/view.dart';
-import 'package:flutter_text/utils/navigator.dart';
-import 'package:flutter_text/utils/screen.dart';
-import 'package:flutter_text/widget/keyboard/security_keyboard.dart';
+import 'package:self_utils/utils/navigator.dart';
+import 'package:self_utils/utils/screen.dart';
+import 'package:self_utils/widget/keyboard/security_keyboard.dart';
 import 'package:get/get.dart';
 
 import 'logic.dart';

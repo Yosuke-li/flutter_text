@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/widget/keyboard_action/content.dart';
+import 'package:self_utils/widget/keyboard_action/content.dart';
 
 class KeyboardPage extends StatefulWidget {
   @override

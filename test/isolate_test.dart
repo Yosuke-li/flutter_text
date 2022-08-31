@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_text/utils/isolate/isolate.dart';
+import 'package:self_utils/utils/isolate/isolate.dart';
 
 void main() {
   test('isolate', () async {

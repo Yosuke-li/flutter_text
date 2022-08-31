@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/utils/web_url.dart';
+import 'package:self_utils/utils/web_url.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SchemeText extends StatefulWidget {

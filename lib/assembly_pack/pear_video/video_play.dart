@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_text/api/pear_video.dart';
 import 'package:flutter_text/model/pear_video.dart';
-import 'package:flutter_text/widget/video_widget.dart';
-import 'package:video_player/video_player.dart';
+import 'package:self_utils/widget/video_widget.dart';
 
 void main() => runApp(PearVideoPlay());
 

@@ -1,5 +1,5 @@
 import 'package:flutter_text/init.dart';
-import 'package:flutter_text/utils/datetime_utils.dart';
+import 'package:self_utils/utils/datetime_utils.dart';
 
 class Controller extends ChangeNotifier {
   DateTime currentDate = DateTimeHelper.getNow();

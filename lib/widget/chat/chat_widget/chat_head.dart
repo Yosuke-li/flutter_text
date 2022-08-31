@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/chat_self/chat_room/view.dart';
-import 'package:flutter_text/utils/datetime_utils.dart';
-import 'package:flutter_text/utils/navigator.dart';
-import 'package:flutter_text/utils/screen.dart';
+import 'package:self_utils/utils/datetime_utils.dart';
+import 'package:self_utils/utils/navigator.dart';
+import 'package:self_utils/utils/screen.dart';
 import 'package:flutter_text/widget/chat/helper/message/message_center.dart';
 import 'package:flutter_text/widget/chat/helper/message/message_model.dart';
 

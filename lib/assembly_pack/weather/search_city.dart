@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/api/weather.dart';
-import 'package:flutter_text/global/store.dart';
+import 'package:self_utils/global/store.dart';
 import 'package:flutter_text/model/weather.dart';
 
 void main() => runApp(SearchCity());

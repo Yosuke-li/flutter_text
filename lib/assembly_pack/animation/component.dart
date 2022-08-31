@@ -7,8 +7,8 @@ import 'package:flutter_text/assembly_pack/neumorphic/example_one.dart';
 import 'package:flutter_text/assembly_pack/neumorphic/example_two.dart';
 import 'package:flutter_text/assembly_pack/neumorphic/neumorphic_example.dart';
 import 'package:flutter_text/model/AComponent.dart';
-import 'package:flutter_text/utils/array_helper.dart';
-import 'package:flutter_text/utils/utils.dart';
+import 'package:self_utils/utils/array_helper.dart';
+import 'package:self_utils/utils/utils.dart';
 
 import 'animated_physical_page.dart';
 import 'circle_light.dart';

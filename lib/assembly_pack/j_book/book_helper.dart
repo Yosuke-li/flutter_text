@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter_text/utils/array_helper.dart';
-import 'package:flutter_text/utils/file_utils.dart';
+import 'package:self_utils/utils/array_helper.dart';
+import 'package:self_utils/utils/file_utils.dart';
 
 class BookHelper {
   static Future<List<File>> setAppLocateFile(List<File> files) async {

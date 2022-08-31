@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/widget/management/common/listenable.dart';
-import 'package:flutter_text/widget/management/common/view_key.dart';
-import 'package:flutter_text/widget/management/widget/stack_view.dart';
+import 'package:self_utils/widget/management/common/listenable.dart';
+import 'package:self_utils/widget/management/common/view_key.dart';
+import 'package:self_utils/widget/management/widget/stack_view.dart';
 
 abstract class EditorListener {
   void onOpen(

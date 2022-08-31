@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_text/model/scan_book.dart';
-import 'package:flutter_text/utils/dio/dio_helper.dart';
+import 'package:self_utils/utils/dio/dio_helper.dart';
 
 class ScanBookApi {
   final String url = 'http://49.234.70.238:9001/book/worm/isbn'; //私人API

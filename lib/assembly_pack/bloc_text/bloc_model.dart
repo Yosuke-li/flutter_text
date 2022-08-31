@@ -1,5 +1,5 @@
 import 'package:flutter_text/assembly_pack/event_bus/event_util.dart';
-import 'package:flutter_text/widget/bloc/bloc_widget.dart';
+import 'package:self_utils/widget/bloc/bloc_widget.dart';
 
 class BlocModel implements BlocBase {
   static late int _count;

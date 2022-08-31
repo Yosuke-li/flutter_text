@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_text/global/store.dart';
-import 'package:flutter_text/utils/toast_utils.dart';
+import 'package:self_utils/global/store.dart';
+import 'package:self_utils/utils/toast_utils.dart';
 
 class StorageTest extends StatefulWidget {
 

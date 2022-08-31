@@ -1,5 +1,5 @@
 import '../../init.dart';
-import '../../widget/overlay_field.dart';
+import 'package:self_utils/widget/overlay_field.dart';
 
 class OverlayText extends StatefulWidget {
   const OverlayText({Key? key}) : super(key: key);

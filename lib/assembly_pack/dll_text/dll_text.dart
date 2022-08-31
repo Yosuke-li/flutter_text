@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:ffi' as ffi;
 import 'package:ffi/ffi.dart'; //用于转String
 import 'package:call/call.dart';
-import 'package:flutter_text/utils/log_utils.dart';
+import 'package:self_utils/utils/log_utils.dart';
 
 ///just use windows
 typedef FuncVersion = ffi.Float Function(ffi.Float x, ffi.Float y);

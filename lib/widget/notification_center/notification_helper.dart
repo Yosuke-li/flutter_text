@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_text/assembly_pack/chat_self/chat_room/view.dart';
 import 'package:flutter_text/init.dart';
-import 'package:flutter_text/utils/toast_utils.dart';
+import 'package:self_utils/utils/toast_utils.dart';
 
 import 'notification_model.dart';
 

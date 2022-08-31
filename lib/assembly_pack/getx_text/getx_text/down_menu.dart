@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/widget/self_down_menu.dart';
+import 'package:self_utils/widget/self_down_menu.dart';
 
 class DownMenuWidget extends StatefulWidget {
   String select;

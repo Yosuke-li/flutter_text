@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/init.dart';
-import 'package:flutter_text/utils/compress.dart';
+import 'package:self_utils/utils/compress.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
 
 class ImageCompressPage extends StatefulWidget {

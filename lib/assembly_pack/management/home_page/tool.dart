@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/management/function_page/manage/manage_list.dart';
-import 'package:flutter_text/utils/navigator.dart';
-import 'package:flutter_text/utils/screen.dart';
-import 'package:flutter_text/widget/management/common/view_key.dart';
-import 'package:flutter_text/widget/management/widget/custom_expansion_tile.dart';
+import 'package:self_utils/utils/navigator.dart';
+import 'package:self_utils/utils/screen.dart';
+import 'package:self_utils/widget/management/common/view_key.dart';
+import 'package:self_utils/widget/management/widget/custom_expansion_tile.dart';
 import 'dart:math' as math;
 
 import 'editor.dart';

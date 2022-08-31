@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_text/widget/popup_widget.dart';
+import 'package:self_utils/widget/popup_widget.dart';
 
 class PopupTextPage extends StatefulWidget {
   @override

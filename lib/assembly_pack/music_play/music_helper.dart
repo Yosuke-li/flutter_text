@@ -3,8 +3,8 @@ import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_text/assembly_pack/music_play/music_model.dart';
-import 'package:flutter_text/utils/array_helper.dart';
-import 'package:flutter_text/utils/file_utils.dart';
+import 'package:self_utils/utils/array_helper.dart';
+import 'package:self_utils/utils/file_utils.dart';
 
 enum PlayMode {
   random, //随机

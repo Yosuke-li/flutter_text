@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_text/widget/video_widget.dart';
+import 'package:self_utils/widget/video_widget.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
 
 class videoIndex extends StatelessWidget {

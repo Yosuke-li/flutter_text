@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/db_test/user_db_provider.dart';
 import 'package:flutter_text/init.dart';
 import 'package:flutter_text/model/sql_user.dart';
-import 'package:flutter_text/widget/api_call_back.dart';
-import 'package:flutter_text/widget/skeleton.dart';
+import 'package:self_utils/widget/api_call_back.dart';
+import 'package:self_utils/widget/skeleton.dart';
 
 class SkeletonView extends StatelessWidget {
   @override

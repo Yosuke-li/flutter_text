@@ -1,6 +1,6 @@
 import 'package:dynamic_widget/dynamic_widget/basic/dynamic_widget_json_exportor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_text/utils/log_utils.dart';
+import 'package:self_utils/utils/log_utils.dart';
 
 class JsonWidgetPage extends StatefulWidget {
   const JsonWidgetPage({Key? key}) : super(key: key);
