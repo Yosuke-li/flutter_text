@@ -57,6 +57,8 @@
 	<string>本app需要访问麦克风</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>本app需要访问相册</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>本app需要访问相册</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>本app需要访问语音</string>
 	<key>NSUserNotificationsUsageDescription</key>

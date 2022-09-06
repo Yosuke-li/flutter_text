@@ -592,7 +592,7 @@ class _SecondContent extends State<SecondScreen> {
                   children: <Widget>[
                      Container(
                       padding:  EdgeInsets.only(top: 10, right: 30),
-                      child:  RaisedButton(
+                      child:  ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context, alreadySaved);
                         },
@@ -601,7 +601,7 @@ class _SecondContent extends State<SecondScreen> {
                     ),
                      Container(
                       padding:  EdgeInsets.only(top: 10, left: 30),
-                      child:  RaisedButton(
+                      child:  ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context, alreadySaved);
                         },

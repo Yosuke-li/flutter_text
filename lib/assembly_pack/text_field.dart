@@ -87,13 +87,13 @@ class _contextPageState extends State<_contextPage> {
         builder: (context) => AlertDialog(
           content: Text(content),
           actions: <Widget>[
-            FlatButton(
+            ElevatedButton(
               child: const Text("取消"),
               onPressed: () {
                 Navigator.pop(context, '取消选择');
               },
             ),
-            FlatButton(
+            ElevatedButton(
               child: const Text("确定"),
               onPressed: () {
                 Navigator.pop(context, usernameController);

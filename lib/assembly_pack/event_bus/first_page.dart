@@ -27,7 +27,7 @@ class _EventBusDemoState extends State<EventBusDemo> {
 //              child: Text('${eventData}' == ''|| '${eventData}' == null ? '' : '${eventData}'),
             ),
           ),
-          FlatButton(
+          FloatingActionButton(
             onPressed: () {
               Navigator.pushReplacement(context,
                   PageRouteBuilder(

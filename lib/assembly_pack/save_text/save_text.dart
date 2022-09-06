@@ -144,7 +144,7 @@ class _MyAppState extends State<TextT> {
                               SnackBar snackBar;
                               if (success) {
                                 snackBar = new SnackBar(content: new Text('Successful Preservation!'));
-                                Scaffold.of(context).showSnackBar(snackBar);
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
                               } else {
                                 snackBar = new SnackBar(content: new Text('Save failed!'));
                               }

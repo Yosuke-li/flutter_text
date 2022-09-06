@@ -2,16 +2,15 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:self_utils/init.dart';
 import 'package:self_utils/utils/file_to_locate.dart';
 import 'package:self_utils/utils/screen.dart';
 import 'package:self_utils/utils/toast_utils.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:ios_share/ios_share.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:dio/dio.dart';
 
 class pdfView extends StatefulWidget {
-
   @override
   pdfViewState createState() => pdfViewState();
 }
@@ -21,19 +20,13 @@ class pdfViewState extends State<pdfView> {
       'http://fp.baiwang.com/fp/d?d=9C4E8DD9749B11892ABA67A22E849893C02EA2A0CCF7128F92758E4F57DC701C';
 
   Future<void> _downLoad() async {
-    Dio dio = Dio();
-    final dir = await getTemporaryDirectory();
-    // prepare the file and type extension that you want to download
+    final dir = await getApplicationSupportDirectory();
     final filePath =
         dir.path + '${Random().nextInt(4294967000)}' + ('/example.pdf');
     try {
-      if (Platform.isAndroid) {
-        await dio.download(url, filePath);
-        await ImageGallerySaver.saveFile(filePath);
+      await Request.downloadFile(url, filePath, (loaded, total) {
         ToastUtils.showToast(msg: '文件已保存到$filePath');
-      } else if (Platform.isIOS) {
-        await IosShare.iosShareHelper(filePath);
-      }
+      });
     } catch (e) {
       rethrow;
     }

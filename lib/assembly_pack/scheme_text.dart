@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:self_utils/utils/web_url.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -21,10 +22,9 @@ class _SchemeTextState extends State<SchemeText> {
           children: <Widget>[
             Container(
               padding: const EdgeInsets.all(10),
-              child: RaisedButton(
+              child: CupertinoButton(
                 color: Theme.of(context).primaryColorDark,
-                textColor: Theme.of(context).primaryColorLight,
-                child: Text(
+                child: const Text(
                   '跳转到exhibition',
                 ),
                 onPressed: () async {
@@ -34,10 +34,9 @@ class _SchemeTextState extends State<SchemeText> {
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              child: RaisedButton(
+              child: CupertinoButton(
                 color: Theme.of(context).primaryColorDark,
-                textColor: Theme.of(context).primaryColorLight,
-                child: Text(
+                child: const Text(
                   '跳转到错误链接',
                 ),
                 onPressed: () async {
@@ -47,10 +46,9 @@ class _SchemeTextState extends State<SchemeText> {
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              child: RaisedButton(
+              child: CupertinoButton(
                 color: Theme.of(context).primaryColorDark,
-                textColor: Theme.of(context).primaryColorLight,
-                child: Text(
+                child: const Text(
                   '跳转到flutter text',
                 ),
                 onPressed: () async {
@@ -60,10 +58,9 @@ class _SchemeTextState extends State<SchemeText> {
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              child: RaisedButton(
+              child: CupertinoButton(
                 color: Theme.of(context).primaryColorDark,
-                textColor: Theme.of(context).primaryColorLight,
-                child: Text(
+                child: const Text(
                   '跳转到flutter.cn',
                 ),
                 onPressed: () async {

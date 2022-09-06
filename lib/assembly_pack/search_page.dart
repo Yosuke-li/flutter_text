@@ -352,7 +352,7 @@ class SearchBarDelegate extends SearchDelegate<String> {
           ],)),
           onTap: (){
             query = suggestionList[index];
-            Scaffold.of(context).showSnackBar(SnackBar(content: Text(query)));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(query)));
           },
         );
       },

@@ -59,7 +59,7 @@ class _PdfReadState extends State<PdfRead> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: RaisedButton(
+        child: FloatingActionButton(
           child: Text("Open PDF"),
           onPressed: () => Navigator.push(
             context,

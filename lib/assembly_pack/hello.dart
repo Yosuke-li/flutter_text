@@ -94,23 +94,26 @@ class HelloDemoState extends State<HelloDemo> {
 class LinearBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MultiTrackTween tween = MultiTrackTween([
-      Track("color1").add(const Duration(seconds: 20),
-          ColorTween(begin: Colors.red, end: Colors.blueAccent.shade700)),
-      Track("color2").add(const Duration(seconds: 20),
-          ColorTween(begin: Colors.deepOrange, end: Colors.blue.shade600))
-    ]);
-    return ControlledAnimation<Map<String, dynamic>>(
-      playback: Playback.MIRROR,
+    final MovieTween tween = MovieTween()..tween(
+          'color1',
+          ColorTween(begin: Colors.red, end: Colors.blueAccent.shade700),
+          duration: const Duration(seconds: 20),
+        )
+        .thenTween(
+          'color2',
+          ColorTween(begin: Colors.deepOrange, end: Colors.blue.shade600),
+          duration: const Duration(seconds: 20),
+        );
+    return MirrorAnimationBuilder<Movie>(
       tween: tween,
       duration: tween.duration,
-      builder: (BuildContext context, animation) {
+      builder: (BuildContext context, animation, _) {
         return Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [animation["color1"], animation["color2"]],
+            colors: [animation.get('color1'), animation.get('color2')],
           )),
         );
       },

@@ -135,7 +135,7 @@ class _WidgetBannerState extends State<WidgetBanner> {
 
   //底部提示框
   void _onTapImage(int index, int length) {
-    Scaffold.of(context).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('当前page为${index % length}'),
       duration: const Duration(milliseconds: 500),
     ));

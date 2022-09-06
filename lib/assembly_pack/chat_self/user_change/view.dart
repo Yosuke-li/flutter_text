@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -48,9 +49,8 @@ class _UserChangePageState extends State<UserChangePage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: RaisedButton(
+                      child: CupertinoButton(
                         color: Theme.of(context).primaryColorDark,
-                        textColor: Theme.of(context).primaryColorLight,
                         child: const Text(
                           '修改信息',
                         ),

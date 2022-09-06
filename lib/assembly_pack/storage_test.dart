@@ -36,10 +36,9 @@ class _StorageTestState extends State<StorageTest> {
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              child: RaisedButton(
+              child: CupertinoButton(
                 color: Theme.of(context).primaryColorDark,
-                textColor: Theme.of(context).primaryColorLight,
-                child: Text(
+                child: const Text(
                   '保存',
                 ),
                 onPressed: () {
@@ -49,10 +48,9 @@ class _StorageTestState extends State<StorageTest> {
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              child: RaisedButton(
+              child: CupertinoButton(
                 color: Theme.of(context).primaryColorDark,
-                textColor: Theme.of(context).primaryColorLight,
-                child: Text(
+                child: const Text(
                   '获取缓存',
                 ),
                 onPressed: () {
@@ -67,10 +65,9 @@ class _StorageTestState extends State<StorageTest> {
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              child: RaisedButton(
+              child: CupertinoButton(
                 color: Theme.of(context).primaryColorDark,
-                textColor: Theme.of(context).primaryColorLight,
-                child: Text(
+                child: const Text(
                   '获取所有缓存',
                 ),
                 onPressed: () {
@@ -80,9 +77,8 @@ class _StorageTestState extends State<StorageTest> {
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              child: RaisedButton(
+              child: CupertinoButton(
                 color: Theme.of(context).primaryColorDark,
-                textColor: Theme.of(context).primaryColorLight,
                 child: Text(
                   '清除缓存',
                 ),

@@ -77,10 +77,9 @@ class TestAddState extends State<TestAdd> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                  child: RaisedButton(
+                  child: CupertinoButton(
                     color: Theme.of(context).primaryColorDark,
-                    textColor: Theme.of(context).primaryColorLight,
-                    child: Text(
+                    child: const Text(
                       '删除',
                     ),
                     onPressed: () {
@@ -89,10 +88,9 @@ class TestAddState extends State<TestAdd> {
                   ),
                 ),
                 Expanded(
-                  child: RaisedButton(
+                  child: CupertinoButton(
                     color: Theme.of(context).primaryColorDark,
-                    textColor: Theme.of(context).primaryColorLight,
-                    child: Text(
+                    child: const Text(
                       '保存',
                     ),
                     onPressed: () {

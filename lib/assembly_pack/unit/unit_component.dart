@@ -42,9 +42,9 @@ class UnitComponentPageState extends State<UnitComponentPage> {
       PageModel()
         ..name = 'OverlayText'
         ..pageUrl = OverlayText(),
-      PageModel()
-        ..name = 'JsonWidgetPage'
-        ..pageUrl = const JsonWidgetPage(),
+      // PageModel()
+      //   ..name = 'JsonWidgetPage'
+      //   ..pageUrl = const JsonWidgetPage(),
       PageModel()
         ..name = 'AutoCompleteTest'
         ..pageUrl = const AutoCompleteTest(),

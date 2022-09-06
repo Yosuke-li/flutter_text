@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/chat_self/user_register/view.dart';
 import 'package:self_utils/utils/navigator.dart';
@@ -66,9 +67,8 @@ class _UserLoginPageState extends State<UserLoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: RaisedButton(
+                    child: CupertinoButton(
                       color: Theme.of(context).primaryColorDark,
-                      textColor: Theme.of(context).primaryColorLight,
                       child: const Text(
                         '登陆',
                       ),

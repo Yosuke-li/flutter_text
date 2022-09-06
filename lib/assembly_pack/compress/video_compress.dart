@@ -7,7 +7,6 @@ import 'package:self_utils/widget/api_call_back.dart';
 import 'package:self_utils/widget/video_widget.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker_saver/image_picker_saver.dart';
-import 'package:ios_share/ios_share.dart';
 import 'package:video_compress_ds/video_compress_ds.dart';
 
 class VideoCompressPage extends StatefulWidget {
@@ -53,12 +52,8 @@ class _VideoCompressState extends State<VideoCompressPage> {
 
   void saveToLocal() async {
     try {
-      if (Platform.isAndroid) {
-        await ImageGallerySaver.saveFile(_videoFile!.path);
-        ToastUtils.showToast(msg: '文件已保存到$_videoFile');
-      } else if (Platform.isIOS) {
-        await IosShare.iosShareHelper(_videoFile!.path);
-      }
+      await ImageGallerySaver.saveFile(_videoFile!.path);
+      ToastUtils.showToast(msg: '文件已保存到$_videoFile');
     } catch (e) {
       rethrow;
     }

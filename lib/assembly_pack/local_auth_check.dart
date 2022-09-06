@@ -73,9 +73,7 @@ class _localAuthCheckState extends State<LocalAuthCheck> {
         _authorized = 'Authenticating';
       });
       authenticated = await auth.authenticate(
-          localizedReason: 'Let OS determine authentication method',
-          useErrorDialogs: true,
-          stickyAuth: true);
+          localizedReason: 'Let OS determine authentication method',);
       setState(() {
         _isAuthenticating = false;
       });
@@ -102,10 +100,7 @@ class _localAuthCheckState extends State<LocalAuthCheck> {
       });
       authenticated = await auth.authenticate(
           localizedReason:
-          'Scan your fingerprint (or face or whatever) to authenticate',
-          useErrorDialogs: true,
-          stickyAuth: true,
-          biometricOnly: true);
+          'Scan your fingerprint (or face or whatever) to authenticate',);
       setState(() {
         _isAuthenticating = false;
         _authorized = 'Authenticating';

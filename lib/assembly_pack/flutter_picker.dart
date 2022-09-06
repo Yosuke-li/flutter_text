@@ -40,63 +40,63 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             (stateText != null) ? Text(stateText!) : Container(),
             SizedBox(height: listSpec),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Picker Show Icons'),
               onPressed: () {
                 showPickerIcons(context);
               },
             ),
             SizedBox(height: listSpec),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Picker Show Number'),
               onPressed: () {
                 showPickerNumber(context);
               },
             ),
             SizedBox(height: listSpec),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Picker Show Number FormatValue'),
               onPressed: () {
                 showPickerNumberFormatValue(context);
               },
             ),
             SizedBox(height: listSpec),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Picker Show Date'),
               onPressed: () {
                 showPickerDate(context);
               },
             ),
             SizedBox(height: listSpec),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Picker Show Datetime'),
               onPressed: () {
                 showPickerDateTime(context);
               },
             ),
             SizedBox(height: listSpec),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Picker Show Date (Custom)'),
               onPressed: () {
                 showPickerDateCustom(context);
               },
             ),
             SizedBox(height: listSpec),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Picker Show Datetime (24)'),
               onPressed: () {
                 showPickerDateTime24(context);
               },
             ),
             SizedBox(height: listSpec),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Picker Show Datetime (Round background)'),
               onPressed: () {
                 showPickerDateTimeRoundBg(context);
               },
             ),
             SizedBox(height: listSpec),
-            RaisedButton(
+            ElevatedButton(
               child: Text('Picker Show Date Range'),
               onPressed: () {
                 showPickerDateRange(context);
@@ -286,12 +286,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     final List<Widget> actions = [
-      FlatButton(
+      FloatingActionButton(
           onPressed: () {
             Navigator.pop(context);
           },
           child: Text(PickerLocalizations.of(context).cancelText??'')),
-      FlatButton(
+      FloatingActionButton(
           onPressed: () {
             Navigator.pop(context);
             ps.onConfirm!(ps, ps.selecteds);

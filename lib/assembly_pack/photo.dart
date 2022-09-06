@@ -38,7 +38,7 @@ class PickImageState extends State<PickImageDemo> {
       child: Column(
         children: <Widget>[
           Container(
-            child: FlatButton(
+            child: FloatingActionButton(
               onPressed: () {
                 showModalBottomSheet(
                     context: context,
@@ -94,7 +94,7 @@ class PickImageState extends State<PickImageDemo> {
             ),
           ),
           Container(
-            child: FlatButton(
+            child: FloatingActionButton(
               onPressed: () {
                 _getWechatPicker();
               },

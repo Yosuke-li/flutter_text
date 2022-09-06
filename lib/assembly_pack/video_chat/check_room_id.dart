@@ -68,7 +68,7 @@ class _CheckRoomState extends State<CheckRoomId> {
                 ],
               ),
             ),
-            RaisedButton(
+            FloatingActionButton(
               onPressed: () {
                 print(_controller.text);
                 if (_controller.text.isNotEmpty) {

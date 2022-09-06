@@ -125,9 +125,8 @@ class RegisterPageState extends State<RegisterPage> {
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              child: RaisedButton(
+              child: CupertinoButton(
                 color: Theme.of(context).primaryColorDark,
-                textColor: Theme.of(context).primaryColorLight,
                 child: const Text(
                   '保存',
                 ),
