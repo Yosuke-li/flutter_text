@@ -2,8 +2,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_text/assembly_pack/desktop_list/desktop_sys_manager.dart';
 import 'package:flutter_text/splash.dart';
-import 'package:self_utils/utils/shortcuts.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:self_utils/init.dart';
+import 'package:flutter_shortcuts/flutter_shortcuts.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'init.dart';
@@ -41,11 +42,30 @@ class Assembly extends StatefulWidget {
 class AssemblyState extends State<Assembly> {
   bool? todayShowAd;
 
+  List<ShortCutsModel> list = <ShortCutsModel>[
+    ShortCutsModel(
+      shortcutItem: const ShortcutItem(
+        id: '1',
+        action: 'charts',
+        shortLabel: 'charts',
+        icon: 'images/sun.jpg',
+      ),
+      callBackFunc: () async {
+        final NavigatorState navigatorHelper =
+            await NavigatorHelper.navigatorState;
+        navigatorHelper.push(
+          MaterialPageRoute<void>(
+              builder: (BuildContext context) => ListGroupPage()),
+        );
+      },
+    )
+  ];
+
   @override
   void initState() {
     Future<void>.delayed(Duration.zero, () async {
       if (Platform.isAndroid == true) {
-        ShortCutsInit();
+        ShortCutsInit(shortCutList: list);
       }
       await init();
     });
@@ -89,17 +109,18 @@ class AssemblyState extends State<Assembly> {
                   home: GestureDetector(
                     onLongPress: () {
                       setState(() {
-                        GlobalStore.isShowOverlay =
-                        !GlobalStore.isShowOverlay;
+                        GlobalStore.isShowOverlay = !GlobalStore.isShowOverlay;
                       });
                       // FlutterDoraemonkit.toggle();
                     },
                     child: KeyboardRootWidget(
                       child: todayShowAd != null
-                          ? (todayShowAd == true ? MainIndexPage() : SplashPage())
+                          ? (todayShowAd == true
+                              ? MainIndexPage()
+                              : SplashPage())
                           : Container(
-                        color: Colors.white,
-                      ),
+                              color: Colors.white,
+                            ),
                       // child: MainIndexPage(),
                     ),
                   ),
@@ -116,7 +137,8 @@ class AssemblyState extends State<Assembly> {
 //错误信息处理
 void _errorHandler(FlutterErrorDetails details) async {
   await ReportError().reportError(details.exception, details.stack);
-  LocalLog.setLog('${LogLevel.ERROR.toString()} -- ${DateTime.now().toString()} -- ${details.exception}');
+  LocalLog.setLog(
+      '${LogLevel.ERROR.toString()} -- ${DateTime.now().toString()} -- ${details.exception}');
 
   if (ReportError().isInDebugMode) {
     FlutterError.dumpErrorToConsole(details);
@@ -143,7 +165,7 @@ void _errorHandler(FlutterErrorDetails details) async {
           navigatorHelper.popUntil((Route route) => route.isFirst);
           break;
         default:
-          ToastUtils.showToast(msg: message??'');
+          ToastUtils.showToast(msg: message ?? '');
           break;
       }
     } else if (details.exception is SocketException) {
