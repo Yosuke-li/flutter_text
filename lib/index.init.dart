@@ -162,6 +162,10 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     title: 'ShellTest',
     route: ShellTest(),
     icon: const Icon(Icons.keyboard),
+  ),MainWidgetModel(
+    title: 'DebounceTPage',
+    route: DebounceTPage(),
+    icon: const Icon(Icons.keyboard),
   ),
   MainWidgetModel(
     title: 'RiverPodTest',

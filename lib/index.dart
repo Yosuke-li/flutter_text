@@ -137,26 +137,26 @@ class MainIndexState extends State<MainIndexPage>
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    RepaintBoundary(
-                      child: InteractionalWidget(
-                        width: MediaQuery.of(context).size.width,
-                        height: 200,
-                        maxAngleY: 30,
-                        maxAngleX: 40,
-                        middleScale: 1,
-                        foregroundScale: 1.1,
-                        backgroundScale: 1.3,
-                        backgroundWidget: Container(
-                          child: getImage('back.png'),
-                        ),
-                        middleWidget: Container(
-                          child: getImage('mid.png'),
-                        ),
-                        foregroundWidget: Container(
-                          child: getImage('fore.png'),
-                        ),
-                      ),
-                    ),
+                    // RepaintBoundary(
+                    //   child: InteractionalWidget(
+                    //     width: MediaQuery.of(context).size.width,
+                    //     height: 200,
+                    //     maxAngleY: 30,
+                    //     maxAngleX: 40,
+                    //     middleScale: 1,
+                    //     foregroundScale: 1.1,
+                    //     backgroundScale: 1.3,
+                    //     backgroundWidget: Container(
+                    //       child: getImage('back.png'),
+                    //     ),
+                    //     middleWidget: Container(
+                    //       child: getImage('mid.png'),
+                    //     ),
+                    //     foregroundWidget: Container(
+                    //       child: getImage('fore.png'),
+                    //     ),
+                    //   ),
+                    // ),
                     ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,

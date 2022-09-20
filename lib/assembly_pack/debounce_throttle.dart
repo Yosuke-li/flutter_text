@@ -29,42 +29,42 @@ class _DebounceTState extends State<DebounceTPage> {
         child: Center(
           child: Column(
             children: [
-              InkWell(
-                onTap: () {
+              TextButton(
+                onPressed: () {
                   setState(() {
                     normal++;
                   });
                 },
-                child: Text('$normal'),
+                child: Text('基础 $normal'),
               ),
               //todo 防抖
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    _timer?.cancel();
-                    _timer = Timer(const Duration(milliseconds: 2000), () {
-                      setState(() {
-                        debounce++;
-                      });
-                    });
-                  });
+              TextButton(
+                onPressed: () {
+                  Utils.debounce(
+                    () => setState(() {
+                      debounce++;
+                    }),
+                    delay: const Duration(milliseconds: 2000),
+                  );
                 },
-                child: Text('$debounce'),
+                child: Text('防抖 $debounce'),
               ),
               //todo 节流
-              InkWell(
-                onTap: () async {
+              TextButton(
+                onPressed: () async {
                   if (!canAction) return;
                   setState(() {
                     canAction = false;
                   });
-                  await Future<void>.delayed(const Duration(milliseconds: 2000));
+                  await Future<void>.delayed(
+                      const Duration(milliseconds: 2000));
                   throttle++;
                   canAction = true;
                   setState(() {});
                 },
-                child: Text('$throttle'),
-              )
+                child: Text('节流 $throttle'),
+              ),
+
             ],
           ),
         ),
