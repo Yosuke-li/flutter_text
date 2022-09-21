@@ -75,6 +75,7 @@ export 'package:flutter_text/assembly_pack/stepper.dart';
 export 'package:flutter_text/global/global.dart';
 export 'package:self_utils/widget/inherited_widget.dart';
 export 'assembly_pack/debounce_throttle.dart';
+export 'assembly_pack/markdown/markdown_editor.dart';
 
 export 'assembly_pack/event_bus/event_util.dart';
 export 'assembly_pack/getx_text/getx_text/view.dart';

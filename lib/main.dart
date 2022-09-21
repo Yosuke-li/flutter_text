@@ -113,16 +113,11 @@ class AssemblyState extends State<Assembly> {
                       });
                       // FlutterDoraemonkit.toggle();
                     },
-                    child: KeyboardRootWidget(
-                      child: todayShowAd != null
-                          ? (todayShowAd == true
-                              ? MainIndexPage()
-                              : SplashPage())
-                          : Container(
-                              color: Colors.white,
-                            ),
-                      // child: MainIndexPage(),
-                    ),
+                    child: todayShowAd != null
+                        ? (todayShowAd == true ? MainIndexPage() : SplashPage())
+                        : Container(
+                            color: Colors.white,
+                          ),
                   ),
                 ),
               ),

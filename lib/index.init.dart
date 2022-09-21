@@ -17,6 +17,11 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
     icon: const Icon(Icons.chat),
   ),
   MainWidgetModel(
+    title: ' markdown--',
+    route: const MarkdownEditor(),
+    icon: const Icon(Icons.texture),
+  ),
+  MainWidgetModel(
     title: '${1637898885.getLocalTimeStamp}',
     route: null,
     icon: const Icon(Icons.numbers),
@@ -162,7 +167,8 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     title: 'ShellTest',
     route: ShellTest(),
     icon: const Icon(Icons.keyboard),
-  ),MainWidgetModel(
+  ),
+  MainWidgetModel(
     title: 'DebounceTPage',
     route: DebounceTPage(),
     icon: const Icon(Icons.keyboard),
