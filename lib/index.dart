@@ -18,7 +18,7 @@ class MainWidgetModel {
 }
 
 class MainIndexState extends State<MainIndexPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   StreamSubscription<PageEvent>? eventBus;
   String? eventData;
   late TabController tabController;
@@ -34,6 +34,9 @@ class MainIndexState extends State<MainIndexPage>
   List<MainWidgetModel> _page1 = [];
   List<MainWidgetModel> _page2 = [];
   List<MainWidgetModel> _page3 = [];
+
+  late AnimationController _controller;
+  double _left = -50;
 
   @override
   void initState() {
@@ -53,6 +56,23 @@ class MainIndexState extends State<MainIndexPage>
     //组件完成之后的回调方法
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (Platform.isWindows || Platform.isMacOS) _showEntry();
+      _controller = AnimationController(
+          vsync: this,
+          duration: const Duration(seconds: 5),
+          lowerBound: -50,
+          upperBound: 50)
+        ..addStatusListener((AnimationStatus status) {
+          if (status == AnimationStatus.completed) {
+            _controller.reset();
+          } else if (status == AnimationStatus.dismissed) {
+            _controller.forward();
+          }
+        })
+        ..addListener(() {
+          _left = _controller.value;
+          setState(() {});
+        });
+      _controller.forward();
     });
 
     _page1 = page1;
@@ -125,77 +145,114 @@ class MainIndexState extends State<MainIndexPage>
 
   @override
   Widget build(BuildContext viewContext) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('组件列表'),
-      ),
-      body: Builder(
-        builder: (BuildContext context) => TabBarView(
-          controller: tabController,
-          children: <Widget>[
-            RepaintBoundary(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    // RepaintBoundary(
-                    //   child: InteractionalWidget(
-                    //     width: MediaQuery.of(context).size.width,
-                    //     height: 200,
-                    //     maxAngleY: 30,
-                    //     maxAngleX: 40,
-                    //     middleScale: 1,
-                    //     foregroundScale: 1.1,
-                    //     backgroundScale: 1.3,
-                    //     backgroundWidget: Container(
-                    //       child: getImage('back.png'),
-                    //     ),
-                    //     middleWidget: Container(
-                    //       child: getImage('mid.png'),
-                    //     ),
-                    //     foregroundWidget: Container(
-                    //       child: getImage('fore.png'),
-                    //     ),
-                    //   ),
-                    // ),
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        final MainWidgetModel mainModel =
-                            ArrayHelper.get(_page1, index)!;
-                        return ListTile(
-                          leading: mainModel.icon,
-                          title: Text(
-                            '${mainModel.title}',
-                            style: TextStyle(
-                              fontSize: screenUtil.adaptive(40),
-                            ),
-                          ),
-                          onTap: () {
-                            if (mainModel.route != null) {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => mainModel.route!),
-                              );
-                            } else {
-                              mainModel.onTapFunc?.call(context);
-                            }
+    return Stack(
+      children: <Widget>[
+        Scaffold(
+          appBar: AppBar(
+            title: const Text('组件列表'),
+          ),
+          body: Builder(
+            builder: (BuildContext context) => TabBarView(
+              controller: tabController,
+              children: <Widget>[
+                RepaintBoundary(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        // RepaintBoundary(
+                        //   child: InteractionalWidget(
+                        //     width: MediaQuery.of(context).size.width,
+                        //     height: 200,
+                        //     maxAngleY: 30,
+                        //     maxAngleX: 40,
+                        //     middleScale: 1,
+                        //     foregroundScale: 1.1,
+                        //     backgroundScale: 1.3,
+                        //     backgroundWidget: Container(
+                        //       child: getImage('back.png'),
+                        //     ),
+                        //     middleWidget: Container(
+                        //       child: getImage('mid.png'),
+                        //     ),
+                        //     foregroundWidget: Container(
+                        //       child: getImage('fore.png'),
+                        //     ),
+                        //   ),
+                        // ),
+                        ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            final MainWidgetModel mainModel =
+                                ArrayHelper.get(_page1, index)!;
+                            return ListTile(
+                              leading: mainModel.icon,
+                              title: Text(
+                                '${mainModel.title}',
+                                style: TextStyle(
+                                  fontSize: screenUtil.adaptive(40),
+                                ),
+                              ),
+                              onTap: () {
+                                if (mainModel.route != null) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) => mainModel.route!),
+                                  );
+                                } else {
+                                  mainModel.onTapFunc?.call(context);
+                                }
+                              },
+                            );
                           },
-                        );
-                      },
-                      itemCount: _page1.length,
-                    )
-                  ],
+                          itemCount: _page1.length,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            RepaintBoundary(
-              child: Container(
-                child: ScrollListenerWidget(
+                RepaintBoundary(
+                  child: Container(
+                    child: ScrollListenerWidget(
+                      child: ListView.builder(
+                        itemBuilder: (BuildContext context, int index) {
+                          final MainWidgetModel mainModel =
+                              ArrayHelper.get(_page2, index)!;
+                          return ListTile(
+                            leading: mainModel.icon,
+                            title: Text(
+                              '${mainModel.title}',
+                              style: TextStyle(
+                                fontSize: screenUtil.adaptive(40),
+                              ),
+                            ),
+                            trailing: const Icon(Icons.keyboard_arrow_right),
+                            onTap: () {
+                              if (mainModel.route != null) {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          mainModel.route!),
+                                );
+                              } else {
+                                mainModel.onTapFunc?.call(context);
+                              }
+                            },
+                          );
+                        },
+                        itemCount: _page2.length,
+                      ),
+                      callback: (int first, int last) {
+                        Log.info('firstIndex - lastIndex: $first - $last');
+                      },
+                    ),
+                  ),
+                ),
+                RepaintBoundary(
                   child: ListView.builder(
                     itemBuilder: (BuildContext context, int index) {
                       final MainWidgetModel mainModel =
-                      ArrayHelper.get(_page2, index)!;
+                          ArrayHelper.get(_page3, index)!;
                       return ListTile(
                         leading: mainModel.icon,
                         title: Text(
@@ -209,7 +266,8 @@ class MainIndexState extends State<MainIndexPage>
                           if (mainModel.route != null) {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => mainModel.route!),
+                                  builder: (BuildContext context) =>
+                                      mainModel.route!),
                             );
                           } else {
                             mainModel.onTapFunc?.call(context);
@@ -217,62 +275,90 @@ class MainIndexState extends State<MainIndexPage>
                         },
                       );
                     },
-                    itemCount: _page2.length,
+                    itemCount: _page3.length,
                   ),
-                  callback: (int first, int last) {
-                    Log.info('firstIndex - lastIndex: $first - $last');
-                  },
                 ),
-              ),
+              ],
             ),
-            RepaintBoundary(
-              child: ListView.builder(
-                itemBuilder: (BuildContext context, int index) {
-                  final MainWidgetModel mainModel =
-                  ArrayHelper.get(_page3, index)!;
-                  return ListTile(
-                    leading: mainModel.icon,
-                    title: Text(
-                      '${mainModel.title}',
-                      style: TextStyle(
-                        fontSize: screenUtil.adaptive(40),
-                      ),
-                    ),
-                    trailing: const Icon(Icons.keyboard_arrow_right),
-                    onTap: () {
-                      if (mainModel.route != null) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => mainModel.route!),
-                        );
-                      } else {
-                        mainModel.onTapFunc?.call(context);
-                      }
-                    },
-                  );
-                },
-                itemCount: _page3.length,
-              ),
-            ),
-          ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(icon: Icon(Icons.contacts), label: '聊天室'),
+              BottomNavigationBarItem(icon: Icon(Icons.apps), label: '组件'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle), label: 'Api'),
+            ],
+            currentIndex: currentIndex,
+            onTap: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+              tabController.animateTo(index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.linear);
+            },
+          ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.contacts), label: '聊天室'),
-          BottomNavigationBarItem(icon: Icon(Icons.apps), label: '组件'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), label: 'Api'),
-        ],
-        currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-          tabController.animateTo(index,
-              duration: const Duration(milliseconds: 300), curve: Curves.linear);
-        },
-      ),
+        Positioned(
+          top: 1,
+          left: 0,
+          right: 0,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset("images/cloud5.gif",
+              width: MediaQuery.of(context).size.width, height: 10,),
+          ),),
+        Positioned(
+          top: 1,
+          left: -20,
+          right: 0,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset("images/cloud5.gif",
+              width: MediaQuery.of(context).size.width, height: 10,),
+          ),),
+        Positioned(
+          top: 1,
+          left: -40,
+          right: 0,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset("images/cloud5.gif",
+              width: MediaQuery.of(context).size.width, height: 10,),
+          ),),
+        Positioned(
+          top: 1,
+          left: 40,
+          right: 0,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset("images/cloud5.gif",
+              width: MediaQuery.of(context).size.width, height: 10,),
+          ),),
+        Positioned(
+          top: 1,
+          left: 80,
+          right: 0,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset("images/cloud5.gif",
+              width: MediaQuery.of(context).size.width, height: 10,),
+          ),),
+        Positioned(
+          top: 1,
+          left: _left,
+          right: 0,
+          child: Container(
+            width: 10,
+            height: 10,
+            child: Center(
+              child: Image.asset(
+                'images/plane2.gif',
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

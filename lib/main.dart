@@ -4,8 +4,10 @@ import 'package:flutter_text/assembly_pack/desktop_list/desktop_sys_manager.dart
 import 'package:flutter_text/splash.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:self_utils/init.dart';
-import 'package:flutter_shortcuts/flutter_shortcuts.dart';
+import 'package:quick_actions/quick_actions.dart';
+import 'package:self_utils/utils/shortcuts/quick_actions_method.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'init.dart';
 import 'index.dart';
@@ -45,9 +47,8 @@ class AssemblyState extends State<Assembly> {
   List<ShortCutsModel> list = <ShortCutsModel>[
     ShortCutsModel(
       shortcutItem: const ShortcutItem(
-        id: '1',
-        action: 'charts',
-        shortLabel: 'charts',
+        type: 'charts',
+        localizedTitle: 'charts',
         icon: 'images/sun.jpg',
       ),
       callBackFunc: () async {
@@ -64,9 +65,7 @@ class AssemblyState extends State<Assembly> {
   @override
   void initState() {
     Future<void>.delayed(Duration.zero, () async {
-      if (Platform.isAndroid == true) {
-        ShortCutsInit(shortCutList: list);
-      }
+      ShortCutsQuick(shortCutsAction: list);
       await init();
     });
     super.initState();
@@ -100,6 +99,15 @@ class AssemblyState extends State<Assembly> {
                   builder: BotToastInit(),
                   showPerformanceOverlay: GlobalStore.isShowOverlay,
                   title: 'Flutter Study',
+                  localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: const <Locale>[
+                    Locale('en', 'US'),
+                    Locale('zh', 'CN'),
+                  ],
                   navigatorObservers: <NavigatorObserver>[
                     BotToastNavigatorObserver()
                   ],
