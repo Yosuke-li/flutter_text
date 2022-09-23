@@ -164,6 +164,11 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
 
 List<MainWidgetModel> page2 = <MainWidgetModel>[
   MainWidgetModel(
+    title: '选座',
+    route: ChooseSeat(),
+    icon: const Icon(Icons.event_seat),
+  ),
+  MainWidgetModel(
     title: 'ShellTest',
     route: ShellTest(),
     icon: const Icon(Icons.keyboard),
@@ -272,11 +277,6 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     title: 'inheried',
     route: InheritedShowPage(),
     icon: const Icon(Icons.texture_sharp),
-  ),
-  MainWidgetModel(
-    title: '选座',
-    route: ChooseSeat(),
-    icon: const Icon(Icons.event_seat),
   ),
   MainWidgetModel(
     title: 'kchart',

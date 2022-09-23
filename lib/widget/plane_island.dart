@@ -1,0 +1,133 @@
+import '../init.dart';
+
+class PlaneIsland extends StatefulWidget {
+  final Widget child;
+
+  const PlaneIsland({
+    required this.child,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<PlaneIsland> createState() => _PlaneIslandState();
+}
+
+class _PlaneIslandState extends State<PlaneIsland> with SingleTickerProviderStateMixin {
+
+  late AnimationController _controller;
+  double _left = -50;
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isIOS == true)
+      WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp)  {
+      _controller = AnimationController(
+          vsync: this,
+          duration: const Duration(seconds: 5),
+          lowerBound: -50,
+          upperBound: 50)
+        ..addStatusListener((AnimationStatus status) {
+          if (status == AnimationStatus.completed) {
+            _controller.reset();
+          } else if (status == AnimationStatus.dismissed) {
+            _controller.forward();
+          }
+        })
+        ..addListener(() {
+          _left = _controller.value;
+          setState(() {});
+        });
+      _controller.forward();
+      setState(() {});
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Platform.isIOS ? Stack(
+      children: <Widget>[
+        widget.child,
+        Positioned(
+          top: 1,
+          left: 0,
+          right: 0,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset(
+              "images/cloud5.gif",
+              width: MediaQuery.of(context).size.width,
+              height: 10,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 1,
+          left: -20,
+          right: 0,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset(
+              "images/cloud5.gif",
+              width: MediaQuery.of(context).size.width,
+              height: 10,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 1,
+          left: -40,
+          right: 0,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset(
+              "images/cloud5.gif",
+              width: MediaQuery.of(context).size.width,
+              height: 10,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 1,
+          left: 40,
+          right: 0,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset(
+              "images/cloud5.gif",
+              width: MediaQuery.of(context).size.width,
+              height: 10,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 1,
+          left: 80,
+          right: 0,
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset(
+              "images/cloud5.gif",
+              width: MediaQuery.of(context).size.width,
+              height: 10,
+            ),
+          ),
+        ),
+        Positioned(
+          top: 1,
+          left: _left,
+          right: 0,
+          child: Container(
+            width: 10,
+            height: 10,
+            child: Center(
+              child: Image.asset(
+                'images/plane2.gif',
+              ),
+            ),
+          ),
+        ),
+      ],
+    ) : widget.child;
+  }
+}
