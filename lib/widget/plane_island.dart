@@ -16,6 +16,7 @@ class _PlaneIslandState extends State<PlaneIsland> with SingleTickerProviderStat
 
   late AnimationController _controller;
   double _left = -50;
+  bool _changeDirection = false;
 
   @override
   void initState() {
@@ -29,9 +30,11 @@ class _PlaneIslandState extends State<PlaneIsland> with SingleTickerProviderStat
           upperBound: 50)
         ..addStatusListener((AnimationStatus status) {
           if (status == AnimationStatus.completed) {
-            _controller.reset();
+            _controller.reverse();
+            _changeDirection = !_changeDirection;
           } else if (status == AnimationStatus.dismissed) {
             _controller.forward();
+            _changeDirection = !_changeDirection;
           }
         })
         ..addListener(() {
@@ -120,9 +123,13 @@ class _PlaneIslandState extends State<PlaneIsland> with SingleTickerProviderStat
           child: Container(
             width: 10,
             height: 10,
-            child: Center(
-              child: Image.asset(
-                'images/plane2.gif',
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Center(
+                child: Image.asset(
+                  'images/plane2.gif',
+                  matchTextDirection: _changeDirection,
+                ),
               ),
             ),
           ),

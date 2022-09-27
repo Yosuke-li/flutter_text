@@ -1,5 +1,3 @@
-import 'package:flutter_text/widget/plane_island.dart';
-
 import 'init.dart';
 
 part 'index.init.dart';
@@ -41,7 +39,9 @@ class MainIndexState extends State<MainIndexPage>
   void initState() {
     super.initState();
     PostgresUser.init();
-    if (Platform.isAndroid || Platform.isIOS) Permissions.init();
+    if (Platform.isAndroid || Platform.isIOS) {
+      Permissions.init();
+    }
     FileUtils();
     Log.init(isDebug: true);
     listenTest();

@@ -76,7 +76,8 @@ dependencies:
   udp: ^5.0.3 #udp广播
   image_picker_saver: ^0.3.0
   file_picker: ^4.6.1 #文件选择器
-  flutter_markdown: ^0.6.6
+  flutter_markdown: ^0.6.6 #markdown
+  animated_text_kit: ^4.2.2 
 #  self_utils:
 #    git: https://github.com/Yosuke-li/self_utils.git
 #  本地
