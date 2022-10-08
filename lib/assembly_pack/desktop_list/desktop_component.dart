@@ -7,6 +7,7 @@ import 'package:flutter_text/model/AComponent.dart';
 import 'package:self_utils/utils/array_helper.dart';
 
 import 'desktop_sys_manager.dart';
+import 'keyborard_listener.dart';
 
 class DesktopComponentPage extends StatefulWidget {
   @override
@@ -32,6 +33,9 @@ class DesktopComponentPageState extends State<DesktopComponentPage> {
       PageModel()
         ..name = 'download'
         ..pageUrl = const DownLoadPage(),
+      PageModel()
+        ..name = 'KeyBoardListenerPage'
+        ..pageUrl = const KeyBoardListenerPage(),
     ];
   }
 
