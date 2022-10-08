@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:self_utils/utils/log_utils.dart';
 import 'package:self_utils/utils/toast_utils.dart';
@@ -25,11 +26,12 @@ class _VideoCompressState extends State<VideoCompressPage> {
 
   //选择视频
   void _getVideo() async {
-    final File video =
-        await ImagePickerSaver.pickVideo(source: ImageSource.gallery);
-    if (video != null && video.path != '') {
+    final FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.video,
+    );
+    if (result != null && result.files.isNotEmpty) {
       setState(() {
-        _file = video;
+        _file = File(result.files.first.path!);
       });
     }
   }

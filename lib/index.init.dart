@@ -164,6 +164,10 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
 
 List<MainWidgetModel> page2 = <MainWidgetModel>[
   MainWidgetModel(
+    title: 'Flutter Svg 使用',
+    route: const SvgTestPage(),
+    icon: const Icon(Icons.picture_in_picture_sharp),
+  ),MainWidgetModel(
     title: 'AnimationsTextKit 使用',
     route: const AnimationsTextPage(),
     icon: const Icon(Icons.text_fields),

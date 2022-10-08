@@ -1,4 +1,5 @@
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:self_utils/widget/markdown/format.dart';
 import 'package:self_utils/widget/markdown/markdown_text_input.dart';
 
@@ -51,8 +52,17 @@ class _MarkdownEditorState extends State<MarkdownEditor> {
             child: Markdown(
               data: value,
               controller: scrollController,
-              imageBuilder: (uri, _ , __){
-                return Image.asset(uri.path);
+              onTapLink: (text, href, ___) {
+                Log.info(href ?? '');
+              },
+              imageBuilder: (uri, _, __) {
+                if (uri.path.contains('.svg')) {
+                  return SvgPicture.asset(
+                    'assets/relaxation.svg',
+                  );
+                } else {
+                  return Image.asset(uri.path);
+                }
               },
             ),
           ),
