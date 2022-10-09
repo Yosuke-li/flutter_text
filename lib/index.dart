@@ -1,3 +1,5 @@
+import 'package:self_utils/utils/dio/dio_helper.dart';
+
 import 'init.dart';
 
 part 'index.init.dart';
@@ -42,6 +44,7 @@ class MainIndexState extends State<MainIndexPage>
     if (Platform.isAndroid || Platform.isIOS) {
       Permissions.init();
     }
+    Request.init();
     FileUtils();
     Log.init(isDebug: true);
     listenTest();

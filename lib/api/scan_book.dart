@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_text/model/scan_book.dart';
 import 'package:self_utils/utils/dio/dio_helper.dart';
+import 'package:self_utils/utils/dio/token_interceptor.dart';
 
 class ScanBookApi {
   final String url = 'http://49.234.70.238:9001/book/worm/isbn'; //私人API
@@ -26,8 +27,9 @@ class ScanBookApi {
   Future<ScanBookAModel> isbnGetBookDetailA(String isbn) async {
     try {
       ScanBookAModel _scanABook;
+      Test().accessToken = 'APPCODE $appCode';
       final Response res = await Request.get(aliUrl,
-          params: {'isbn': isbn}, token: 'APPCODE $appCode');
+          params: {'isbn': isbn});
       print(res.data['result']);
       _scanABook = ScanBookAModel.fromJson(res.data['result']);
       return _scanABook;

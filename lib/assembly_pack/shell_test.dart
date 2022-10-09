@@ -13,7 +13,14 @@ class _ShellTestState extends State<ShellTest> {
   final Shell shell = Shell();
 
   void _run() async {
-    await shell.start('find', arguments: ['/Users/lixuan/Documents/work']);
+    try {
+      final WrappedProcess find = await shell
+          .start('find', arguments: ['/Users/lixuan/Documents/work']);
+      final findString = await find.stdout.readAsString();
+      Log.info(findString);
+    } catch (error, stack) {
+      Log.error('$stack $error');
+    }
   }
 
   @override
@@ -25,9 +32,11 @@ class _ShellTestState extends State<ShellTest> {
       body: Container(
         child: Column(
           children: [
-            ElevatedButton(onPressed: () {
-              _run();
-            }, child: const Text('shell run'))
+            ElevatedButton(
+                onPressed: () {
+                  _run();
+                },
+                child: const Text('shell run'))
           ],
         ),
       ),

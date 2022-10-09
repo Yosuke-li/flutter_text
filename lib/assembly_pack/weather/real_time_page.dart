@@ -25,18 +25,16 @@ class RealTimeWeatherState extends State<RealTimePage> {
 
   //获取实时天气
   void getRealTimeWeather(String cid) async {
-    final result = await WeatherApi().getRealTimeWeather(cid);
-    if (result != null) {
-      if (result.status == 'ok') {
+    final RealTimeWeather result = await WeatherApi().getRealTimeWeather(cid);
+    if (result.status == 'ok') {
+      setState(() {
+        isLoading = false;
+        _realTimeWeather = result;
+      });
+      if (time == 5) {
         setState(() {
-          isLoading = false;
-          _realTimeWeather = result;
+          time = 10;
         });
-        if (time == 5) {
-          setState(() {
-            time = 10;
-          });
-        }
       }
     }
   }

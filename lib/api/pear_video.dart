@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_text/model/pear_video.dart';
+import 'package:self_utils/init.dart';
 import 'package:self_utils/utils/httpHeaders.dart';
 
 class PearVideoApi {
@@ -18,7 +19,7 @@ class PearVideoApi {
       List<ContList> _contList = [];
       ContList cont;
       Response response =
-          await Dio().get(HotNewsUrl, options: Options(headers: headers));
+          await Request.get(HotNewsUrl, header: headers);
       List list = response.data['dataList'][0]['contList'];
       _contList = list.map((e) {
         cont = ContList.fromJson(e);
@@ -37,7 +38,7 @@ class PearVideoApi {
     try {
       List<Category> categoryList = [];
       Response response =
-          await Dio().get(ListUrl, options: Options(headers: headers));
+          await Request.get(ListUrl, header: headers);
       print(response.data['categoryList']);
       List list = response.data['categoryList'];
       categoryList = list.map((e) => Category.fromJson(e)).toList();
@@ -53,9 +54,9 @@ class PearVideoApi {
     try {
       List<HotList> _hotList = [];
       HotList hot;
-      final Response response = await Dio().post(getListData,
-          options: Options(headers: headers),
-          queryParameters: {
+      final Response response = await Request.post(getListData,
+          header: headers,
+          data: {
             'hotPageidx': page,
             'categoryId': categoryId,
           });
@@ -85,9 +86,9 @@ class PearVideoApi {
     final headers = await getHeaders();
     try {
       Videos _videos;
-      Response response = await Dio().post(getContentUrl,
-          options: Options(headers: headers),
-          queryParameters: {
+      Response response = await Request.post(getContentUrl,
+          header: headers,
+          params: {
             'contId': contId,
           });
       _videos = Videos.fromJson(response.data['content']['videos'][0]);
