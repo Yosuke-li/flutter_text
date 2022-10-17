@@ -104,6 +104,7 @@ class AssemblyState extends State<Assembly> {
                     GlobalWidgetsLocalizations.delegate,
                     GlobalCupertinoLocalizations.delegate,
                   ],
+                  locale: const Locale('en', 'US'),
                   supportedLocales: const <Locale>[
                     Locale('en', 'US'),
                     Locale('zh', 'CN'),

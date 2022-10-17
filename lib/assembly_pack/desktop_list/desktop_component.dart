@@ -6,6 +6,7 @@ import 'package:flutter_text/assembly_pack/desktop_list/download.dart';
 import 'package:flutter_text/model/AComponent.dart';
 import 'package:self_utils/utils/array_helper.dart';
 
+import '../rich_text/rich_test.dart';
 import 'desktop_sys_manager.dart';
 import 'keyborard_listener.dart';
 
@@ -36,6 +37,9 @@ class DesktopComponentPageState extends State<DesktopComponentPage> {
       PageModel()
         ..name = 'KeyBoardListenerPage'
         ..pageUrl = const KeyBoardListenerPage(),
+      PageModel()
+        ..name = 'RichTestPage'
+        ..pageUrl = const RichTestPage(),
     ];
   }
 
