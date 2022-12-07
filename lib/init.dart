@@ -146,6 +146,8 @@ export 'package:self_utils/widget/animate_router.dart';
 export 'assembly_pack/animations_text/animations_text_page.dart';
 export 'package:flutter_text/widget/plane_island.dart';
 export 'assembly_pack/svg_test.dart';
+export 'package:flutter_text/assembly_pack/flutter_chip.dart';
+export 'package:self_utils/utils/dio/dio_helper.dart';
 
 
 

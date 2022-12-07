@@ -1,0 +1,11 @@
+[
+  {
+    "attributes": {
+      "token": "literal"
+    },
+    "insert": "-patch"
+  },
+  {
+    "insert": "\n"
+  }
+]

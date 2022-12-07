@@ -168,6 +168,10 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     route: const SvgTestPage(),
     icon: const Icon(Icons.picture_in_picture_sharp),
   ),MainWidgetModel(
+    title: 'chip 使用',
+    route: const ChipPageTest(),
+    icon: const Icon(Icons.catching_pokemon),
+  ),MainWidgetModel(
     title: 'AnimationsTextKit 使用',
     route: const AnimationsTextPage(),
     icon: const Icon(Icons.text_fields),

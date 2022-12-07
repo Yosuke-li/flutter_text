@@ -1,5 +1,3 @@
-import 'package:self_utils/utils/dio/dio_helper.dart';
-
 import 'init.dart';
 
 part 'index.init.dart';
