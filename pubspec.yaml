@@ -86,6 +86,7 @@ dependencies:
 #  本地
   self_utils:
     path: /Users/lixuan/Documents/work/self_utils
+#  openai_client: ^0.0.2
 
 dev_dependencies:
   flutter_test:

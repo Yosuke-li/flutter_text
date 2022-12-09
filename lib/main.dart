@@ -99,7 +99,8 @@ class AssemblyState extends State<Assembly> {
                   builder: BotToastInit(),
                   showPerformanceOverlay: GlobalStore.isShowOverlay,
                   title: 'Flutter Study',
-                  localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                  localizationsDelegates: const <
+                      LocalizationsDelegate<dynamic>>[
                     GlobalMaterialLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
                     GlobalCupertinoLocalizations.delegate,
@@ -123,7 +124,14 @@ class AssemblyState extends State<Assembly> {
                       // FlutterDoraemonkit.toggle();
                     },
                     child: todayShowAd != null
-                        ? (todayShowAd == true ? MainIndexPage() : SplashPage())
+                        ? (todayShowAd == true
+                            ? GlobalStore.isShowGary
+                                ? ColorFiltered(
+                                    colorFilter: GlobalStore.greyScale,
+                                    child: MainIndexPage(),
+                                  )
+                                : MainIndexPage()
+                            : SplashPage())
                         : Container(
                             color: Colors.white,
                           ),

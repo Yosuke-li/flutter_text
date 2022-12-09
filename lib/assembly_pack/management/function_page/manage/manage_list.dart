@@ -33,7 +33,7 @@ class _ManageListPageState extends State<ManageListPage> {
     return RepaintBoundary(
       child: Column(
         children: [
-          CommonForm<SqlUser>(
+          CommonForm<SqlUser, dynamic>(
             height: 300,
             columns: [
               FormColumn<SqlUser>(
