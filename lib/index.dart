@@ -1,3 +1,5 @@
+import 'assembly_pack/chat_gpt/chat_gpt_page.dart';
+import 'generated/l10n.dart';
 import 'init.dart';
 
 part 'index.init.dart';
@@ -131,7 +133,7 @@ class MainIndexState extends State<MainIndexPage>
     return PlaneIsland(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('组件列表'),
+          title: Text('${S.of(viewContext).appName}'),
         ),
         body: Builder(
           builder: (BuildContext context) => TabBarView(

@@ -9,6 +9,7 @@ import 'package:self_utils/utils/shortcuts/quick_actions_method.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'generated/l10n.dart';
 import 'init.dart';
 import 'index.dart';
 
@@ -98,18 +99,16 @@ class AssemblyState extends State<Assembly> {
                 child: GetMaterialApp(
                   builder: BotToastInit(),
                   showPerformanceOverlay: GlobalStore.isShowOverlay,
-                  title: 'Flutter Study',
+                  title: 'Flutter study',
                   localizationsDelegates: const <
                       LocalizationsDelegate<dynamic>>[
+                    S.delegate,
                     GlobalMaterialLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
                     GlobalCupertinoLocalizations.delegate,
                   ],
-                  locale: const Locale('en', 'US'),
-                  supportedLocales: const <Locale>[
-                    Locale('en', 'US'),
-                    Locale('zh', 'CN'),
-                  ],
+                  locale: const Locale('en'),
+                  supportedLocales: S.delegate.supportedLocales,
                   navigatorObservers: <NavigatorObserver>[
                     BotToastNavigatorObserver()
                   ],

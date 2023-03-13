@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 // ignore_for_file: public_member_api_docs
 
-class DropdownMenu<T> extends StatelessWidget {
-  DropdownMenu({
+class DropdownMenuWidget<T> extends StatelessWidget {
+  DropdownMenuWidget({
     Key? key,
     required this.items,
     required this.initialValue,

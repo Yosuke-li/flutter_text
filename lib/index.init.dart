@@ -12,6 +12,11 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
   //   icon: const Icon(Icons.chat),
   // ),
   MainWidgetModel(
+    title: 'chatGpt--',
+    route: const ChatGptPage(),
+    icon: const Icon(Icons.chat),
+  ),
+  MainWidgetModel(
     title: '聊天列表--',
     route: ChatListWidget(),
     icon: const Icon(Icons.chat),

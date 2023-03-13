@@ -30,6 +30,9 @@ class _SudoGameState extends State<SudoGamePage> {
   static String? currentAccentColor;
   static late String platform;
 
+  int time = 0;
+  Timer? _timer;
+
   static List<String> gameLevel = <String>[
     'test',
     'beginner',
@@ -63,10 +66,32 @@ class _SudoGameState extends State<SudoGamePage> {
     }
   }
 
+  @override
+  void dispose() {
+    stop();
+    super.dispose();
+  }
+
+  Future<void> setTime() async {
+    time = 0;
+    _timer ??= Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+        time++;
+        if (mounted) {
+          setState(() {});
+        }
+    });
+  }
+
+  Future<void> stop() async {
+    _timer?.cancel();
+    _timer = null;
+  }
+
   Future<void> getPrefs() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      currentDifficultyLevel = prefs.getString('currentDifficultyLevel')??'easy';
+      currentDifficultyLevel =
+          prefs.getString('currentDifficultyLevel') ?? 'easy';
       currentAccentColor = prefs.getString('currentAccentColor');
     });
   }
@@ -104,8 +129,9 @@ class _SudoGameState extends State<SudoGamePage> {
       if (SudokuUtilities.isSolved(game)) {
         isButtonDisabled = !isButtonDisabled;
         gameOver = true;
+        stop();
         Timer(const Duration(milliseconds: 500), () {
-          showDialog(context: context, builder: (_) => AlertGameOver())
+          showDialog(context: context, builder: (_) => AlertGameOver(time: time,))
               .whenComplete(() {
             if (AlertGameOver.newGame) {
               newGame(currentDifficultyLevel);
@@ -168,6 +194,7 @@ class _SudoGameState extends State<SudoGamePage> {
       gameCopy = SudokuUtilities.copySudoku(game);
       gameSolved = gameList[1];
     }
+    setTime();
   }
 
   void showSolution() {
@@ -257,7 +284,8 @@ class _SudoGameState extends State<SudoGamePage> {
     } else {
       emptyColor = Styles.secondaryColor;
     }
-    final List<SizedBox> buttonList = List<SizedBox>.filled(9, const SizedBox());
+    final List<SizedBox> buttonList =
+        List<SizedBox>.filled(9, const SizedBox());
     for (int i = 0; i <= 8; i++) {
       int k = timesCalled;
       buttonList[i] = SizedBox(
@@ -279,7 +307,8 @@ class _SudoGameState extends State<SudoGamePage> {
               ? null
               : () => callback([k, i], 0),
           style: ButtonStyle(
-            backgroundColor: isButtonDisabled || gameCopy[k][i] != 0 ||
+            backgroundColor: isButtonDisabled ||
+                    gameCopy[k][i] != 0 ||
                     game[k][i] == 0 ||
                     gameSolution == false
                 ? MaterialStateProperty.all<Color>(buttonColor(k, i))
@@ -291,13 +320,9 @@ class _SudoGameState extends State<SudoGamePage> {
             foregroundColor: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
               if (states.contains(MaterialState.disabled)) {
-                return gameCopy[k][i] == 0
-                    ? emptyColor
-                    : Styles.darkGrey;
+                return gameCopy[k][i] == 0 ? emptyColor : Styles.darkGrey;
               }
-              return game[k][i] == 0
-                  ? buttonColor(k, i)
-                  : Styles.textColor;
+              return game[k][i] == 0 ? buttonColor(k, i) : Styles.textColor;
             }),
             shape: MaterialStateProperty.all<OutlinedBorder>(
                 RoundedRectangleBorder(
@@ -429,6 +454,9 @@ class _SudoGameState extends State<SudoGamePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('当前难度：$currentDifficultyLevel'),
+                    RepaintBoundary(
+                      child: Text('${DateTimeHelper.secToMusicTime(time)}'),
+                    ),
                     RepaintBoundary(
                       child: DropSelectableWidget(
                         fontSize: 12,

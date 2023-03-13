@@ -50,7 +50,7 @@ class _MarkDownPageState extends State<MarkDownPage> {
           if (snapshot.connectionState == ConnectionState.done) {
             return Column(
               children: <Widget>[
-                DropdownMenu<WrapAlignment>(
+                DropdownMenuWidget<WrapAlignment>(
                   items: _wrapAlignmentMenuItems,
                   label: 'Wrap Alignment:',
                   initialValue: _wrapAlignment,
@@ -62,7 +62,7 @@ class _MarkDownPageState extends State<MarkDownPage> {
                     }
                   },
                 ),
-                DropdownMenu<double>(
+                DropdownMenuWidget<double>(
                   items: _blockSpacingMenuItems,
                   label: 'Block Spacing:',
                   initialValue: _blockSpacing,

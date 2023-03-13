@@ -2,8 +2,11 @@ import '../../init.dart';
 import 'style.dart';
 
 class AlertGameOver extends StatelessWidget {
+  final int time;
   static bool newGame = false;
   static bool restartGame = false;
+
+  const AlertGameOver({required this.time});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class AlertGameOver extends StatelessWidget {
         style: TextStyle(color: Styles.darkGrey),
       ),
       content: Text(
-        '恭喜通关该难度！',
+        '恭喜通关该难度！用时${DateTimeHelper.secToMusicTime(time)}',
         style: TextStyle(color: Styles.darkGrey),
       ),
       actions: [

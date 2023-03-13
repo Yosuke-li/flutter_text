@@ -37,9 +37,9 @@ class DesktopComponentPageState extends State<DesktopComponentPage> {
       PageModel()
         ..name = 'KeyBoardListenerPage'
         ..pageUrl = const KeyBoardListenerPage(),
-      PageModel()
-        ..name = 'RichTestPage'
-        ..pageUrl = const RichTestPage(),
+      // PageModel()
+      //   ..name = 'RichTestPage'
+      //   ..pageUrl = const RichTestPage(),
     ];
   }
 
