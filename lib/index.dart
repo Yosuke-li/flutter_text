@@ -1,5 +1,3 @@
-import 'assembly_pack/chat_gpt/chat_gpt_page.dart';
-import 'generated/l10n.dart';
 import 'init.dart';
 
 part 'index.init.dart';

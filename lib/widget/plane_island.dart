@@ -39,7 +39,6 @@ class _PlaneIslandState extends State<PlaneIsland> with SingleTickerProviderStat
         })
         ..addListener(() {
           _left = _controller.value;
-          setState(() {});
         });
       _controller.forward();
       setState(() {});

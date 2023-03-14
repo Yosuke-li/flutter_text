@@ -107,7 +107,7 @@ class AssemblyState extends State<Assembly> {
                     GlobalWidgetsLocalizations.delegate,
                     GlobalCupertinoLocalizations.delegate,
                   ],
-                  locale: const Locale('en'),
+                  locale: GlobalStore.locale,
                   supportedLocales: S.delegate.supportedLocales,
                   navigatorObservers: <NavigatorObserver>[
                     BotToastNavigatorObserver()

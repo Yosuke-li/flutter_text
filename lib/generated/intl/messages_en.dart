@@ -22,6 +22,21 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "appName": MessageLookupByLibrary.simpleMessage("Flutter Utils")
+        "appName": MessageLookupByLibrary.simpleMessage("Flutter Utils"),
+        "easy": MessageLookupByLibrary.simpleMessage("easy"),
+        "gameOverText": MessageLookupByLibrary.simpleMessage(
+            "You lose!But Dont Mind,Try again will better"),
+        "gameOverTitle": MessageLookupByLibrary.simpleMessage("O!"),
+        "gamePlay": MessageLookupByLibrary.simpleMessage("Game Difficulty"),
+        "hard": MessageLookupByLibrary.simpleMessage("hard"),
+        "mineSweeping":
+            MessageLookupByLibrary.simpleMessage("Mine Sweeping Game!"),
+        "normal": MessageLookupByLibrary.simpleMessage("normal"),
+        "playAgain": MessageLookupByLibrary.simpleMessage("Play Again"),
+        "settingTitle": MessageLookupByLibrary.simpleMessage("Game Setting!"),
+        "themeColor":
+            MessageLookupByLibrary.simpleMessage("Choose Theme Color"),
+        "winText": MessageLookupByLibrary.simpleMessage("You win!Time is "),
+        "winTitle": MessageLookupByLibrary.simpleMessage("Congratulation!!")
       };
 }

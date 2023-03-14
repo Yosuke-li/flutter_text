@@ -4,6 +4,7 @@ import 'package:flutter_text/assembly_pack/unit/StepView.dart';
 import 'package:flutter_text/model/AComponent.dart';
 import 'package:self_utils/utils/array_helper.dart';
 
+import '../mine_sweep/game_main.dart';
 import '../sudu/sudo_game.dart';
 import '../widget_to_json.dart';
 import 'Reorderable.dart';
@@ -48,6 +49,9 @@ class UnitComponentPageState extends State<UnitComponentPage> {
       PageModel()
         ..name = 'AutoCompleteTest'
         ..pageUrl = const AutoCompleteTest(),
+      PageModel()
+        ..name = 'MineSweeping'
+        ..pageUrl = const MineSweeping(),
     ];
   }
 

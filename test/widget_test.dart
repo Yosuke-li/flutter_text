@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_text/init.dart';
 import 'package:self_utils/utils/datetime_utils.dart';
 import 'package:self_utils/utils/encrypt.dart';
 import 'package:self_utils/utils/lock.dart';
@@ -120,5 +121,15 @@ void main() {
   test('replace', () {
     const String time = 'xxxsxxsxs.MP3';
     print(time.split('.'));
+  });
+
+  test('flatten', () {
+    final multiArray = [
+      [1, 2],
+      [3, 4],
+      [5, 6],
+    ];
+    final res = ArrayHelper.flatten(multiArray);
+    print(res);
   });
 }

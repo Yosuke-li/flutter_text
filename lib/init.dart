@@ -148,6 +148,10 @@ export 'package:flutter_text/widget/plane_island.dart';
 export 'assembly_pack/svg_test.dart';
 export 'package:flutter_text/assembly_pack/flutter_chip.dart';
 export 'package:self_utils/utils/dio/dio_helper.dart';
+export 'assembly_pack/chat_gpt/chat_gpt_page.dart';
+export 'assembly_pack/choose_lan/choose_lan.dart';
+
+export 'generated/l10n.dart';
 
 
 

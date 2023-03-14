@@ -22,6 +22,18 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "appName": MessageLookupByLibrary.simpleMessage("Flutter测试应用")
+        "appName": MessageLookupByLibrary.simpleMessage("Flutter测试应用"),
+        "easy": MessageLookupByLibrary.simpleMessage("简易"),
+        "gameOverText": MessageLookupByLibrary.simpleMessage("游戏失败！"),
+        "gameOverTitle": MessageLookupByLibrary.simpleMessage("喔不!"),
+        "gamePlay": MessageLookupByLibrary.simpleMessage("游戏难度"),
+        "hard": MessageLookupByLibrary.simpleMessage("困难"),
+        "mineSweeping": MessageLookupByLibrary.simpleMessage("扫雷游戏"),
+        "normal": MessageLookupByLibrary.simpleMessage("正常"),
+        "playAgain": MessageLookupByLibrary.simpleMessage("再玩一次"),
+        "settingTitle": MessageLookupByLibrary.simpleMessage("游戏设置!"),
+        "themeColor": MessageLookupByLibrary.simpleMessage("主题设置"),
+        "winText": MessageLookupByLibrary.simpleMessage("游戏胜利，用时为 "),
+        "winTitle": MessageLookupByLibrary.simpleMessage("恭喜!!")
       };
 }

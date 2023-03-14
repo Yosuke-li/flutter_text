@@ -59,6 +59,126 @@ class S {
       args: [],
     );
   }
+
+  /// `Mine Sweeping Game!`
+  String get mineSweeping {
+    return Intl.message(
+      'Mine Sweeping Game!',
+      name: 'mineSweeping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Congratulation!!`
+  String get winTitle {
+    return Intl.message(
+      'Congratulation!!',
+      name: 'winTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You win!Time is `
+  String get winText {
+    return Intl.message(
+      'You win!Time is ',
+      name: 'winText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Play Again`
+  String get playAgain {
+    return Intl.message(
+      'Play Again',
+      name: 'playAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Game Setting!`
+  String get settingTitle {
+    return Intl.message(
+      'Game Setting!',
+      name: 'settingTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Theme Color`
+  String get themeColor {
+    return Intl.message(
+      'Choose Theme Color',
+      name: 'themeColor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Game Difficulty`
+  String get gamePlay {
+    return Intl.message(
+      'Game Difficulty',
+      name: 'gamePlay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `easy`
+  String get easy {
+    return Intl.message(
+      'easy',
+      name: 'easy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `normal`
+  String get normal {
+    return Intl.message(
+      'normal',
+      name: 'normal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `hard`
+  String get hard {
+    return Intl.message(
+      'hard',
+      name: 'hard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `O!`
+  String get gameOverTitle {
+    return Intl.message(
+      'O!',
+      name: 'gameOverTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You lose!But Dont Mind,Try again will better`
+  String get gameOverText {
+    return Intl.message(
+      'You lose!But Dont Mind,Try again will better',
+      name: 'gameOverText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

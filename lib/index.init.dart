@@ -570,4 +570,9 @@ List<MainWidgetModel> page3 = <MainWidgetModel>[
     route: const AutoPlayListPage(),
     icon: const Icon(Icons.video_call),
   ),
+  MainWidgetModel(
+    title: 'ChooseLangPage',
+    route: const ChooseLangPage(),
+    icon: const Icon(Icons.video_call),
+  ),
 ];
