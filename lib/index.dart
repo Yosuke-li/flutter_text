@@ -1,3 +1,5 @@
+import 'package:self_utils/generated/l10n.dart';
+
 import 'init.dart';
 
 part 'index.init.dart';

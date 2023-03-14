@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_text/generated/l10n.dart';
 import 'package:flutter_text/init.dart';
+import 'package:self_utils/generated/l10n.dart';
 
 import 'setting.dart';
 import 'cell_container.dart';

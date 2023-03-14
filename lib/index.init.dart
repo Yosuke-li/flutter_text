@@ -272,11 +272,6 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     icon: const Icon(Icons.show_chart),
   ),
   MainWidgetModel(
-    title: 'KeyboardPage',
-    route: KeyboardPage(),
-    icon: const Icon(Icons.keyboard),
-  ),
-  MainWidgetModel(
     title: 'PCKeyboardPage使用',
     route: PCKeyboardPage(),
     icon: const Icon(Icons.keyboard),

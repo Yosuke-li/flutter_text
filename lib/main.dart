@@ -9,7 +9,6 @@ import 'package:self_utils/utils/shortcuts/quick_actions_method.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'generated/l10n.dart';
 import 'init.dart';
 import 'index.dart';
 

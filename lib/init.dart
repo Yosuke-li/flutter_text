@@ -97,7 +97,6 @@ export 'assembly_pack/choose_seat/StreamText.dart';
 export 'assembly_pack/controller_test/test_page.dart';
 export 'assembly_pack/decode_gif.dart';
 export 'assembly_pack/compress/image_compress.dart';
-export 'assembly_pack/keyboardPage.dart';
 export 'assembly_pack/mouse_text.dart';
 export 'assembly_pack/music_play/music_play.dart';
 export 'assembly_pack/other_charts/list_group.dart';
@@ -151,7 +150,6 @@ export 'package:self_utils/utils/dio/dio_helper.dart';
 export 'assembly_pack/chat_gpt/chat_gpt_page.dart';
 export 'assembly_pack/choose_lan/choose_lan.dart';
 
-export 'generated/l10n.dart';
 
 
 

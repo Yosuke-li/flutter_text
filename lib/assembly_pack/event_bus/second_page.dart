@@ -1,5 +1,8 @@
-import 'event_util.dart';
+import 'package:self_utils/utils/event_bus/event_util.dart';
+
 import 'package:flutter/material.dart';
+
+import 'event_util.dart';
 
 class EventBusDemo2 extends StatefulWidget {
   @override
