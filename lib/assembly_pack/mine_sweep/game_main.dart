@@ -6,7 +6,6 @@ import 'package:self_utils/generated/l10n.dart';
 import 'setting.dart';
 import 'cell_container.dart';
 
-//来自https://github.com/taxze6/flutter_game_collection
 enum BlockType {
   //数字
   figure,
@@ -117,7 +116,7 @@ class _MineSweepingState extends State<MineSweeping> {
   }
 
   void reveal(int i, int j) {
-    if (!revealed[i][j] && !flagged[i][j]) {
+    if (!revealed[i][j] && !flagged[i][j] && !gameOver) {
       setState(() {
         //将该格子设置为翻开
         revealed[i][j] = true;
