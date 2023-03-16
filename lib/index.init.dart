@@ -575,6 +575,11 @@ List<MainWidgetModel> page4 = [
     icon: const Icon(Icons.ad_units),
   ),
   MainWidgetModel(
+    title: '动画常用组件',
+    route: AnimaComponentPage(),
+    icon: const Icon(Icons.tablet_android),
+  ),
+  MainWidgetModel(
     title: '书架',
     route: BookShelf(),
     icon: const Icon(Icons.book),
@@ -585,8 +590,13 @@ List<MainWidgetModel> page4 = [
     icon: const Icon(Icons.chat),
   ),
   MainWidgetModel(
-    title: ' markdown--',
-    route: const MarkdownEditor(),
-    icon: const Icon(Icons.texture),
+    title: 'desktop 组件列表使用',
+    route: DesktopComponentPage(),
+    icon: const Icon(Icons.desktop_mac),
+  ),
+  MainWidgetModel(
+    title: '音乐播放器--',
+    route: MusicPlayPage(),
+    icon: const Icon(Icons.music_note),
   ),
 ];

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_text/global/global.dart';
 
 class ReorderablePage extends StatefulWidget {
   @override
@@ -28,9 +29,9 @@ class _ReorderableState extends State<ReorderablePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GlobalStore.isMobile ? AppBar(
         title: const Text('reorderableListView'),
-      ),
+      ) : null,
       body: SingleChildScrollView(
         child: Column(
           children: [

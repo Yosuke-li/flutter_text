@@ -43,7 +43,6 @@ class Assembly extends StatefulWidget {
 
 class AssemblyState extends State<Assembly> {
   bool? todayShowAd;
-  bool isMobile = true;
 
   List<ShortCutsModel> list = <ShortCutsModel>[
     ShortCutsModel(
@@ -66,7 +65,7 @@ class AssemblyState extends State<Assembly> {
   @override
   void initState() {
     if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-      isMobile = false;
+      GlobalStore.isMobile = false;
       setState(() {});
     }
     Future<void>.delayed(Duration.zero, () async {
@@ -132,11 +131,11 @@ class AssemblyState extends State<Assembly> {
                             ? GlobalStore.isShowGary
                                 ? ColorFiltered(
                                     colorFilter: GlobalStore.greyScale,
-                                    child: isMobile
+                                    child: GlobalStore.isMobile
                                         ? MainIndexPage()
                                         : ManagementPage(),
                                   )
-                                : isMobile
+                                : GlobalStore.isMobile
                                     ? MainIndexPage()
                                     : ManagementPage()
                             : SplashPage())

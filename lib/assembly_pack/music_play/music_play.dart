@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_text/assembly_pack/controller_test/controller.dart';
+import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
 import 'package:flutter_text/assembly_pack/music_play/music_helper.dart';
 import 'package:flutter_text/assembly_pack/music_play/music_model.dart';
 import 'package:self_utils/utils/array_helper.dart';
@@ -336,7 +337,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
 
   Widget _buildTopBar(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 100.0),
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -345,7 +346,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
             child: NeumorphicButton(
               padding: const EdgeInsets.all(18.0),
               onPressed: () {
-                Navigator.of(context).pop();
+                WindowsNavigator().pop(context);
               },
               style: const NeumorphicStyle(
                 shape: NeumorphicShape.convex,
@@ -405,7 +406,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
             height: 200,
             width: 200,
             child: Image.asset(
-              'images/timg3.jpg',
+              'images/002.jpg',
               fit: BoxFit.cover,
             )),
       ),
@@ -431,7 +432,7 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
   Widget _buildSeekBar(BuildContext context) {
     return RepaintBoundary(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 28.0),
+        padding: const EdgeInsets.symmetric(horizontal: 120.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[

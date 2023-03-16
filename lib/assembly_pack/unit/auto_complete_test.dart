@@ -29,9 +29,9 @@ class _AutoCompleteTestState extends State<AutoCompleteTest> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
-        appBar: AppBar(
+        appBar: GlobalStore.isMobile ? AppBar(
           title: const Text('Auto-complete'),
-        ),
+        ) : null,
         body: Column(
           children: [
             Autocomplete<String>(

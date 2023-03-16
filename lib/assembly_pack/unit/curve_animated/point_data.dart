@@ -8,7 +8,6 @@ class PointData extends ChangeNotifier {
     notifyListeners();
   }
 
-
   void clear() {
     values.clear();
     notifyListeners();

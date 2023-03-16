@@ -3,6 +3,8 @@ import 'package:flutter_text/assembly_pack/desktop_list/desktop_drop_text.dart';
 import 'package:flutter_text/assembly_pack/desktop_list/desktop_notifier.dart';
 import 'package:flutter_text/assembly_pack/desktop_list/desktop_picker.dart';
 import 'package:flutter_text/assembly_pack/desktop_list/download.dart';
+import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
+import 'package:flutter_text/global/global.dart';
 import 'package:flutter_text/model/AComponent.dart';
 import 'package:self_utils/utils/array_helper.dart';
 
@@ -46,9 +48,9 @@ class DesktopComponentPageState extends State<DesktopComponentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GlobalStore.isMobile ? AppBar(
         title: const Text('Desktop_list'),
-      ),
+      ) : null,
       body: Center(
         child: GridView.custom(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -59,8 +61,10 @@ class DesktopComponentPageState extends State<DesktopComponentPage> {
           childrenDelegate: SliverChildBuilderDelegate((context, index) {
             return GestureDetector(
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ArrayHelper.get(_page, index)?.pageUrl),
+                WindowsNavigator().pushWidget(
+                  context,
+                  ArrayHelper.get(_page, index)?.pageUrl,
+                  title: ArrayHelper.get(_page, index)?.name,
                 );
               },
               child: Container(

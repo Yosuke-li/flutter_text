@@ -132,4 +132,11 @@ void main() {
     final res = ArrayHelper.flatten(multiArray);
     print(res);
   });
+
+  test('replaceRange', () {
+    List<int> arr = [1, 2, 3, 4, 5];
+    arr.replaceRange(1, 2, [arr[3]]);
+    arr.replaceRange(3, 4, [arr[1]]);
+    print(arr);
+  });
 }

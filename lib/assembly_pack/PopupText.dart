@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/global/global.dart';
 import 'package:self_utils/widget/popup_widget.dart';
 
 class PopupTextPage extends StatefulWidget {
@@ -18,9 +19,9 @@ class _PopupTextState extends State<PopupTextPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GlobalStore.isMobile ? AppBar(
         title: const Text('popup_text'),
-      ),
+      ) : null,
       body: Column(
         children: [
           Container(

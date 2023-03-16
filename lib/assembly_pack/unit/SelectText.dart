@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/global/global.dart';
 
 class SelectTextPage extends StatefulWidget {
   @override
@@ -15,9 +16,9 @@ class _SelectTextState extends State<SelectTextPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GlobalStore.isMobile ? AppBar(
         title: const Text('123'),
-      ),
+      ) : null,
       body: Container(
         /// 可复制选中的文字
         child: const SelectableText(

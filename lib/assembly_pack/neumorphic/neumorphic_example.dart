@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
 
 class NeumorphicExamplePage extends StatefulWidget {
   @override
@@ -68,7 +69,7 @@ class _pageState extends State<_page> {
             child: NeumorphicButton(
               padding: const EdgeInsets.all(18.0),
               onPressed: () {
-                Navigator.of(context).pop();
+                WindowsNavigator().pop(context);
               },
               style: const NeumorphicStyle(
                 shape: NeumorphicShape.convex,

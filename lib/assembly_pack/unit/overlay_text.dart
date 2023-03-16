@@ -14,158 +14,148 @@ class _OverlayTextState extends State<OverlayText> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            padding: const EdgeInsets.only(top: 80.0),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    child: OverlayField<String>(
-                      initValue: v,
-                      lists: const ['zxc', 'scsc'],
-                      child: (String value) {
-                        return Text(value);
-                      },
-                      onChange: (String value) {
-                        v = value;
-                        setState(() {});
-                      },
-                    ),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                  Container(
-                    height: 100,
-                    child: const Text('123'),
-                  ),
-                ],
+      appBar: GlobalStore.isMobile ? PreferredSize(
+        child: AppBar(
+          title: const Text('overlay text'),
+        ),
+        preferredSize: const Size.fromHeight(20.0),
+      ) : null,
+      body: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                child: OverlayField<String>(
+                  initValue: v,
+                  lists: const ['zxc', 'scsc'],
+                  child: (String value) {
+                    return Text(value);
+                  },
+                  onChange: (String value) {
+                    v = value;
+                    setState(() {});
+                  },
+                ),
               ),
-            ),
-          ),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: PreferredSize(
-              child: AppBar(
-                title: const Text('overlay text'),
+              Container(
+                height: 100,
+                child: const Text('123'),
               ),
-              preferredSize: const Size.fromHeight(20.0),
-            ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+              Container(
+                height: 100,
+                child: const Text('123'),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -45,6 +45,7 @@ class _ToolState extends State<Tool> implements EditorListener {
   ToolType type = ToolType.small;
 
   void _mainPage() {
+    widget.controller.tabs.clear();
     widget.controller.open(
         key: ContViewKey.mainPage,
         tab: '主页',
@@ -70,99 +71,106 @@ class _ToolState extends State<Tool> implements EditorListener {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
       width: type == ToolType.normal
           ? 200
           : type == ToolType.small
-              ? 70
-              : 0,
-      color: Colors.grey[200],
-      padding: const EdgeInsets.only(top: 50),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                Material(
-                  type: MaterialType.transparency,
-                  child: buildToolGroup(
-                    key: ContViewKey.mainPage,
-                    groupName: '主页',
-                    icon: Icon(
-                      Icons.abc,
-                      size: 25,
-                      color:
-                          widget.controller.current?.key == ContViewKey.mainPage
-                              ? Colors.red
-                              : Colors.black,
-                    ),
-                    callback: () {
-                      _mainPage();
-                    },
-                  ),
-                ),
-                Column(
-                  children: page4.map(
-                    (e) {
-                      return Material(
-                        type: MaterialType.transparency,
-                        child: buildToolGroup(
-                          key: ViewKey(
-                              namespace: e.hashCode.toString(),
-                              id: e.hashCode.toString()),
-                          groupName: e.title,
-                          icon: Icon(
-                            e.icon.icon,
-                            size: 25,
-                            color: widget.controller.current?.key ==
-                                    ViewKey(
-                                        namespace: e.hashCode.toString(),
-                                        id: e.hashCode.toString())
+          ? 70
+          : 0,
+      curve: Curves.easeIn,
+      duration: const Duration(milliseconds: 200),
+      child: Container(
+        padding: const EdgeInsets.only(top: 50),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Material(
+                    type: MaterialType.transparency,
+                    child: buildToolGroup(
+                      key: ContViewKey.mainPage,
+                      groupName: '主页',
+                      icon: Icon(
+                        Icons.home,
+                        size: 25,
+                        color:
+                            widget.controller.current?.key == ContViewKey.mainPage
                                 ? Colors.red
                                 : Colors.black,
+                      ),
+                      callback: () {
+                        _mainPage();
+                      },
+                    ),
+                  ),
+                  Column(
+                    children: page4.map(
+                      (e) {
+                        return Material(
+                          type: MaterialType.transparency,
+                          child: buildToolGroup(
+                            key: ViewKey(
+                                namespace: e.hashCode.toString(),
+                                id: e.hashCode.toString()),
+                            groupName: e.title,
+                            icon: Icon(
+                              e.icon.icon,
+                              size: 25,
+                              color: widget.controller.current?.key ==
+                                      ViewKey(
+                                          namespace: e.hashCode.toString(),
+                                          id: e.hashCode.toString())
+                                  ? Colors.red
+                                  : Colors.black,
+                            ),
+                            callback: () {
+                              if (e.route != null) {
+                                widget.controller.open(
+                                    key: ViewKey(
+                                        namespace: e.hashCode.toString(),
+                                        id: e.hashCode.toString()),
+                                    tab: e.title,
+                                    contentIfAbsent: (_) => e.route!);
+                              }
+                            },
                           ),
-                          callback: () {
-                            if (e.route != null) {
-                              widget.controller.open(
-                                  key: ViewKey(
-                                      namespace: e.hashCode.toString(),
-                                      id: e.hashCode.toString()),
-                                  tab: e.title,
-                                  contentIfAbsent: (_) => e.route!);
-                            }
-                          },
-                        ),
-                      );
-                    },
-                  ).toList(),
-                )
-              ],
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              if (type == ToolType.normal) {
-                type = ToolType.small;
-              } else if (type == ToolType.small) {
-                type = ToolType.normal;
-              }
-              setState(() {});
-            },
-            child: Container(
-              height: 40,
-              margin: const EdgeInsets.only(left: 24),
-              child: Row(
-                children: <Widget>[
-                  const Icon(Icons.settings),
-                  if (type == ToolType.normal) const Text(' 设置'),
+                        );
+                      },
+                    ).toList(),
+                  )
                 ],
               ),
             ),
-          ),
-        ],
+            InkWell(
+              onTap: () {
+                if (type == ToolType.normal) {
+                  type = ToolType.small;
+                } else if (type == ToolType.small) {
+                  type = ToolType.normal;
+                }
+                setState(() {});
+              },
+              child: Container(
+                height: 40,
+                margin: const EdgeInsets.only(left: 24),
+                child: Row(
+                  children: <Widget>[
+                    const Icon(Icons.settings),
+                    if (type == ToolType.normal) const Text(' 设置'),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -174,6 +182,13 @@ class _ToolState extends State<Tool> implements EditorListener {
       VoidCallback? callback,
       VoidCallback? longPressCallBack,
       Widget? icon}) {
+    ViewKey? lastKey;
+    for (int i = 0; i < widget.controller.tabs.length; i++) {
+      final String title = widget.controller.tabs[i].tab;
+      if (page4.any((val) => val.title == title)) {
+        lastKey = widget.controller.tabs[i].key;
+      }
+    }
     return CustomExpansionTile(
       value: expanded[groupName] == true,
       customHead: (_, animation) => InkWell(
@@ -183,7 +198,7 @@ class _ToolState extends State<Tool> implements EditorListener {
             children: [
               Container(
                 width: 4,
-                color: widget.controller.current?.key == key
+                color: lastKey == key
                     ? Colors.red
                     : const Color(0x00000000),
               ),
@@ -209,7 +224,7 @@ class _ToolState extends State<Tool> implements EditorListener {
                         child: Text(
                           groupName,
                           style: TextStyle(
-                            color: widget.controller.current?.key == key
+                            color: lastKey == key
                                 ? Colors.red
                                 : const Color(0xff000000),
                           ),
@@ -248,7 +263,7 @@ class _ToolState extends State<Tool> implements EditorListener {
                       children: [
                         Container(
                           width: 4,
-                          color: widget.controller.current?.key == e.key
+                          color: lastKey == e.key
                               ? const Color(0xff50A250)
                               : const Color(0x00000000),
                         ),

@@ -31,11 +31,11 @@ class _WindowsSearchPageState extends State<WindowsSearchPage> {
     _search.clear();
     final List<MainWidgetModel> all = [...page1, ...page2, ...page3];
     all.map((MainWidgetModel e) {
-      if (e.title.contains(controller.text) && controller.text.isNotEmpty) {
+      if (e.title.toLowerCase().contains(controller.text) &&
+          controller.text.isNotEmpty) {
         _search.add(e);
       }
     }).toList();
-    Log.info(_search.length);
     setState(() {});
   }
 
@@ -87,7 +87,7 @@ class _WindowsSearchPageState extends State<WindowsSearchPage> {
             RepaintBoundary(
               child: Container(
                 height: 300,
-                margin: const EdgeInsets.only(top: 100,right: 60, left: 60),
+                margin: const EdgeInsets.only(top: 100, right: 60, left: 60),
                 child: GridView.builder(
                   itemCount: _search.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -95,11 +95,16 @@ class _WindowsSearchPageState extends State<WindowsSearchPage> {
                     childAspectRatio: 1.5,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    final MainWidgetModel item = ArrayHelper.get(_search, index)!;
+                    final MainWidgetModel item =
+                        ArrayHelper.get(_search, index)!;
                     return InkWell(
                       onTap: () {
                         if (item.route != null) {
-                          WindowsNavigator().pushWidget(context, item.route!);
+                          WindowsNavigator().pushWidget(
+                            context,
+                            item.route!,
+                            title: item.title,
+                          );
                         }
                       },
                       child: Center(

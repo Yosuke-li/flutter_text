@@ -43,7 +43,7 @@ class EditorController with GenericListenable<EditorListener> {
   TabPage? current;
 
   void dispose() {
-    current == null;
+    current = null;
     tabs = <TabPage>[];
   }
 }
@@ -117,8 +117,12 @@ class _EditorState extends State<Editor> implements EditorListener {
       required String tab,
       required WidgetBuilder contentIfAbsent,
       VoidCallback? onTapTab}) {
-    if (widget.controller.tabs.any((element) => element.key == key)) {
+    if (widget.controller.tabs.any((TabPage element) => element.key == key)) {
       if (widget.controller.current?.key != key) {
+        widget.controller.tabs
+            .removeWhere((TabPage element) => element.key == key);
+        widget.controller.tabs.add(TabPage(
+            tab: tab, builder: contentIfAbsent, key: key, onTapTab: onTapTab));
         controller.open(key, contentIfAbsent);
       }
     } else {
@@ -181,18 +185,30 @@ class _EditorState extends State<Editor> implements EditorListener {
               children: [
                 Expanded(
                   child: Container(
-                    child: widget.controller.tabs.length > 1 ? Row(
-                      children: [
-                          InkWell(
-                            onTap: () {
-                              final TabPage lastOne = widget.controller.tabs.last;
-                              widget.controller.close(lastOne.key);
-                              Log.info(widget.controller.current?.tab??'');
-                            },
-                            child: Icon(Icons.chevron_left, color: Colors.grey[600],),
-                          ),
-                      ],
-                    ) : null,
+                    child: widget.controller.tabs.length > 1
+                        ? Row(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  final TabPage lastOne =
+                                      widget.controller.tabs.last;
+                                  widget.controller.close(lastOne.key);
+                                },
+                                child: Icon(
+                                  Icons.chevron_left,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Container(
+                                child: Text(
+                                    '${widget.controller.current?.tab ?? ''}'),
+                              ),
+                            ],
+                          )
+                        : null,
                   ),
                 ),
                 Visibility(
@@ -244,14 +260,14 @@ class _EditorState extends State<Editor> implements EditorListener {
                         Container(
                           width: 30,
                           child: const CircleAvatar(
-                            backgroundImage: AssetImage("images/sun.jpg"),
+                            backgroundImage: AssetImage('images/sun.jpg'),
                           ),
                         ),
                         const SizedBox(
                           width: 8,
                         ),
                         const Text(
-                          'name',
+                          'coco',
                           style: TextStyle(fontSize: 16),
                         ),
                       ],

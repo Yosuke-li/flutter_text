@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
 import 'package:flutter_text/assembly_pack/unit/SelectText.dart';
 import 'package:flutter_text/assembly_pack/unit/StepView.dart';
+import 'package:flutter_text/init.dart';
 import 'package:flutter_text/model/AComponent.dart';
 import 'package:self_utils/utils/array_helper.dart';
 
@@ -12,7 +13,6 @@ import 'Reorderable.dart';
 import 'auto_complete_test.dart';
 import 'curve_animated/curve_animated.dart';
 import 'overlay_text.dart';
-
 
 class UnitComponentPage extends StatefulWidget {
   @override
@@ -59,9 +59,11 @@ class UnitComponentPageState extends State<UnitComponentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Unit_list'),
-      ),
+      appBar: GlobalStore.isMobile
+          ? AppBar(
+              title: const Text('Unit_list'),
+            )
+          : null,
       body: Center(
         child: GridView.custom(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -72,12 +74,16 @@ class UnitComponentPageState extends State<UnitComponentPage> {
           childrenDelegate: SliverChildBuilderDelegate((context, index) {
             return GestureDetector(
               onTap: () {
-                WindowsNavigator().pushWidget(context, ArrayHelper.get(_page, index)?.pageUrl);
+                WindowsNavigator().pushWidget(
+                  context,
+                  ArrayHelper.get(_page, index)?.pageUrl,
+                  title: ArrayHelper.get(_page, index)?.name,
+                );
               },
               child: Container(
                 decoration: BoxDecoration(border: Border.all(width: 1)),
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text('${ArrayHelper.get(_page, index)?.name}'),
               ),
             );

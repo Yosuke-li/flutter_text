@@ -22,9 +22,9 @@ class _DebounceTState extends State<DebounceTPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GlobalStore.isMobile ? AppBar(
         title: const Text('防抖和节流'),
-      ),
+      ):null,
       body: Container(
         child: Center(
           child: Column(

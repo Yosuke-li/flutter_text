@@ -20,13 +20,14 @@ class WindowsNavigator extends NavigatorUtils {
     bool cleanFocus = false,
     bool isAddRoute = true,
     AnimateType? type,
+    String? title,
   }) {
-    if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+    if (!GlobalStore.isMobile) {
       c.open(
           key: ViewKey(
               namespace: widget.hashCode.toString(),
               id: widget.hashCode.toString()),
-          tab: widget.hashCode.toString(),
+          tab: title ?? widget.hashCode.toString(),
           contentIfAbsent: (_) => widget);
       return null;
     } else {
@@ -38,6 +39,15 @@ class WindowsNavigator extends NavigatorUtils {
           opaque: opaque,
           cleanFocus: cleanFocus,
           type: type);
+    }
+  }
+
+  void pop(BuildContext context) {
+    if (!GlobalStore.isMobile) {
+      final TabPage lastOne = c.tabs.last;
+      c.close(lastOne.key);
+    } else {
+      Navigator.of(context).pop();
     }
   }
 }

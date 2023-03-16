@@ -352,14 +352,14 @@ class _MineSweepingState extends State<MineSweeping> {
         ? MediaQuery.of(context).size.width * 0.45
         : MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
+      appBar: GlobalStore.isMobile ? AppBar(
         title: Text(S.of(context).mineSweeping),
         centerTitle: true,
         actions: [
           IconButton(
               onPressed: () => setting(), icon: const Icon(Icons.settings))
         ],
-      ),
+      ) : null,
       body: Column(
         children: <Widget>[
           SizedBox(
@@ -467,6 +467,11 @@ class _MineSweepingState extends State<MineSweeping> {
           ),
         ],
       ),
+      floatingActionButton: !GlobalStore.isMobile ? FloatingActionButton(
+        child: const Icon(Icons.settings),
+        onPressed: () => setting(),
+        tooltip: '设置',
+      ) : null,
     );
   }
 }

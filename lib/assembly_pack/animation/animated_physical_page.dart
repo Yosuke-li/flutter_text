@@ -12,9 +12,13 @@ class _AnimatedPhysicalState extends State<AnimatedPhysicalPage> {
   void initState() {
     super.initState();
     Future<void>.delayed(const Duration(seconds: 1)).then(
-      (value) => setState(() {
-        _elevation = 20.0;
-      }),
+      (value) {
+        if (mounted) {
+          return setState(() {
+            _elevation = 20.0;
+          });
+        }
+      },
     );
   }
 

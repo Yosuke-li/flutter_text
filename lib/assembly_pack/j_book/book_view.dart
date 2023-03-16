@@ -5,6 +5,7 @@ import 'package:epub_view/epub_view.dart';
 import 'package:epub_view/src/data/models/chapter_view_value.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/j_book/book_cache.dart';
+import 'package:flutter_text/global/global.dart';
 import 'package:self_utils/utils/navigator.dart';
 import 'package:self_utils/utils/screen.dart';
 import 'package:self_utils/widget/api_call_back.dart';
@@ -55,7 +56,7 @@ class _BookViewState extends State<BookView> {
   Widget build(BuildContext context) =>
       WillPopScope(
           child: Scaffold(
-            appBar: AppBar(
+            appBar: GlobalStore.isMobile ? AppBar(
               // Show actual chapter name
               title: EpubViewActualChapter(
                 controller: _epubController,
@@ -65,7 +66,7 @@ class _BookViewState extends State<BookView> {
                       textAlign: TextAlign.start,
                     ),
               ),
-            ),
+            ) : null,
             drawer: Drawer(
               child: EpubViewTableOfContents(
                 controller: _epubController,

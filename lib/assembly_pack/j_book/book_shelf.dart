@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/j_book/book_helper.dart';
 import 'package:flutter_text/assembly_pack/j_book/book_view.dart';
+import 'package:flutter_text/global/global.dart';
 import 'package:self_utils/utils/array_helper.dart';
 import 'package:self_utils/utils/datetime_utils.dart';
 import 'package:self_utils/utils/lock.dart';
@@ -41,7 +42,8 @@ class _BookShelfState extends State<BookShelf> {
   Future<void> onRead() async {
     List<BookModel> getCache = [];
     getCache = await loadingCallback(() => BookCache.getAllCache());
-    getCache.sort((BookModel a, BookModel b) => (b.updateTime ?? 0) - (a.updateTime ?? 0));
+    getCache.sort((BookModel a, BookModel b) =>
+        (b.updateTime ?? 0) - (a.updateTime ?? 0));
     _book.addAll(getCache);
     setState(() {});
   }
@@ -82,22 +84,24 @@ class _BookShelfState extends State<BookShelf> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('艾尔法提大图书馆某处书架'),
-        actions: [
-          Container(
-            margin: EdgeInsets.only(right: screenUtil.adaptive(20)),
-            child: Center(
-              child: InkWell(
-                onTap: () {
-                  onSelectBook();
-                },
-                child: const Text('添加'),
-              ),
-            ),
-          ),
-        ],
-      ),
+      appBar: GlobalStore.isMobile
+          ? AppBar(
+              title: const Text('艾尔法提大图书馆某处书架'),
+              actions: [
+                Container(
+                  margin: EdgeInsets.only(right: screenUtil.adaptive(20)),
+                  child: Center(
+                    child: InkWell(
+                      onTap: () {
+                        onSelectBook();
+                      },
+                      child: const Text('添加'),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : null,
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.only(
@@ -126,16 +130,18 @@ class _BookShelfState extends State<BookShelf> {
                     });
                   },
                   onTap: () {
-                    WindowsNavigator().pushWidget<int>(
-                        context,
-                        BookView(
-                          book: book,
-                        ))?.then((int? val) {
+                    WindowsNavigator()
+                        .pushWidget<int>(
+                            context,
+                            BookView(
+                              book: book,
+                            ), title: book.title)
+                        ?.then((int? val) {
                       if (val != null) {
                         book.index = val;
                         book.updateTime = DateTimeHelper.getLocalTimeStamp();
                         _book.sort((BookModel a, BookModel b) =>
-                        (b.updateTime ?? 0) - (a.updateTime ?? 0));
+                            (b.updateTime ?? 0) - (a.updateTime ?? 0));
                         setState(() {});
                       }
                     });
@@ -162,6 +168,12 @@ class _BookShelfState extends State<BookShelf> {
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          onSelectBook();
+        },
+        child: const Text('添加'),
       ),
     );
   }

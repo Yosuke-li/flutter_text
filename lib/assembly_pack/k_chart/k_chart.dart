@@ -21,7 +21,8 @@ class KChartState extends State<KChartPage> {
   bool _volHidden = true;
   bool _hideGrid = false;
   bool _showNowPrice = true;
-  late List<DepthEntity> _bids, _asks;
+  List<DepthEntity> _bids = [];
+  List<DepthEntity> _asks = [];
   bool isChangeUI = false;
 
   ChartStyle chartStyle = ChartStyle();

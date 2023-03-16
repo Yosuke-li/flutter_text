@@ -75,10 +75,10 @@ class _SudoGameState extends State<SudoGamePage> {
   Future<void> setTime() async {
     time = 0;
     _timer ??= Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-        time++;
-        if (mounted) {
-          setState(() {});
-        }
+      time++;
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 
@@ -131,8 +131,11 @@ class _SudoGameState extends State<SudoGamePage> {
         gameOver = true;
         stop();
         Timer(const Duration(milliseconds: 500), () {
-          showDialog(context: context, builder: (_) => AlertGameOver(time: time,))
-              .whenComplete(() {
+          showDialog(
+              context: context,
+              builder: (_) => AlertGameOver(
+                    time: time,
+                  )).whenComplete(() {
             if (AlertGameOver.newGame) {
               newGame(currentDifficultyLevel);
               AlertGameOver.newGame = false;
@@ -433,13 +436,16 @@ class _SudoGameState extends State<SudoGamePage> {
       },
       child: Scaffold(
         backgroundColor: Styles.white,
-        appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(56.0),
-            child: AppBar(
-              centerTitle: true,
-              title: const Text('数 独'),
-              backgroundColor: Styles.primaryColor,
-            )),
+        appBar: GlobalStore.isMobile
+            ? PreferredSize(
+                preferredSize: const Size.fromHeight(56.0),
+                child: AppBar(
+                  centerTitle: true,
+                  title: const Text('数 独'),
+                  backgroundColor: Styles.primaryColor,
+                ),
+              )
+            : null,
         body: Builder(builder: (BuildContext builder) {
           return Center(
               child: Column(
