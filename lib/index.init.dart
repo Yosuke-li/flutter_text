@@ -132,11 +132,6 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
     icon: const Icon(Icons.precision_manufacturing_rounded),
   ),
   MainWidgetModel(
-    title: 'management 管理后台--',
-    route: HomePage(),
-    icon: const Icon(Icons.precision_manufacturing_rounded),
-  ),
-  MainWidgetModel(
     title: 'bloc text--',
     route: BlocTextWidget(),
     icon: const Icon(Icons.app_blocking),
@@ -569,5 +564,29 @@ List<MainWidgetModel> page3 = <MainWidgetModel>[
     title: 'ChooseLangPage',
     route: const ChooseLangPage(),
     icon: const Icon(Icons.video_call),
+  ),
+];
+
+
+List<MainWidgetModel> page4 = [
+  MainWidgetModel(
+    title: 'unit 组件列表使用',
+    route: UnitComponentPage(),
+    icon: const Icon(Icons.ad_units),
+  ),
+  MainWidgetModel(
+    title: '书架',
+    route: BookShelf(),
+    icon: const Icon(Icons.book),
+  ),
+  MainWidgetModel(
+    title: '聊天列表--',
+    route: ChatListWidget(),
+    icon: const Icon(Icons.chat),
+  ),
+  MainWidgetModel(
+    title: ' markdown--',
+    route: const MarkdownEditor(),
+    icon: const Icon(Icons.texture),
   ),
 ];

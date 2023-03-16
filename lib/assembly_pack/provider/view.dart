@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:self_utils/utils/navigator.dart';
-import 'package:self_utils/widget/provider/base_model.dart';
+import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
 import 'package:self_utils/widget/provider/base_widget.dart';
 import 'package:self_utils/widget/provider/provider_model.dart';
 import 'package:self_utils/widget/provider/provider_setup.dart';
@@ -34,7 +33,7 @@ class _BuildProviderView extends StatelessWidget {
                 Text('点击次数为${model.count}'),
                 InkWell(
                   onTap: () {
-                    NavigatorUtils.pushWidget(context, SecondPage());
+                    WindowsNavigator().pushWidget(context, SecondPage());
                   },
                   child: const Icon(Icons.add),
                 ),

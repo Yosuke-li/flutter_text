@@ -18,10 +18,10 @@ Future<void> main() async {
   if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
     await windowManager.ensureInitialized();
     windowManager.waitUntilReadyToShow().then((value) async {
-      // await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
-      await windowManager.setSize(const Size(1250, 800));
+      await windowManager.setTitleBarStyle(TitleBarStyle.hidden);
+      await windowManager.setSize(const Size(1080, 700));
       await windowManager.setTitle('flutter学习组件');
-      await windowManager.setMinimumSize(const Size(1250, 800));
+      await windowManager.setMinimumSize(const Size(1080, 700));
       await windowManager.center();
       await windowManager.show();
     });
@@ -43,6 +43,7 @@ class Assembly extends StatefulWidget {
 
 class AssemblyState extends State<Assembly> {
   bool? todayShowAd;
+  bool isMobile = true;
 
   List<ShortCutsModel> list = <ShortCutsModel>[
     ShortCutsModel(
@@ -64,6 +65,10 @@ class AssemblyState extends State<Assembly> {
 
   @override
   void initState() {
+    if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+      isMobile = false;
+      setState(() {});
+    }
     Future<void>.delayed(Duration.zero, () async {
       ShortCutsQuick(shortCutsAction: list);
       await init();
@@ -99,6 +104,7 @@ class AssemblyState extends State<Assembly> {
                   builder: BotToastInit(),
                   showPerformanceOverlay: GlobalStore.isShowOverlay,
                   title: 'Flutter study',
+                  debugShowCheckedModeBanner: false,
                   localizationsDelegates: const <
                       LocalizationsDelegate<dynamic>>[
                     S.delegate,
@@ -116,9 +122,9 @@ class AssemblyState extends State<Assembly> {
                   },
                   home: GestureDetector(
                     onLongPress: () {
-                      setState(() {
-                        GlobalStore.isShowOverlay = !GlobalStore.isShowOverlay;
-                      });
+                      // setState(() {
+                      //   GlobalStore.isShowOverlay = !GlobalStore.isShowOverlay;
+                      // });
                       // FlutterDoraemonkit.toggle();
                     },
                     child: todayShowAd != null
@@ -126,9 +132,13 @@ class AssemblyState extends State<Assembly> {
                             ? GlobalStore.isShowGary
                                 ? ColorFiltered(
                                     colorFilter: GlobalStore.greyScale,
-                                    child: MainIndexPage(),
+                                    child: isMobile
+                                        ? MainIndexPage()
+                                        : ManagementPage(),
                                   )
-                                : MainIndexPage()
+                                : isMobile
+                                    ? MainIndexPage()
+                                    : ManagementPage()
                             : SplashPage())
                         : Container(
                             color: Colors.white,

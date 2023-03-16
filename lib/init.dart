@@ -149,7 +149,7 @@ export 'package:flutter_text/assembly_pack/flutter_chip.dart';
 export 'package:self_utils/utils/dio/dio_helper.dart';
 export 'assembly_pack/chat_gpt/chat_gpt_page.dart';
 export 'assembly_pack/choose_lan/choose_lan.dart';
-
+export 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
 
 
 

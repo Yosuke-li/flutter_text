@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/bloc_text/bloc_two.dart';
+import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
 import 'package:self_utils/utils/navigator.dart';
 import 'package:self_utils/widget/bloc/bloc_widget.dart';
 
@@ -41,7 +42,7 @@ class BlocPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.arrow_right_alt),
         onPressed: () {
-          NavigatorUtils.pushWidget(
+          WindowsNavigator().pushWidget(
               context,
               BlocTwo(
                 blocModel: bloc,

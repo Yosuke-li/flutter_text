@@ -50,7 +50,7 @@ class _ListGroupState extends State<ListGroupPage> {
             return InkWell(
               onTap: () {
                 if (ArrayHelper.get(groups, index)?.route != null) {
-                  NavigatorUtils.pushWidget(
+                  WindowsNavigator().pushWidget(
                       context, ArrayHelper.get(groups, index)!.route!);
                 }
               },

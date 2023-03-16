@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
 import 'package:flutter_text/assembly_pack/unit/SelectText.dart';
 import 'package:flutter_text/assembly_pack/unit/StepView.dart';
 import 'package:flutter_text/model/AComponent.dart';
@@ -71,9 +72,7 @@ class UnitComponentPageState extends State<UnitComponentPage> {
           childrenDelegate: SliverChildBuilderDelegate((context, index) {
             return GestureDetector(
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => ArrayHelper.get(_page, index)?.pageUrl),
-                );
+                WindowsNavigator().pushWidget(context, ArrayHelper.get(_page, index)?.pageUrl);
               },
               child: Container(
                 decoration: BoxDecoration(border: Border.all(width: 1)),

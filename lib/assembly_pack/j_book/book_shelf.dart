@@ -13,6 +13,7 @@ import 'package:self_utils/utils/navigator.dart';
 import 'package:self_utils/utils/screen.dart';
 import 'package:self_utils/widget/api_call_back.dart';
 import 'package:self_utils/widget/modal_utils.dart';
+import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
 
 import 'book_cache.dart';
 
@@ -125,11 +126,11 @@ class _BookShelfState extends State<BookShelf> {
                     });
                   },
                   onTap: () {
-                    NavigatorUtils.pushWidget<int>(
+                    WindowsNavigator().pushWidget<int>(
                         context,
                         BookView(
                           book: book,
-                        )).then((int? val) {
+                        ))?.then((int? val) {
                       if (val != null) {
                         book.index = val;
                         book.updateTime = DateTimeHelper.getLocalTimeStamp();

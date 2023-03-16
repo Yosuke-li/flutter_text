@@ -1,3 +1,5 @@
+import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
+
 import 'index.dart';
 import 'init.dart';
 
@@ -28,7 +30,7 @@ class _SplashState extends State<SplashPage> {
       true,
       const Duration(days: 1),
     );
-    NavigatorUtils.pushWidget(context, MainIndexPage(),
+    NavigatorUtils().pushWidget(context, MainIndexPage(),
         replaceRoot: true, type: AnimateType.Fade);
   }
 

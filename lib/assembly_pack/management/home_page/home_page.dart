@@ -1,33 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/management/home_page/tool.dart';
+import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
+import 'package:flutter_text/init.dart';
 
 import 'editor.dart';
 
-class HomePage extends StatefulWidget {
+class ManagementPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _ManagementPageState createState() => _ManagementPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ManagementPageState extends State<ManagementPage> {
   final EditorController editorController = EditorController();
+
+  @override
+  void initState() {
+    super.initState();
+    WindowsNavigator.init(editorController);
+    PostgresUser.init();
+    Request.init();
+    FileUtils();
+    Log.init(isDebug: true);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.black,
-        title: Text('管理后台'),
-      ),
       body: Row(
         children: [
           Tool(
             controller: editorController,
           ),
           Expanded(
-              child: Editor(
-            controller: editorController,
-          ))
+            child: Editor(
+              controller: editorController,
+            ),
+          )
         ],
       ),
     );

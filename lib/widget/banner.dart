@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_text/init.dart';
 import 'package:flutter_text/model/img_model.dart';
 import 'package:self_utils/widget/image_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,7 +17,7 @@ class WidgetBanner extends StatefulWidget {
   const WidgetBanner(
     this._images, {
     this.curve = Curves.linear,
-    this.height = 200,
+    this.height = 250,
     this.onTap,
     this.isShowIndicator = false,
   }) : assert(_images != null);
@@ -102,15 +103,25 @@ class _WidgetBannerState extends State<WidgetBanner> {
             return GestureDetector(
               onPanDown: (DragDownDetails details) {},
               onTap: () {
-//                _onTapImage(index, length);
                 //外部url跳转
                 if (widget._images[index % length].overBrowerUrl != '') {
                   _overBrowserUrl(widget._images[index % length].overBrowerUrl);
                 }
               },
-              child: CustomNetWorkImage(
-                widget._images[index % length].image??'',
-                fit: BoxFit.cover,
+              child: Container(
+                padding: EdgeInsets.only(left: 30, right: 30),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: widget._images[index % length].image != null
+                    ? CustomNetWorkImage(
+                        widget._images[index % length].image ?? '',
+                        fit: BoxFit.fitHeight,
+                      )
+                    : Image.asset(
+                        widget._images[index % length].fileImage ?? '',
+                        fit: BoxFit.scaleDown,
+                      ),
               ),
             );
           }),
@@ -119,16 +130,16 @@ class _WidgetBannerState extends State<WidgetBanner> {
 
   //初始化定时任务
   void _initTimer() {
-    _timer ??= Timer.periodic(const Duration(seconds: 3), (Timer t) {
+    _timer ??= Timer.periodic(const Duration(seconds: 5), (Timer t) {
       _currentIndex++;
       _pageController.animateToPage(_currentIndex,
-          duration: const Duration(milliseconds: 300), curve: Curves.linear);
+          duration: const Duration(milliseconds: 500), curve: Curves.linear);
     });
   }
 
   //切换banner页
   void _changePage() {
-    Timer(const Duration(milliseconds: 300), () {
+    Timer(const Duration(milliseconds: 500), () {
       _pageController.jumpToPage(_currentIndex);
     });
   }

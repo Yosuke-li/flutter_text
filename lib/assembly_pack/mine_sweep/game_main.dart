@@ -349,7 +349,7 @@ class _MineSweepingState extends State<MineSweeping> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width > MediaQuery.of(context).size.height
-        ? MediaQuery.of(context).size.width * 0.5
+        ? MediaQuery.of(context).size.width * 0.45
         : MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(

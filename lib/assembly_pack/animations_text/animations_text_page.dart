@@ -31,7 +31,7 @@ class _AnimationsTextPageState extends State<AnimationsTextPage> {
                 child: AnimatedTextKit(
                   totalRepeatCount: 1,
                   onFinished: () {
-                    NavigatorUtils.pushWidget(
+                    WindowsNavigator().pushWidget(
                       context,
                       const APageTwo(),
                       replaceCurrent: true,

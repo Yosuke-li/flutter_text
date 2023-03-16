@@ -11,7 +11,7 @@ class MainIndexPage extends StatefulWidget {
 
 class MainWidgetModel {
   String title;
-  Widget icon;
+  Icon icon;
   Widget? route;
   void Function(BuildContext context)? onTapFunc;
 
