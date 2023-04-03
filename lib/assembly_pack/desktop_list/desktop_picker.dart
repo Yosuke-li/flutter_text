@@ -71,9 +71,9 @@ class _DesktopPickerState extends State<DesktopPickerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GlobalStore.isMobile ? AppBar(
         title: const Text('文件选择'),
-      ),
+      ) : null,
       body: Container(
         child: Row(
           children: [

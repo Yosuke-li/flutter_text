@@ -30,9 +30,9 @@ class _DesktopDropTextState extends State<DesktopDropText> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GlobalStore.isMobile ? AppBar(
         title: const Text('拖拽进程序'),
-      ),
+      ) : null,
       body: DropTarget(
         onDragDone: _dragDone,
         child: _file == null ? _upload() : _view(_file!),

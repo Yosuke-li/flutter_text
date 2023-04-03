@@ -12,7 +12,7 @@ class WindowsMainPage extends StatefulWidget {
 class _WindowsMainPageState extends State<WindowsMainPage> {
   final List<ImageModel> _imgData = [
     ImageModel()
-      ..fileImage = 'images/001.png',
+      ..fileImage = 'images/001.jpeg',
     ImageModel()
       ..fileImage = 'images/002.jpg',
     ImageModel()

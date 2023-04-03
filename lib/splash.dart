@@ -30,7 +30,9 @@ class _SplashState extends State<SplashPage> {
       true,
       const Duration(days: 1),
     );
-    NavigatorUtils().pushWidget(context, MainIndexPage(),
+    NavigatorUtils().pushWidget(context, GlobalStore.isMobile
+        ? MainIndexPage()
+        : ManagementPage(),
         replaceRoot: true, type: AnimateType.Fade);
   }
 

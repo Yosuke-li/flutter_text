@@ -590,7 +590,7 @@ List<MainWidgetModel> page4 = [
     icon: const Icon(Icons.chat),
   ),
   MainWidgetModel(
-    title: 'desktop 组件列表使用',
+    title: 'desktop 组件列表',
     route: DesktopComponentPage(),
     icon: const Icon(Icons.desktop_mac),
   ),
@@ -598,5 +598,10 @@ List<MainWidgetModel> page4 = [
     title: '音乐播放器--',
     route: MusicPlayPage(),
     icon: const Icon(Icons.music_note),
+  ),
+  MainWidgetModel(
+    title: '选择语言--',
+    route: const ChooseLangPage(),
+    icon: const Icon(Icons.language),
   ),
 ];

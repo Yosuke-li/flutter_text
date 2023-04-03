@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:self_utils/utils/log_utils.dart';
 import 'package:self_utils/utils/toast_utils.dart';
 import 'package:tray_manager/tray_manager.dart' as tray;
-import 'package:window_manager/window_manager.dart' as win;
+import 'package:window_manager/window_manager.dart';
 
 /// 系统托盘
 class DesktopSysManager extends StatefulWidget {
@@ -39,29 +39,17 @@ class _DesktopSysManagerState extends State<DesktopSysManager>
   /// 设置菜单项
   void _generateContextMenu() async {
     List<tray.MenuItem> items = [
-      tray.MenuItem(label: '语文'),
-      tray.MenuItem(label: '数学', toolTip: '躲不掉的'),
-      tray.MenuItem(label: '英语', disabled: false),
+      tray.MenuItem(label: '主页'),
+      tray.MenuItem(label: 'unit'),
+      tray.MenuItem(label: '书架', disabled: false),
       tray.MenuItem.separator(),
       tray.MenuItem(
         key: 'science',
-        label: '理科',
+        label: '桌面端组件',
         type: 'submenu',
         submenu: tray.Menu(items: <tray.MenuItem>[
-          tray.MenuItem(label: '物理'),
-          tray.MenuItem(label: '化学'),
-          tray.MenuItem(label: '生物'),
-        ]),
-      ),
-      tray.MenuItem.separator(),
-      tray.MenuItem(
-        key: 'arts',
-        label: '文科',
-        type: 'submenu',
-        submenu: tray.Menu(items: <tray.MenuItem>[
-          tray.MenuItem(label: '物理'),
-          tray.MenuItem(label: '化学'),
-          tray.MenuItem(label: '生物'),
+          tray.MenuItem(label: 'desktop_drop'),
+          tray.MenuItem(label: 'desktop_picker'),
         ]),
       ),
     ];
@@ -70,7 +58,7 @@ class _DesktopSysManagerState extends State<DesktopSysManager>
 
   @override
   void onTrayIconMouseDown() async {
-    await win.windowManager.show();
+    await windowManager.show();
     Log.info('鼠标左键点击');
   }
 
@@ -82,6 +70,7 @@ class _DesktopSysManagerState extends State<DesktopSysManager>
 
   @override
   void onTrayMenuItemClick(tray.MenuItem menuItem) {
+    windowManager.show();
     ToastUtils.showToast(msg: '你选择了${menuItem.label}');
   }
 

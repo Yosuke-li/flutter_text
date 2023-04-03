@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/chat_self/user_login/view.dart';
 import 'package:flutter_text/assembly_pack/management/function_page/windows_search_page.dart';
 import 'package:flutter_text/init.dart';
 import 'package:self_utils/widget/management/common/listenable.dart';
@@ -181,7 +182,6 @@ class _EditorState extends State<Editor> implements EditorListener {
             height: 50,
             color: Colors.grey[200],
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Expanded(
                   child: Container(
@@ -221,7 +221,7 @@ class _EditorState extends State<Editor> implements EditorListener {
                           contentIfAbsent: (_) => const WindowsSearchPage());
                     },
                     child: Container(
-                      margin: const EdgeInsets.only(right: 30),
+                      margin: const EdgeInsets.only(right: 20),
                       child: Row(
                         children: [
                           Container(
@@ -252,10 +252,15 @@ class _EditorState extends State<Editor> implements EditorListener {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    if (GlobalStore.user != null) {
+                    } else {
+                      WindowsNavigator().pushWidget(context, UserLoginPage(), title: '登陆');
+                    }
+                  },
                   child: Container(
                     margin: const EdgeInsets.only(right: 20),
-                    child: Row(
+                    child: GlobalStore.user != null ? Row(
                       children: [
                         Container(
                           width: 30,
@@ -263,14 +268,10 @@ class _EditorState extends State<Editor> implements EditorListener {
                             backgroundImage: AssetImage('images/sun.jpg'),
                           ),
                         ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        const Text(
-                          'coco',
-                          style: TextStyle(fontSize: 16),
-                        ),
                       ],
+                    ) : Container(
+                      width: 30,
+                      child: const Icon(Icons.person),
                     ),
                   ),
                 )

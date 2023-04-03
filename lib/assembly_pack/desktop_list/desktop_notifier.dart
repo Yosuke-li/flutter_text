@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/global/global.dart';
 import 'package:local_notifier/local_notifier.dart';
 import 'package:path/path.dart' as path;
 
@@ -50,9 +51,9 @@ class _DesktopNotifierPageState extends State<DesktopNotifierPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GlobalStore.isMobile ? AppBar(
         title: const Text('发送本地推送 桌面版'),
-      ),
+      ) : null,
       body: Center(
         child: SingleChildScrollView(
           child: Column(

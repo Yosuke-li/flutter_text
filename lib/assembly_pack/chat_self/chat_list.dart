@@ -36,7 +36,7 @@ class _ChatListState extends State<ChatListWidget> {
     return ChatConnectWidget(
       key: Key(GlobalStore.user?.id.hashCode.toString() ?? ''),
       child: Scaffold(
-        appBar: AppBar(
+        appBar: GlobalStore.isMobile ? AppBar(
           title: const Text('聊天'),
           actions: [
             if (GlobalStore.user == null ||
@@ -80,7 +80,7 @@ class _ChatListState extends State<ChatListWidget> {
                 ),
               ),
           ],
-        ),
+        ) : null,
         body: SingleChildScrollView(
           child: Column(
             children: rooms.map((e) {

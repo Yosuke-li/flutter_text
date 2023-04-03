@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/global/global.dart';
+import 'package:self_utils/init.dart';
 
 class Lang {
   String key;
@@ -31,7 +32,7 @@ class _ChooseLangPageState extends State<ChooseLangPage> {
     return Placeholder(
       child: Scaffold(
           appBar: AppBar(
-            title: Text('选择语言'),
+            title: Text('${S.of(context).appName}'),
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -40,9 +41,12 @@ class _ChooseLangPageState extends State<ChooseLangPage> {
                     (e) => InkWell(
                       onTap: () {
                         GlobalStore.locale = e.value;
+                        S.load(e.value); //切换语言
+                        setState(() {});
                       },
                       child: Container(
-                        color: GlobalStore.locale == e.value ? Colors.red : null,
+                        color:
+                            GlobalStore.locale == e.value ? Colors.red : null,
                         child: Text('${e.key}'),
                       ),
                     ),

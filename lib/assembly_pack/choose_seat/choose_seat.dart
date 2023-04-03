@@ -34,9 +34,9 @@ class _ChooseSeatState extends State<ChooseSeat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GlobalStore.isMobile ? AppBar(
         title: const Text('选择位置'),
-      ),
+      ) : null,
       body: _buildView(),
     );
   }
@@ -64,21 +64,19 @@ class _ChooseSeatState extends State<ChooseSeat> {
   Widget _buildTab() {
     return InteractiveViewerChild(
       key: viewKey,
-      minScale: 0.1,
       maxScale: 2,
       transformationController: mainController,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           for (int row = 0; row < _row; row++)
             Container(
               margin: const EdgeInsets.all(4),
               height: 25,
+              width: 10,
               alignment: Alignment.center,
               child: Text(
                 '$row',
-                style: const TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black, fontSize: 16),
               ),
             ),
         ],
