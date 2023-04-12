@@ -88,7 +88,7 @@ dependencies:
   self_utils:
     path: /Users/lixuan/Documents/work/self_utils
 #  openai_client: ^0.0.2
-  flutter_chatgpt_api: ^1.1.0
+  table_calendar: ^3.0.8
 
 dev_dependencies:
   flutter_test:

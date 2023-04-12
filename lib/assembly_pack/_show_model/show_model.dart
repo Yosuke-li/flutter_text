@@ -4,15 +4,16 @@ import 'package:self_utils/utils/screen.dart';
 import 'package:self_utils/widget/modal_utils.dart';
 
 class ModalText {
-  static Future<void> model(BuildContext context,
+  static Future<void> tipToast(BuildContext context,
       {String? title, void Function()? onFunc}) async {
     await ModalUtils.showModal(
       context,
-      modalBackgroundColor: const Color(0x00999999),
+      modalBackgroundColor: const Color(0xffffffff),
+      modalSize: ModalSize(width: 300),
       dynamicBottom: Container(
         alignment: Alignment.center,
         child: Container(
-          width: screenUtil.adaptive(820),
+          width: 300,
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: const Color(0xffffffff),
@@ -21,26 +22,22 @@ class ModalText {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(
-                  top: screenUtil.adaptive(60),
-                ),
                 alignment: Alignment.center,
                 child: const Text(
                   '提示',
-                  style: TextStyle(color: Color(0xff404040), fontSize: 52),
+                  style: TextStyle(color: Color(0xff404040)),
                 ),
               ),
               Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(
-                  top: screenUtil.adaptive(80),
-                  bottom: screenUtil.adaptive(90),
-                  left: screenUtil.adaptive(73),
+                  top: 20,
+                  bottom: 30,
+                  left: 30,
                 ),
                 child: Text(
                   '${title ?? '删除本条数据？'}',
                   style: const TextStyle(
-                    fontSize: 47,
                     color: Color(0xff426ba5),
                   ),
                 ),
@@ -62,8 +59,8 @@ class ModalText {
                           borderRadius:
                               BorderRadius.circular(screenUtil.adaptive(20)),
                           child: Container(
-                            width: screenUtil.adaptive(360),
-                            height: screenUtil.adaptive(110),
+                            width: 90,
+                            height: 30,
                             decoration: BoxDecoration(
                               color: const Color(0xb3eeeeee),
                               borderRadius: BorderRadius.circular(
@@ -74,7 +71,6 @@ class ModalText {
                               '取消',
                               style: TextStyle(
                                 color: Color(0xff878787),
-                                fontSize: 45,
                               ),
                             ),
                           ),
@@ -89,8 +85,8 @@ class ModalText {
                           borderRadius:
                               BorderRadius.circular(screenUtil.adaptive(20)),
                           child: Container(
-                            width: screenUtil.adaptive(360),
-                            height: screenUtil.adaptive(110),
+                            width: 90,
+                            height: 30,
                             decoration: BoxDecoration(
                               color: const Color(0xff577fba),
                               borderRadius: BorderRadius.circular(
@@ -101,7 +97,6 @@ class ModalText {
                               '确定',
                               style: TextStyle(
                                 color: Color(0xffffffff),
-                                fontSize: 45,
                               ),
                             ),
                           ),

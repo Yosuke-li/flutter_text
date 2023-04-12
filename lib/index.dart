@@ -1,5 +1,6 @@
 import 'package:self_utils/generated/l10n.dart';
 
+import 'assembly_pack/calendar/main.dart';
 import 'init.dart';
 
 part 'index.init.dart';

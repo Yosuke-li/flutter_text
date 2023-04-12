@@ -53,6 +53,9 @@ class UnitComponentPageState extends State<UnitComponentPage> {
       PageModel()
         ..name = 'MineSweeping'
         ..pageUrl = const MineSweeping(),
+      PageModel()
+        ..name = 'PopupTextPage'
+        ..pageUrl = PopupTextPage(),
     ];
   }
 

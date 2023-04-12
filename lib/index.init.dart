@@ -341,7 +341,7 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
   MainWidgetModel(
     title: 'modal Utils使用',
     onTapFunc: (context) {
-      ModalText.model(context);
+      ModalText.tipToast(context);
     },
     icon: const Icon(Icons.flash_auto),
   ),
@@ -593,6 +593,11 @@ List<MainWidgetModel> page4 = [
     title: 'desktop 组件列表',
     route: DesktopComponentPage(),
     icon: const Icon(Icons.desktop_mac),
+  ),
+  MainWidgetModel(
+    title: '日历',
+    route: const WinCalendarPage(),
+    icon: const Icon(Icons.calendar_month),
   ),
   MainWidgetModel(
     title: '音乐播放器--',
