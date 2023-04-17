@@ -11,6 +11,7 @@ class GlobalStore {
   static String companyIp = '172.31.172.83'; //todo ipconfig 因为非公司内网所以无法使用
   static bool isUserFiddle = false; //是否使用fiddle
   static bool isMobile = true; // 判断是否是桌面端
+  static String theme = 'light'; //主题
 
   static User? user;
 
@@ -20,6 +21,10 @@ class GlobalStore {
     0.2126, 0.7152, 0.0722, 0, 0,
     0, 0, 0, 1, 0,
   ]);
+}
+
+class EventBusM {
+  String? theme;
 }
 
 

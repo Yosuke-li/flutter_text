@@ -604,9 +604,4 @@ List<MainWidgetModel> page4 = [
     route: MusicPlayPage(),
     icon: const Icon(Icons.music_note),
   ),
-  MainWidgetModel(
-    title: '选择语言--',
-    route: const ChooseLangPage(),
-    icon: const Icon(Icons.language),
-  ),
 ];

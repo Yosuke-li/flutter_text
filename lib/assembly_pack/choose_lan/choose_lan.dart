@@ -29,13 +29,11 @@ class _ChooseLangPageState extends State<ChooseLangPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Placeholder(
-      child: Scaffold(
-          appBar: AppBar(
-            title: Text('${S.of(context).appName}'),
-          ),
-          body: SingleChildScrollView(
-            child: Column(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Column(
               children: langs
                   .map(
                     (e) => InkWell(
@@ -53,7 +51,9 @@ class _ChooseLangPageState extends State<ChooseLangPage> {
                   )
                   .toList(),
             ),
-          )),
+          ],
+        ),
+      ),
     );
   }
 }

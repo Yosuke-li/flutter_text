@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_text/global/global.dart';
+import 'package:flutter_text/init.dart';
 import 'package:self_utils/utils/navigator.dart';
 import 'package:self_utils/utils/toast_utils.dart';
 import 'package:flutter_text/widget/chat/helper/user/user.dart';
@@ -21,6 +24,7 @@ class UserLoginLogic extends GetxController {
       final User? result = await PostgresUser.checkUser(user);
       if (result != null) {
         GlobalStore.user = result;
+        LocateStorage.setString('user', jsonEncode(result));
         ToastUtils.showToast(msg: '登陆成功');
         NavigatorUtils.pop(Get.context!, results: true);
       } else {

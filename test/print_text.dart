@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -8,5 +10,10 @@ void main() {
     print('\x1B[1;35m 紫色粗体hello world \x1B[0m');
     print('\x1B[1m 粗体 \x1B[0m');
     print('\x1B[4m 下划线hello world \x1B[0m');
+  });
+
+  test('random', () {
+    final index = Random().nextInt(20);
+    print(index);
   });
 }

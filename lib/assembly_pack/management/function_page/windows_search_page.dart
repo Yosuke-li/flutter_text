@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/management/home_page/theme.dart';
 import 'package:flutter_text/index.dart';
 import 'package:flutter_text/init.dart';
 
@@ -50,7 +51,9 @@ class _WindowsSearchPageState extends State<WindowsSearchPage> {
               padding: const EdgeInsets.only(right: 10, left: 10),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                border: Border.all(color: Colors.black, width: 1.0),
+                border: Border.all(color: (GlobalStore.theme == 'light'
+                    ? HomeTheme.lightBorderLineColor
+                    : HomeTheme.darkBorderLineColor), width: 1.0),
               ),
               width: 400,
               child: Row(

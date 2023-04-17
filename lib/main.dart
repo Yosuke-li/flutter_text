@@ -79,6 +79,7 @@ class AssemblyState extends State<Assembly> {
     await LocateStorage.init().whenComplete(
       () => getTodayShow(),
     );
+    _listenTheme();
   }
 
   void getTodayShow() {
@@ -89,6 +90,14 @@ class AssemblyState extends State<Assembly> {
       todayShowAd = false;
     }
     setState(() {});
+  }
+
+  void _listenTheme() {
+    EventBusHelper.listen<EventBusM>((EventBusM event) {
+      if (event.theme != '') {
+        setState(() {});
+      }
+    });
   }
 
   @override
@@ -103,6 +112,9 @@ class AssemblyState extends State<Assembly> {
                   builder: BotToastInit(),
                   showPerformanceOverlay: GlobalStore.isShowOverlay,
                   title: 'Flutter study',
+                  theme: GlobalStore.theme == 'light'
+                      ? ThemeData.light()
+                      : ThemeData.dark(),
                   debugShowCheckedModeBanner: false,
                   localizationsDelegates: const <
                       LocalizationsDelegate<dynamic>>[

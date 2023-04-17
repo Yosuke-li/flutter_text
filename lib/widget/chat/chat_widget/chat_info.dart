@@ -29,17 +29,26 @@ class _ChatInfoState extends State<ChatInfoPage>
   bool isComposer = false; //输入框判断
   final FocusNode _node = FocusNode();
 
+  StreamController<List<MessageModel>> controller =
+      StreamController<List<MessageModel>>();
+
   @override
   void initState() {
     super.initState();
     getTopicMsg((List<MessageModel> list) {
       msgs = list;
+      controller.sink.add(msgs);
       onScrollBottom();
       setState(() {});
     });
     listener((MessageModel msg) {
-      msgs.add(msg);
-      onScrollBottom();
+      if (msg.id == GlobalStore.user?.id && msgs.contains(msg)) {
+        return;
+      } else {
+        msgs.add(msg);
+        controller.sink.add(msgs);
+        onScrollBottom();
+      }
       if (mounted) {
         setState(() {});
       }
@@ -54,8 +63,7 @@ class _ChatInfoState extends State<ChatInfoPage>
   void onScrollBottom() {
     Future<void>.delayed(const Duration(milliseconds: 500)).then((value) {
       if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-            _scrollController.position.maxScrollExtent,
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeOutQuart);
       }
@@ -63,81 +71,101 @@ class _ChatInfoState extends State<ChatInfoPage>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    controller.close();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            flex: 1,
-            child: RepaintBoundary(
-              child: GestureDetector(
-                onTap: () {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                },
-                child: ListView(
-                  controller: _scrollController,
-                  shrinkWrap: true,
-                  children: msgs.map((MessageModel e) {
-                        return ChatMessage(
-                          msg: e,
-                        );
-                      }).toList(),
+    return StreamBuilder<List<MessageModel>>(
+        stream: controller.stream,
+        initialData: msgs,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: RepaintBoundary(
+                    child: GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                      },
+                      child: ListView(
+                        controller: _scrollController,
+                        shrinkWrap: true,
+                        children: (snapshot.data as List<MessageModel>)
+                            .map((MessageModel e) {
+                          return ChatMessage(
+                            msg: e,
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                const Divider(height: 1.0),
+                Container(
+                  decoration: BoxDecoration(color: Theme.of(context).cardColor),
+                  child: _buildTextComposer(),
+                ),
+              ],
             ),
-          ),
-          const Divider(height: 1.0),
-          Container(
-            decoration: BoxDecoration(color: Theme.of(context).cardColor),
-            child: _buildTextComposer(),
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
 
   //底部组件
   Widget _buildTextComposer() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 6.0),
-      child: Row(
-        children: <Widget>[
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: IconButton(
-                icon: const Icon(Icons.photo_camera),
-                onPressed: () {
-                  ToastUtils.showToast(msg: '暂未上线，敬请期待');
-                }),
-          ),
-          Flexible(
-            child: TextField(
-              controller: _textEditingController,
-              focusNode: _node,
-              onChanged: (String text) {
-                setState(() {
-                  isComposer = text.isNotEmpty;
-                });
-              },
-              decoration: const InputDecoration.collapsed(
-                  hintText: '发送消息',
-                  hintStyle: TextStyle(fontSize: 14, color: Colors.black12)),
+    return RawKeyboardListener(
+      focusNode: FocusNode(),
+      onKey: (RawKeyEvent event) {
+        if (event.logicalKey.keyLabel == 'Enter' && isComposer == true) {
+          _handleSubmitted(_textEditingController.text);
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 6.0),
+        child: Row(
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: IconButton(
+                  icon: const Icon(Icons.photo_camera),
+                  onPressed: () {
+                    ToastUtils.showToast(msg: '暂未上线，敬请期待');
+                  }),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 4.0),
-            child: IconButton(
-              icon: Icon(
-                Icons.send,
-                color: isComposer ? Colors.blueAccent : null,
+            Flexible(
+              child: TextField(
+                controller: _textEditingController,
+                focusNode: _node,
+                onChanged: (String text) {
+                  setState(() {
+                    isComposer = text.isNotEmpty;
+                  });
+                },
+                decoration: const InputDecoration.collapsed(
+                    hintText: '发送消息',
+                    hintStyle: TextStyle(fontSize: 14, color: Colors.black12)),
               ),
-              onPressed: () => isComposer
-                  ? _handleSubmitted(_textEditingController.text)
-                  : null,
             ),
-          ),
-        ],
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: IconButton(
+                icon: Icon(
+                  Icons.send,
+                  color: isComposer ? Colors.blueAccent : null,
+                ),
+                onPressed: () => isComposer
+                    ? _handleSubmitted(_textEditingController.text)
+                    : null,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -149,13 +177,16 @@ class _ChatInfoState extends State<ChatInfoPage>
       isComposer = false;
     });
     final MessageModel model = MessageModel()
-      ..id = GlobalStore.user?.id??0
+      ..id = GlobalStore.user?.id ?? 0
       ..topic = widget.topic
       ..msg = text
       ..type = 'text'
       ..time = DateTimeHelper.getLocalTimeStamp();
 
+    msgs.add(model);
+    controller.sink.add(msgs);
     sendMsg(json.encode(model));
+    onScrollBottom();
   }
 
   @override
@@ -188,7 +219,7 @@ class _ChatMessageState extends State<ChatMessage> {
   }
 
   void getUser() async {
-    user = await UserCache().getCache(widget.msg.id??0);
+    user = await UserCache().getCache(widget.msg.id ?? 0);
     if (mounted) {
       setState(() {});
     }
@@ -217,45 +248,57 @@ class _ChatMessageState extends State<ChatMessage> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 Text(user?.name ?? ''),
-                Container(
-                  margin: const EdgeInsets.only(top: 5.0),
-                  child: widget.msg.sendImage != null &&
-                          widget.msg.sendImage?.isNotEmpty == true
-                      ? GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ImageZoomable(
-                                  photoList: [
-                                    NetworkImage(widget.msg.sendImage??'')
-                                  ],
-                                  index: 0,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      '${DateTimeHelper.datetimeFormat(((widget.msg.time ?? 0) / 1000).floor(), 'HH:mm')}',
+                      style: const TextStyle(fontSize: 9),
+                    ),
+                    const SizedBox(width: 8,),
+                    Container(
+                      margin: const EdgeInsets.only(top: 5.0),
+                      child: widget.msg.sendImage != null &&
+                              widget.msg.sendImage?.isNotEmpty == true
+                          ? GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => ImageZoomable(
+                                      photoList: [
+                                        NetworkImage(widget.msg.sendImage ?? '')
+                                      ],
+                                      index: 0,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Image.network(
+                                widget.msg.sendImage ?? '',
+                                width: 150.0,
+                                height: 150.0,
+                                fit: BoxFit.fitWidth,
+                              ),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.green, width: 1),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Container(
+                                color: Colors.green,
+                                padding: const EdgeInsets.only(
+                                    top: 5, bottom: 5, right: 10, left: 10),
+                                child: Text(
+                                  widget.msg.msg ?? '',
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 15),
                                 ),
                               ),
-                            );
-                          },
-                          child: Image.network(
-                            widget.msg.sendImage??'',
-                            width: 150.0,
-                            height: 150.0,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        )
-                      : Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.green, width: 1),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Container(
-                            color: Colors.green,
-                            padding: const EdgeInsets.only(
-                                top: 5, bottom: 5, right: 10, left: 10),
-                            child: Text(
-                              widget.msg.msg ?? '',
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 15),
                             ),
-                          ),
-                        ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -285,44 +328,55 @@ class _ChatMessageState extends State<ChatMessage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(user?.name ?? ''),
-                Container(
-                  margin: const EdgeInsets.only(top: 5.0),
-                  child: widget.msg.sendImage != null &&
-                          widget.msg.sendImage?.isNotEmpty == true
-                      ? GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => ImageZoomable(
-                                  photoList: [
-                                    NetworkImage(widget.msg.sendImage??'')
-                                  ],
-                                  index: 0,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 5.0),
+                      child: widget.msg.sendImage != null &&
+                              widget.msg.sendImage?.isNotEmpty == true
+                          ? GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => ImageZoomable(
+                                      photoList: [
+                                        NetworkImage(widget.msg.sendImage ?? '')
+                                      ],
+                                      index: 0,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Image.network(
+                                widget.msg.sendImage ?? '',
+                                width: 150.0,
+                                height: 150.0,
+                                fit: BoxFit.fitWidth,
+                              ),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.white, width: 1),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Container(
+                                color: Colors.white,
+                                padding: const EdgeInsets.only(
+                                    top: 5, bottom: 5, right: 10, left: 10),
+                                child: Text(
+                                  widget.msg.msg ?? '',
+                                  style: const TextStyle(fontSize: 15),
                                 ),
                               ),
-                            );
-                          },
-                          child: Image.network(
-                            widget.msg.sendImage??'',
-                            width: 150.0,
-                            height: 150.0,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        )
-                      : Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.white, width: 1),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Container(
-                            color: Colors.white,
-                            padding: const EdgeInsets.only(
-                                top: 5, bottom: 5, right: 10, left: 10),
-                            child: Text(
-                              widget.msg.msg ?? '',
-                              style: const TextStyle(fontSize: 15),
                             ),
-                          ),
-                        ),
+                    ),
+                    const SizedBox(width: 8,),
+                    Text(
+                      '${DateTimeHelper.datetimeFormat(((widget.msg.time ?? 0) / 1000).floor(), 'HH:mm')}',
+                      style: const TextStyle(fontSize: 9),
+                    ),
+                  ],
                 ),
               ],
             ),

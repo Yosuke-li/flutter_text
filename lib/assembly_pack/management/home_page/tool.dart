@@ -1,4 +1,5 @@
 import 'package:flutter_text/assembly_pack/management/function_page/windows_main_page.dart';
+import 'package:flutter_text/assembly_pack/management/function_page/windows_setting.dart';
 import 'package:flutter_text/index.dart';
 import 'package:flutter_text/init.dart';
 import 'package:self_utils/widget/management/common/view_key.dart';
@@ -6,12 +7,14 @@ import 'package:self_utils/widget/management/widget/custom_expansion_tile.dart';
 import 'dart:math' as math;
 
 import 'editor.dart';
+import 'theme.dart';
 
 class ContViewKey {
   static const ViewKey mainPage =
       ViewKey(namespace: 'mainPage', id: 'mainPage');
   static const ViewKey media = ViewKey(namespace: 'media', id: 'media');
   static const ViewKey search = ViewKey(namespace: 'search', id: 'search');
+  static const ViewKey setting = ViewKey(namespace: 'setting', id: 'setting');
 }
 
 enum ToolType {
@@ -71,21 +74,22 @@ class _ToolState extends State<Tool> implements EditorListener {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
       width: type == ToolType.normal
           ? 200
           : type == ToolType.small
-          ? 70
-          : 0,
+              ? 70
+              : 0,
       curve: Curves.easeIn,
       duration: const Duration(milliseconds: 200),
       child: Container(
         padding: const EdgeInsets.only(top: 50),
         decoration: BoxDecoration(
-          color: Colors.grey[200],
+          color: GlobalStore.theme == 'light'
+              ? HomeTheme.lightBgColor
+              : HomeTheme.darkBgColor,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,10 +105,6 @@ class _ToolState extends State<Tool> implements EditorListener {
                       icon: Icon(
                         Icons.home,
                         size: 25,
-                        color:
-                            widget.controller.current?.key == ContViewKey.mainPage
-                                ? Colors.red
-                                : Colors.black,
                       ),
                       callback: () {
                         _mainPage();
@@ -124,12 +124,6 @@ class _ToolState extends State<Tool> implements EditorListener {
                             icon: Icon(
                               e.icon.icon,
                               size: 25,
-                              color: widget.controller.current?.key ==
-                                      ViewKey(
-                                          namespace: e.hashCode.toString(),
-                                          id: e.hashCode.toString())
-                                  ? Colors.red
-                                  : Colors.black,
                             ),
                             callback: () {
                               if (e.route != null) {
@@ -149,24 +143,61 @@ class _ToolState extends State<Tool> implements EditorListener {
                 ],
               ),
             ),
-            InkWell(
-              onTap: () {
-                if (type == ToolType.normal) {
-                  type = ToolType.small;
-                } else if (type == ToolType.small) {
-                  type = ToolType.normal;
-                }
-                setState(() {});
-              },
-              child: Container(
-                height: 40,
-                margin: const EdgeInsets.only(left: 24),
-                child: Row(
-                  children: <Widget>[
-                    const Icon(Icons.settings),
-                    if (type == ToolType.normal) const Text(' 设置'),
-                  ],
+            Visibility(
+              visible: type == ToolType.small,
+              child: InkWell(
+                onTap: () {
+                  if (type == ToolType.normal) {
+                    type = ToolType.small;
+                  } else if (type == ToolType.small) {
+                    type = ToolType.normal;
+                  }
+                  setState(() {});
+                },
+                child: Container(
+                  height: 40,
+                  margin: const EdgeInsets.only(left: 24),
+                  child: const Icon(Icons.last_page),
                 ),
+              ),
+            ),
+            Container(
+              height: 40,
+              margin: const EdgeInsets.only(left: 24, right: 15, bottom: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      widget.controller.open(
+                          key: ContViewKey.setting,
+                          tab: '设置',
+                          contentIfAbsent: (_) => const WindowsSettingPage());
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(Icons.settings),
+                        if (type == ToolType.normal) const Text(' 设置'),
+                      ],
+                    ),
+                  ),
+                  if (type == ToolType.normal)
+                    InkWell(
+                      onTap: () {
+                        if (type == ToolType.normal) {
+                          type = ToolType.small;
+                        } else if (type == ToolType.small) {
+                          type = ToolType.normal;
+                        }
+                        setState(() {});
+                      },
+                      child: Container(
+                        height: 40,
+                        margin: const EdgeInsets.only(left: 24),
+                        child: const Icon(Icons.first_page),
+                      ),
+                    ),
+                ],
               ),
             ),
           ],
@@ -198,9 +229,7 @@ class _ToolState extends State<Tool> implements EditorListener {
             children: [
               Container(
                 width: 4,
-                color: lastKey == key
-                    ? Colors.red
-                    : const Color(0x00000000),
+                color: lastKey == key ? Colors.red : const Color(0x00000000),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 4, left: 20, bottom: 4),
@@ -226,7 +255,9 @@ class _ToolState extends State<Tool> implements EditorListener {
                           style: TextStyle(
                             color: lastKey == key
                                 ? Colors.red
-                                : const Color(0xff000000),
+                                : (GlobalStore.theme == 'light'
+                                ? HomeTheme.lightBorderLineColor
+                                : HomeTheme.darkBorderLineColor),
                           ),
                         ),
                       )

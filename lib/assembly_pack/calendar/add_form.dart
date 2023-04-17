@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_text/assembly_pack/management/home_page/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_text/assembly_pack/calendar/method.dart';
 import 'package:flutter_text/init.dart';
@@ -73,7 +74,11 @@ class _AddFormWidgetState extends State<AddFormWidget> {
       child: Container(
         margin: const EdgeInsets.only(right: 20),
         decoration: BoxDecoration(
-          border: Border.all(),
+          border: Border.all(
+            color: (GlobalStore.theme == 'light'
+                ? HomeTheme.lightBorderLineColor
+                : HomeTheme.darkBorderLineColor)
+          ),
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: isAdd

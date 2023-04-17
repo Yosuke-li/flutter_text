@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/chat_self/chat_room/view.dart';
+import 'package:flutter_text/global/global.dart';
+import 'package:flutter_text/init.dart';
+import 'package:flutter_text/widget/chat/chat_widget/chat_info.dart';
 import 'package:self_utils/utils/datetime_utils.dart';
 import 'package:self_utils/utils/navigator.dart';
 import 'package:self_utils/utils/screen.dart';
@@ -44,11 +47,22 @@ class _ChatHeadState extends State<ChatHeadPage>
       onTap: () {
         unRead = false;
         setState(() {});
-        NavigatorUtils.getXOfPush(context, ChatRoomPage(),
-            arguments: {'topic': widget.topic}).then((_) {
-          unRead = false;
-          setState(() {});
-        });
+        if (!GlobalStore.isMobile) {
+          WindowsNavigator().pushWidget(context, Scaffold(
+            body: ChatInfoPage(
+              topic: widget.topic,
+            ),
+          ), title: '聊天室')?.then((_) {
+            unRead = false;
+            setState(() {});
+          });
+        } else {
+          NavigatorUtils.getXOfPush(context, ChatRoomPage(),
+              arguments: {'topic': widget.topic}).then((_) {
+            unRead = false;
+            setState(() {});
+          });
+        }
       },
       child: Container(
         margin: EdgeInsets.all(

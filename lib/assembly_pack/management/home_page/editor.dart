@@ -6,6 +6,7 @@ import 'package:self_utils/widget/management/common/listenable.dart';
 import 'package:self_utils/widget/management/common/view_key.dart';
 import 'package:self_utils/widget/management/widget/stack_view.dart';
 
+import 'theme.dart';
 import 'tool.dart';
 
 abstract class EditorListener {
@@ -180,7 +181,9 @@ class _EditorState extends State<Editor> implements EditorListener {
           //   ),
           Container(
             height: 50,
-            color: Colors.grey[200],
+            color: GlobalStore.theme == 'light'
+                ? HomeTheme.lightBgColor
+                : HomeTheme.darkBgColor,
             child: Row(
               children: [
                 Expanded(
@@ -194,9 +197,8 @@ class _EditorState extends State<Editor> implements EditorListener {
                                       widget.controller.tabs.last;
                                   widget.controller.close(lastOne.key);
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.chevron_left,
-                                  color: Colors.grey[600],
                                 ),
                               ),
                               const SizedBox(
@@ -231,12 +233,16 @@ class _EditorState extends State<Editor> implements EditorListener {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(25.0)),
                               border:
-                                  Border.all(color: Colors.black, width: 1.0),
+                                  Border.all(color: GlobalStore.theme == 'light'
+                                      ? HomeTheme.lightBorderLineColor
+                                      : HomeTheme.darkBorderLineColor, width: 1.0),
                             ),
                             child: Text(
                               '搜索内部组件',
                               style: TextStyle(
-                                  color: Colors.grey[700], fontSize: 14),
+                                  color: GlobalStore.theme == 'light'
+                                      ? HomeTheme.lightBorderTxColor
+                                      : HomeTheme.darkBorderTxColor, fontSize: 14),
                             ),
                           ),
                           const SizedBox(
@@ -255,24 +261,28 @@ class _EditorState extends State<Editor> implements EditorListener {
                   onTap: () {
                     if (GlobalStore.user != null) {
                     } else {
-                      WindowsNavigator().pushWidget(context, UserLoginPage(), title: '登陆');
+                      WindowsNavigator()
+                          .pushWidget(context, UserLoginPage(), title: '登陆');
                     }
                   },
                   child: Container(
                     margin: const EdgeInsets.only(right: 20),
-                    child: GlobalStore.user != null ? Row(
-                      children: [
-                        Container(
-                          width: 30,
-                          child: const CircleAvatar(
-                            backgroundImage: AssetImage('images/sun.jpg'),
+                    child: GlobalStore.user != null
+                        ? Row(
+                            children: [
+                              Container(
+                                width: 30,
+                                child: CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      GlobalStore.user?.image ?? ''),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(
+                            width: 30,
+                            child: const Icon(Icons.person),
                           ),
-                        ),
-                      ],
-                    ) : Container(
-                      width: 30,
-                      child: const Icon(Icons.person),
-                    ),
                   ),
                 )
               ],
