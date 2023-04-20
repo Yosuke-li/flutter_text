@@ -1,0 +1,35 @@
+{
+  "name": "webview_cef",
+  "version": "0.0.1",
+  "summary": "Flutter webview backed by CEF (Chromium Embedded Framework)",
+  "description": "Flutter webview backed by CEF (Chromium Embedded Framework)",
+  "homepage": "http://example.com",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Your Company": "email@example.com"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "dependencies": {
+    "FlutterMacOS": [
+
+    ]
+  },
+  "vendored_frameworks": "third/cef/Chromium Embedded Framework.framework",
+  "vendored_libraries": "third/cef/libcef_dll_wrapper.a",
+  "xcconfig": {
+    "HEADER_SEARCH_PATHS": "/Users/lixuan/Documents/work/flutter_text/macos/Flutter/ephemeral/.symlinks/plugins/webview_cef/macos/third/cef/**"
+  },
+  "platforms": {
+    "osx": "10.11"
+  },
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES"
+  },
+  "swift_versions": "5.0",
+  "swift_version": "5.0"
+}

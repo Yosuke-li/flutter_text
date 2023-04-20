@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter_text/assembly_pack/management/home_page/theme.dart';
 import 'package:flutter_text/init.dart';
 import 'package:intl/intl.dart';
+import 'package:self_utils/init.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'add_form.dart';
@@ -27,6 +29,7 @@ class _WinCalendarPageState extends State<WinCalendarPage> {
     super.initState();
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+    _listenTheme();
   }
 
   @override
@@ -88,6 +91,14 @@ class _WinCalendarPageState extends State<WinCalendarPage> {
     } else if (end != null) {
       _selectedEvents.value = _getEventsForDay(end);
     }
+  }
+
+  void _listenTheme() {
+    EventBusHelper.listen<EventBusM>((EventBusM event) {
+      if (event.theme != '') {
+        setState(() {});
+      }
+    });
   }
 
   @override
@@ -155,7 +166,11 @@ class _WinCalendarPageState extends State<WinCalendarPage> {
                                   margin:
                                       const EdgeInsets.only(right: 20, top: 8),
                                   decoration: BoxDecoration(
-                                    border: Border.all(),
+                                    border: Border.all(
+                                      color: GlobalStore.theme == 'light'
+                                          ? HomeTheme.lightBorderLineColor
+                                          : HomeTheme.darkBorderLineColor
+                                    ),
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   child: Row(

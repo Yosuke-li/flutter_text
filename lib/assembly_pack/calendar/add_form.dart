@@ -4,6 +4,7 @@ import 'package:flutter_text/assembly_pack/management/home_page/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_text/assembly_pack/calendar/method.dart';
 import 'package:flutter_text/init.dart';
+import 'package:self_utils/init.dart';
 
 class AddFormWidget extends StatefulWidget {
   DateTime time;
@@ -25,6 +26,7 @@ class _AddFormWidgetState extends State<AddFormWidget> {
 
   @override
   void initState() {
+    _listenTheme();
     super.initState();
   }
 
@@ -35,6 +37,14 @@ class _AddFormWidgetState extends State<AddFormWidget> {
     if (widget.time != oldWidget.time) {
       _refresh();
     }
+  }
+
+  void _listenTheme() {
+    EventBusHelper.listen<EventBusM>((EventBusM event) {
+      if (event.theme != '') {
+        setState(() {});
+      }
+    });
   }
 
   void _onSave() {

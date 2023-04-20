@@ -399,17 +399,13 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
       style: const NeumorphicStyle(
         boxShape: NeumorphicBoxShape.circle(),
       ),
-      child: RotationTransition(
-        alignment: Alignment.center,
-        turns: _controller,
-        child: Container(
-            height: 200,
-            width: 200,
-            child: Image.asset(
-              'images/002.jpg',
-              fit: BoxFit.cover,
-            )),
-      ),
+      child: Container(
+          height: 200,
+          width: 200,
+          child: Image.asset(
+            'images/002.jpg',
+            fit: BoxFit.cover,
+          ),),
     );
   }
 

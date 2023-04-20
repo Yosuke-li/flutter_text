@@ -52,7 +52,7 @@ class MusicHelper {
     final MusicModel _model = MusicModel()
       ..path = newFile.path
       ..id = _file.hashCode
-      ..name = _file.name.split('.')[0];
+      ..name = _file.name.split('.mp3')[0];
     await MusicCache.setCache(_model);
 
     return _model;

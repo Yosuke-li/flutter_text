@@ -12,7 +12,7 @@ class PopupMenu extends StatelessWidget {
               child: Center(
                 child: Text('倍速'),
               ),
-              offset: Offset(100, 100),
+              offset: Offset(10, 10),
               itemBuilder: (BuildContext context) => [ //菜单项构造器
                 const PopupMenuItem(//菜单项
                   value: ConferenceItem.AddMember,

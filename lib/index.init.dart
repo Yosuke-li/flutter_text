@@ -552,7 +552,7 @@ List<MainWidgetModel> page3 = <MainWidgetModel>[
   ),
   MainWidgetModel(
     title: 'webview test',
-    route: const WebviewTest(),
+    route: const WebViewTest(),
     icon: const Icon(Icons.web),
   ),
   MainWidgetModel(
@@ -603,5 +603,10 @@ List<MainWidgetModel> page4 = [
     title: '音乐播放器--',
     route: MusicPlayPage(),
     icon: const Icon(Icons.music_note),
+  ),
+  MainWidgetModel(
+    title: '浏览器',
+    route: const WebViewTest(),
+    icon: const Icon(Icons.web),
   ),
 ];

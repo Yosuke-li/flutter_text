@@ -7,7 +7,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:audioplayers_web/audioplayers_web.dart';
-import 'package:connectivity_for_web/connectivity_for_web.dart';
 import 'package:desktop_drop/desktop_drop_web.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:image_picker_for_web/image_picker_for_web.dart';
@@ -20,7 +19,6 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 // ignore: public_member_api_docs
 void registerPlugins(Registrar registrar) {
   AudioplayersPlugin.registerWith(registrar);
-  ConnectivityPlugin.registerWith(registrar);
   DesktopDropWeb.registerWith(registrar);
   FilePickerWeb.registerWith(registrar);
   ImagePickerPlugin.registerWith(registrar);
