@@ -10,28 +10,32 @@ class AnimatedContainerPage extends StatefulWidget {
 class TextState extends State<AnimatedContainerPage> {
   double width = 50;
 
+  @override
   void initState() {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("AnimatedContainer"),
       ),
-      body: GestureDetector(
-        onTap: () {
-          setState(() {
-            width = MediaQuery.of(context).size.width;
-          });
-        },
-        child: AnimatedContainer(
-          duration: Duration(seconds: 5),
-          width: width,
-          height: 50,
-          color: Colors.red,
-          padding: EdgeInsets.only(bottom: 100),
-          curve: Curves.bounceOut,
+      body: RepaintBoundary(
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              width = MediaQuery.of(context).size.width;
+            });
+          },
+          child: AnimatedContainer(
+            duration: Duration(seconds: 5),
+            width: width,
+            height: 50,
+            color: Colors.red,
+            padding: EdgeInsets.only(bottom: 100),
+            curve: Curves.bounceOut,
+          ),
         ),
       ),
     );

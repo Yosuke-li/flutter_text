@@ -41,6 +41,8 @@ PODS:
     - FlutterMacOS
   - video_compress_ds (0.3.0):
     - FlutterMacOS
+  - video_player_macos (0.0.1):
+    - FlutterMacOS
   - webview_cef (0.0.1):
     - FlutterMacOS
   - window_manager (0.2.0):
@@ -64,6 +66,7 @@ DEPENDENCIES:
   - tray_manager (from `Flutter/ephemeral/.symlinks/plugins/tray_manager/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
   - video_compress_ds (from `Flutter/ephemeral/.symlinks/plugins/video_compress_ds/macos`)
+  - video_player_macos (from `Flutter/ephemeral/.symlinks/plugins/video_player_macos/macos`)
   - webview_cef (from `Flutter/ephemeral/.symlinks/plugins/webview_cef/macos`)
   - window_manager (from `Flutter/ephemeral/.symlinks/plugins/window_manager/macos`)
 
@@ -107,6 +110,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
   video_compress_ds:
     :path: Flutter/ephemeral/.symlinks/plugins/video_compress_ds/macos
+  video_player_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/video_player_macos/macos
   webview_cef:
     :path: Flutter/ephemeral/.symlinks/plugins/webview_cef/macos
   window_manager:
@@ -132,6 +137,7 @@ SPEC CHECKSUMS:
   tray_manager: 9064e219c56d75c476e46b9a21182087930baf90
   url_launcher_macos: 5335912b679c073563f29d89d33d10d459f95451
   video_compress_ds: deddff707c87229fa29d87f74dc53ac58e542026
+  video_player_macos: 7a50b407d775a45392851b1218a9cf4be395cf7f
   webview_cef: eb1f2810b9c309619fc200fa0951fc2a82ca03b2
   window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
 

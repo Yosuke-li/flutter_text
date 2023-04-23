@@ -144,15 +144,15 @@ class _WinCalendarPageState extends State<WinCalendarPage> {
                             '${DateFormat('yyyy-MM-dd').format(_selectedDay ?? DateTime.now())} 日常事项'),
                       ),
                       Visibility(
-                        visible: _rangeStart == null &&
-                            _rangeEnd == null,
+                        visible: _rangeStart == null && _rangeEnd == null,
                         child: AddFormWidget(
-                        time: _selectedDay ?? DateTime.now(),
-                        refresh: () {
-                          _selectedEvents.value =
-                              _getEventsForDay(_selectedDay ?? DateTime.now());
-                        },
-                      ),),
+                          time: _selectedDay ?? DateTime.now(),
+                          refresh: () {
+                            _selectedEvents.value = _getEventsForDay(
+                                _selectedDay ?? DateTime.now());
+                          },
+                        ),
+                      ),
                       Expanded(
                         child: ValueListenableBuilder<List<Event>>(
                           valueListenable: _selectedEvents,
@@ -161,119 +161,25 @@ class _WinCalendarPageState extends State<WinCalendarPage> {
                               itemCount: value.length,
                               itemBuilder: (context, index) {
                                 final Event event = value[index];
-                                return Container(
-                                  height: 50,
-                                  margin:
-                                      const EdgeInsets.only(right: 20, top: 8),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: GlobalStore.theme == 'light'
-                                          ? HomeTheme.lightBorderLineColor
-                                          : HomeTheme.darkBorderLineColor
-                                    ),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        child: Row(
-                                          children: [
-                                            Checkbox(
-                                              value: event.type ==
-                                                      EventType
-                                                          .expire.enumToString
-                                                  ? null
-                                                  : event.type.stringToEnum ==
-                                                      EventType.finish,
-                                              tristate: event.type ==
-                                                  EventType.expire.enumToString,
-                                              onChanged: (bool? value) {
-                                                if (event.type ==
-                                                    EventType.expire.enumToString) {
-                                                  return;
-                                                }
-                                                if (event.type ==
-                                                    EventType
-                                                        .finish.enumToString) {
-                                                  event.type = EventType
-                                                      .normal.enumToString;
-                                                } else {
-                                                  event.type = EventType
-                                                      .finish.enumToString;
-                                                }
-                                                EventHelper.changeOneEvent(
-                                                    event);
-                                                if (_rangeStart != null &&
-                                                    _rangeEnd != null) {
-                                                  _selectedEvents.value =
-                                                      _getEventsForRange(
-                                                          _rangeStart!,
-                                                          _rangeEnd!);
-                                                } else {
-                                                  _selectedEvents.value =
-                                                      _getEventsForDay(
-                                                          _selectedDay!);
-                                                }
-                                                setState(() {});
-                                              },
-                                            ),
-                                            Text(
-                                              '${event.desc}',
-                                              style: event.type ==
-                                                      EventType
-                                                          .expire.enumToString
-                                                  ? const TextStyle(
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
-                                                    )
-                                                  : null,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        child: Row(
-                                          children: [
-                                            // IconButton(
-                                            //   onPressed: () {},
-                                            //   icon: const Icon(Icons.edit),
-                                            // ),
-                                            Visibility(
-                                              child: IconButton(
-                                                onPressed: () {
-                                                  ModalText.tipToast(context,
-                                                      onFunc: () {
-                                                    event.type = EventType
-                                                        .expire.enumToString;
-                                                    EventHelper.changeOneEvent(
-                                                        event);
-                                                    if (_rangeStart != null &&
-                                                        _rangeEnd != null) {
-                                                      _selectedEvents.value =
-                                                          _getEventsForRange(
-                                                              _rangeStart!,
-                                                              _rangeEnd!);
-                                                    } else {
-                                                      _selectedEvents.value =
-                                                          _getEventsForDay(
-                                                              _selectedDay!);
-                                                    }
-                                                    setState(() {});
-                                                  });
-                                                },
-                                                icon: const Icon(Icons.delete),
-                                              ),
-                                              visible: event.type !=
-                                                  EventType.expire.enumToString,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
+                                return _EventListChild(
+                                    key: Key(event.hashCode.toString()),
+                                    event: event,
+                                    refresh: () {
+                                      _selectedEvents.value = _getEventsForDay(
+                                          _selectedDay ?? DateTime.now());
+                                    },
+                                    onChange: () {
+                                      if (_rangeStart != null &&
+                                          _rangeEnd != null) {
+                                        _selectedEvents.value =
+                                            _getEventsForRange(
+                                                _rangeStart!, _rangeEnd!);
+                                      } else {
+                                        _selectedEvents.value =
+                                            _getEventsForDay(_selectedDay!);
+                                      }
+                                      setState(() {});
+                                    });
                               },
                             );
                           },
@@ -284,6 +190,197 @@ class _WinCalendarPageState extends State<WinCalendarPage> {
                 ),
               ],
             ),
+    );
+  }
+}
+
+class _EventListChild extends StatefulWidget {
+  final Event event;
+  final void Function() onChange;
+  final void Function() refresh;
+
+  const _EventListChild({
+    required this.event,
+    required this.onChange,
+    required this.refresh,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<_EventListChild> createState() => _EventListChildState();
+}
+
+class _EventListChildState extends State<_EventListChild> {
+  GlobalKey<FormState> key = GlobalKey<FormState>();
+  bool isEdit = false;
+  late Event event;
+  double _height = 50;
+
+  String desc = '';
+
+  @override
+  void initState() {
+    super.initState();
+    event = widget.event;
+    setState(() {});
+  }
+
+  void _edit() {
+    final FormState? form = key.currentState;
+    if (form != null && form.validate()) {
+      form.save();
+      try {
+        event.desc = desc;
+        EventHelper.changeOneEvent(event);
+        widget.refresh.call();
+        key = GlobalKey<FormState>();
+        isEdit = false;
+        _height = 50;
+        setState(() {});
+      } catch (err) {
+        rethrow;
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RepaintBoundary(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: _height,
+        child: Container(
+          margin: const EdgeInsets.only(right: 20, top: 8),
+          decoration: BoxDecoration(
+            border: Border.all(
+                color: GlobalStore.theme == 'light'
+                    ? HomeTheme.lightBorderLineColor
+                    : HomeTheme.darkBorderLineColor),
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: isEdit
+              ? Form(
+                  key: key,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              initialValue: event.title,
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                hintText: '标题',
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              _edit();
+                            },
+                            child: const Text('修改'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              _height = 50;
+                              isEdit = !isEdit;
+                              setState(() {});
+                            },
+                            child: const Text('取消'),
+                          ),
+                        ],
+                      ),
+                      Expanded(
+                        child: Container(
+                          child: TextFormField(
+                            maxLines: 6,
+                            initialValue: event.desc,
+                            decoration: const InputDecoration(
+                              hintText: '内容',
+                            ),
+                            onSaved: (String? value) {
+                              desc = value ?? '';
+                              setState(() {});
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            value: event.type == EventType.expire.enumToString
+                                ? null
+                                : event.type.stringToEnum == EventType.finish,
+                            tristate:
+                                event.type == EventType.expire.enumToString,
+                            onChanged: (bool? value) {
+                              if (event.type == EventType.expire.enumToString) {
+                                return;
+                              }
+                              if (event.type == EventType.finish.enumToString) {
+                                event.type = EventType.normal.enumToString;
+                              } else {
+                                event.type = EventType.finish.enumToString;
+                              }
+                              EventHelper.changeOneEvent(event);
+                              widget.onChange.call();
+                              setState(() {});
+                            },
+                          ),
+                          Text(
+                            '${event.desc}',
+                            style: event.type == EventType.expire.enumToString
+                                ? const TextStyle(
+                                    decoration: TextDecoration.lineThrough,
+                                  )
+                                : null,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Visibility(
+                      visible: !isEdit,
+                      child: Container(
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                _height = 200;
+                                isEdit = true;
+                                setState(() {});
+                              },
+                              icon: const Icon(Icons.edit),
+                            ),
+                            Visibility(
+                              child: IconButton(
+                                onPressed: () {
+                                  ModalText.tipToast(context, onFunc: () {
+                                    event.type = EventType.expire.enumToString;
+                                    EventHelper.changeOneEvent(event);
+                                    widget.onChange.call();
+                                    setState(() {});
+                                  });
+                                },
+                                icon: const Icon(Icons.delete),
+                              ),
+                              visible:
+                                  event.type != EventType.expire.enumToString,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+        ),
+      ),
     );
   }
 }

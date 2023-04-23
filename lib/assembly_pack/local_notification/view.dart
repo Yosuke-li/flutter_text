@@ -17,10 +17,10 @@ class LocalNotificationState extends State<LocalNotification> {
         AndroidInitializationSettings('@mipmap/ic_launcher');
     const InitializationSettings initSettings =
         InitializationSettings(android: android);
-    fNotification.initialize(initSettings, onSelectNotification: onSelectNotification);
+    fNotification.initialize(initSettings, onDidReceiveNotificationResponse: onSelectNotification);
   }
 
-  Future<void> onSelectNotification(String? payload) async {
+  Future<void> onSelectNotification(NotificationResponse? payload) async {
     debugPrint('payload : $payload');
     showDialog(
       context: context,
@@ -59,7 +59,7 @@ class LocalNotificationState extends State<LocalNotification> {
     const AndroidNotificationDetails android = AndroidNotificationDetails(
         'channel id', 'channel NAME',
         priority: Priority.high, importance: Importance.max);
-    const iOS =  IOSNotificationDetails();
+    const iOS =  DarwinNotificationDetails();
     const platform = NotificationDetails(android: android, iOS: iOS);
     await fNotification.show(
         0, '本地推送测试标题', '本地推送测试内容', platform,

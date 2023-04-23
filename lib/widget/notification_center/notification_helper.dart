@@ -21,13 +21,13 @@ class NotificationHelper {
     const InitializationSettings initSettings =
     InitializationSettings(android: android);
     _context = context;
-    flutterLocalNotificationsPlugin.initialize(initSettings, onSelectNotification: _onSelectNotification);
+    flutterLocalNotificationsPlugin.initialize(initSettings, onDidReceiveNotificationResponse: _onSelectNotification);
   }
 
   //触发相应的事件
-  static Future<void> _onSelectNotification(String? payload) async {
+  static Future<void>   _onSelectNotification(NotificationResponse? payload) async {
     if (payload != null) {
-      final NotificationModel event = NotificationModel.fromJson(jsonDecode(payload));
+      final NotificationModel event = NotificationModel.fromJson(jsonDecode(payload.payload!));
       if (event.type == NotificationType.Message.enumToString) {
         ToastUtils.showToast(msg: event.msg??'');
         return;
@@ -44,8 +44,9 @@ class NotificationHelper {
     const AndroidNotificationDetails android = AndroidNotificationDetails(
         'channel id', 'channel NAME',
         priority: Priority.high, importance: Importance.max);
-    const IOSNotificationDetails iOS =  IOSNotificationDetails(threadIdentifier: 'channel id');
-    const NotificationDetails platform = NotificationDetails(android: android, iOS: iOS);
+    const DarwinNotificationDetails iOS =  DarwinNotificationDetails(threadIdentifier: 'channel id');
+    const DarwinNotificationDetails macOs = DarwinNotificationDetails(threadIdentifier: 'macos');
+    const NotificationDetails platform = NotificationDetails(android: android, iOS: iOS, macOS: macOs);
     await flutterLocalNotificationsPlugin.show(
         event.id??0, event.title, event.msg, platform,
         payload: jsonEncode(event));

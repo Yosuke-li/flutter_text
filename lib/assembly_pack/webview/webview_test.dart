@@ -147,6 +147,7 @@ class _WebViewTestState extends State<WebViewTest> {
                             child: TextField(
                               decoration: const InputDecoration(
                                 contentPadding: EdgeInsets.all(0),
+                                constraints: BoxConstraints(maxHeight: 35)
                               ),
                               controller: _textController,
                               onSubmitted: (url) {

@@ -42,7 +42,9 @@ class _AddFormWidgetState extends State<AddFormWidget> {
   void _listenTheme() {
     EventBusHelper.listen<EventBusM>((EventBusM event) {
       if (event.theme != '') {
-        setState(() {});
+        if (!mounted) {
+          setState(() {});
+        }
       }
     });
   }
