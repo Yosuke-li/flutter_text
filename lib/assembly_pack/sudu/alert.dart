@@ -18,7 +18,7 @@ class AlertGameOver extends StatelessWidget {
         style: TextStyle(color: Styles.darkGrey),
       ),
       content: Text(
-        '恭喜通关该难度！用时${DateTimeHelper.secToMusicTime(time)}',
+        '恭喜通关该难度！用时${DateTimeHelper.secToMSTime(time)}',
         style: TextStyle(color: Styles.darkGrey),
       ),
       actions: [

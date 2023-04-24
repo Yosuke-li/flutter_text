@@ -102,7 +102,7 @@ class _ToolState extends State<Tool> implements EditorListener {
                     child: buildToolGroup(
                       key: ContViewKey.mainPage,
                       groupName: '主页',
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.home,
                         size: 25,
                       ),

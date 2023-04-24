@@ -461,7 +461,7 @@ class _SudoGameState extends State<SudoGamePage> {
                   children: [
                     Text('当前难度：$currentDifficultyLevel'),
                     RepaintBoundary(
-                      child: Text('${DateTimeHelper.secToMusicTime(time)}'),
+                      child: Text('${DateTimeHelper.secToMSTime(time)}'),
                     ),
                     RepaintBoundary(
                       child: DropSelectableWidget(

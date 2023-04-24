@@ -38,7 +38,7 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
   ),
   MainWidgetModel(
     title: '本地视频播放--',
-    route: videoIndex(),
+    route: VideoIndex(),
     icon: const Icon(Icons.ondemand_video),
   ),
   MainWidgetModel(

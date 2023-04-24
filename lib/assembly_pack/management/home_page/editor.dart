@@ -193,9 +193,11 @@ class _EditorState extends State<Editor> implements EditorListener {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  final TabPage lastOne =
-                                      widget.controller.tabs.last;
-                                  widget.controller.close(lastOne.key);
+                                  Utils.debounce(() {
+                                    final TabPage lastOne =
+                                        widget.controller.tabs.last;
+                                    widget.controller.close(lastOne.key);
+                                  }, delay: const Duration(milliseconds: 180));
                                 },
                                 child: const Icon(
                                   Icons.chevron_left,

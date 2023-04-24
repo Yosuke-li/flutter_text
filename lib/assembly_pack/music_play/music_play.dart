@@ -437,14 +437,14 @@ class _PageState extends State<_Page> with TickerProviderStateMixin {
                 Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      '${DateTimeHelper.secToMusicTime(currentTime)}',
+                      '${DateTimeHelper.secToMSTime(currentTime)}',
                       style: TextStyle(
                           color: NeumorphicTheme.defaultTextColor(context)),
                     )),
                 Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      '${DateTimeHelper.secToMusicTime(times)}',
+                      '${DateTimeHelper.secToMSTime(times)}',
                       style: TextStyle(
                           color: NeumorphicTheme.defaultTextColor(context)),
                     )),
