@@ -35,7 +35,7 @@ dependencies:
   flutter_picker: ^2.0.2 #文件选择
   flutter_swiper: ^1.1.6 #滑动
   inview_notifier_list: 3.0.0 #视频滚动到播放
-  connectivity_plus: ^3.0.4
+#  connectivity_plus: ^3.0.4
   #  flutter_plugin_record: ^1.0.1 #录音
   sqflite: ^2.2.6 #sql数据库
   flutter_local_notifications: ^13.0.0 #本地消息推送
@@ -83,7 +83,7 @@ dependencies:
   #    git: https://github.com/Yosuke-li/self_utils.git
   #  openai_client: ^0.0.2
   table_calendar: ^3.0.8
-  desktop_webview_window: ^0.2.0
+#  desktop_webview_window: ^0.2.0
 
   #video_player插件
   video_player_macos: ^2.0.1

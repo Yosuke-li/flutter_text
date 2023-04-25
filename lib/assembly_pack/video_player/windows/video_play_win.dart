@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:self_utils/utils/datetime_utils.dart';
 import 'package:self_utils/utils/log_utils.dart';
-import 'package:self_utils/utils/screen.dart';
 import 'package:self_utils/utils/toast_utils.dart';
 import 'package:self_utils/utils/utils.dart';
-import 'package:orientation/orientation.dart';
 import 'package:video_player/video_player.dart'; // 引入官方插件
 
 class VideoPlayWinPage extends StatefulWidget {
@@ -19,6 +17,7 @@ class VideoPlayWinPage extends StatefulWidget {
     this.height,
     this.autoPlay = true,
     this.title = '',
+    this.onExtraFunc,
   }) : super(key: key);
 
   // 视频地址
@@ -32,6 +31,8 @@ class VideoPlayWinPage extends StatefulWidget {
   final String? title;
 
   final bool? autoPlay;
+
+  final void Function()? onExtraFunc;
 
   @override
   State<VideoPlayWinPage> createState() => _VideoPlayWinPageState();
@@ -159,7 +160,6 @@ class _VideoPlayWinPageState extends State<VideoPlayWinPage> {
           height: 40,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              // 来点黑色到透明的渐变优雅一下
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: <Color>[
@@ -252,6 +252,14 @@ class _VideoPlayWinPageState extends State<VideoPlayWinPage> {
                         _toggleFullScreen();
                       },
                     ),
+                    widget.onExtraFunc != null
+                        ? IconButton(
+                            onPressed: () {
+                              widget.onExtraFunc!.call();
+                            },
+                            icon: const Icon(Icons.list, color: Colors.white,),
+                          )
+                        : Container(),
                   ],
                 )
               : Container(),
@@ -297,41 +305,41 @@ class _VideoPlayWinPageState extends State<VideoPlayWinPage> {
 
   List<PopupMenuEntry<double>> _getPopupMenu(BuildContext context) {
     return <PopupMenuEntry<double>>[
-      PopupMenuItem<double>(
+      const PopupMenuItem<double>(
         value: 0.5,
-        height: screenUtil.adaptive(80),
-        child: const Text('x0.5'),
-        textStyle: const TextStyle(color: Colors.white),
+        height: 40,
+        child: Text('x0.5'),
+        textStyle: TextStyle(color: Colors.white),
       ),
-      PopupMenuItem<double>(
+      const PopupMenuItem<double>(
         value: 0.75,
-        height: screenUtil.adaptive(80),
-        child: const Text('x0.75'),
-        textStyle: const TextStyle(color: Colors.white),
+        height: 40,
+        child: Text('x0.75'),
+        textStyle: TextStyle(color: Colors.white),
       ),
-      PopupMenuItem<double>(
+      const PopupMenuItem<double>(
         value: 1.0,
-        height: screenUtil.adaptive(80),
-        child: const Text('x1.0'),
-        textStyle: const TextStyle(color: Colors.white),
+        height: 40,
+        child: Text('x1.0'),
+        textStyle: TextStyle(color: Colors.white),
       ),
-      PopupMenuItem<double>(
+      const PopupMenuItem<double>(
         value: 1.25,
-        height: screenUtil.adaptive(80),
-        child: const Text('x1.25'),
-        textStyle: const TextStyle(color: Colors.white),
+        height: 40,
+        child: Text('x1.25'),
+        textStyle: TextStyle(color: Colors.white),
       ),
-      PopupMenuItem<double>(
+      const PopupMenuItem<double>(
         value: 1.5,
-        height: screenUtil.adaptive(80),
-        child: const Text('x1.5'),
-        textStyle: const TextStyle(color: Colors.white),
+        height: 40,
+        child: Text('x1.5'),
+        textStyle: TextStyle(color: Colors.white),
       ),
-      PopupMenuItem<double>(
+      const PopupMenuItem<double>(
         value: 2.0,
-        height: screenUtil.adaptive(80),
-        child: const Text('x2.0'),
-        textStyle: const TextStyle(color: Colors.white),
+        height: 40,
+        child: Text('x2.0'),
+        textStyle: TextStyle(color: Colors.white),
       ),
     ];
   }
@@ -354,10 +362,11 @@ class _VideoPlayWinPageState extends State<VideoPlayWinPage> {
   //数据变化的时候
   @override
   void didUpdateWidget(VideoPlayWinPage oldWidget) {
-    if (oldWidget.file != widget.file) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.key != widget.key) {
+      Log.info('urlChange');
       _urlChange(); // url变化时重新执行一次url加载
     }
-    super.didUpdateWidget(oldWidget);
   }
 
   //销毁的时候

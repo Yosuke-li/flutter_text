@@ -76,11 +76,11 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
     route: pdfView(),
     icon: const Icon(Icons.file_download),
   ),
-  MainWidgetModel(
-    title: '检查连接数据--',
-    route: const ConnectWidget(),
-    icon: const Icon(Icons.wifi),
-  ),
+  // MainWidgetModel(
+  //   title: '检查连接数据--',
+  //   route: const ConnectWidget(),
+  //   icon: const Icon(Icons.wifi),
+  // ),
   MainWidgetModel(
     title: '录音--',
     route: MicStreamDemo(),
@@ -600,9 +600,9 @@ List<MainWidgetModel> page4 = [
     icon: const Icon(Icons.calendar_month),
   ),
   MainWidgetModel(
-    title: '音乐播放器--',
-    route: MusicPlayPage(),
-    icon: const Icon(Icons.music_note),
+    title: '本地视频播放--',
+    route: VideoIndex(),
+    icon: const Icon(Icons.ondemand_video),
   ),
   MainWidgetModel(
     title: '浏览器',

@@ -350,13 +350,16 @@ class _EventListChildState extends State<_EventListChild> {
                       child: Container(
                         child: Row(
                           children: [
-                            IconButton(
-                              onPressed: () {
-                                _height = 200;
-                                isEdit = true;
-                                setState(() {});
-                              },
-                              icon: const Icon(Icons.edit),
+                            Visibility(
+                              visible: event.type != EventType.expire.enumToString,
+                              child: IconButton(
+                                onPressed: () {
+                                  _height = 200;
+                                  isEdit = true;
+                                  setState(() {});
+                                },
+                                icon: const Icon(Icons.edit),
+                              ),
                             ),
                             Visibility(
                               child: IconButton(
