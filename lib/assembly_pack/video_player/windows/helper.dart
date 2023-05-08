@@ -36,13 +36,17 @@ class WinVideoHelper {
   //缓存进应用内部
   static Future<File> setLocalVideoPath(
       {required File file, String? extension, String? name}) async {
-    final Uint8List? unit8 = file.readAsBytesSync();
-    final File tempFile = await FileUtils.generateRandomTempFile(
-      fileType: extension,
-      name: name,
-    );
-    final File newFile = await tempFile.writeAsBytes(unit8!);
-    return newFile;
+    try {
+      final Uint8List? unit8 = file.readAsBytesSync();
+      final File tempFile = await FileUtils.generateRandomTempFile(
+        fileType: extension,
+        name: name,
+      );
+      final File newFile = await tempFile.writeAsBytes(unit8!);
+      return newFile;
+    } catch (err) {
+      rethrow;
+    }
   }
 }
 

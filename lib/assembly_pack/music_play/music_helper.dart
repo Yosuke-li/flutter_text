@@ -45,7 +45,7 @@ class MusicHelper {
     final PlatformFile _file = ArrayHelper.get(files.files, 0)!;
     final Uint8List unit8 = File(_file.path!).readAsBytesSync();
     final File tempFile =
-        await FileUtils.generateRandomTempFile(fileType: 'mp3');
+        await FileUtils.generateRandomTempFile(fileType: 'mp3', name: _file.name);
     final File newFile = await tempFile.writeAsBytes(unit8);
 
     //缓存文件

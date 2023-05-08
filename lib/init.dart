@@ -150,6 +150,8 @@ export 'package:self_utils/utils/dio/dio_helper.dart';
 export 'assembly_pack/chat_gpt/chat_gpt_page.dart';
 export 'assembly_pack/choose_lan/choose_lan.dart';
 export 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
+export 'assembly_pack/calendar/main.dart';
+export 'assembly_pack/paint/paint_main.dart';
 
 
 

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_text/assembly_pack/paint/music_amplitude.dart';
 import 'package:self_utils/utils/lock.dart';
 
 import '../../../init.dart';
@@ -202,6 +203,12 @@ class _PlayVideoWindowsState extends State<PlayVideoWindows> {
                                         : null,
                                     child: Row(
                                       children: [
+                                        current == res
+                                            ? Container(
+                                          child: const MusicAmplitude(),
+                                          margin: const EdgeInsets.only(right: 10),
+                                        )
+                                            : Container(),
                                         Expanded(
                                           child: Text(
                                             res.name ?? '',

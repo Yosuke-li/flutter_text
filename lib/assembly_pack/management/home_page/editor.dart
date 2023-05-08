@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/chat_self/user_login/view.dart';
 import 'package:flutter_text/assembly_pack/management/function_page/windows_search_page.dart';
+import 'package:flutter_text/assembly_pack/paint/music_amplitude.dart';
 import 'package:flutter_text/init.dart';
 import 'package:self_utils/widget/management/common/listenable.dart';
 import 'package:self_utils/widget/management/common/view_key.dart';

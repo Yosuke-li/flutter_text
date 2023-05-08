@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_text/assembly_pack/paint/music_amplitude.dart';
 import 'package:flutter_text/model/img_model.dart';
 import 'package:flutter_text/widget/banner.dart';
 
@@ -26,8 +27,10 @@ class _WindowsMainPageState extends State<WindowsMainPage> {
         child: Container(
           padding: const EdgeInsets.only(top: 10),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               WidgetBanner(_imgData),
+              
             ],
           ),
         ),

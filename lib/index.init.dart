@@ -72,6 +72,11 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
     icon: const Icon(Icons.picture_as_pdf),
   ),
   MainWidgetModel(
+    title: 'paint--',
+    route: const PaintMain(),
+    icon: const Icon(Icons.format_paint),
+  ),
+  MainWidgetModel(
     title: '本地pdf下载--',
     route: pdfView(),
     icon: const Icon(Icons.file_download),
