@@ -1,6 +1,7 @@
 import 'package:flutter_text/init.dart';
 import 'package:flutter_text/model/AComponent.dart';
 
+import 'example_forth.dart';
 import 'example_one.dart';
 import 'example_thr.dart';
 import 'example_two.dart';
@@ -28,6 +29,9 @@ class _PaintMainState extends State<PaintMain> {
       PageModel()
         ..name = '振幅研究 -- PaintExampleThr'
         ..pageUrl = const PaintExampleThr(),
+      PageModel()
+        ..name = '棋盘 -- PaintExampleForth'
+        ..pageUrl = const PaintExampleForth(),
     ];
   }
 
