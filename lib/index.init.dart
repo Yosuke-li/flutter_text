@@ -77,6 +77,11 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
     icon: const Icon(Icons.format_paint),
   ),
   MainWidgetModel(
+    title: 'Game 小游戏--',
+    route: const GameListPage(),
+    icon: const Icon(Icons.golf_course),
+  ),
+  MainWidgetModel(
     title: '本地pdf下载--',
     route: pdfView(),
     icon: const Icon(Icons.file_download),

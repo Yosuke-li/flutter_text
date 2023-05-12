@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter_text/init.dart';
+import 'board.dart';
 
 enum GameStatus { finish, stop, playing }
 
@@ -11,18 +12,17 @@ class PaintExampleForth extends StatefulWidget {
   State<PaintExampleForth> createState() => _PaintExampleForthState();
 }
 
-class _PaintExampleForthState extends State<PaintExampleForth> {
+class _PaintExampleForthState extends State<PaintExampleForth> with Board {
   List<List<int>> points = [];
 
-  final List<List<int>> black = [];
-  final List<List<int>> white = [];
   int step = 0; //步数
   GameStatus status = GameStatus.stop;
-  Size size = const Size(300, 300);
+  Size boxSize = const Size(300, 300);
 
   @override
   void initState() {
     super.initState();
+    init(col: 15);
   }
 
   @override
@@ -37,6 +37,12 @@ class _PaintExampleForthState extends State<PaintExampleForth> {
               children: [
                 ElevatedButton(
                   onPressed: () {
+                    if (status == GameStatus.finish) {
+                      step = 0;
+                      points.clear();
+                      board.clear();
+                      init(col: 15);
+                    }
                     if (status != GameStatus.playing) {
                       status = GameStatus.playing;
                     } else {
@@ -65,22 +71,23 @@ class _PaintExampleForthState extends State<PaintExampleForth> {
                 } else {
                   points.add(point);
                   if (step % 2 == 0) {
-                    black.add(point);
-                    check = checkWin(black);
+                    board[point[1]][point[0]] = 1;
+                    check = checkWin(point[1], point[0], 1);
                   } else {
-                    white.add(point);
-                    check = checkWin(white);
+                    board[point[1]][point[0]] = 2;
+                    check = checkWin(point[1], point[0], 2);
                   }
-                  step++;
                   if (check) {
+                    ToastUtils.showToast(msg: '游戏结束！${step % 2 == 0 ? '黑子' : '白子'}获胜！');
                     status = GameStatus.finish;
                   }
+                  step++;
                   setState(() {});
                 }
               },
               child: RepaintBoundary(
                 child: CustomPaint(
-                  size: size,
+                  size: boxSize,
                   painter: _PaintEx(points: points),
                 ),
               ),
@@ -92,36 +99,9 @@ class _PaintExampleForthState extends State<PaintExampleForth> {
   }
 
   List<int> _setCanvasSet(Offset tap) {
-    final int x = ((tap.dx / size.width) * 15).round();
-    final int y = ((tap.dy / size.height) * 15).round();
+    final int x = ((tap.dx / boxSize.width) * 15).round();
+    final int y = ((tap.dy / boxSize.height) * 15).round();
     return <int>[x, y];
-  }
-
-  // 检查胜利条件
-  bool checkWin(List<List<int>> points) {
-    for (int i = 0; i < points.length; i++) {
-      final counts = <String, int>{};
-      for (int j = 0; j < points.length; j++) {
-        if (i == j) continue;
-        final x1 = points[i][0];
-        final y1 = points[i][1];
-        final x2 = points[j][0];
-        final y2 = points[j][1];
-        final k = (x2 == x1) ? double.infinity : (y2 - y1) / (x2 - x1);
-        final b = y1 - k * x1;
-        final key = '$k,$b';
-        if (counts.containsKey(key)) {
-          counts[key] = counts[key]! + 1;
-        } else {
-          counts[key] = 1;
-        }
-      }
-      if (counts.values.any((int count) => count >= 4)) {
-        ToastUtils.showToast(msg: '游戏结束，${step % 2 == 0 ? '黑子' : '白子'}获胜！');
-        return true;
-      }
-    }
-    return false;
   }
 }
 
@@ -176,4 +156,3 @@ class _PaintEx extends CustomPainter {
     return this != oldDelegate;
   }
 }
-
