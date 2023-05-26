@@ -94,6 +94,8 @@ class KChartState extends State<KChartPage> {
                 translations: kChartTranslations,
                 showNowPrice: _showNowPrice,
                 hideGrid: _hideGrid,
+                isTapShowInfoDialog: true,
+                isTrendLine: true,
                 maDayList: const [1, 100, 1000],
               ),
             ),

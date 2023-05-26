@@ -50,7 +50,7 @@ dependencies:
   flutter_intro: ^2.3.0 #页面指引
   ota_update: ^3.0.2 #下载更新
   postgres: ^2.4.3 #数据库
-  k_chart: ^0.4.0 #折线图
+  k_chart: ^0.7.0 #折线图
   cached_network_image: ^3.1.0 #图片缓存
   syncfusion_flutter_charts: ^20.2.43 #折线图
   #  agora_rtc_engine: ^4.0.7 #声网api

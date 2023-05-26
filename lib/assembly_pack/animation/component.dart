@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/animation/animated_container.dart';
 import 'package:flutter_text/assembly_pack/animation/animated_cross_fade.dart';
+import 'package:flutter_text/assembly_pack/animation/up_animation_example.dart';
 import 'package:flutter_text/assembly_pack/choose_seat/choose_seat.dart';
 import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
 import 'package:flutter_text/assembly_pack/neumorphic/calculator/calculator_sample.dart';
@@ -62,6 +63,9 @@ class AnimaComponentPageState extends State<AnimaComponentPage> {
       PageModel()
         ..name = 'ChooseSeat'
         ..pageUrl = ChooseSeat(),
+      PageModel()
+        ..name = 'UpAnimationExample'
+        ..pageUrl = const UpAnimationExample(),
     ];
   }
 

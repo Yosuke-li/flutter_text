@@ -1,5 +1,6 @@
 import 'package:self_utils/generated/l10n.dart';
 
+import 'assembly_pack/management/function_page/windows_search_page.dart';
 import 'init.dart';
 
 part 'index.init.dart';
@@ -134,6 +135,17 @@ class MainIndexState extends State<MainIndexPage>
       child: Scaffold(
         appBar: AppBar(
           title: Text('${S.of(viewContext).appName}'),
+          actions: [
+            GestureDetector(
+              onTap: () {
+                NavigatorUtils().pushWidget(context, const WindowsSearchPage());
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 10),
+                child: const Icon(Icons.search),
+              ),
+            ),
+          ],
         ),
         body: Builder(
           builder: (BuildContext context) => TabBarView(
