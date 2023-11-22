@@ -83,6 +83,7 @@ dependencies:
   #    git: https://github.com/Yosuke-li/self_utils.git
   #  openai_client: ^0.0.2
   table_calendar: ^3.0.8
+  scrollview_observer: ^1.16.1
 #  desktop_webview_window: ^0.2.0
 
   #video_player插件

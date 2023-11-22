@@ -342,9 +342,7 @@ class _EpubViewState extends State<EpubView> {
           data: paragraphs[index].element.outerHtml,
           onLinkTap: (href, _, __) => onExternalLinkPressed(href!),
           style: {
-            'html': Style(
-              padding: options.paragraphPadding as EdgeInsets?,
-            ).merge(Style.fromTextStyle(options.textStyle)),
+            'html': Style().merge(Style.fromTextStyle(options.textStyle)),
           },
           // customRenders: {
           //   tagMatcher('img'):

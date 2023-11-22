@@ -16,4 +16,10 @@ void main() {
     final index = Random().nextInt(20);
     print(index);
   });
+
+  test('patterns 解构函数', () {
+    var a = {'b', 10};
+    
+
+  });
 }

@@ -237,6 +237,11 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     icon: const Icon(Icons.ad_units),
   ),
   MainWidgetModel(
+    title: 'ImageCardPage',
+    route: const ImageCardPage(),
+    icon: const Icon(Icons.image_aspect_ratio_sharp),
+  ),
+  MainWidgetModel(
     title: 'desktop 组件列表使用',
     route: DesktopComponentPage(),
     icon: const Icon(Icons.ad_units),
@@ -312,6 +317,11 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     icon: const Icon(Icons.flash_auto),
   ),
   MainWidgetModel(
+    title: 'MarkDownPage',
+    route: const MarkDownPage(),
+    icon: const Icon(Icons.mark_as_unread),
+  ),
+  MainWidgetModel(
     title: 'NavigationTest',
     route: const NavigationTest(),
     icon: const Icon(Icons.tab),
@@ -330,6 +340,11 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     title: '分组列表',
     route: GroupListPage(),
     icon: const Icon(Icons.group_add),
+  ),
+  MainWidgetModel(
+    title: 'Log日志',
+    route: const LogInfoPage(),
+    icon: const Icon(Icons.logo_dev),
   ),
   MainWidgetModel(
     title: '悬浮弹窗',
@@ -359,6 +374,11 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     title: 'SlidingUpPanelText使用',
     route: SlidingUpPanelText(),
     icon: const Icon(Icons.keyboard),
+  ),
+  MainWidgetModel(
+    title: 'LayoutBuilder实验',
+    route: const LayoutTestPage(),
+    icon: const Icon(Icons.local_play_outlined),
   ),
   MainWidgetModel(
     title: 'StreamText',
@@ -416,6 +436,11 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     icon: const Icon(Icons.inbox),
   ),
   MainWidgetModel(
+    title: '自定义表格列表（table）',
+    route: TableListComponentPage(),
+    icon: const Icon(Icons.table_bar),
+  ),
+  MainWidgetModel(
     title: '文本输入框',
     onTapFunc: (BuildContext context) {
       Navigator.push(
@@ -471,6 +496,11 @@ List<MainWidgetModel> page2 = <MainWidgetModel>[
     title: 'Drag_list组件',
     route: DragText(),
     icon: const Icon(Icons.format_align_justify),
+  ),
+  MainWidgetModel(
+    title: 'sort 排序动画',
+    route: const SortAnimationPage(),
+    icon: const Icon(Icons.sort),
   ),
   MainWidgetModel(
     title: 'Slidable组件',

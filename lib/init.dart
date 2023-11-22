@@ -153,6 +153,13 @@ export 'assembly_pack/management/utils/navigator.dart';
 export 'assembly_pack/calendar/main.dart';
 export 'assembly_pack/paint/paint_main.dart';
 export 'assembly_pack/game/game_list.dart';
+export 'assembly_pack/layout_page.dart';
+export 'assembly_pack/management/function_page/windows_search_page.dart';
+export 'assembly_pack/image_card/image_card_page.dart';
+export 'assembly_pack/log_page.dart';
+export 'assembly_pack/markdown/markdown_page.dart';
+export 'assembly_pack/table_example/component.dart';
+export 'assembly_pack/sort_widget/sort_animation.dart';
 
 
 
