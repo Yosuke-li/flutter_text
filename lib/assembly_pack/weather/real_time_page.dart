@@ -79,7 +79,6 @@ class RealTimeWeatherState extends State<RealTimePage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil(width: 1000, height: 2111)..init(context);
     ScreenUtil screenUtil = ScreenUtil();
     return Scaffold(
         body: isLoading

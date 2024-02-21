@@ -1,10 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:self_utils/utils/array_helper.dart';
-import 'package:self_utils/utils/navigator.dart';
 import 'package:self_utils/utils/screen.dart';
-import 'package:image_picker_saver/image_picker_saver.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class PickImage extends StatelessWidget {
   @override
@@ -26,6 +24,7 @@ class PickImageDemo extends StatefulWidget {
 
 class PickImageState extends State<PickImageDemo> {
   final List<File> _imageList = <File>[];
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
@@ -111,12 +110,12 @@ class PickImageState extends State<PickImageDemo> {
   }
 
   Future<void> _getWechatPicker() async {
-    final List<AssetEntity>? images = await AssetPicker.pickAssets(context);
-    if (images != null) {
+    final List<XFile> images = await _picker.pickMultiImage();
+    if (images.isNotEmpty) {
       final List<File> list = <File>[];
       for (int i = 0; i < images.length; i++) {
-        final File? file = await ArrayHelper.get(images, i)?.file;
-        if (file != null) {
+        if (ArrayHelper.get(images, i) != null) {
+          final File file = File(ArrayHelper.get(images, i)!.path);
           list.add(file);
         }
       }
@@ -128,13 +127,16 @@ class PickImageState extends State<PickImageDemo> {
 
   Future<void> _getImage(int _photoIndex) async {
     Navigator.of(context).pop();
-    final File image = await ImagePickerSaver.pickImage(
+    late File image;
+    final XFile? img = await _picker.pickImage(
         source: _photoIndex == 0 ? ImageSource.camera : ImageSource.gallery,
         maxWidth: 1024.0,
         maxHeight: 1024.0);
 
+
     //没有选择图片或者没有拍照
-    if (image != null) {
+    if (img != null) {
+      image = File(img.path);
       setState(() {
         _imageList.add(image);
       });

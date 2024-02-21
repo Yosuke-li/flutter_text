@@ -42,7 +42,7 @@ class _ChatInfoState extends State<ChatInfoPage>
       setState(() {});
     });
     listener((MessageModel msg) {
-      if (msg.id == GlobalStore.user?.id && msgs.contains(msg)) {
+      if (msg.id == GlobalStore.user?.id && msgs.any((item) => item.keyId == msg.keyId)) {
         return;
       } else {
         msgs.add(msg);
@@ -178,6 +178,7 @@ class _ChatInfoState extends State<ChatInfoPage>
     });
     final MessageModel model = MessageModel()
       ..id = GlobalStore.user?.id ?? 0
+      ..keyId = Utils.getStampId()
       ..topic = widget.topic
       ..msg = text
       ..type = 'text'
@@ -256,7 +257,9 @@ class _ChatMessageState extends State<ChatMessage> {
                       '${DateTimeHelper.datetimeFormat(((widget.msg.time ?? 0) / 1000).floor(), 'HH:mm')}',
                       style: const TextStyle(fontSize: 9),
                     ),
-                    const SizedBox(width: 8,),
+                    const SizedBox(
+                      width: 8,
+                    ),
                     Container(
                       margin: const EdgeInsets.only(top: 5.0),
                       child: widget.msg.sendImage != null &&
@@ -329,7 +332,7 @@ class _ChatMessageState extends State<ChatMessage> {
               children: <Widget>[
                 Text(user?.name ?? ''),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Container(
@@ -358,7 +361,8 @@ class _ChatMessageState extends State<ChatMessage> {
                             )
                           : Container(
                               decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.white, width: 1),
+                                  border:
+                                      Border.all(color: Colors.white, width: 1),
                                   borderRadius: BorderRadius.circular(5)),
                               child: Container(
                                 color: Colors.white,
@@ -371,7 +375,9 @@ class _ChatMessageState extends State<ChatMessage> {
                               ),
                             ),
                     ),
-                    const SizedBox(width: 8,),
+                    const SizedBox(
+                      width: 8,
+                    ),
                     Text(
                       '${DateTimeHelper.datetimeFormat(((widget.msg.time ?? 0) / 1000).floor(), 'HH:mm')}',
                       style: const TextStyle(fontSize: 9),

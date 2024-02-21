@@ -26,7 +26,10 @@ class HelloDemoState extends State<HelloDemo> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIOverlays([]); //清除手机顶部和底部状态栏
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [],
+    ); //清除手机顶部和底部状态栏
     _getPlane();
   }
 
@@ -43,8 +46,10 @@ class HelloDemoState extends State<HelloDemo> {
   @override
   void dispose() {
     super.dispose();
-    SystemChrome.setEnabledSystemUIOverlays(
-        [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
+    );
   }
 
   @override
@@ -94,16 +99,16 @@ class HelloDemoState extends State<HelloDemo> {
 class LinearBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final MovieTween tween = MovieTween()..tween(
-          'color1',
-          ColorTween(begin: Colors.red, end: Colors.blueAccent.shade700),
-          duration: const Duration(seconds: 20),
-        )
-        .thenTween(
-          'color2',
-          ColorTween(begin: Colors.deepOrange, end: Colors.blue.shade600),
-          duration: const Duration(seconds: 20),
-        );
+    final MovieTween tween = MovieTween()
+      ..tween(
+        'color1',
+        ColorTween(begin: Colors.red, end: Colors.blueAccent.shade700),
+        duration: const Duration(seconds: 20),
+      ).thenTween(
+        'color2',
+        ColorTween(begin: Colors.deepOrange, end: Colors.blue.shade600),
+        duration: const Duration(seconds: 20),
+      );
     return MirrorAnimationBuilder<Movie>(
       tween: tween,
       duration: tween.duration,

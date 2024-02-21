@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:image_picker_saver/image_picker_saver.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
 class   TextT extends StatefulWidget {
@@ -15,6 +15,7 @@ class   TextT extends StatefulWidget {
 
 class _MyAppState extends State<TextT> {
   Uint8List bytes = Uint8List(0);
+  final ImagePicker _picker = ImagePicker();
   late TextEditingController _inputController;
   late TextEditingController _outputController;
 
@@ -250,26 +251,28 @@ class _MyAppState extends State<TextT> {
     );
   }
 
-  Future _scan() async {
-    String barcode = await scanner.scan();
-    _outputController.text = barcode;
+  Future<void> _scan() async {
+    final String? barcode = await scanner.scan();
+    _outputController.text = barcode??'';
   }
 
-  Future _scanPhoto() async {
+  Future<void> _scanPhoto() async {
     String barcode = await scanner.scanPhoto();
     _outputController.text = barcode;
   }
 
-  Future _scanPath(String path) async {
+  Future<void> _scanPath(String path) async {
     String barcode = await scanner.scanPath(path);
     _outputController.text = barcode;
   }
 
   Future _scanBytes() async {
-    File file = await ImagePickerSaver.pickImage(source: ImageSource.camera);
-    Uint8List bytes = file.readAsBytesSync();
-    String barcode = await scanner.scanBytes(bytes);
-    _outputController.text = barcode;
+    final XFile? file = await _picker.pickImage(source: ImageSource.camera);
+    if (file != null) {
+      Uint8List bytes = File(file.path).readAsBytesSync();
+      String barcode = await scanner.scanBytes(bytes);
+      _outputController.text = barcode;
+    }
   }
 
   Future _generateBarCode(String inputCode) async {

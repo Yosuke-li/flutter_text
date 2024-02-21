@@ -78,8 +78,12 @@ class TextState extends State<ScanBook> {
   //私人Api扫码
   Future<void> scan() async {
     try {
-      final String barcode = await scanner.scan();
-      final ScanBookPModel scanBook = await ScanBookApi().isbnGetBookDetailP(barcode);
+      final String? qrString = await scanner.scan();
+      if (qrString == null) {
+        setState(() => barcode = '');
+        return;
+      }
+      final ScanBookPModel scanBook = await ScanBookApi().isbnGetBookDetailP(qrString!);
       setState(() {
         _scanPBook = scanBook;
       });
@@ -97,8 +101,12 @@ class TextState extends State<ScanBook> {
   //阿里云扫图书条形码
   Future<void> scanAli() async {
     try {
-      final String barcode = await scanner.scan();
-      final ScanBookAModel scanBook = await ScanBookApi().isbnGetBookDetailA(barcode);
+      final String? qrString = await scanner.scan();
+      if (qrString == null) {
+        setState(() => barcode = '');
+        return;
+      }
+      final ScanBookAModel scanBook = await ScanBookApi().isbnGetBookDetailA(qrString!);
       setState(() {
         _scanABook = scanBook;
       });

@@ -38,7 +38,7 @@ class Npc extends SpriteAnimationComponent with HasGameRef, CollisionCallbacks {
       loop: false,
     );
     position = gameRef.size / 3;
-    animation!.onComplete = _onLastFrame;
+    // animation!.onComplete = _onLastFrame;
 
     add(RectangleHitbox());
   }
@@ -57,8 +57,8 @@ class Npc extends SpriteAnimationComponent with HasGameRef, CollisionCallbacks {
   }
 
   void _onLastFrame() {
-    animation!.currentIndex = 0;
-    animation!.update(0);
+    // animation!.currentIndex = 0;
+    // animation!.update(0);
   }
 
   void move(Vector2 ds) {
@@ -97,6 +97,6 @@ class Npc extends SpriteAnimationComponent with HasGameRef, CollisionCallbacks {
       loop: false,
     );
     position.add(ds);
-    animation!.onComplete = _onLastFrame;
+    // animation!.onComplete = _onLastFrame;
   }
 }

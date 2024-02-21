@@ -36,7 +36,7 @@ class SlidingDemoState extends State<SlidingDemo> {
     return Container(
       child: SlidingUpPanel(
         controller: panel,
-        slideDirection: SlideDirection.LEFT,
+        slideDirection: SlideDirection.UP,
         minWidth: 0,
         maxWidth: 250,
         minHeight: 0,

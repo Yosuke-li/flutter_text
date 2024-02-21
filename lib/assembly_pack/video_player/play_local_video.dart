@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/assembly_pack/video_player/windows/play_video_windows.dart';
 import 'package:flutter_text/global/global.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:self_utils/widget/video_widget.dart';
-import 'package:image_picker_saver/image_picker_saver.dart';
 
 class VideoIndex extends StatefulWidget {
   @override
@@ -15,6 +15,7 @@ class contextPageState extends State<VideoIndex> {
   bool get _isFullScreen =>
       MediaQuery.of(context).orientation == Orientation.landscape;
   File? _video;
+  final ImagePicker _picker = ImagePicker();
 
   Size get _window => MediaQuery.of(context).size;
 
@@ -47,11 +48,11 @@ class contextPageState extends State<VideoIndex> {
             floatingActionButton: !_isFullScreen
                 ? FloatingActionButton(
                     onPressed: () async {
-                      final File video = await ImagePickerSaver.pickVideo(
+                      final XFile? video = await _picker.pickVideo(
                           source: ImageSource.gallery);
                       if (video != null && video.path != '') {
                         setState(() {
-                          _video = video;
+                          _video = File(video.path);
                         });
                       }
                     },

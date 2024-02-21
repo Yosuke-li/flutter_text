@@ -160,6 +160,7 @@ export 'assembly_pack/log_page.dart';
 export 'assembly_pack/markdown/markdown_page.dart';
 export 'assembly_pack/table_example/component.dart';
 export 'assembly_pack/sort_widget/sort_animation.dart';
+export 'assembly_pack/property_enum/property_enum.dart';
 
 
 

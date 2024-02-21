@@ -7,6 +7,7 @@
 /// type : 'room'
 
 class MessageModel {
+  int? keyId;
   int? id;
   int? toId;
   String? msg;
@@ -17,6 +18,7 @@ class MessageModel {
 
   MessageModel(){
     id = id;
+    keyId = keyId;
     toId = toId;
     msg = msg;
     time = time;
@@ -27,6 +29,7 @@ class MessageModel {
 
   MessageModel.fromJson(dynamic json) {
     id = json['id'];
+    keyId = json['keyId'];
     toId = json['toId'];
     msg = json['msg'];
     time = json['time'];
@@ -38,6 +41,7 @@ class MessageModel {
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map['id'] = id;
+    map['keyId'] = keyId;
     map['toId'] = toId;
     map['msg'] = msg;
     map['time'] = time;

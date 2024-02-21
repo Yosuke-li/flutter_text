@@ -52,7 +52,7 @@ class GameMap extends Component {
   }
 }
 
-class Rock extends SpriteComponent with HasGameRef, Tappable {
+class Rock extends SpriteComponent with HasGameRef {
   Rock(Vector2 position)
       : super(
     position: position,

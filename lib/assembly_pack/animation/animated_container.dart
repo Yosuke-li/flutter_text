@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(AnimatedContainerPage());
 
 class AnimatedContainerPage extends StatefulWidget {
+  @override
   TextState createState() => TextState();
 }
 

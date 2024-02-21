@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:flutter_text/assembly_pack/controller_test/controller.dart';
 import 'package:flutter_text/assembly_pack/management/utils/navigator.dart';
 import 'package:flutter_text/assembly_pack/music_play/music_helper.dart';

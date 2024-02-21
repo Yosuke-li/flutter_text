@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:flutter_text/api/pear_video.dart';
 import 'package:flutter_text/model/pear_video.dart';
 import 'package:self_utils/utils/array_helper.dart';

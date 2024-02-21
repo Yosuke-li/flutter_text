@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_text/init.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:self_utils/utils/compress.dart';
-import 'package:image_picker_saver/image_picker_saver.dart';
 
 class ImageCompressPage extends StatefulWidget {
   @override
@@ -16,30 +16,34 @@ class _ImageCompressState extends State<ImageCompressPage> {
   int? width;
   int? height;
 
+  final ImagePicker _picker = ImagePicker();
+
   //获取图片
   Future<void> _getImage() async {
-    final File image = await ImagePickerSaver.pickImage(
+    final XFile? image = await _picker.pickImage(
         source: ImageSource.gallery, maxWidth: 1024.0, maxHeight: 1024.0);
-    final Image pimage = Image.file(image);
-
-    //获取图片file格式的长宽
-    pimage.image
-        .resolve(const ImageConfiguration())
-        .addListener(ImageStreamListener((ImageInfo info, bool _) {
-      Log.info(info.image.height);
-      Log.info(info.image.width);
-      setState(() {
-        width = info.image.width;
-        height = info.image.height;
-      });
-    }));
-
-    //没有选择图片或者没有拍照
     if (image != null) {
-      setState(() {
-        _file = image;
-        _compressImage = null;
-      });
+      final Image pimage = Image.file(File(image.path));
+
+      //获取图片file格式的长宽
+      pimage.image
+          .resolve(const ImageConfiguration())
+          .addListener(ImageStreamListener((ImageInfo info, bool _) {
+        Log.info(info.image.height);
+        Log.info(info.image.width);
+        setState(() {
+          width = info.image.width;
+          height = info.image.height;
+        });
+      }));
+
+      //没有选择图片或者没有拍照
+      if (image != null) {
+        setState(() {
+          _file = File(image.path);
+          _compressImage = null;
+        });
+      }
     }
   }
 

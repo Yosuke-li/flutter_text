@@ -7,7 +7,6 @@ import 'package:self_utils/utils/toast_utils.dart';
 import 'package:self_utils/widget/api_call_back.dart';
 import 'package:self_utils/widget/video_widget.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:image_picker_saver/image_picker_saver.dart';
 import 'package:video_compress_ds/video_compress_ds.dart';
 
 class VideoCompressPage extends StatefulWidget {

@@ -26,6 +26,8 @@ class _ManagementPageState extends State<ManagementPage> {
     Log.init(isDebug: true);
   }
 
+  
+
   void _checkUser() async {
     try {
       final String? res = LocateStorage.getString('user');

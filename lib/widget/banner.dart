@@ -7,6 +7,26 @@ import 'package:flutter_text/model/img_model.dart';
 import 'package:self_utils/widget/image_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
+/// /// 显示状态栏
+//   void _statusBarShow() {
+//     SystemChrome.setEnabledSystemUIMode(
+//       SystemUiMode.manual,
+//       overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom] /// 显示状态栏，显示 android 底部导航栏
+//     );
+//     setState((){});
+//   }
+//
+//   /// 隐藏状态栏
+//   void _statusBarHide() {
+//     SystemChrome.setEnabledSystemUIMode(
+//       SystemUiMode.manual,
+//       overlays: [SystemUiOverlay.bottom]                      /// 隐藏状态栏，显示 android 底部导航栏
+//     );
+//     setState((){});
+//   }
+///
+
 class WidgetBanner extends StatefulWidget {
   final List<ImageModel> _images;
   final double height;
@@ -37,7 +57,10 @@ class _WidgetBannerState extends State<WidgetBanner> {
     super.initState();
     _currentIndex = widget._images.length * 5;
     _pageController = PageController(initialPage: _currentIndex);
-    SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[]); //清除手机顶部和底部状态栏
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom]                      /// 隐藏状态栏，显示 android 底部导航栏
+    );
     _initTimer();
   }
 
@@ -46,8 +69,10 @@ class _WidgetBannerState extends State<WidgetBanner> {
   void dispose() {
     super.dispose();
     _timer?.cancel();
-    SystemChrome.setEnabledSystemUIOverlays(
-        <SystemUiOverlay>[SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    SystemChrome.setEnabledSystemUIMode(
+        SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]                      /// 隐藏状态栏，显示 android 底部导航栏
+    );;
   }
 
   @override

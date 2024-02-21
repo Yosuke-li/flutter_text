@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8592E0E389D40AC17881400ADC67ABC0"
-               BuildableName = "FMDB.framework"
-               BlueprintName = "FMDB"
+               BlueprintIdentifier = "CACE6618E7996464E38687E13F67D945"
+               BuildableName = "path_provider_foundation_privacy.bundle"
+               BlueprintName = "path_provider_foundation-path_provider_foundation_privacy"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

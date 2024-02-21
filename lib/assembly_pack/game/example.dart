@@ -10,7 +10,7 @@ import 'package:flutter_text/init.dart';
 
 import 'map.dart';
 
-class JoystickExample extends FlameGame with HasDraggables, KeyboardEvents {
+class JoystickExample extends FlameGame with KeyboardEvents {
   late final JoystickPlayer player;
   late final Npc npc;
   final GameMap map = GameMap();
@@ -29,12 +29,12 @@ class JoystickExample extends FlameGame with HasDraggables, KeyboardEvents {
     );
     npc = Npc(src: 'human/F_01.png', joystick: joystick);
 
-    camera.viewport = FixedResolutionViewport(
-      Vector2(1280, 800),
-    );
+    // camera.viewport = FixedResolutionViewport(
+    //   Vector2(1280, 800),
+    // );
     add(map);
-    camera.speed = 1;
-    camera.followComponent(npc, worldBounds: GameMap.bounds);
+    // camera.speed = 1;
+    // camera.followComponent(npc, worldBounds: GameMap.bounds);
 
     add(npc);
     add(joystick);
@@ -42,43 +42,43 @@ class JoystickExample extends FlameGame with HasDraggables, KeyboardEvents {
 
   ///
   ///  键盘事件
-  @override
-  KeyEventResult onKeyEvent(
-    RawKeyEvent event,
-    Set<LogicalKeyboardKey> keysPressed,
-  ) {
-    final isKeyDown = event is RawKeyDownEvent;
-    if (event.logicalKey == LogicalKeyboardKey.keyY && isKeyDown) {
-      player.flip(y: true);
-    }
-    if (event.logicalKey == LogicalKeyboardKey.keyX && isKeyDown) {
-      player.flip(x: true);
-    }
-
-    if (event.logicalKey == LogicalKeyboardKey.keyQ) {
-      player.loss(10);
-    }
-
-    if ((event.logicalKey == LogicalKeyboardKey.arrowUp ||
-            event.logicalKey == LogicalKeyboardKey.keyW) &&
-        isKeyDown) {
-      npc.move(Vector2(0, -step));
-    }
-    if ((event.logicalKey == LogicalKeyboardKey.arrowDown ||
-            event.logicalKey == LogicalKeyboardKey.keyS) &&
-        isKeyDown) {
-      npc.move(Vector2(0, step));
-    }
-    if ((event.logicalKey == LogicalKeyboardKey.arrowLeft ||
-            event.logicalKey == LogicalKeyboardKey.keyA) &&
-        isKeyDown) {
-      npc.move(Vector2(-step, 0));
-    }
-    if ((event.logicalKey == LogicalKeyboardKey.arrowRight ||
-            event.logicalKey == LogicalKeyboardKey.keyD) &&
-        isKeyDown) {
-      npc.move(Vector2(step, 0));
-    }
-    return super.onKeyEvent(event, keysPressed);
-  }
+  // @override
+  // KeyEventResult onKeyEvent(
+  //   RawKeyEvent event,
+  //   Set<LogicalKeyboardKey> keysPressed,
+  // ) {
+  //   final isKeyDown = event is RawKeyDownEvent;
+  //   if (event.logicalKey == LogicalKeyboardKey.keyY && isKeyDown) {
+  //     player.flip(y: true);
+  //   }
+  //   if (event.logicalKey == LogicalKeyboardKey.keyX && isKeyDown) {
+  //     player.flip(x: true);
+  //   }
+  //
+  //   if (event.logicalKey == LogicalKeyboardKey.keyQ) {
+  //     player.loss(10);
+  //   }
+  //
+  //   if ((event.logicalKey == LogicalKeyboardKey.arrowUp ||
+  //           event.logicalKey == LogicalKeyboardKey.keyW) &&
+  //       isKeyDown) {
+  //     npc.move(Vector2(0, -step));
+  //   }
+  //   if ((event.logicalKey == LogicalKeyboardKey.arrowDown ||
+  //           event.logicalKey == LogicalKeyboardKey.keyS) &&
+  //       isKeyDown) {
+  //     npc.move(Vector2(0, step));
+  //   }
+  //   if ((event.logicalKey == LogicalKeyboardKey.arrowLeft ||
+  //           event.logicalKey == LogicalKeyboardKey.keyA) &&
+  //       isKeyDown) {
+  //     npc.move(Vector2(-step, 0));
+  //   }
+  //   if ((event.logicalKey == LogicalKeyboardKey.arrowRight ||
+  //           event.logicalKey == LogicalKeyboardKey.keyD) &&
+  //       isKeyDown) {
+  //     npc.move(Vector2(step, 0));
+  //   }
+  //   return super.onKeyEvent(event, keysPressed);
+  // }
 }

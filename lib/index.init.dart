@@ -174,14 +174,26 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
 
 List<MainWidgetModel> page2 = <MainWidgetModel>[
   MainWidgetModel(
+    title: 'StudyCenter 学习中心',
+    route: const StudyCenterPage(),
+    icon: const Icon(Icons.book_rounded),
+  ),
+  MainWidgetModel(
     title: 'Flutter Svg 使用',
     route: const SvgTestPage(),
     icon: const Icon(Icons.picture_in_picture_sharp),
-  ),MainWidgetModel(
+  ),
+  MainWidgetModel(
     title: 'chip 使用',
     route: const ChipPageTest(),
     icon: const Icon(Icons.catching_pokemon),
-  ),MainWidgetModel(
+  ),
+  MainWidgetModel(
+    title: 'PropertyEnum(属性枚举) 使用',
+    route: const PropertyEnum(),
+    icon: const Icon(Icons.energy_savings_leaf_sharp),
+  ),
+  MainWidgetModel(
     title: 'AnimationsTextKit 使用',
     route: const AnimationsTextPage(),
     icon: const Icon(Icons.text_fields),
@@ -606,7 +618,6 @@ List<MainWidgetModel> page3 = <MainWidgetModel>[
     icon: const Icon(Icons.video_call),
   ),
 ];
-
 
 List<MainWidgetModel> page4 = [
   MainWidgetModel(
