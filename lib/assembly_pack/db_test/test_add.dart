@@ -21,7 +21,7 @@ class TestAddState extends State<TestAdd> {
   SqlUser user;
   late int count;
 
-  LoginApi iCacheApi = LoginApi(); //todo interfaces 接口测试
+  LoginApi iCacheApi = LoginApi(); // interfaces 接口测试
 
   TestAddState(this.user);
 

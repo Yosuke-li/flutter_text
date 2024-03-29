@@ -27,6 +27,16 @@ List<MainWidgetModel> page1 = <MainWidgetModel>[
     icon: const Icon(Icons.texture),
   ),
   MainWidgetModel(
+    title: ' webRtc--',
+    route: const GetUserMediaPage(),
+    icon: const Icon(Icons.mediation),
+  ),
+  MainWidgetModel(
+    title: ' webRtc--屏幕分享',
+    route: const GetDisplayMediaPage(),
+    icon: const Icon(Icons.mediation),
+  ),
+  MainWidgetModel(
     title: '${1637898885.getLocalTimeStamp}',
     route: null,
     icon: const Icon(Icons.numbers),

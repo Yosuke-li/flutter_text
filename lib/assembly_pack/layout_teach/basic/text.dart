@@ -72,15 +72,15 @@ class _BasicTextWidgetState extends State<BasicTextWidget> {
             ]),
           ),
         ),
-        PopupTextAndExText(
+        const PopupTextAndExText(
           showText: '在Widget树中，文本的样式默认是可以被继承的，而DefaultTextStyle正是用于设置默认文本样式的, 可通过inherit：false设置不继承样式',
           builderWidget: DefaultTextStyle(
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.red,
               fontSize: 20.0,
             ),
             child: Column(
-              children: const <Widget>[
+              children: <Widget>[
                 Text('hello world'),
                 Text('I am ', style: TextStyle(inherit: false, color: Colors.yellow),),
               ],

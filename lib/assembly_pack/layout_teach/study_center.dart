@@ -1,3 +1,5 @@
+import 'package:flutter_text/assembly_pack/layout_teach/basic/inheritwidget_test.dart';
+import 'package:flutter_text/assembly_pack/layout_teach/material/material_main.dart';
 import 'package:flutter_text/model/AComponent.dart';
 
 import '../../init.dart';
@@ -20,6 +22,12 @@ class _StudyCenterPageState extends State<StudyCenterPage> {
       PageModel()
         ..name = 'BasicTypePage'
         ..pageUrl = const BasicTypePage(),
+      PageModel()
+        ..name = 'Material3学习'
+        ..pageUrl = const MaterialThreeMain(),
+      PageModel()
+        ..name = 'inheritedWidget'
+        ..pageUrl = const InheritedWidgetTest(),
     ];
   }
 

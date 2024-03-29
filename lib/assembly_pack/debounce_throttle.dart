@@ -37,7 +37,7 @@ class _DebounceTState extends State<DebounceTPage> {
                 },
                 child: Text('基础 $normal'),
               ),
-              //todo 防抖
+              // 防抖
               TextButton(
                 onPressed: () {
                   Utils.debounce(
@@ -49,7 +49,7 @@ class _DebounceTState extends State<DebounceTPage> {
                 },
                 child: Text('防抖 $debounce'),
               ),
-              //todo 节流
+              // 节流
               TextButton(
                 onPressed: () async {
                   if (!canAction) return;

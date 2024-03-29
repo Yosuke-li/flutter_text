@@ -15,12 +15,12 @@ class BasicTypePage extends StatefulWidget {
 class _BasicTypePageState extends State<BasicTypePage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: SingleChildScrollView(
         child: Column(
-          children: const <Widget>[
+          children: <Widget>[
             BasicTextWidget(),
-            BasicFutureWidget(),
+            // BasicFutureWidget(),
             BasicSwitchWidget(),
             BasicImgPage(),
           ],

@@ -16,7 +16,7 @@ class _TestDbState extends State<TestDb> {
   UserDbProvider provider = UserDbProvider();
   List<SqlUser> userList = [];
 
-  LoginApi iCacheApi = LoginApi(); //todo interfaces 接口测试
+  LoginApi iCacheApi = LoginApi(); // interfaces 接口测试
   
   @override
   void initState() {

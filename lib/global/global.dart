@@ -1,7 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_text/widget/chat/helper/user/user.dart';
+
+const kActionAccessibilitySettings = "android.settings.ACCESSIBILITY_SETTINGS";
 
 class GlobalStore {
   static bool isShowOverlay = false; //flutter自带的性能监听 控制
@@ -13,6 +13,10 @@ class GlobalStore {
   static bool isUserFiddle = false; //是否使用fiddle
   static bool isMobile = true; // 判断是否是桌面端
   static String theme = 'light'; //主题
+
+  // webrtc使用
+  static String server = '192.168.32.103'; // 192.168.32.103 172.16.0.117
+  static int port = 8086;
 
   static User? user;
 
@@ -47,6 +51,5 @@ class Setting {
 class EventBusM {
   String? theme;
 }
-
 
 

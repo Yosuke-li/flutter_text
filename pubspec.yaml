@@ -3,7 +3,7 @@ description: A new Flutter application.
 version: 2.0.0
 
 environment:
-  sdk: ">=2.18.1 <3.0.0"
+  sdk: ">=3.3.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -85,6 +85,9 @@ dependencies:
   #video_player插件
   video_player_macos: ^2.0.1
   video_player_win: ^2.2.2
+
+  flutter_webrtc: ^0.9.48+hotfix.1
+  flutter_background: ^1.0.0
 
     #  本地
   self_utils:
