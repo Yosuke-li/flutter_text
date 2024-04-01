@@ -51,7 +51,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.flutter_text"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 34
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
@@ -73,6 +73,7 @@ flutter {
 }
 
 dependencies {
+    implementation 'com.github.getActivity:XXPermissions:18.5'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation 'junit:junit:4.13.2'
     implementation 'com.google.firebase:firebase-analytics-ktx'
